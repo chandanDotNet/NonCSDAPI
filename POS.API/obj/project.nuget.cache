@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WhVj8+Rw6fGtiGAywwUK66I6iyO38JEWuzXqEWRCzSy/2RDr0gos++/XffvzSziCYML9I1SRUF7Xwxl0TrlKvA==",
+  "dgSpecHash": "h0kaSNxFHNzGL8tRObV+AHknc7b8oFjhb0r7VSW/fnuYax3Ql7SaDdWvCLNZ5lH1AvybO3dUaiPhQsTPiotwZw==",
   "success": true,
-  "projectFilePath": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.API\\POS.API.csproj",
+  "projectFilePath": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\POS.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chandan.mandal\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\chandan.mandal\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

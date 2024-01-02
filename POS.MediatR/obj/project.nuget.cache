@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RX1fmvT1+TlR2Up/4ASkiYwl8scLRDVLLIITm9qkLreA8eCtX1vLfkUlHGIn2nYNO7KQwNYjOZDslgqa93/yfQ==",
+  "dgSpecHash": "wYR6HhqVOkosBP4c11KuajyQkHnrlaYPWANK7q7xLYQxoM2XWizkh5mW+XimZEdgBDlA6Ey+hPzfVPOB6E9EPw==",
   "success": true,
-  "projectFilePath": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.MediatR\\POS.MediatR.csproj",
+  "projectFilePath": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.MediatR\\POS.MediatR.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chandan.mandal\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\chandan.mandal\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

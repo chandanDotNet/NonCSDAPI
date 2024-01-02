@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "01K/9GSANQfaOqogsoR4z/a4YFMh7JW00gPvkJ6m6guvgvEemTp30oB9jYpmIOf9mOzum6+cwcFp+VOkI+5mJw==",
+  "dgSpecHash": "AcOiAGZoUk3cSmctq/0yc2R/u/vVdlUpLGGZ77ebvoqWCjvnoPqMgaNx9S6968Mn9VXWa6IIn0YePukW6rRnVw==",
   "success": true,
-  "projectFilePath": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.Helper\\POS.Helper.csproj",
+  "projectFilePath": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.Helper\\POS.Helper.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chandan.mandal\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.11\\microsoft.entityframeworkcore.7.0.11.nupkg.sha512",
     "C:\\Users\\chandan.mandal\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.11\\microsoft.entityframeworkcore.abstractions.7.0.11.nupkg.sha512",

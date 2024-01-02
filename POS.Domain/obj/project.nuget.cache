@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5kD6uDRjyI1C0WHk5NGKXursBAeFco96LDig2vuEMFZSxJs7XzouM0M9FMbVEJ96i+UjCTWG0GDE6cCBmWxgAw==",
+  "dgSpecHash": "zh3MN/TFTy8I/fVBhapItbTIFXavO/2G0y4amWHRA25jvWEGXP/3j8SD2TKdm7jUnjSr3hUWH6jw83uGcj61fg==",
   "success": true,
-  "projectFilePath": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.Domain\\POS.Domain.csproj",
+  "projectFilePath": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.Domain\\POS.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chandan.mandal\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\chandan.mandal\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
