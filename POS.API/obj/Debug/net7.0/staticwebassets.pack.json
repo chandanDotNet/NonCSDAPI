@@ -1,0 +1,57 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.API\\wwwroot\\BannerImages\\6ed832e5-409c-464b-b2a8-fcb5d4c7b9e3.png",
+      "PackagePath": "staticwebassets\\BannerImages\\6ed832e5-409c-464b-b2a8-fcb5d4c7b9e3.png"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.API\\wwwroot\\BannerImages\\a55c55b3-490c-41df-a3a4-fb2377605239.png",
+      "PackagePath": "staticwebassets\\BannerImages\\a55c55b3-490c-41df-a3a4-fb2377605239.png"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.API\\wwwroot\\DownloadFileFormat\\StockInventoryFormat.xlsx",
+      "PackagePath": "staticwebassets\\DownloadFileFormat\\StockInventoryFormat.xlsx"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.API\\wwwroot\\LoginPageBannerImages\\3d3b13e3-1b80-4a22-b98a-ea83a82e7dbd.png",
+      "PackagePath": "staticwebassets\\LoginPageBannerImages\\3d3b13e3-1b80-4a22-b98a-ea83a82e7dbd.png"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.API\\wwwroot\\StockExcelUploadFilePath\\GRNStockUpload.xlsx",
+      "PackagePath": "staticwebassets\\StockExcelUploadFilePath\\GRNStockUpload.xlsx"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.API\\wwwroot\\StockExcelUploadFilePath\\StockInventoryFormat.xlsx",
+      "PackagePath": "staticwebassets\\StockExcelUploadFilePath\\StockInventoryFormat.xlsx"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.API\\wwwroot\\StockExcelUploadFilePath\\StockUpload.xlsx",
+      "PackagePath": "staticwebassets\\StockExcelUploadFilePath\\StockUpload.xlsx"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.API\\wwwroot\\StockExcelUploadFilePath\\SupplierUpload.xlsx",
+      "PackagePath": "staticwebassets\\StockExcelUploadFilePath\\SupplierUpload.xlsx"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDApi2023Updated\\POS.API\\wwwroot\\Users\\no-image-found.png",
+      "PackagePath": "staticwebassets\\Users\\no-image-found.png"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.POS.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.POS.API.props",
+      "PackagePath": "build\\POS.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.POS.API.props",
+      "PackagePath": "buildMultiTargeting\\POS.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.POS.API.props",
+      "PackagePath": "buildTransitive\\POS.API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
