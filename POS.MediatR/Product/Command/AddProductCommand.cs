@@ -35,5 +35,7 @@ namespace POS.MediatR.Product.Command
         public string? OrderEndTime { get; set; }
         public string? RackNo { get; set; }
         public string? HSNCode { get; set; }
+        public bool? IsLoose { get; set; }
+        public decimal? MinQty { get; set; }
     }
 }
