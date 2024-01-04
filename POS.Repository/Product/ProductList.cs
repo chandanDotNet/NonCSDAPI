@@ -96,7 +96,7 @@ namespace POS.Repository
                     RackNo = c.RackNo,
                     HSNCode = c.HSNCode,
                     // Cart= _mapper.Map<CartDto>(c.Cart),
-                    Stock = c.Inventory.Stock == null ? 0 : Convert.ToInt64(c.Inventory.Stock)
+                    Stock = c.Inventory.Stock == null ? 0 : c.Inventory.Stock
 
                 }).ToListAsync();
             return entities;

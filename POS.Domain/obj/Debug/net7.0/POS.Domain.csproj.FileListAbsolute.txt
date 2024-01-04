@@ -178,3 +178,23 @@ D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Domain\obj\Debug\net7.0\refint\POS.Do
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Domain\obj\Debug\net7.0\POS.Domain.pdb
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Domain\obj\Debug\net7.0\POS.Domain.genruntimeconfig.cache
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Domain\obj\Debug\net7.0\ref\POS.Domain.dll
+D:\NON CSD API\POS.Domain\bin\Debug\net7.0\Migrations\20221105115351_Initial_Data.sql
+D:\NON CSD API\POS.Domain\bin\Debug\net7.0\POS.Domain.deps.json
+D:\NON CSD API\POS.Domain\bin\Debug\net7.0\POS.Domain.runtimeconfig.json
+D:\NON CSD API\POS.Domain\bin\Debug\net7.0\POS.Domain.dll
+D:\NON CSD API\POS.Domain\bin\Debug\net7.0\POS.Domain.pdb
+D:\NON CSD API\POS.Domain\bin\Debug\net7.0\POS.Data.dll
+D:\NON CSD API\POS.Domain\bin\Debug\net7.0\POS.Helper.dll
+D:\NON CSD API\POS.Domain\bin\Debug\net7.0\POS.Data.pdb
+D:\NON CSD API\POS.Domain\bin\Debug\net7.0\POS.Helper.pdb
+D:\NON CSD API\POS.Domain\obj\Debug\net7.0\POS.Domain.csproj.AssemblyReference.cache
+D:\NON CSD API\POS.Domain\obj\Debug\net7.0\POS.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\NON CSD API\POS.Domain\obj\Debug\net7.0\POS.Domain.AssemblyInfoInputs.cache
+D:\NON CSD API\POS.Domain\obj\Debug\net7.0\POS.Domain.AssemblyInfo.cs
+D:\NON CSD API\POS.Domain\obj\Debug\net7.0\POS.Domain.csproj.CoreCompileInputs.cache
+D:\NON CSD API\POS.Domain\obj\Debug\net7.0\POS.Domain.csproj.CopyComplete
+D:\NON CSD API\POS.Domain\obj\Debug\net7.0\POS.Domain.dll
+D:\NON CSD API\POS.Domain\obj\Debug\net7.0\refint\POS.Domain.dll
+D:\NON CSD API\POS.Domain\obj\Debug\net7.0\POS.Domain.pdb
+D:\NON CSD API\POS.Domain\obj\Debug\net7.0\POS.Domain.genruntimeconfig.cache
+D:\NON CSD API\POS.Domain\obj\Debug\net7.0\ref\POS.Domain.dll

@@ -2520,5 +2520,18 @@ namespace POS.API.Controllers.MobileApp
             var result = await _mediator.Send(getSupplierDocumentByIdCommand);
             return ReturnFormattedResponse(result);
         }
+
+        /// <summary>
+        /// Clean Inventory
+        /// </summary>    
+        /// <param></param>
+        /// <returns></returns>
+        [HttpPost("CleanInventory")]
+        public async Task<IActionResult> CleanInventory()
+        {
+            var cleanInventoryCommand = new CleanInventoryCommand{};
+            var result = await _mediator.Send(cleanInventoryCommand);
+            return ReturnFormattedResponse(result);
+        }
     }
 }
