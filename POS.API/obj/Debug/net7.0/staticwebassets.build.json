@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "i8uia4jvNNvW2x5I9lWN810Zk9iMCre6U7BDGBD6J8k=",
+  "Hash": "tjSaF6DS40MiXf+u3eKR1GDa9zV/Bd82kZwYoAutTPY=",
   "Source": "POS.API",
   "BasePath": "_content/POS.API",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\LoginPageBannerImages\\3d3b13e3-1b80-4a22-b98a-ea83a82e7dbd.png"
+    },
+    {
+      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\StockExcelUploadFilePath\\bakery.xlsx",
+      "SourceId": "POS.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "BasePath": "_content/POS.API",
+      "RelativePath": "StockExcelUploadFilePath/bakery.xlsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\StockExcelUploadFilePath\\bakery.xlsx"
     },
     {
       "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\StockExcelUploadFilePath\\GRNStockUpload.xlsx",

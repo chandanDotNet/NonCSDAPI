@@ -52,6 +52,10 @@ using POS.Data.Dto.GRN;
 using POS.MediatR.SalesOrderPayment.Command;
 using POS.Repository;
 using POS.MediatR.Supplier.Commands;
+using System.Collections.Specialized;
+using System.Net;
+using System.Web;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace POS.API.Controllers.MobileApp
 {
@@ -1593,10 +1597,18 @@ namespace POS.API.Controllers.MobileApp
                                 //string aa = serviceDetails.Rows[i]["Column0"].ToString();
                                 AddInventoryCommand details = new AddInventoryCommand();
                                 //details.ProductId = new Guid(serviceDetails.Rows[i][0].ToString());
-                                details.ProductCode = serviceDetails.Rows[i][0].ToString();
-                                details.Stock = Convert.ToInt64(serviceDetails.Rows[i][1].ToString());
-                                details.PricePerUnit = Convert.ToDecimal(serviceDetails.Rows[i][2].ToString());
-                                details.UnitId = new Guid(serviceDetails.Rows[i][3].ToString());
+                                string ProductName = serviceDetails.Rows[i][0].ToString();
+                                details.ProductCode = serviceDetails.Rows[i][1].ToString();
+                                //details.Stock = Convert.ToDecimal(serviceDetails.Rows[i][1].ToString());
+                                //details.PricePerUnit = Convert.ToDecimal(serviceDetails.Rows[i][2].ToString());
+                                //details.UnitId = new Guid(serviceDetails.Rows[i][3].ToString());
+
+                                string UnitName = serviceDetails.Rows[i][2].ToString();
+                                details.PurchasePrice = Convert.ToDecimal(serviceDetails.Rows[i][3].ToString());
+                                details.Mrp = Convert.ToDecimal(serviceDetails.Rows[i][4].ToString());
+                                details.Margin = Convert.ToDecimal(serviceDetails.Rows[i][5].ToString());
+                                details.PricePerUnit = Convert.ToDecimal(serviceDetails.Rows[i][6].ToString());
+                                details.Stock = Convert.ToDecimal(serviceDetails.Rows[i][7].ToString());
 
                                 // Add the record in Database
                                 var result = await _mediator.Send(details);
@@ -2520,5 +2532,42 @@ namespace POS.API.Controllers.MobileApp
             var result = await _mediator.Send(getSupplierDocumentByIdCommand);
             return ReturnFormattedResponse(result);
         }
+
+
+        /// <summary>
+        /// Send Message
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet("SendMessage")]
+        public async Task<IActionResult> SendMessage()
+        {
+            //var result = "Successfully Send";
+            // var response=sendSMS();
+            string var = "123456";
+            string phone = "918100037343";
+            string result = Empty.ToString();
+            //String message = HttpUtility.UrlEncode("Hi there, thank you for sending your first test message from Textlocal. See how you can send effective SMS campaigns here: https://tx.gl/r/2nGVj/");
+            String message = HttpUtility.UrlEncode("Hi there, thank you for sending your first test message from Textlocal. Get 20% off today with our code: "+ var+".");
+            using (var wb = new WebClient())
+            {
+                byte[] response = wb.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
+                    {
+                    {"apikey" , "MzQ0MzQ3NGI2MjU4Nzg3MTY3NjU0ZDU3NzgzNjczNDk="},
+                    {"numbers" , phone},
+                    {"message" , message},
+                    {"sender" , "600010"}
+                    });
+                result = System.Text.Encoding.UTF8.GetString(response);
+                //return result;
+            }
+
+            // return result;
+
+           
+            return Ok(result);
+        }
+
+       
     }
 }

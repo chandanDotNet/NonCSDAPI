@@ -41,31 +41,55 @@ namespace POS.MediatR.Inventory.Handler
             {
                 var findProduct = await _productRepository.FindBy(c => c.Code == request.ProductCode)
                     .FirstOrDefaultAsync();
-                request.ProductId = findProduct.Id;
-            }
-            var inventory = _mapper.Map<InventoryDto>(request);
-            inventory.InventorySource = InventorySourceEnum.Direct;
-            inventory = _inventoryRepository.ConvertStockAndPriceToBaseUnit(inventory);
-            await _inventoryRepository.AddInventory(inventory);
-            await _inventoryRepository.AddWarehouseInventory(inventory);
-            if (await _uow.SaveAsync() <= 0)
-            {
-                return ServiceResponse<bool>.Return500();
-            }
 
-            //For change product Mrp and SalesPrice  
-            if (request.ProductId.HasValue)
-            {
-                var productDetails = await _productRepository.FindBy(c => c.Id == request.ProductId)
-                    .FirstOrDefaultAsync();
-                productDetails.SalesPrice = request.PricePerUnit;
-                productDetails.Mrp = request.PricePerUnit;
-                _productRepository.Update(productDetails);
-                if (await _uow.SaveAsync() <= 0)
+                if (findProduct != null)
                 {
-                    return ServiceResponse<bool>.Return500();
+                    request.ProductId = findProduct.Id;
+                    request.UnitId = findProduct.UnitId;
+
+                    var inventory = _mapper.Map<InventoryDto>(request);
+                    inventory.InventorySource = InventorySourceEnum.Direct;
+                    inventory = _inventoryRepository.ConvertStockAndPriceToBaseUnit(inventory);
+                    await _inventoryRepository.AddInventory(inventory);
+                    await _inventoryRepository.AddWarehouseInventory(inventory);
+                    if (await _uow.SaveAsync() <= 0)
+                    {
+                        return ServiceResponse<bool>.Return500();
+                    }
+
+                    //For change product Mrp and SalesPrice  
+                    if (request.ProductId.HasValue)
+                    {
+                        var productDetails = await _productRepository.FindBy(c => c.Id == request.ProductId)
+                            .FirstOrDefaultAsync();
+
+                        if (request.PricePerUnit > 0)
+                        {
+                            productDetails.SalesPrice = request.PricePerUnit;
+                        }
+                        if (request.Mrp > 0)
+                        {
+                            productDetails.Mrp = request.Mrp;
+                        }
+                        if (request.Margin > 0)
+                        {
+                            productDetails.Margin = request.Margin;
+                        }
+                        if (request.PurchasePrice > 0)
+                        {
+                            productDetails.PurchasePrice = request.PurchasePrice;
+                        }
+
+                        _productRepository.Update(productDetails);
+                        if (await _uow.SaveAsync() <= 0)
+                        {
+                            return ServiceResponse<bool>.Return500();
+                        }
+                    }
+
                 }
             }
+            
 
             return ServiceResponse<bool>.ReturnSuccess();
         }
