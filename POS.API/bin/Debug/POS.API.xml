@@ -1185,11 +1185,18 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+<<<<<<< HEAD
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.CleanInventory">
             <summary>
             Clean Inventory
             </summary>    
             <param></param>
+=======
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.SendMessage">
+            <summary>
+            Send Message
+            </summary>
+>>>>>>> c17f113768cafaa76eb9a34a10c38bf35de5806a
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.NewsletterSubscriber.NewsletterSubscriberController.CreateNewsletterSubscriber(POS.MediatR.CommandAndQuery.AddNewsletterSubscriberCommand)">

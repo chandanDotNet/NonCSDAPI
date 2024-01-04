@@ -286,10 +286,10 @@ namespace POS.API.Controllers.SalesOrder
             {
                 Counter.Insert(Counter.Count, App.FirstOrDefault());
             }
-            else
-            {
-                Counter = App;
-            }
+            //else
+            //{
+            //    Counter = App;
+            //}
 
             //var query = salesOrders
             //            .GroupBy(f => new { f.CounterName })

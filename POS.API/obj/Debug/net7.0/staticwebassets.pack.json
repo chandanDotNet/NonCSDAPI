@@ -33,7 +33,15 @@
       "PackagePath": "staticwebassets\\StockExcelUploadFilePath\\SupplierUpload.xlsx"
     },
     {
+<<<<<<< HEAD
       "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\Users\\no-image-found.png",
+=======
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\StockExcelUploadFilePath\\bakery.xlsx",
+      "PackagePath": "staticwebassets\\StockExcelUploadFilePath\\bakery.xlsx"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\Users\\no-image-found.png",
+>>>>>>> c17f113768cafaa76eb9a34a10c38bf35de5806a
       "PackagePath": "staticwebassets\\Users\\no-image-found.png"
     },
     {
