@@ -13,7 +13,8 @@ namespace POS.Data.Dto
         public CustomerDto Customer { get; set; }
         public Guid SalesOrderId { get; set; }
         public decimal UnitPrice { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal? LooseQuantity { get; set; }
         public decimal TaxValue { get; set; }
         public decimal Discount { get; set; }
         public decimal DiscountPercentage { get; set; }
