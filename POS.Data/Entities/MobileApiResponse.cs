@@ -196,7 +196,7 @@ namespace POS.Data.Entities
     {
         public string Price { get; set; }
         public string Discount { get; set; }
-        public int Items { get; set; }
+        public decimal Items { get; set; }
         public string DeliveryCharges { get; set; }
     }
 
@@ -300,7 +300,10 @@ namespace POS.Data.Entities
         public string ProductCategoryName { get; set; }
         public string PurAmount { get; set; }
         public string TotalAmount { get; set; }
-        
+
+        public string OtherPurAmount { get; set; }
+        public string OtherTotalAmount { get; set; }
+
     }
 }
 

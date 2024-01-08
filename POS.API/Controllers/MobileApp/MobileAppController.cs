@@ -2608,10 +2608,28 @@ namespace POS.API.Controllers.MobileApp
 
             if (response!=null)
             {
+                //========================
+                SalesOrderResource salesOrderResource1= new SalesOrderResource();
+                salesOrderResource1 = salesOrderResource;
+                salesOrderResource1.ProductCategoryName = null;
+                var getSalesOrderItemsReportCommand1 = new GetSalesOrderItemsReportCommand { SalesOrderResource = salesOrderResource1 };
+                var response2 = await _mediator.Send(getSalesOrderItemsReportCommand1);
+
+                decimal TotalAmount = response2.Sum(x => x.Total);
+                decimal PurAmount = response2.Sum(x => x.PurPrice);
+
+                //=============
+                decimal VegTotalAmount = response.Sum(x => x.Total);
+                decimal VegPurAmount = response.Sum(x => x.PurPrice);
+
+
 
                 Data.ProductCategoryName = salesOrderResource.ProductCategoryName;
                 Data.TotalAmount = response.Sum(x => x.Total).ToString("0.00");
                 Data.PurAmount = response.Sum(x => x.PurPrice).ToString("0.00");
+
+                Data.OtherTotalAmount = (TotalAmount - VegTotalAmount).ToString("0.00");
+                Data.OtherPurAmount = (PurAmount - VegPurAmount).ToString("0.00");
                 Data.status = true;
                 Data.StatusCode = 1;
                 Data.message = "Success";

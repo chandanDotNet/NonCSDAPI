@@ -4,8 +4,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>D:\pos\Main\SourceCode\DotnetCoreRESTApiSQLServerProvider\POS.API\bin\Release\net7.0\publish\</_PublishTargetUrl>
-    <History>True|2023-09-15T11:08:06.6950820Z;</History>
+    <_PublishTargetUrl>\\SSILAD\folder redirection\chandan.mandal\Desktop\Publish\NonCSD</_PublishTargetUrl>
+    <History>True|2024-01-08T15:29:22.5265028Z;True|2024-01-08T20:22:29.2378466+05:30;True|2024-01-08T20:20:29.0990369+05:30;True|2024-01-08T20:19:57.7584592+05:30;True|2023-09-15T16:38:06.6950820+05:30;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>
