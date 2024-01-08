@@ -32,6 +32,7 @@ namespace POS.Data
         public Guid CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public ProductCategory ProductCategory { get; set; }
+        public Manufacturer Manufacturer { get; set; }
         public Guid BrandId { get; set; }
         public Brand Brand { get; set; }
         public List<ProductTax> ProductTaxes { get; set; }
