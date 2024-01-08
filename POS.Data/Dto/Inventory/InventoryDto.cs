@@ -34,5 +34,7 @@ namespace POS.Data.Dto
         public decimal? Mrp { get; set; }
         public decimal? Margin { get; set; }
         public string ProductCategoryName { get; set; }
+        public string ProductCode { get; set; }
+        public string ManufacturerName { get; set; }
     }
 }

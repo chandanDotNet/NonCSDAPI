@@ -9,6 +9,7 @@ using POS.Data.Dto;
 using POS.Repository;
 using System.Threading;
 using MediatR;
+using POS.Data.Resources;
 
 namespace POS.MediatR.Brand.Handler
 {
@@ -23,13 +24,22 @@ namespace POS.MediatR.Brand.Handler
         }
         public async Task<List<BrandDto>> Handle(SearchBrandQuery request, CancellationToken cancellationToken)
         {
-            var brands = await _brandRepository.All.Where(a => EF.Functions.Like(a.Name, $"{request.SearchQuery}%"))
-                .Take(request.PageSize)
-                .Select(c => new BrandDto
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                }).ToListAsync();
+            //var brands = await _brandRepository.All.Where(a => EF.Functions.Like(a.Name, $"{request.SearchQuery}%"))
+            //    .Take(request.PageSize)
+            //    .Select(c => new BrandDto
+            //    {
+            //        Id = c.Id,
+            //        Name = c.Name
+            //    }).ToListAsync();
+            //return brands;
+
+            var brands = await _brandRepository.AllIncluding()
+               .Take(request.PageSize)
+               .Select(c => new BrandDto
+               {
+                   Id = c.Id,
+                   Name = c.Name
+               }).ToListAsync();
             return brands;
         }
     }
