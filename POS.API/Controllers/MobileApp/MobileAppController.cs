@@ -2209,7 +2209,7 @@ namespace POS.API.Controllers.MobileApp
         [Produces("application/json", "application/xml", Type = typeof(PurchaseOrderDto))]
         public async Task<IActionResult> UploadGRNandInventory([FromForm] AddPurchaseOrderCommand addStockExcelUploadCommand)
         {
-           
+
             ExlUploadPurchaseOrderResponseData response = new ExlUploadPurchaseOrderResponseData();
             List<PurchaseOrderItemDto> VerifiedPurchaseOrderItems = new List<PurchaseOrderItemDto>();
             List<PurchaseOrderItemDto> UnverifiedPurchaseOrderItems = new List<PurchaseOrderItemDto>();
@@ -2246,7 +2246,7 @@ namespace POS.API.Controllers.MobileApp
                     //if (file == null)
                     //    throw new Exception("File is Not Received...");
 
-                   
+
                     // Create the Directory if it is not exist
                     string dirPath = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.StockExcelUploadFilePath);
                     if (!Directory.Exists(dirPath))
@@ -2295,7 +2295,7 @@ namespace POS.API.Controllers.MobileApp
                         ds = reader.AsDataSet();
                         reader.Close();
 
-                        
+
 
                         if (ds != null && ds.Tables.Count > 0)
                         {
@@ -2313,15 +2313,15 @@ namespace POS.API.Controllers.MobileApp
                             for (int i = 1; i < serviceDetails.Rows.Count; i++)
                             {
                                 Boolean VerifyStatus = true;
-                                string ProductCode = string.Empty, UnitName= string.Empty, WHName = "Pune - Maitri Complex", ProductName=string.Empty;
+                                string ProductCode = string.Empty, UnitName = string.Empty, WHName = "Pune - Maitri Complex", ProductName = string.Empty;
                                 ProductName = serviceDetails.Rows[i][0].ToString();
-                                ProductCode= serviceDetails.Rows[i][1].ToString();
+                                ProductCode = serviceDetails.Rows[i][1].ToString();
                                 UnitName = serviceDetails.Rows[i][2].ToString();
                                 PurchaseOrderItemDto PurchaseOrderItems = new PurchaseOrderItemDto();
-                                
+
                                 if (!string.IsNullOrEmpty(ProductCode))
                                 {
-                                    var findProduct =  _productRepository.FindBy(c => c.Code == ProductCode).FirstOrDefault();
+                                    var findProduct = _productRepository.FindBy(c => c.Code == ProductCode).FirstOrDefault();
                                     if (findProduct != null)
                                     {
                                         PurchaseOrderItems.ProductId = findProduct.Id;
@@ -2333,16 +2333,17 @@ namespace POS.API.Controllers.MobileApp
                                         PurchaseOrderItems.ProductId = new Guid { };
                                         PurchaseOrderItems.ProductCode = ProductCode;
                                         PurchaseOrderItems.Message = "Invalid Product Code|";
-                                        VerifyStatus =false;
-                                    }                                    
+                                        VerifyStatus = false;
+                                    }
                                 }
 
-                                if(!string.IsNullOrEmpty(ProductName)) {
+                                if (!string.IsNullOrEmpty(ProductName))
+                                {
 
                                     var findProduct = _productRepository.FindBy(c => c.Name == ProductName).FirstOrDefault();
                                     if (findProduct != null)
                                     {
-                                        if(ProductCode!= findProduct.Code)
+                                        if (ProductCode != findProduct.Code)
                                         {
                                             PurchaseOrderItems.Message += "Mismatched Product Code|";
                                         }
@@ -2352,7 +2353,7 @@ namespace POS.API.Controllers.MobileApp
                                 if (!string.IsNullOrEmpty(UnitName))
                                 {
                                     var findUnit = _unitConversationRepository.FindBy(c => c.Name == UnitName).FirstOrDefault();
-                                    if(findUnit != null)
+                                    if (findUnit != null)
                                     {
                                         PurchaseOrderItems.UnitId = findUnit.Id;
                                         PurchaseOrderItems.UnitName = findUnit.Name;
@@ -2363,13 +2364,13 @@ namespace POS.API.Controllers.MobileApp
                                         PurchaseOrderItems.UnitName = UnitName;
                                         PurchaseOrderItems.Message += "Invalid Unit|";
                                         VerifyStatus = false;
-                                    }                                    
+                                    }
                                 }
 
                                 if (!string.IsNullOrEmpty(WHName))
                                 {
                                     var findWH = _warehouseRepository.FindBy(c => c.Name == WHName).FirstOrDefault();
-                                    if(findWH != null)
+                                    if (findWH != null)
                                     {
                                         PurchaseOrderItems.WarehouseId = findWH.Id;
                                         PurchaseOrderItems.WarehouseName = WHName;
@@ -2378,21 +2379,21 @@ namespace POS.API.Controllers.MobileApp
                                     {
                                         PurchaseOrderItems.WarehouseId = new Guid { };
                                     }
-                                   
+
                                 }
 
                                 //PurchaseOrderItems.ProductId = new Guid(serviceDetails.Rows[i][0].ToString());
                                 //PurchaseOrderItems.WarehouseId = new Guid(serviceDetails.Rows[i][1].ToString());
                                 //PurchaseOrderItems.UnitId = new Guid(serviceDetails.Rows[i][3].ToString());
-                                PurchaseOrderItems.UnitName = serviceDetails.Rows[i][2].ToString();                                
+                                PurchaseOrderItems.UnitName = serviceDetails.Rows[i][2].ToString();
                                 PurchaseOrderItems.UnitPrice = Convert.ToDecimal(serviceDetails.Rows[i][3].ToString());
-                                PurchaseOrderItems.Mrp = Convert.ToDecimal(serviceDetails.Rows[i][4].ToString());                                
+                                PurchaseOrderItems.Mrp = Convert.ToDecimal(serviceDetails.Rows[i][4].ToString());
                                 PurchaseOrderItems.Margin = Convert.ToDecimal(serviceDetails.Rows[i][5].ToString());
                                 PurchaseOrderItems.SalesPrice = Convert.ToDecimal(serviceDetails.Rows[i][6].ToString());
                                 PurchaseOrderItems.Quantity = Convert.ToInt32(serviceDetails.Rows[i][7].ToString());
-                                                               
 
-                                if(VerifyStatus==true)
+
+                                if (VerifyStatus == true)
                                 {
                                     VerifiedPurchaseOrderItems.Add(PurchaseOrderItems);
                                 }
@@ -2400,7 +2401,7 @@ namespace POS.API.Controllers.MobileApp
                                 {
                                     UnverifiedPurchaseOrderItems.Add(PurchaseOrderItems);
                                 }
-                            }                                                     
+                            }
 
                             //New GRN No -------------
 
@@ -2409,17 +2410,17 @@ namespace POS.API.Controllers.MobileApp
                                 isPurchaseOrder = true
                             };
                             var responseGRNNo = await _mediator.Send(getNewPurchaseOrderNumberQuery);
-                            if(responseGRNNo != null)
+                            if (responseGRNNo != null)
                             {
                                 addStockExcelUploadCommand.OrderNumber = responseGRNNo;
                             }
 
                             //------------------------
 
-                            if(UnverifiedPurchaseOrderItems.Count>0)
+                            if (UnverifiedPurchaseOrderItems.Count > 0)
                             {
                                 addStockExcelUploadCommand.PurchaseOrderItems = UnverifiedPurchaseOrderItems;
-                                ResponseStatus = false;                                
+                                ResponseStatus = false;
                             }
                             else
                             {
@@ -2432,7 +2433,7 @@ namespace POS.API.Controllers.MobileApp
                             addStockExcelUploadCommand.TotalAmount = TotalAmount;
                             addStockExcelUploadCommand.TotalSaleAmount = TotalSaleAmount;
 
-                            if(ResponseStatus==true)
+                            if (ResponseStatus == true)
                             {
                                 var result = await _mediator.Send(addStockExcelUploadCommand);
                                 if (result.Success)
@@ -2451,7 +2452,7 @@ namespace POS.API.Controllers.MobileApp
                         }
                     }
 
-                    if (ResponseStatus ==true)
+                    if (ResponseStatus == true)
                     {
                         response.status = true;
                         response.StatusCode = 1;
@@ -2548,7 +2549,7 @@ namespace POS.API.Controllers.MobileApp
             string phone = "918100037343";
             string result = Empty.ToString();
             //String message = HttpUtility.UrlEncode("Hi there, thank you for sending your first test message from Textlocal. See how you can send effective SMS campaigns here: https://tx.gl/r/2nGVj/");
-            String message = HttpUtility.UrlEncode("Hi there, thank you for sending your first test message from Textlocal. Get 20% off today with our code: "+ var+".");
+            String message = HttpUtility.UrlEncode("Hi there, thank you for sending your first test message from Textlocal. Get 20% off today with our code: " + var + ".");
             using (var wb = new WebClient())
             {
                 byte[] response = wb.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
@@ -2564,11 +2565,11 @@ namespace POS.API.Controllers.MobileApp
 
             // return result;
 
-           
+
             return Ok(result);
         }
 
-       
+
 
         /// <summary>
         /// Clean Inventory
@@ -2578,9 +2579,57 @@ namespace POS.API.Controllers.MobileApp
         [HttpPost("CleanInventory")]
         public async Task<IActionResult> CleanInventory()
         {
-            var cleanInventoryCommand = new CleanInventoryCommand{};
+            var cleanInventoryCommand = new CleanInventoryCommand { };
             var result = await _mediator.Send(cleanInventoryCommand);
             return ReturnFormattedResponse(result);
         }
+
+
+        /// <summary>
+        /// Get Sales Item Cat report.
+        /// </summary>
+        /// <param name="salesOrderResource"></param>
+        /// <returns></returns>
+        [HttpGet("GetSalesReportProductCategoryWise")]
+        public async Task<IActionResult> GetSalesReportProductCategoryWise([FromQuery] SalesOrderResource salesOrderResource)
+        {
+            var getSalesOrderItemsReportCommand = new GetSalesOrderItemsReportCommand { SalesOrderResource = salesOrderResource };
+            var response = await _mediator.Send(getSalesOrderItemsReportCommand);
+
+            //var paginationMetadata = new
+            //{
+            //    totalCount = response.TotalCount,
+            //    pageSize = response.PageSize,
+            //    skip = response.Skip,
+            //    totalPages = response.TotalPages
+            //};
+
+            ProductCategoryWiseSalesReportResponseData Data = new ProductCategoryWiseSalesReportResponseData();
+
+            if (response!=null)
+            {
+
+                Data.ProductCategoryName = salesOrderResource.ProductCategoryName;
+                Data.TotalAmount = response.Sum(x => x.Total).ToString("0.00");
+                Data.PurAmount = response.Sum(x => x.PurPrice).ToString("0.00");
+                Data.status = true;
+                Data.StatusCode = 1;
+                Data.message = "Success";
+               
+            }
+            else
+            {
+                Data.status = false;
+                Data.StatusCode = 0;
+                Data.message = "Invalid";
+            }           
+
+            Response.Headers.Add("X-Pagination",
+                Newtonsoft.Json.JsonConvert.SerializeObject(Data));
+
+            return Ok(Data);
+
+        }
+
     }
 }

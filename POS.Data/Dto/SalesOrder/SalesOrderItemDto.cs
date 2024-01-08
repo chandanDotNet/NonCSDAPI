@@ -12,6 +12,7 @@ namespace POS.Data.Dto
         public PurchaseSaleItemStatusEnum Status { get; set; }
         public CustomerDto Customer { get; set; }
         public Guid SalesOrderId { get; set; }
+        public decimal PurPrice { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Quantity { get; set; }
         public decimal? LooseQuantity { get; set; }
