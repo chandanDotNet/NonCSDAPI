@@ -36,7 +36,7 @@ namespace POS.Data.Dto
         public string AssignDeliveryPerson { get; set; }
         public Guid? AssignDeliveryPersonId { get; set; }
         public string CounterName { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public string PaymentMethod { get; set; }
         public string BillNo { get; set; }
         public string PaymentType { get; set; }

@@ -58,8 +58,7 @@ namespace POS.Repository
         public async Task<List<CartDto>> GetDtos(IQueryable<Cart> source, int skip, int pageSize)
         {
             var entities = await source
-                .Skip(skip)
-                .Take(pageSize)
+                .Skip(skip)              
                 .AsNoTracking()
                 .Select(c => new CartDto
                 {

@@ -15,7 +15,8 @@ namespace POS.Data
         public SalesOrder SalesOrder { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal UnitPrice { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
+       // public decimal? LooseQuantity { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal TaxValue { get; set; }
         [Column(TypeName = "decimal(18,2)")]

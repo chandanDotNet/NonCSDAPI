@@ -11,7 +11,7 @@ namespace POS.Data.Dto
         public Guid SalesOrderId { get; set; }
         public string SalesOrderNumber { get; set; }
         public DateTime ExpectedShipmentDate { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public Guid CustomerId { get; set; }
         public string CustomerName { get; set; }
     }

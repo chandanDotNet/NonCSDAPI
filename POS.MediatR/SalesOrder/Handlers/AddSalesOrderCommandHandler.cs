@@ -57,6 +57,11 @@ namespace POS.MediatR.Handlers
                 item.Warehouse = null;
                 item.SalesOrderItemTaxes.ForEach(tax => { tax.Tax = null; });
                 item.CreatedDate = DateTime.UtcNow;
+                //if (item.LooseQuantity>0)
+                //{
+                //    item.LooseQuantity = item.LooseQuantity * 1000;
+                //    //item.UnitId=
+                //}
             });
             _salesOrderRepository.Add(salesOrder);
 
@@ -110,6 +115,8 @@ namespace POS.MediatR.Handlers
             {
                 await _inventoryRepository.AddWarehouseInventory(inventory);
             }
+
+            //var aa = _uow.SaveAsync();
 
             if (await _uow.SaveAsync() <= 0)
             {
