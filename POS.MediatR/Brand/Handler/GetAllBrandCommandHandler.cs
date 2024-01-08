@@ -39,7 +39,7 @@ namespace POS.MediatR.Brand.Handler
                     Id = c.Id,
                     Name = c.Name,
                     ImageUrl = !string.IsNullOrWhiteSpace(c.ImageUrl) ? Path.Combine(_pathHelper.BrandImagePath, c.ImageUrl) : ""
-                }).ToListAsync();
+                }).OrderBy(c => c.Name).ToListAsync();
             return entities;
         }
     }

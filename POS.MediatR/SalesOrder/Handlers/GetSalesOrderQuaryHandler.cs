@@ -32,15 +32,13 @@ namespace POS.MediatR.Handlers
                  .Include(c => c.SalesOrderPayments)
                  .Include(c => c.Customer)
                  .Include(c => c.SalesOrderItems)
-                     .ThenInclude(c => c.SalesOrderItemTaxes)
-                     .ThenInclude(cs => cs.Tax)
-                .Include(c => c.SalesOrderItems)
-                    .ThenInclude(c => c.Product)
-                    
-                    .ThenInclude(cs => cs.ProductCategory)
-                    
-                .Include(c => c.SalesOrderItems)
-                    .ThenInclude(c => c.UnitConversation)
+                 .ThenInclude(c => c.SalesOrderItemTaxes)
+                 .ThenInclude(cs => cs.Tax)
+                 .Include(c => c.SalesOrderItems)
+                 .ThenInclude(c => c.Product)
+                 .ThenInclude(cs => cs.ProductCategory)                    
+                 .Include(c => c.SalesOrderItems)
+                 .ThenInclude(c => c.UnitConversation)
                 //.Include(c => c.DeliveryAddress)
                 .Where(c => c.Id == request.Id)
                 .FirstOrDefaultAsync();

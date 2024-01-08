@@ -105,6 +105,14 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.Brand.BrandController.SearchBrands(System.String,System.Int32)">
+            <summary>
+            Searches the brands.
+            </summary>
+            <param name="searchQuery">The search query.</param>
+            <param name="pageSize">Size of the page.</param>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.City.CityController.GetCitiesByName(System.String,System.String)">
             <summary>
             Gets the cities.
@@ -824,6 +832,21 @@
             Get All Login Audit detail
             </summary>
             <param name="loginAuditResource"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.Manufacturer.ManufacturerController.AddBrand(POS.MediatR.Manufacturer.Command.AddManufacturerCommand)">
+            <summary>
+            Create Manufacturer.
+            </summary>
+            <param name="addManufacturerCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.Manufacturer.ManufacturerController.SearchManufacturers(System.String,System.Int32)">
+            <summary>
+            Searches the manufacturer.
+            </summary>
+            <param name="searchQuery">The search query.</param>
+            <param name="pageSize">Size of the page.</param>
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.LoginCustomers(POS.Data.CustomerResource)">

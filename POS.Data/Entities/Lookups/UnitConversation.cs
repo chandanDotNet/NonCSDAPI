@@ -17,5 +17,6 @@ namespace POS.Data
         public Guid? ParentId { get; set; }
         [ForeignKey("ParentId")]
         public UnitConversation Parent { get; set; }
+        public bool? isFraction { get; set; }
     }
 }

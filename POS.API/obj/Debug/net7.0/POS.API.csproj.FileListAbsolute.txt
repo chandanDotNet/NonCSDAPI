@@ -542,9 +542,9 @@ D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\refint\POS.API.d
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.pdb
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.genruntimeconfig.cache
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\ref\POS.API.dll
+D:\NON CSD API\POS.API\bin\Debug\net7.0\web.config
 D:\NON CSD API\POS.API\bin\Debug\net7.0\appsettings.Development.json
 D:\NON CSD API\POS.API\bin\Debug\net7.0\appsettings.json
-D:\NON CSD API\POS.API\bin\Debug\net7.0\web.config
 D:\NON CSD API\POS.API\bin\Debug\net7.0\POS.API.staticwebassets.runtime.json
 D:\NON CSD API\POS.API\bin\Debug\net7.0\POS.API.exe
 D:\NON CSD API\POS.API\bin\Debug\net7.0\Migrations\20221105115351_Initial_Data.sql

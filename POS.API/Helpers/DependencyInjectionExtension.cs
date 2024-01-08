@@ -87,6 +87,7 @@ namespace POS.API.Helpers
             services.AddScoped<IAppVersionRepository, AppVersionRepository>();
             services.AddScoped<ISupplierDocumentRepository, SupplierDocumentRepository>();
             services.AddScoped<IBatchRepository, BatchRepository>();
+            services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
         }
     }
 }
