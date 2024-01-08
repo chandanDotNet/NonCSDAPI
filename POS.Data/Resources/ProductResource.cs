@@ -22,5 +22,6 @@ namespace POS.Data.Resources
         public Guid? CustomerId { get; set; }
         public string? HSNCode { get; set; }
         public string? Code { get; set; }
+        public Guid? ProductMainCategoryId { get; set; }
     }
 }

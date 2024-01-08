@@ -46,8 +46,10 @@ namespace POS.Data
         public Inventory Inventory { get; set; }
         public string? HSNCode { get; set; }
         public PurchaseOrderItem PurchaseOrderItems { get; set; }
-        //public bool? IsLoose { get; set; }
-        //public decimal? MinQty { get; set; }
+        public bool? IsLoose { get; set; }
+        public decimal? MinQty { get; set; }
+        public Guid? SupplierId { get; set; }
+        public Guid? ManufacturerId { get; set; }
 
     }
 }

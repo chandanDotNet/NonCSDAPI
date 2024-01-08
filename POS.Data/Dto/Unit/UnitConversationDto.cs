@@ -15,6 +15,7 @@ namespace POS.Data.Dto
         public decimal? Value { get; set; }
         public Guid? ParentId { get; set; }
         public string BaseUnitName { get; set; }
-        
+        public bool? isFraction { get; set; }
+
     }
 }

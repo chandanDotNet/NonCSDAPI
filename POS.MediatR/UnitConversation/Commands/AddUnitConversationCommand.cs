@@ -14,5 +14,6 @@ namespace POS.MediatR.UnitConversation.Commands
         public Operator? Operator { get; set; }
         public Guid? ParentId { get; set; }
         public decimal? Value { get; set; }
+        public bool? isFraction { get; set; }
     }
 }

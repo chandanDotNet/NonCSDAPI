@@ -40,14 +40,14 @@ namespace POS.Data.Dto
         public string? RackNo { get; set; }
         //public ProductCategoryDto ProductCategory { get; set; }
         public InventoryDto Inventory { get; set; }
-        public long? Stock { get; set; }
+        public decimal? Stock { get; set; }
         public string? HSNCode { get; set; }
         public ProductCategory ProductCategory { get; set; }
         public string MainCategoryName { get; set; }
         public Guid? MainCategoryId { get; set; }
-        //public bool? IsLoose { get; set; }
-        //public decimal? MinQty { get; set; }
-
-
+        public bool? IsLoose { get; set; }
+        public decimal? MinQty { get; set; }
+        public Guid? SupplierId { get; set; }
+        public Guid? ManufacturerId { get; set; }
     }
 }

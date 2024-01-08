@@ -120,6 +120,11 @@ namespace POS.Domain
             modelBuilder.Entity<Batch>()
     .Property(b => b.ModifiedDate)
     .HasDefaultValueSql("GETUTCDATE()");
+
+
+            modelBuilder.Entity<Manufacturer>()
+    .Property(b => b.ModifiedDate)
+    .HasDefaultValueSql("GETUTCDATE()");
         }
 
         public static void DefalutDeleteValueFilter(this ModelBuilder modelBuilder)
@@ -239,19 +244,22 @@ namespace POS.Domain
          .HasQueryFilter(p => !p.IsDeleted);
 
             modelBuilder.Entity<FAQ>()
-       .HasQueryFilter(p => !p.IsDeleted);
+         .HasQueryFilter(p => !p.IsDeleted);
 
             modelBuilder.Entity<HelpAndSupport>()
-      .HasQueryFilter(p => !p.IsDeleted);
+         .HasQueryFilter(p => !p.IsDeleted);
 
             modelBuilder.Entity<AppVersion>()
-      .HasQueryFilter(p => !p.IsDeleted);
+         .HasQueryFilter(p => !p.IsDeleted);
 
             modelBuilder.Entity<SupplierDocument>()
-    .HasQueryFilter(p => !p.IsDeleted);
+         .HasQueryFilter(p => !p.IsDeleted);
 
             modelBuilder.Entity<Batch>()
-    .HasQueryFilter(p => !p.IsDeleted);
+         .HasQueryFilter(p => !p.IsDeleted);
+
+            modelBuilder.Entity<Manufacturer>()
+         .HasQueryFilter(p => !p.IsDeleted);
 
         }
     }

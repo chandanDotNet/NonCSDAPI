@@ -34,12 +34,12 @@ namespace POS.MediatR.Brand.Handler
         public async Task<List<BrandDto>> Handle(GetAllBrandCommand request, CancellationToken cancellationToken)
         {
             var entities = await _brandRepository.All
-                 .Select(c => new BrandDto
-                 {
-                     Id = c.Id,
-                     Name = c.Name,
-                     ImageUrl = !string.IsNullOrWhiteSpace(c.ImageUrl) ? Path.Combine(_pathHelper.BrandImagePath, c.ImageUrl) : ""
-                 }).OrderBy(c => c.Name).ToListAsync();
+                .Select(c => new BrandDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    ImageUrl = !string.IsNullOrWhiteSpace(c.ImageUrl) ? Path.Combine(_pathHelper.BrandImagePath, c.ImageUrl) : ""
+                }).OrderBy(c => c.Name).ToListAsync();
             return entities;
         }
     }

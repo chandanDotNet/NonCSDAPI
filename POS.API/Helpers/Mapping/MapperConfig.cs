@@ -63,6 +63,7 @@ namespace POS.API.Helpers.Mapping
                 mc.AddProfile(new GRNProfile());
                 mc.AddProfile(new SupplierDocumentProfile());
                 mc.AddProfile(new BatchProfile());
+                mc.AddProfile(new ManufacturerProfile());
             });
             return mappingConfig.CreateMapper();
         }

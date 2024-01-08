@@ -95,5 +95,23 @@ namespace POS.API.Controllers.Brand
             var result = await _mediator.Send(deleteBrandCommand);
             return ReturnFormattedResponse(result);
         }
+
+        /// <summary>
+        /// Searches the brands.
+        /// </summary>
+        /// <param name="searchQuery">The search query.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <returns></returns>
+        [HttpGet("SearchBrands", Name = "SearchBrands")]
+        public async Task<IActionResult> SearchBrands(string searchQuery, int pageSize)
+        {
+            var query = new SearchBrandQuery
+            {
+                PageSize = pageSize,
+                SearchQuery = searchQuery
+            };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
     }
 }

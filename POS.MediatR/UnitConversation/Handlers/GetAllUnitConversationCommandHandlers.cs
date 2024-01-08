@@ -28,20 +28,21 @@ namespace POS.MediatR.UnitConversation.Handlers
         }
         public async Task<List<UnitConversationDto>> Handle(GetAllUnitConversationCommand request, CancellationToken cancellationToken)
         {
-            var units = await _unitConversationRepository.AllIncluding(c=>c.Parent)
+            var units = await _unitConversationRepository.AllIncluding(c => c.Parent)
                 .OrderBy(c => c.Name)
-                .Select(c=> new UnitConversationDto
+                .Select(c => new UnitConversationDto
                 {
                     Id = c.Id,
                     Name = c.Name,
                     ParentId = c.ParentId,
-                    BaseUnitName = c.Parent !=null? c.Parent.Name + "(" + c.Parent.Code  + ")" : "",
+                    BaseUnitName = c.Parent != null ? c.Parent.Name + "(" + c.Parent.Code + ")" : "",
                     Value = c.Value,
-                    Operator =c.Operator,
+                    Operator = c.Operator,
                     Code = c.Code,
+                    isFraction = c.isFraction
                 })
                 .ToListAsync();
-            return units.Where(x => x.Name != string.Empty).ToList(); 
+            return units.Where(x => x.Name != string.Empty).ToList();
         }
     }
 }
