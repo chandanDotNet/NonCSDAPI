@@ -60,6 +60,13 @@ namespace POS.Repository
             //       .Where(d => d.Cart.CustomerId == productResource.CustomerId);
             //}
 
+            if (productResource.ProductMainCategoryId.HasValue)
+            {
+                // trim & ignore casing
+                collectionBeforePaging = collectionBeforePaging
+                   .Where(a => a.ProductCategory.ProductMainCategoryId == productResource.ProductMainCategoryId);
+            }
+
             if (!string.IsNullOrWhiteSpace(productResource.Barcode))
             {
                 // trim & ignore casing
