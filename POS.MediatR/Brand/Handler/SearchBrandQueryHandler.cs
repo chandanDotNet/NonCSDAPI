@@ -9,6 +9,7 @@ using POS.Data.Dto;
 using POS.Repository;
 using System.Threading;
 using MediatR;
+using POS.Data.Resources;
 
 namespace POS.MediatR.Brand.Handler
 {
@@ -31,6 +32,7 @@ namespace POS.MediatR.Brand.Handler
                     Name = c.Name
                 }).ToListAsync();
             return brands;
+
         }
     }
 }

@@ -28,5 +28,10 @@ namespace POS.Data.Dto
         public string SupplierName { get; set; }
         public Guid? SupplierId { get; set; }
         public decimal TotalStockAmount { get; set; }
+        public string Barcode { get; set; }
+        public decimal? SalePrice { get; set; }
+        public decimal? PurchasePrice { get; set; }
+        public decimal? Mrp { get; set; }
+        public decimal? Margin { get; set; }
     }
 }
