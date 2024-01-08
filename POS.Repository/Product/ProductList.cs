@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using POS.Helper;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace POS.Repository
 {
@@ -71,8 +72,8 @@ namespace POS.Repository
                     SkuName = c.SkuName,
                     SkuCode = c.SkuCode,
                     QRCodeUrl = c.QRCodeUrl,
-                    Description= c.Description,
-                    CreatedDate = c.CreatedDate,                   
+                    Description = c.Description,
+                    CreatedDate = c.CreatedDate,
                     Mrp = c.Mrp,
                     Margin = c.Margin,
                     SalesPrice = c.SalesPrice,
@@ -85,12 +86,12 @@ namespace POS.Repository
                     Barcode = c.Barcode,
                     BrandName = c.Brand.Name,
                     WarehouseId = c.WarehouseId,
-                    WarehouseName = c.Warehouse.Name, 
-                    Discount=0,
+                    WarehouseName = c.Warehouse.Name,
+                    Discount = 0,
                     ProductTaxes = _mapper.Map<List<ProductTaxDto>>(c.ProductTaxes),
-                    Unit=_mapper.Map<UnitConversationDto>(c.Unit),
+                    Unit = _mapper.Map<UnitConversationDto>(c.Unit),
                     ProductUrl = !string.IsNullOrWhiteSpace(c.ProductUrl) ? Path.Combine(_pathHelper.ProductThumbnailImagePath, c.ProductUrl) : "",
-                    IsProductOrderTime = c.IsProductOrderTime,                   
+                    IsProductOrderTime = c.IsProductOrderTime,
                     OrderStartTime = c.OrderStartTime,
                     OrderEndTime = c.OrderEndTime,
                     RackNo = c.RackNo,
@@ -98,10 +99,11 @@ namespace POS.Repository
                     // Cart= _mapper.Map<CartDto>(c.Cart),
                     Stock = c.Inventory.Stock == null ? 0 : c.Inventory.Stock,
                     IsLoose = c.IsLoose,
-                    MinQty = c.MinQty,                   
+                    MinQty = c.MinQty,
 
                 }).ToListAsync();
-            return entities;
+
+            return entities.OrderBy(p => p.Name).ToList();
         }
     }
 }

@@ -74,7 +74,8 @@ namespace POS.Repository
                     PinCode = c.PinCode,
                     AadharCard=c.AadharCard,
                     Category = c.Category,
-                    DependantCard=c.DependantCard
+                    DependantCard=c.DependantCard,
+                    CreatedDate = c.CreatedDate,
                 })
                 .ToListAsync();
             return entities;
