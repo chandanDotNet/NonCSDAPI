@@ -33,6 +33,14 @@ namespace POS.MediatR.Brand.Handler
                 }).ToListAsync();
             return brands;
 
+            //var brands = await _brandRepository.AllIncluding()
+            //   .Take(request.PageSize)
+            //   .Select(c => new BrandDto
+            //   {
+            //       Id = c.Id,
+            //       Name = c.Name
+            //   }).ToListAsync();
+            //return brands;
         }
     }
 }
