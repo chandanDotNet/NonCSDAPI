@@ -37,10 +37,22 @@ namespace POS.Repository
                     .Where(a => a.Product.Name == purchaseOrderResource.ProductName);
             }
 
+            if (!string.IsNullOrWhiteSpace(purchaseOrderResource.ProductCategoryName))
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Product.ProductCategory.Name == purchaseOrderResource.ProductCategoryName);
+            }
+
             if (purchaseOrderResource.ProductId.HasValue)
             {
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => a.ProductId == purchaseOrderResource.ProductId);
+            }
+
+            if (!string.IsNullOrWhiteSpace(purchaseOrderResource.ProductName))
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Product.Name == purchaseOrderResource.ProductName);
             }
 
             if (purchaseOrderResource.FromDate.HasValue)

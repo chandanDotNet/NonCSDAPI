@@ -24,6 +24,7 @@ namespace POS.Data.Resources
         public string PaymentType { get; set; }
         public string OrderDeliveryStatus { get; set; }
         public string MobileNo { get; set; }
+        public string? ProductCategoryName { get; set; }
     }
 }
 

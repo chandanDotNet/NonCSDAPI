@@ -291,6 +291,17 @@ namespace POS.Data.Entities
         public string message { get; set; }
         public List<PurchaseOrderItemDto> Data { get; set; }
     }
+
+    public class ProductCategoryWiseSalesReportResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public string ProductCategoryName { get; set; }
+        public string PurAmount { get; set; }
+        public string TotalAmount { get; set; }
+        
+    }
 }
 
 

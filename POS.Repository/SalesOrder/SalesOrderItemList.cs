@@ -63,6 +63,7 @@ namespace POS.Repository
                                  UnitName = c.Product.Unit.Name,
                                  UnitPrice = c.UnitPrice,
                                  Quantity = c.Quantity,
+                                 PurPrice = Convert.ToDecimal(c.Product.PurchasePrice)* c.Quantity,
                                  DiscountPercentage = c.DiscountPercentage,
                                  Discount = c.Discount,
                                  TaxValue = c.TaxValue,
@@ -97,6 +98,7 @@ namespace POS.Repository
                                  UnitName = c.Product.Unit.Name,
                                  UnitPrice = c.UnitPrice,
                                  Quantity = c.Quantity,
+                                 PurPrice = Convert.ToDecimal(c.Product.PurchasePrice) * c.Quantity,
                                  DiscountPercentage = c.DiscountPercentage,
                                  Discount = c.Discount,
                                  TaxValue = c.TaxValue,
@@ -109,7 +111,7 @@ namespace POS.Repository
                                  SOCreatedDate = c.SalesOrder.SOCreatedDate,
                                  Status = c.Status,
                                  Id = c.Id,
-                                 Total = (c.UnitPrice * c.Quantity) - c.Discount + c.TaxValue,
+                                 Total = (c.UnitPrice * c.Quantity) - c.Discount + c.TaxValue,                                 
                                  SalesOrderItemTaxes = c.SalesOrderItemTaxes.Select(c => new SalesOrderItemTaxDto
                                  {
                                      TaxName = c.Tax.Name,
