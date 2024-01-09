@@ -47,7 +47,11 @@ namespace POS.Repository
                     PricePerUnit = inventory.PricePerUnit,
                     PreviousTotalStock = 0,
                     SalesOrderId = inventory.SalesOrderId,
-                    PurchaseOrderId = inventory.PurchaseOrderId
+                    PurchaseOrderId = inventory.PurchaseOrderId,
+
+                    PurchasePrice = inventory.PurchasePrice,
+                    Mrp = inventory.Mrp,
+                    Margin = inventory.Margin
                 });
 
                 var inventoryToAdd = new Inventory
@@ -148,7 +152,11 @@ namespace POS.Repository
                             PricePerUnit = inventory.PricePerUnit,
                             PreviousTotalStock = existingInventory.Stock,
                             SalesOrderId = inventory.SalesOrderId,
-                            PurchaseOrderId = inventory.PurchaseOrderId
+                            PurchaseOrderId = inventory.PurchaseOrderId,
+
+                            PurchasePrice=inventory.PurchasePrice,
+                            Mrp=inventory.Mrp,
+                            Margin=inventory.Margin
                         });
                         existingInventory.AveragePurchasePrice =
                      (existingInventory.AveragePurchasePrice * purchaseOrderTotalStock + inventory.PricePerUnit * inventory.Stock) / (purchaseOrderTotalStock + inventory.Stock);
@@ -166,7 +174,11 @@ namespace POS.Repository
                         PricePerUnit = inventory.PricePerUnit,
                         PreviousTotalStock = existingInventory.Stock,
                         SalesOrderId = inventory.SalesOrderId,
-                        PurchaseOrderId = inventory.PurchaseOrderId
+                        PurchaseOrderId = inventory.PurchaseOrderId,
+
+                        PurchasePrice = inventory.PurchasePrice,
+                        Mrp = inventory.Mrp,
+                        Margin = inventory.Margin
                     });
                 }
                 else if (inventory.InventorySource == InventorySourceEnum.SalesOrderReturn)
@@ -180,7 +192,11 @@ namespace POS.Repository
                         PricePerUnit = inventory.PricePerUnit,
                         PreviousTotalStock = existingInventory.Stock,
                         SalesOrderId = inventory.SalesOrderId,
-                        PurchaseOrderId = inventory.PurchaseOrderId
+                        PurchaseOrderId = inventory.PurchaseOrderId,
+
+                        PurchasePrice = inventory.PurchasePrice,
+                        Mrp = inventory.Mrp,
+                        Margin = inventory.Margin
                     });
                 }
                 else
