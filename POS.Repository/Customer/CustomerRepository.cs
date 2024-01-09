@@ -4,6 +4,7 @@ using POS.Common.GenericRepository;
 using POS.Common.UnitOfWork;
 using POS.Data;
 using POS.Data.Dto;
+using POS.Data.Resources;
 using POS.Domain;
 using System;
 using System.Linq;
@@ -46,9 +47,15 @@ namespace POS.Repository
                 var ecapestring = Regex.Unescape(encodingName);
                 encodingName = encodingName.Replace(@"\", @"\\").Replace("%", @"\%").Replace("_", @"\_").Replace("[", @"\[").Replace(" ", "%");
                 collectionBeforePaging = collectionBeforePaging
-                   .Where(a => EF.Functions.Like(a.CustomerName, $"{encodingName}%") || EF.Functions.Like(a.MobileNo, $"{encodingName}%"));
+                   .Where(a => EF.Functions.Like(a.CustomerName, $"%{encodingName}%") || EF.Functions.Like(a.MobileNo, $"%{encodingName}%"));
             }
 
+
+            if (customerResource.CreatedDate.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.CreatedDate >= new DateTime(customerResource.CreatedDate.Value.Year, customerResource.CreatedDate.Value.Month, customerResource.CreatedDate.Value.Day, 0, 0, 1));
+            }
             //if (!string.IsNullOrEmpty(customerResource.CustomerName))
             //{
             //    // trim & ignore casing
@@ -71,7 +78,7 @@ namespace POS.Repository
                 var searchQueryForWhereClause = customerResource.PhoneNo
                     .Trim().ToLowerInvariant();
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.PhoneNo != null && EF.Functions.Like(a.PhoneNo, $"{searchQueryForWhereClause}%"));
+                    .Where(a => a.PhoneNo != null && EF.Functions.Like(a.PhoneNo, $"%{searchQueryForWhereClause}%"));
             }
             if (!string.IsNullOrEmpty(customerResource.MobileNo))
             {
@@ -79,7 +86,7 @@ namespace POS.Repository
                 var searchQueryForWhereClause = customerResource.MobileNo
                     .Trim().ToLowerInvariant();
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.MobileNo != null && EF.Functions.Like(a.MobileNo, $"{searchQueryForWhereClause}%"));
+                    .Where(a => a.MobileNo != null && EF.Functions.Like(a.MobileNo, $"%{searchQueryForWhereClause}%"));
             }
             if (!string.IsNullOrEmpty(customerResource.Email))
             {
