@@ -340,6 +340,20 @@ namespace POS.Repository
                 { "CanteenLocationName", new PropertyMappingValue(new List<string>() { "CanteenLocationName" } ) },
            };
 
+        private Dictionary<string, PropertyMappingValue> _brandPropertyMapping =
+         new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+         {
+                           { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
+                           { "Name", new PropertyMappingValue(new List<string>() { "Name" } )}
+         };
+
+        private Dictionary<string, PropertyMappingValue> _manufacturerPropertyMapping =
+       new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+       {
+                           { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
+                           { "ManufacturerName", new PropertyMappingValue(new List<string>() { "ManufacturerName" } )}
+       };
+
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
         public PropertyMappingService()
         {
@@ -369,6 +383,8 @@ namespace POS.Repository
             //propertyMappings.Add(new PropertyMapping<CustomerAddressDto, CustomerAddress>(_cartMapping));
             propertyMappings.Add(new PropertyMapping<PaymentCardDto, PaymentCard>(_paymentCardPropertyMapping));
             propertyMappings.Add(new PropertyMapping<NonCSDCanteenDto, NonCSDCanteen>(_nonCSDCanteenMapping));
+            propertyMappings.Add(new PropertyMapping<BrandDto, Brand>(_brandPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<ManufacturerDto, Manufacturer>(_manufacturerPropertyMapping));
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()

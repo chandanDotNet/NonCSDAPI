@@ -5,6 +5,7 @@ using POS.Data.Dto;
 using POS.MediatR.Manufacturer.Command;
 using POS.MediatR.CommandAndQuery;
 using System.Threading.Tasks;
+using POS.Data.Resources;
 
 namespace POS.API.Controllers.Manufacturer
 {
@@ -43,14 +44,31 @@ namespace POS.API.Controllers.Manufacturer
         /// <param name="pageSize">Size of the page.</param>
         /// <returns></returns>
         [HttpGet("SearchManufacturers", Name = "SearchManufacturers")]
-        public async Task<IActionResult> SearchManufacturers(string searchQuery, int pageSize)
+        public async Task<IActionResult> SearchManufacturers([FromQuery] ManufacturerResource manufacturerResource)
         {
-            var query = new SearchManufacturerQuery
+            //var query = new SearchManufacturerQuery
+            //{
+            //    PageSize = pageSize,
+            //    SearchQuery = searchQuery
+            //};
+            //var result = await _mediator.Send(query);
+            //return Ok(result);
+
+            var searchManufacturerQuery = new SearchManufacturerQuery
             {
-                PageSize = pageSize,
-                SearchQuery = searchQuery
+                ManufacturerResource = manufacturerResource
             };
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(searchManufacturerQuery);
+
+            var paginationMetadata = new
+            {
+                totalCount = result.TotalCount,
+                pageSize = result.PageSize,
+                skip = result.Skip,
+                totalPages = result.TotalPages
+            };
+            Response.Headers.Add("X-Pagination",
+                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
             return Ok(result);
         }
     }
