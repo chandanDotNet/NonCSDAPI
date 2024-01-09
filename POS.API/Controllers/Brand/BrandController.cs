@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using POS.MediatR.Brand.Command;
+using POS.Data.Resources;
 
 namespace POS.API.Controllers.Brand
 {
@@ -103,14 +104,31 @@ namespace POS.API.Controllers.Brand
         /// <param name="pageSize">Size of the page.</param>
         /// <returns></returns>
         [HttpGet("SearchBrands", Name = "SearchBrands")]
-        public async Task<IActionResult> SearchBrands(string searchQuery, int pageSize)
+        public async Task<IActionResult> SearchBrands([FromQuery] BrandResource brandResource)
         {
-            var query = new SearchBrandQuery
+            //var query = new SearchBrandQuery
+            //{
+            //    PageSize = pageSize,
+            //    SearchQuery = searchQuery
+            //};
+            //var result = await _mediator.Send(query);
+            //return Ok(result);
+
+            var searchBrandQuery = new SearchBrandQuery
             {
-                PageSize = pageSize,
-                SearchQuery = searchQuery
+                BrandResource = brandResource
             };
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(searchBrandQuery);
+
+            var paginationMetadata = new
+            {
+                totalCount = result.TotalCount,
+                pageSize = result.PageSize,
+                skip = result.Skip,
+                totalPages = result.TotalPages
+            };
+            Response.Headers.Add("X-Pagination",
+                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
             return Ok(result);
         }
     }

@@ -13,34 +13,25 @@ using POS.Data.Resources;
 
 namespace POS.MediatR.Brand.Handler
 {
-    public class SearchBrandQueryHandler : IRequestHandler<SearchBrandQuery, List<BrandDto>>
+    public class SearchBrandQueryHandler : IRequestHandler<SearchBrandQuery, BrandList>
     {
         private readonly IBrandRepository _brandRepository;
-
 
         public SearchBrandQueryHandler(IBrandRepository brandRepository)
         {
             _brandRepository = brandRepository;
         }
-        public async Task<List<BrandDto>> Handle(SearchBrandQuery request, CancellationToken cancellationToken)
+        public async Task<BrandList> Handle(SearchBrandQuery request, CancellationToken cancellationToken)
         {
-            var brands = await _brandRepository.All.Where(a => EF.Functions.Like(a.Name, $"{request.SearchQuery}%"))
-                .Take(request.PageSize)
-                .Select(c => new BrandDto
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                }).ToListAsync();
-            return brands;
-
-            //var brands = await _brandRepository.AllIncluding()
-            //   .Take(request.PageSize)
-            //   .Select(c => new BrandDto
-            //   {
-            //       Id = c.Id,
-            //       Name = c.Name
-            //   }).ToListAsync();
+            //var brands = await _brandRepository.All.Where(a => EF.Functions.Like(a.Name, $"{request.SearchQuery}%"))
+            //    .Take(request.PageSize)
+            //    .Select(c => new BrandDto
+            //    {
+            //        Id = c.Id,
+            //        Name = c.Name
+            //    }).ToListAsync();
             //return brands;
+            return await _brandRepository.GetBrands(request.BrandResource);
         }
     }
 }
