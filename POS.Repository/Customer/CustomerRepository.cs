@@ -4,6 +4,7 @@ using POS.Common.GenericRepository;
 using POS.Common.UnitOfWork;
 using POS.Data;
 using POS.Data.Dto;
+using POS.Data.Resources;
 using POS.Domain;
 using System;
 using System.Linq;
@@ -49,6 +50,12 @@ namespace POS.Repository
                    .Where(a => EF.Functions.Like(a.CustomerName, $"%{encodingName}%") || EF.Functions.Like(a.MobileNo, $"%{encodingName}%"));
             }
 
+
+            if (customerResource.CreatedDate.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.CreatedDate >= new DateTime(customerResource.CreatedDate.Value.Year, customerResource.CreatedDate.Value.Month, customerResource.CreatedDate.Value.Day, 0, 0, 1));
+            }
             //if (!string.IsNullOrEmpty(customerResource.CustomerName))
             //{
             //    // trim & ignore casing
