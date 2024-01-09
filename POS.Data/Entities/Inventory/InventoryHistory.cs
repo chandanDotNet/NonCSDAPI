@@ -19,5 +19,8 @@ namespace POS.Data
         public PurchaseOrder PurchaseOrder { get; set; }
         public Guid? SalesOrderId { get; set; }
         public SalesOrder SalesOrder { get; set; }
+        public decimal? PurchasePrice { get; set; }
+        public decimal? Mrp { get; set; }
+        public decimal? Margin { get; set; }
     }
 }
