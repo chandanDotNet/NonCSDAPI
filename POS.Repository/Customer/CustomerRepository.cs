@@ -54,7 +54,10 @@ namespace POS.Repository
             if (customerResource.CreatedDate.HasValue)
             {
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.CreatedDate >= new DateTime(customerResource.CreatedDate.Value.Year, customerResource.CreatedDate.Value.Month, customerResource.CreatedDate.Value.Day, 0, 0, 1));
+                  .Where(a => a.CreatedDate >= new DateTime(customerResource.CreatedDate.Value.Year, customerResource.CreatedDate.Value.Month, customerResource.CreatedDate.Value.Day, 0, 0, 1));
+
+                collectionBeforePaging = collectionBeforePaging
+                .Where(a => a.CreatedDate <= new DateTime(customerResource.CreatedDate.Value.Year, customerResource.CreatedDate.Value.Month, customerResource.CreatedDate.Value.Day, 23, 59, 59));
             }
             //if (!string.IsNullOrEmpty(customerResource.CustomerName))
             //{
