@@ -13,7 +13,7 @@ namespace POS.Data.Dto
         public InventorySourceEnum InventorySource { get; set; }
         public decimal Stock { get; set; }
         public decimal PricePerUnit { get; set; }
-        public long PreviousTotalStock { get; set; }
+        public decimal PreviousTotalStock { get; set; }
         public DateTime CreatedDate { get; set; }
         public string PurchaseOrderNumber { get; set; }
         public Guid? PurchaseOrderId { get; set; }
