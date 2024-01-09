@@ -46,7 +46,7 @@ namespace POS.Repository
                 var ecapestring = Regex.Unescape(encodingName);
                 encodingName = encodingName.Replace(@"\", @"\\").Replace("%", @"\%").Replace("_", @"\_").Replace("[", @"\[").Replace(" ", "%");
                 collectionBeforePaging = collectionBeforePaging
-                   .Where(a => EF.Functions.Like(a.CustomerName, $"{encodingName}%") || EF.Functions.Like(a.MobileNo, $"{encodingName}%"));
+                   .Where(a => EF.Functions.Like(a.CustomerName, $"%{encodingName}%") || EF.Functions.Like(a.MobileNo, $"%{encodingName}%"));
             }
 
             //if (!string.IsNullOrEmpty(customerResource.CustomerName))
@@ -71,7 +71,7 @@ namespace POS.Repository
                 var searchQueryForWhereClause = customerResource.PhoneNo
                     .Trim().ToLowerInvariant();
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.PhoneNo != null && EF.Functions.Like(a.PhoneNo, $"{searchQueryForWhereClause}%"));
+                    .Where(a => a.PhoneNo != null && EF.Functions.Like(a.PhoneNo, $"%{searchQueryForWhereClause}%"));
             }
             if (!string.IsNullOrEmpty(customerResource.MobileNo))
             {
@@ -79,7 +79,7 @@ namespace POS.Repository
                 var searchQueryForWhereClause = customerResource.MobileNo
                     .Trim().ToLowerInvariant();
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.MobileNo != null && EF.Functions.Like(a.MobileNo, $"{searchQueryForWhereClause}%"));
+                    .Where(a => a.MobileNo != null && EF.Functions.Like(a.MobileNo, $"%{searchQueryForWhereClause}%"));
             }
             if (!string.IsNullOrEmpty(customerResource.Email))
             {
