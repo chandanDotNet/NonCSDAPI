@@ -105,7 +105,7 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
-        <member name="M:POS.API.Controllers.Brand.BrandController.SearchBrands(System.String,System.Int32)">
+        <member name="M:POS.API.Controllers.Brand.BrandController.SearchBrands(POS.Data.Resources.BrandResource)">
             <summary>
             Searches the brands.
             </summary>
@@ -841,7 +841,7 @@
             <param name="addManufacturerCommand"></param>
             <returns></returns>
         </member>
-        <member name="M:POS.API.Controllers.Manufacturer.ManufacturerController.SearchManufacturers(System.String,System.Int32)">
+        <member name="M:POS.API.Controllers.Manufacturer.ManufacturerController.SearchManufacturers(POS.Data.Resources.ManufacturerResource)">
             <summary>
             Searches the manufacturer.
             </summary>
