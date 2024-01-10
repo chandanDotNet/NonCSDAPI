@@ -39,5 +39,6 @@ namespace POS.Data.Dto
         public List<InventoryHistoryDto> InventoryHistories { get; set; }
         public decimal OpeningStock { get; set; }
         public decimal ClosingStock { get; set; }
+        public ProductDto Product { get; set; }
     }
 }
