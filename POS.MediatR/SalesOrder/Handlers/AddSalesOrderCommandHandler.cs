@@ -67,6 +67,7 @@ namespace POS.MediatR.Handlers
 
 
             var inventories = request.SalesOrderItems
+                
                 .Select(cs => new InventoryDto
                 {
                     ProductId = cs.ProductId,
@@ -77,6 +78,10 @@ namespace POS.MediatR.Handlers
                     WarehouseId = cs.WarehouseId,
                     TaxValue = cs.TaxValue,
                     Discount = cs.Discount
+
+                    //PurchasePrice=cs.PurPrice,
+                    //Mrp=cs.Product.Mrp,
+                    //Margin=cs.Product.Margin   
                 }).ToList();
 
             inventories.ForEach(invetory =>
