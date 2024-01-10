@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using POS.Common.GenericRepository;
 using POS.Common.UnitOfWork;
 using POS.Data;
@@ -20,18 +21,21 @@ namespace POS.Repository
         private readonly IInventoryHistoryRepository _inventoryHistoryRepository;
         private readonly IUnitConversationRepository _unitConversationRepository;
         private readonly IWarehouseInventoryRepository _warehouseInventoryRepository;
+        private readonly IMapper _mapper;
 
         public InventoryRepository(IUnitOfWork<POSDbContext> uow,
             IPropertyMappingService propertyMappingService,
             IInventoryHistoryRepository inventoryHistoryRepository,
             IUnitConversationRepository unitConversationRepository,
-            IWarehouseInventoryRepository warehouseInventoryRepository)
+            IWarehouseInventoryRepository warehouseInventoryRepository,
+            IMapper mapper)
           : base(uow)
         {
             _propertyMappingService = propertyMappingService;
             _inventoryHistoryRepository = inventoryHistoryRepository;
             _unitConversationRepository = unitConversationRepository;
             _warehouseInventoryRepository = warehouseInventoryRepository;
+            _mapper = mapper;
         }
 
         public async Task AddInventory(InventoryDto inventory)
@@ -287,8 +291,8 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => EF.Functions.Like(a.Product.PurchaseOrderItems.PurchaseOrder.Supplier.SupplierName, $"{encodingName}%"));
             }
-            var inventoryList = new InventoryList();
-            return await inventoryList.Create(collectionBeforePaging, inventoryResource.Skip, inventoryResource.PageSize);
+            var inventoryList = new InventoryList(_mapper);
+            return await inventoryList.Create(collectionBeforePaging, inventoryResource.Skip, inventoryResource.PageSize,inventoryResource.DefaultDate);
         }
 
         public InventoryDto ConvertStockAndPriceToBaseUnit(InventoryDto inventory)

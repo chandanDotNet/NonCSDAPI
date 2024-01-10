@@ -17,6 +17,7 @@ namespace POS.Data
         public string Website { get; set; }
         public int OTP { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public string? DeviceKey { get; set; }
 
     }
 }

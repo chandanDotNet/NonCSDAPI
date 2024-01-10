@@ -32,9 +32,10 @@ namespace POS.MediatR.CommandAndQuery
         public int OTP { get; set; }
         public string PinCode { get; set; }
         public string? RewardPoints { get; set; }
-
         public string? Category { get; set; }
         public string? AadharCard { get; set; }
         public string? DependantCard { get; set; }
+        public string? ServiceNo { get; set; }
+        public string? DeviceKey { get; set; }
     }
 }

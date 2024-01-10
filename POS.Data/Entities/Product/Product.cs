@@ -51,6 +51,6 @@ namespace POS.Data
         public decimal? MinQty { get; set; }
         public Guid? SupplierId { get; set; }
         public Guid? ManufacturerId { get; set; }
-
+        public List<InventoryHistory> InventoryHistories { get; set; }
     }
 }

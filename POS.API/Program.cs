@@ -1,3 +1,5 @@
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +12,7 @@ using POS.API;
 using POS.API.Helpers;
 using POS.Domain;
 using System;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<JobService>();
@@ -61,6 +64,11 @@ app.UseHangfireDashboard();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHangfireDashboard();
+});
+
+FirebaseApp.Create(new AppOptions()
+{
+    Credential = GoogleCredential.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "skd-non-csd-firebase-adminsdk-8pk2m-2286c6be47.json")),
 });
 
 JobService jobService = app.Services.GetRequiredService<JobService>();

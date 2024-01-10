@@ -75,7 +75,9 @@ namespace POS.Repository
                     AadharCard=c.AadharCard,
                     Category = c.Category,
                     DependantCard=c.DependantCard,
+                    ServiceNo = c.ServiceNo,
                     CreatedDate = c.CreatedDate,
+                    DeviceKey = c.DeviceKey
                 })
                 .ToListAsync();
             return entities;

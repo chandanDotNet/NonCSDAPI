@@ -55,7 +55,7 @@ namespace POS.MediatR.Handlers
             }
             request.OTP = 1234;
 
-            var customerData = _mapper.Map<POS.Data.Customer >(request);
+            var customerData = _mapper.Map<POS.Data.Customer>(request);
             _customerRepository.Add(customerData);
 
             if (await _uow.SaveAsync() <= 0)
