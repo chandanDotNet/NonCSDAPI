@@ -11,6 +11,7 @@ using POS.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,19 +25,21 @@ namespace POS.MediatR.Handlers
         private readonly IMapper _mapper;
         private readonly ILogger<AddSalesOrderCommandHandler> _logger;
         private readonly IInventoryRepository _inventoryRepository;
-
+        private readonly IProductRepository _productRepository;
         public AddSalesOrderCommandHandler(
             ISalesOrderRepository salesOrderRepository,
             IUnitOfWork<POSDbContext> uow,
             IMapper mapper,
             ILogger<AddSalesOrderCommandHandler> logger,
-            IInventoryRepository inventoryRepository)
+            IInventoryRepository inventoryRepository,
+            IProductRepository productRepository)
         {
             _salesOrderRepository = salesOrderRepository;
             _uow = uow;
             _mapper = mapper;
             _logger = logger;
             _inventoryRepository = inventoryRepository;
+            _productRepository = productRepository;
         }
 
         public async Task<ServiceResponse<SalesOrderDto>> Handle(AddSalesOrderCommand request, CancellationToken cancellationToken)
@@ -48,15 +51,28 @@ namespace POS.MediatR.Handlers
                 return ServiceResponse<SalesOrderDto>.Return409("Sales Order Number is already Exists.");
             }
 
+            //request.SalesOrderItems.ForEach(item1 =>
+            //{
+            //    var product1 = _productRepository.All.Where(c => c.Id == item1.ProductId);
+            //    item1.Product = _mapper.Map<ProductDto>(product1);// (ProductDto)_productRepository.All.Where(c => c.Id == item1.ProductId);                
+               
+            //});
+
             var salesOrder = _mapper.Map<Data.SalesOrder>(request);
             salesOrder.PaymentStatus = PaymentStatus.Pending;
             salesOrder.OrderDeliveryStatus = "Order Placed";
             salesOrder.SalesOrderItems.ForEach(item =>
             {
+                var product = _productRepository.All.Where(c => c.Id == item.ProductId).FirstOrDefault();
                 item.Product = null;
                 item.Warehouse = null;
                 item.SalesOrderItemTaxes.ForEach(tax => { tax.Tax = null; });
                 item.CreatedDate = DateTime.UtcNow;
+                if (product != null)
+                {
+                    item.TotalPurPrice = (decimal)product.PurchasePrice * item.Quantity;
+                    item.TotalSalesPrice = (decimal)item.UnitPrice * item.Quantity;
+                }
                 //if (item.LooseQuantity>0)
                 //{
                 //    item.LooseQuantity = item.LooseQuantity * 1000;
@@ -77,11 +93,12 @@ namespace POS.MediatR.Handlers
                     UnitId = cs.UnitId,
                     WarehouseId = cs.WarehouseId,
                     TaxValue = cs.TaxValue,
-                    Discount = cs.Discount
-
-                    //PurchasePrice=cs.PurPrice,
-                    //Mrp=cs.Product.Mrp,
-                    //Margin=cs.Product.Margin   
+                    Discount = cs.Discount,
+                    //Product= _mapper.Map<ProductDto>(cs.Product)
+                    PurchasePrice = _productRepository.All.Where(c => c.Id == cs.ProductId).FirstOrDefault().PurchasePrice,
+                    //PurchasePrice = cs.PurPrice,
+                    Mrp = _productRepository.All.Where(c => c.Id == cs.ProductId).FirstOrDefault().Mrp,
+                    Margin = _productRepository.All.Where(c => c.Id == cs.ProductId).FirstOrDefault().Margin
                 }).ToList();
 
             inventories.ForEach(invetory =>
@@ -98,6 +115,9 @@ namespace POS.MediatR.Handlers
                     PricePerUnit = cs.Sum(d => d.PricePerUnit * d.Stock + d.TaxValue - d.Discount) / cs.Sum(d => d.Stock),
                     SalesOrderId = salesOrder.Id,
                     Stock = cs.Sum(d => d.Stock),
+                    PurchasePrice=cs.FirstOrDefault().PurchasePrice,
+                    Margin=cs.FirstOrDefault().Margin,
+                    Mrp=cs.FirstOrDefault().Mrp
                 }).ToList();
 
             foreach (var inventory in inventoriesToAdd)

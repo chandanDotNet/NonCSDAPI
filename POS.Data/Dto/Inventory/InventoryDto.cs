@@ -36,5 +36,6 @@ namespace POS.Data.Dto
         public string ProductCategoryName { get; set; }
         public string ProductCode { get; set; }
         public string ManufacturerName { get; set; }
+        public ProductDto Product { get; set; }
     }
 }

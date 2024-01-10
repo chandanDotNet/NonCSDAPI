@@ -231,7 +231,11 @@ namespace POS.Repository
                             PricePerUnit = inventory.PricePerUnit,
                             PreviousTotalStock = existingInventory.Stock,
                             SalesOrderId = inventory.SalesOrderId,
-                            PurchaseOrderId = inventory.PurchaseOrderId
+                            PurchaseOrderId = inventory.PurchaseOrderId,
+
+                            PurchasePrice = inventory.PurchasePrice,
+                            Mrp = inventory.Mrp,
+                            Margin = inventory.Margin
                         });
                         salesOrderTotalStock = Math.Abs(salesOrderTotalStock);
                         existingInventory.AverageSalesPrice =
