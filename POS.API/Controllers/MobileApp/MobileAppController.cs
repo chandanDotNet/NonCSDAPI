@@ -73,8 +73,9 @@ namespace POS.API.Controllers.MobileApp
         private readonly IProductRepository _productRepository;
         private readonly IUnitConversationRepository _unitConversationRepository;
         private readonly IWarehouseRepository _warehouseRepository;
+        private readonly ICustomerRepository _customerRepository;
         public MobileAppController(IMediator mediator, PathHelper pathHelper,
-            IWebHostEnvironment webHostEnvironment, IProductRepository productRepository, IUnitConversationRepository unitConversationRepository, IWarehouseRepository warehouseRepository)
+            IWebHostEnvironment webHostEnvironment, IProductRepository productRepository, IUnitConversationRepository unitConversationRepository, IWarehouseRepository warehouseRepository, ICustomerRepository customerRepository)
         {
             _mediator = mediator;
             _pathHelper = pathHelper;
@@ -82,7 +83,8 @@ namespace POS.API.Controllers.MobileApp
             _productRepository = productRepository;
             _unitConversationRepository = unitConversationRepository;
             _warehouseRepository = warehouseRepository;
-
+            _customerRepository = customerRepository;
+           
         }
 
         /// <summary>
@@ -115,10 +117,39 @@ namespace POS.API.Controllers.MobileApp
                 //*************************
 
                 //customersFromRepo.FirstOrDefault().OTP = 1234;
+                //UpdateCustomerCommand updateCustomerCommand = new UpdateCustomerCommand();
+                var customer = await _customerRepository.FindAsync(customersFromRepo.FirstOrDefault().Id.Value);
+
                 UpdateCustomerCommand updateCustomerCommand = new UpdateCustomerCommand()
                 {
                     Id = customersFromRepo.FirstOrDefault().Id,
-                    DeviceKey = customersFromRepo.FirstOrDefault().DeviceKey
+                    DeviceKey = customerResource.DeviceKey,
+                    AadharCard= customer.AadharCard,
+                    Address= customer.Address,
+                    Category= customer.Category,
+                    CityId= customer.CityId,
+                    CityName= customer.CityName,
+                    ContactPerson= customer.ContactPerson,
+                    CountryId= customer.CountryId,
+                    CountryName= customer.CountryName,
+                    CustomerName= customer.CustomerName,
+                    CustomerProfile= customer.CustomerProfile,
+                    DependantCard= customer.DependantCard,
+                    Description= customer.Description,
+                    Email= customer.Email,
+                    Fax= customer.Fax,
+                    IsVarified= customer.IsVarified,
+                    OTP = customer.OTP,
+                    MobileNo= customer.MobileNo,
+                    PinCode= customer.PinCode,
+                    PhoneNo= customer.PhoneNo,
+                    Website= customer.Website,
+                    Url= customer.Url,
+                    Password= customer.Password,
+                    ServiceNo= customer.ServiceNo,
+                    RewardPoints= customer.RewardPoints
+                    
+
                 };
                 var result = await _mediator.Send(updateCustomerCommand);
 
