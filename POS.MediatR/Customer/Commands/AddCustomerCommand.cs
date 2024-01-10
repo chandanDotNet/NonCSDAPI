@@ -34,5 +34,6 @@ namespace POS.MediatR.CommandAndQuery
         public string? Category { get; set; }
         public string? AadharCard { get; set; }
         public string? DependantCard { get; set; }
+        public string? ServiceNo { get; set; }
     }
 }

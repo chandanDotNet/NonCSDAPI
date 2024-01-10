@@ -56,6 +56,7 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Web;
 using static System.Net.Mime.MediaTypeNames;
+using FirebaseAdmin.Messaging;
 
 namespace POS.API.Controllers.MobileApp
 {
@@ -93,7 +94,6 @@ namespace POS.API.Controllers.MobileApp
         [Produces("application/json", "application/xml", Type = typeof(CustomerDto))]
         public async Task<IActionResult> LoginCustomers(CustomerResource customerResource)
         {
-
             //CustomerDto
             CustomerResponseData response = new CustomerResponseData();
             var query = new LoginCustomerQuery
@@ -101,8 +101,6 @@ namespace POS.API.Controllers.MobileApp
                 CustomerResource = customerResource
             };
             var customersFromRepo = await _mediator.Send(query);
-
-
 
             if (customersFromRepo.Count > 0)
             {
@@ -117,7 +115,12 @@ namespace POS.API.Controllers.MobileApp
                 //*************************
 
                 //customersFromRepo.FirstOrDefault().OTP = 1234;
-
+                UpdateCustomerCommand updateCustomerCommand = new UpdateCustomerCommand()
+                {
+                    Id = customersFromRepo.FirstOrDefault().Id,
+                    DeviceKey = customersFromRepo.FirstOrDefault().DeviceKey
+                };
+                var result = await _mediator.Send(updateCustomerCommand);
 
                 response.status = true;
                 response.StatusCode = 1;
@@ -2606,10 +2609,10 @@ namespace POS.API.Controllers.MobileApp
 
             ProductCategoryWiseSalesReportResponseData Data = new ProductCategoryWiseSalesReportResponseData();
 
-            if (response!=null)
+            if (response != null)
             {
                 //========================
-                SalesOrderResource salesOrderResource1= new SalesOrderResource();
+                SalesOrderResource salesOrderResource1 = new SalesOrderResource();
                 salesOrderResource1 = salesOrderResource;
                 salesOrderResource1.ProductCategoryName = null;
                 var getSalesOrderItemsReportCommand1 = new GetSalesOrderItemsReportCommand { SalesOrderResource = salesOrderResource1 };
@@ -2633,21 +2636,57 @@ namespace POS.API.Controllers.MobileApp
                 Data.status = true;
                 Data.StatusCode = 1;
                 Data.message = "Success";
-               
+
             }
             else
             {
                 Data.status = false;
                 Data.StatusCode = 0;
                 Data.message = "Invalid";
-            }           
+            }
 
             Response.Headers.Add("X-Pagination",
                 Newtonsoft.Json.JsonConvert.SerializeObject(Data));
 
             return Ok(Data);
-
         }
-
+        [AllowAnonymous]
+        [HttpPost("PushNotification")]
+        public async Task<IActionResult> SendNotificationAsync([FromBody] MessageRequest request)
+        {
+            string result = string.Empty;
+            string[] DeviceKey = request.DeviceToken.Split(',');
+            if (DeviceKey.Count() > 0)
+            {
+                foreach (var itemKey in DeviceKey)
+                {
+                    var message = new Message()
+                    {
+                        Notification = new Notification
+                        {
+                            Title = request.Title,
+                            Body = request.Body,
+                        },
+                        Data = new Dictionary<string, string>()
+                        {
+                            ["FirstName"] = "Sainik",
+                            ["LastName"] = "Grocery"
+                        },
+                        Token = itemKey
+                    };
+                    var messaging = FirebaseMessaging.DefaultInstance;
+                    result = await messaging.SendAsync(message);
+                    if (!string.IsNullOrEmpty(result))
+                    {
+                        return Ok("Message sent successfully!");
+                    }
+                    else
+                    {
+                        throw new Exception("Error sending the message.");
+                    }
+                }
+            }
+            return Ok("All Messages sent successfully!");
+        }
     }
 }

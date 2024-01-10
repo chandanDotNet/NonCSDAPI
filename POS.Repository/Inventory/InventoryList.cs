@@ -7,34 +7,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using POS.Data.Entities;
 
 namespace POS.Repository
 {
     public class InventoryList : List<InventoryDto>
     {
-        public InventoryList()
+        public IMapper _mapper { get; set; }
+        public InventoryList(IMapper mapper)
         {
+            _mapper = mapper;
         }
 
         public int Skip { get; private set; }
         public int TotalPages { get; private set; }
         public int PageSize { get; private set; }
         public int TotalCount { get; private set; }
+        public DateTime? DefaultDate { get; private set; }
 
-        public InventoryList(List<InventoryDto> items, int count, int skip, int pageSize)
+        public InventoryList(List<InventoryDto> items, int count, int skip, int pageSize, DateTime? defaultDate)
         {
             TotalCount = count;
             PageSize = pageSize;
             Skip = skip;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            DefaultDate = defaultDate;
             AddRange(items);
         }
 
-        public async Task<InventoryList> Create(IQueryable<Inventory> source, int skip, int pageSize)
+        public async Task<InventoryList> Create(IQueryable<Inventory> source, int skip, int pageSize, DateTime? defaultDate)
         {
             var count = await GetCount(source);
-            var dtoList = await GetDtos(source, skip, pageSize);
-            var dtoPageList = new InventoryList(dtoList, count, skip, pageSize);
+            var dtoList = await GetDtos(source, skip, pageSize, defaultDate);
+            var dtoPageList = new InventoryList(dtoList, count, skip, pageSize, defaultDate);
             return dtoPageList;
         }
 
@@ -43,7 +48,7 @@ namespace POS.Repository
             return await source.AsNoTracking().CountAsync();
         }
 
-        public async Task<List<InventoryDto>> GetDtos(IQueryable<Inventory> source, int skip, int pageSize)
+        public async Task<List<InventoryDto>> GetDtos(IQueryable<Inventory> source, int skip, int pageSize, DateTime? defaultDate)
         {
 
             if (pageSize == 0)
@@ -72,9 +77,37 @@ namespace POS.Repository
                 BrandId = c.Product.Brand.Id,
                 SupplierName = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.SupplierName,
                 SupplierId = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.Id,
-                TotalStockAmount = c.AveragePurchasePrice * c.Stock
+                TotalStockAmount = c.AveragePurchasePrice * c.Stock,
+                ClosingStock = c.Stock,
+                InventoryHistories = _mapper.Map<List<InventoryHistoryDto>>(c.Product.InventoryHistories),
+                //OpeningStock = c.Product.InventoryHistories.Where(cs => (cs.ProductId == c.ProductId)
+                //&& cs.CreatedDate >= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 0, 0, 1)
+                //&& cs.CreatedDate <= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 23, 59, 59))
+                //.OrderByDescending(cs => cs.CreatedDate)
+                //.FirstOrDefault().Stock
+
             }).ToListAsync();
-                return entities.DistinctBy(x => x.ProductId).ToList();
+                //return entities.DistinctBy(x => x.ProductId).ToList();
+                entities = entities.DistinctBy(x => x.ProductId).ToList();
+
+                for (int i = 0; i < entities.Count; i++)
+                {
+                    var entity = entities[i];
+                    if (entity.InventoryHistories != null)
+                    {
+                        var openingStock = entities[i].InventoryHistories.Where(x => (x.ProductId == entities[i].ProductId)
+                        && x.CreatedDate >= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 0, 0, 1)
+                        && x.CreatedDate <= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 23, 59, 59))
+                        .OrderByDescending(x => x.CreatedDate)
+                        .FirstOrDefault();
+                        if (openingStock != null)
+                        {
+                            entities[i].OpeningStock = openingStock.PreviousTotalStock;
+                        }
+                    }
+                }
+
+                return entities;
             }
             else
             {
@@ -104,9 +137,38 @@ namespace POS.Repository
                    BrandId = c.Product.Brand.Id,
                    SupplierName = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.SupplierName,
                    SupplierId = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.Id,
-                   TotalStockAmount = c.AveragePurchasePrice * c.Stock
+                   TotalStockAmount = c.AveragePurchasePrice * c.Stock,
+                   ClosingStock = c.Stock,
+                   InventoryHistories = _mapper.Map<List<InventoryHistoryDto>>(c.Product.InventoryHistories),
+                   //OpeningStock = c.Product.InventoryHistories.Where(cs => (cs.ProductId == c.ProductId)
+                   //&& cs.CreatedDate >= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 0, 0, 1)
+                   //&& cs.CreatedDate <= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 23, 59, 59))
+                   //.OrderByDescending(cs => cs.CreatedDate)
+                   //.FirstOrDefault().Stock
+
                }).ToListAsync();
-                return entities.DistinctBy(x => x.ProductId).ToList();
+                //return entities.DistinctBy(x => x.ProductId).ToList();
+
+                entities = entities.DistinctBy(x => x.ProductId).ToList();
+
+                for (int i = 0; i < entities.Count; i++)
+                {
+                    var entity = entities[i];
+                    if (entity.InventoryHistories != null)
+                    {
+                        var openingStock = entity.InventoryHistories.Where(x => (x.ProductId == entity.ProductId)
+                        && x.CreatedDate >= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 0, 0, 1)
+                        && x.CreatedDate <= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 23, 59, 59))
+                        .OrderBy(x => x.CreatedDate)
+                        .FirstOrDefault();
+                        if (openingStock != null)
+                        {
+                            entities[i].OpeningStock = openingStock.PreviousTotalStock;
+                        }
+                    }
+                }
+
+                return entities;
             }
 
         }

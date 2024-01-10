@@ -55,6 +55,10 @@ namespace POS.MediatR.Handlers
                 _logger.LogError("Customer does not exists.");
                 return ServiceResponse<CustomerDto>.Return404();
             }
+            if (!string.IsNullOrEmpty(request.DeviceKey))
+            {
+                customer.DeviceKey = request.DeviceKey;
+            }
 
             if (request.IsImageUpload)
             {

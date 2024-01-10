@@ -34,6 +34,8 @@ namespace POS.Data.Dto
         public string? Category { get; set; }
         public string? AadharCard { get; set; }
         public string? DependantCard { get; set; }
+        public string? ServiceNo { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public string? DeviceKey { get; set; }
     }
 }
