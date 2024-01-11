@@ -38,7 +38,7 @@ namespace POS.MediatR.Banner.Handler
                 {
                     Id = c.Id,
                     Name = c.Name,
-                    ImageUrl = !string.IsNullOrWhiteSpace(c.ImageUrl) ? Path.Combine(_pathHelper.LoginPageBannerImagePath, c.ImageUrl) : ""
+                    ImageUrl = !string.IsNullOrWhiteSpace(c.ImageUrl) ? Path.Combine(_pathHelper.CategoryBannerImagePath, c.ImageUrl) : ""
                 }).ToListAsync();
             return entities;
         }
