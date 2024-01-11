@@ -2729,6 +2729,7 @@ namespace POS.API.Controllers.MobileApp
 
             return Ok(Data);
         }
+        
         [AllowAnonymous]
         [HttpPost("PushNotification")]
         public async Task<IActionResult> SendNotificationAsync([FromBody] MessageRequest request)
