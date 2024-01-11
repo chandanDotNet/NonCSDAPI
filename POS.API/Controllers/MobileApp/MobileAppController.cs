@@ -1468,6 +1468,54 @@ namespace POS.API.Controllers.MobileApp
         }
 
         /// <summary>
+        /// Add Category Banner.
+        /// </summary>
+        /// <param name="addCategoryBannerCommand"></param>
+        /// <returns></returns>
+        [HttpPost("AddCategoryBanner")]
+        [Produces("application/json", "application/xml", Type = typeof(CategoryBannerDto))]
+        public async Task<IActionResult> AddCategoryBanner(AddCategoryBannerCommand addCategoryBannerCommand)
+        {
+            var response = await _mediator.Send(addCategoryBannerCommand);
+            if (!response.Success)
+            {
+                return ReturnFormattedResponse(response);
+            }
+            return CreatedAtAction("GetCategoryBanners", new { id = response.Data.Id }, response.Data);
+        }
+
+        /// <summary>
+        /// Get Login Page Banners.
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet("GetCategoryBanners")]
+        [Produces("application/json", "application/xml", Type = typeof(List<CategoryBannerDto>))]
+        public async Task<IActionResult> GetCategoryBanners()
+        {
+            CategoryBannerListResponseData response = new CategoryBannerListResponseData();
+            var getAllCategoryBannerCommand = new GetAllCategoryBannerCommand { };
+            var result = await _mediator.Send(getAllCategoryBannerCommand);
+
+            if (result.Count > 0)
+            {
+
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Success";
+                response.Data = result;
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Invalid";
+                response.Data = result;
+            }
+            return Ok(response);
+        }
+
+        /// <summary>
         /// Add Login Page Banner.
         /// </summary>
         /// <param name="addLoginPageBannerCommand"></param>
