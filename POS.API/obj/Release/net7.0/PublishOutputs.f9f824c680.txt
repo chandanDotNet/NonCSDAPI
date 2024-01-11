@@ -4,6 +4,8 @@ D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\nlo
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\web.config
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\appsettings.Development.json
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\appsettings.json
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\noncsd-ad414-firebase-adminsdk-26zqk-d0f548e807.json
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\skd-non-csd-firebase-adminsdk-8pk2m-2286c6be47.json
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\POS.API.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\POS.API.runtimeconfig.json
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\POS.API.pdb
@@ -13,8 +15,15 @@ D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Azu
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Azure.Identity.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\ExcelDataReader.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\ExcelDataReader.DataSet.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\FirebaseAdmin.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\FluentValidation.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\FluentValidation.DependencyInjectionExtensions.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Google.Api.Gax.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Google.Api.Gax.Rest.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Google.Apis.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Google.Apis.Auth.PlatformServices.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Google.Apis.Auth.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Google.Apis.Core.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Hangfire.AspNetCore.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Hangfire.Core.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Hangfire.NetCore.dll

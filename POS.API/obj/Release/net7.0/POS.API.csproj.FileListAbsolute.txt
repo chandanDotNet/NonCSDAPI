@@ -683,3 +683,12 @@ D:\NON CSD API\POS.API\obj\Release\net7.0\POS.API.xml
 D:\NON CSD API\POS.API\obj\Release\net7.0\POS.API.pdb
 D:\NON CSD API\POS.API\obj\Release\net7.0\POS.API.genruntimeconfig.cache
 D:\NON CSD API\POS.API\obj\Release\net7.0\ref\POS.API.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\noncsd-ad414-firebase-adminsdk-26zqk-d0f548e807.json
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\skd-non-csd-firebase-adminsdk-8pk2m-2286c6be47.json
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\FirebaseAdmin.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\Google.Api.Gax.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\Google.Api.Gax.Rest.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\Google.Apis.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\Google.Apis.Auth.PlatformServices.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\Google.Apis.Auth.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\Google.Apis.Core.dll
