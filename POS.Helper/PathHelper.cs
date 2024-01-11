@@ -37,6 +37,14 @@ namespace POS.Helper
             }
         }
 
+        public string CategoryBannerImagePath
+        {
+            get
+            {
+                return _configuration["ImagePathSettings:CategoryBannerImages"];
+            }
+        }
+
         public string BrandImagePath
         {
             get

@@ -92,6 +92,7 @@ namespace POS.Domain
         public DbSet<SupplierDocument> SupplierDocuments { get; set; }
         public DbSet<Batch> Batches { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<CategoryBanner> CategoryBanners { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -615,6 +616,14 @@ namespace POS.Domain
             });
 
             builder.Entity<Manufacturer>(b =>
+            {
+                b.HasOne(e => e.CreatedByUser)
+                    .WithMany()
+                    .HasForeignKey(ur => ur.CreatedBy)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<CategoryBanner>(b =>
             {
                 b.HasOne(e => e.CreatedByUser)
                     .WithMany()

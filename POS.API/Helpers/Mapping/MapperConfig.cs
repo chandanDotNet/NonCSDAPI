@@ -64,6 +64,7 @@ namespace POS.API.Helpers.Mapping
                 mc.AddProfile(new SupplierDocumentProfile());
                 mc.AddProfile(new BatchProfile());
                 mc.AddProfile(new ManufacturerProfile());
+                mc.AddProfile(new CategoryBannerProfile());
             });
             return mappingConfig.CreateMapper();
         }

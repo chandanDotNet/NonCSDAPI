@@ -239,6 +239,18 @@ namespace POS.Data.Entities
         public IList<LoginPageBannerDto> Data { get; set; }
     }
 
+    public class CategoryBannerListResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public int Skip { get; set; }
+        public int TotalPages { get; set; }
+        public int PageSize { get; set; }
+        public int TotalCount { get; set; }
+        public IList<CategoryBannerDto> Data { get; set; }
+    }
+
     public class SalesOrderResponseData
     {
         public bool status { get; set; }
