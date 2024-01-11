@@ -1091,6 +1091,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddCategoryBanner(POS.MediatR.Banner.Command.AddCategoryBannerCommand)">
+            <summary>
+            Add Category Banner.
+            </summary>
+            <param name="addCategoryBannerCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetCategoryBanners">
+            <summary>
+            Get Login Page Banners.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddLoginPageBanner(POS.MediatR.Banner.Command.AddLoginPageBannerCommand)">
             <summary>
             Add Login Page Banner.
