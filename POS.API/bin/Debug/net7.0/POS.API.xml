@@ -1713,6 +1713,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.SalesOrderPayment.SalesOrderPaymentController.GetAllSalesOrderTotalPaymentsReport(POS.Data.Resources.SalesOrderResource)">
+            <summary>
+            Get Total Purchase Order payments Report.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.SalesOrder.SalesOrderController.#ctor(MediatR.IMediator)">
             <summary>
             Initializes a new instance of the <see cref="T:POS.API.Controllers.SalesOrder.SalesOrderController"/> class.

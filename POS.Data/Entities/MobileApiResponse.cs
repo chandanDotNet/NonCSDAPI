@@ -323,6 +323,16 @@ namespace POS.Data.Entities
         public string Body { get; set; }
         public string DeviceToken { get; set; }
     }
+
+    public class TotalPaymentsSalesReportResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }       
+        public string PaymentType { get; set; }      
+        public string TotalAmount { get; set; }      
+
+    }
 }
 
 
