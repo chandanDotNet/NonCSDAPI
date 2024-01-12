@@ -202,8 +202,8 @@ namespace POS.Domain
             modelBuilder.Entity<InquiryAttachment>()
                .HasQueryFilter(p => !p.IsDeleted);
 
-            //modelBuilder.Entity<SalesOrder>()
-            //    .HasQueryFilter(p => !p.IsDeleted);
+            modelBuilder.Entity<SalesOrder>()
+                .HasQueryFilter(p => !p.IsDeleted);
 
             modelBuilder.Entity<Tax>()
               .HasQueryFilter(p => !p.IsDeleted);
