@@ -155,14 +155,14 @@ namespace POS.API.Controllers.MobileApp
 
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Logged in successfully!";
                 response.Data = customersFromRepo.FirstOrDefault();
             }
             else
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid";
+                response.message = "Please wait! Server is not responding.";
                 response.Data = new CustomerDto { };
             }
 
@@ -194,7 +194,7 @@ namespace POS.API.Controllers.MobileApp
 
                     response.status = true;
                     response.StatusCode = 1;
-                    response.message = "Success";
+                    response.message = "OTP verified successfully!";
                     response.Data = customersFromRepo.FirstOrDefault();
                 }
                 else
@@ -209,7 +209,7 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid";
+                response.message = "Please wait! Server is not responding.";
                 response.Data = customersFromRepo.FirstOrDefault();
             }
 
@@ -240,7 +240,7 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid";
+                response.message = "Please wait! Server is not responding.";
                 response.Data = result;
             }
 
@@ -284,7 +284,7 @@ namespace POS.API.Controllers.MobileApp
                 {
                     response.status = false;
                     response.StatusCode = 0;
-                    response.message = "Invalid";
+                    response.message = "Please wait! Server is not responding.";
                     response.Data = result;
 
                 }
@@ -335,7 +335,7 @@ namespace POS.API.Controllers.MobileApp
                     {
                         response.status = false;
                         response.StatusCode = 0;
-                        response.message = "Invalid";
+                        response.message = "Please wait! Server is not responding.";
                         response.Data = new ProductDto { };
                     }
                 }
@@ -377,7 +377,7 @@ namespace POS.API.Controllers.MobileApp
                 {
                     response.status = false;
                     response.StatusCode = 0;
-                    response.message = "Invalid";
+                    response.message = "Please wait! Server is not responding.";
                 }
             }
             catch (Exception ex)
@@ -405,13 +405,13 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Product has been added to your cart";
             }
             else
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid";
+                response.message = "Please wait! Server is not responding.";
 
             }
             return Ok(response);
@@ -440,7 +440,7 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid";
+                response.message = "Please wait! Server is not responding.";
 
             }
             return Ok(response);
@@ -522,14 +522,14 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Your address added successfully!";
                 response.Data = result.Data;
             }
             else
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid";
+                response.message = "Please wait! Server is not responding.";
             }
             return Ok(response);
         }
@@ -606,7 +606,7 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid";
+                response.message = "Please wait! Server is not responding.";
             }
 
             return Ok(response);
@@ -628,14 +628,14 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Your address deleted successfully!";
                 response.Data = new CustomerAddressDto[0];
             }
             else
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid";
+                response.message = "Please wait! Server is not responding.";
             }
 
             return Ok(response);
@@ -658,13 +658,13 @@ namespace POS.API.Controllers.MobileApp
                 {
                     response.status = true;
                     response.StatusCode = 1;
-                    response.message = "Success";
+                    response.message = "Your cart deleted successfully!";
                 }
                 else
                 {
                     response.status = false;
                     response.StatusCode = 0;
-                    response.message = "Invalid";
+                    response.message = "Please wait! Server is not responding.";
 
                 }
             }
@@ -695,13 +695,13 @@ namespace POS.API.Controllers.MobileApp
                 {
                     response.status = true;
                     response.StatusCode = 1;
-                    response.message = "Success";
+                    response.message = "Your cart deleted successfully!";
                 }
                 else
                 {
                     response.status = false;
                     response.StatusCode = 0;
-                    response.message = "Invalid";
+                    response.message = "Please wait! Server is not responding.";
                 }
             }
             else
@@ -734,14 +734,14 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Your addrsss updated successfully!";
                 response.Data = result.Data;
             }
             else
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid";
+                response.message = "Please wait! Server is not responding.";
             }
             return Ok(response);
         }
@@ -764,7 +764,7 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Product has been added to your wishlist!";
             }
             else
             {
@@ -849,7 +849,7 @@ namespace POS.API.Controllers.MobileApp
                 {
                     response.status = false;
                     response.StatusCode = 0;
-                    response.message = "Invalid";
+                    response.message = "Please wait! Server is not responding.";
 
                 }
             }
@@ -884,14 +884,14 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Card added successfully!";
                 response.Data = result.Data;
             }
             else
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid";
+                response.message = "Please wait! Server is not responding.";
             }
             return Ok(response);
         }
@@ -960,14 +960,14 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Card deleted successfully";
                 response.Data = new PaymentCardDto[0];
             }
             else
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid";
+                response.message = "IPlease wait! Server is not responding.nvalid";
             }
 
             return Ok(response);
@@ -993,7 +993,7 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Card updated successfully!";
                 response.Data = result.Data;
             }
             else
@@ -1050,7 +1050,7 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Profile updated successfully";
             }
             else
             {
@@ -1172,14 +1172,14 @@ namespace POS.API.Controllers.MobileApp
 
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Sales order created successfully!";
                 response.SalesOrderId = result.Data.Id;
             }
             else
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Invalid - " + result.Errors.First();
+                response.message = "Please wait! Server is not responding. - " + result.Errors.First();
             }
             return Ok(response);
         }
@@ -1250,7 +1250,7 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Success";
+                response.message = "Sales order updated successfully!";
             }
             else
             {
@@ -1766,6 +1766,34 @@ namespace POS.API.Controllers.MobileApp
         /// <returns></returns>
         [HttpDelete("DeleteBanner/{id}")]
         public async Task<IActionResult> DeleteBanner(Guid Id)
+        {
+            var deleteBannerCommand = new DeleteBannerCommand { Id = Id };
+            var result = await _mediator.Send(deleteBannerCommand);
+            //return ReturnFormattedResponse(result);            
+            BannerListResponseData response = new BannerListResponseData();
+            if (result.Success)
+            {
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Success";
+                response.Data = new BannerDto[0];
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Invalid";
+            }
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Delete Category Banner.
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpDelete("DeleteCategoryBanner/{id}")]
+        public async Task<IActionResult> DeleteCategoryBanner(Guid Id)
         {
             var deleteBannerCommand = new DeleteBannerCommand { Id = Id };
             var result = await _mediator.Send(deleteBannerCommand);
