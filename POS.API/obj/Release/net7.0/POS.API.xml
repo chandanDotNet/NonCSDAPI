@@ -1138,6 +1138,13 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.DeleteCategoryBanner(System.Guid)">
+            <summary>
+            Delete Category Banner.
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.DownloadStockInventoryFile">
             <summary>
             Download Stock Inventory File Format.
