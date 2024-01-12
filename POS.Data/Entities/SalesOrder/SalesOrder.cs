@@ -39,11 +39,11 @@ namespace POS.Data
         public string PaymentType { get; set; }
         public Counter Counter { get; set; }
         public Guid? CounterId { get; set; }
-
         public SalesOrderReturnPaymentStatus? PaymentReturnStatus { get; set; }
         public string? UTRNo { get; set; }
         public DateTime? PaymentReturnDate { get; set; }
         public string? OfflineMode { get; set; }
-
+        public string? CancelReason { get; set; }
+        public string? StatusType { get; set; }
     }
 }

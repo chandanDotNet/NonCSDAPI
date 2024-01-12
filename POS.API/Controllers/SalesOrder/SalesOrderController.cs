@@ -308,7 +308,46 @@ namespace POS.API.Controllers.SalesOrder
             return Ok(Counter);
         }
 
+        /// <summary>
+        /// Cancel Sales order Status.
+        /// </summary>
+        /// <param name="cancelSalesOrderCommand">The add Sales order command.</param>
+        /// <returns></returns>
+        [HttpPut("CancelSalesOrder")]
+        [Produces("application/json", "application/xml", Type = typeof(SalesOrderDto))]
+        public async Task<IActionResult> CancelSalesOrder(CancelSalesOrderCommand cancelSalesOrderCommand)
+        {
+            var result = await _mediator.Send(cancelSalesOrderCommand);
+            return ReturnFormattedResponse(result);
+        }
 
+        /// <summary>
+        /// Gets all cancel sales order.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("CancelSalesOrder")]
+        [Produces("application/json", "application/xml", Type = typeof(List<SalesOrderDto>))]
+        public async Task<IActionResult> GetAllCancelSalesOrder([FromQuery] SalesOrderResource salesOrderResource)
+        {
+            var getAllCancelSalesOrderQuery = new GetAllCancelSalesOrderCommand
+            {
+                SalesOrderResource = salesOrderResource
+            };
+            var salesOrders = await _mediator.Send(getAllCancelSalesOrderQuery);
+
+            var paginationMetadata = new
+            {
+                totalCount = salesOrders.TotalCount,
+                pageSize = salesOrders.PageSize,
+                skip = salesOrders.Skip,
+                totalPages = salesOrders.TotalPages
+            };
+
+            Response.Headers.Add("X-Pagination",
+                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+            return Ok(salesOrders);
+        }
     }
 }
 

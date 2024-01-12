@@ -91,7 +91,9 @@ namespace POS.Repository
                  OfflineMode = cs.OfflineMode,
                  PaymentReturnDate = cs.PaymentReturnDate,
                  PaymentReturnStatus = cs.PaymentReturnStatus,
-                 MobileNo = cs.Customer.MobileNo
+                 MobileNo = cs.Customer.MobileNo,
+                 StatusType = cs.StatusType,
+                 CancelReason = cs.CancelReason
              })
              .ToListAsync();
                 for (int i = 0; i < entities.Count; i++)
@@ -164,7 +166,9 @@ namespace POS.Repository
                   OfflineMode = cs.OfflineMode,
                   PaymentReturnDate = cs.PaymentReturnDate,
                   PaymentReturnStatus = cs.PaymentReturnStatus,
-                  MobileNo = cs.Customer.MobileNo
+                  MobileNo = cs.Customer.MobileNo,
+                  StatusType = cs.StatusType,
+                  CancelReason = cs.CancelReason
               })
               .ToListAsync();
                 for (int i = 0; i < entities.Count; i++)

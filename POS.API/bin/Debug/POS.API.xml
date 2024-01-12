@@ -1807,6 +1807,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.SalesOrder.SalesOrderController.CancelSalesOrder(POS.MediatR.SalesOrder.Commands.CancelSalesOrderCommand)">
+            <summary>
+            Cancel Sales order Status.
+            </summary>
+            <param name="cancelSalesOrderCommand">The add Sales order command.</param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.SalesOrder.SalesOrderController.GetAllCancelSalesOrder(POS.Data.Resources.SalesOrderResource)">
+            <summary>
+            Gets all cancel sales order.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:POS.API.Controllers.SendEmailController">
             <summary>
             Supplier Controller
