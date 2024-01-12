@@ -313,9 +313,9 @@ namespace POS.API.Controllers.SalesOrder
         /// </summary>
         /// <param name="cancelSalesOrderCommand">The add Sales order command.</param>
         /// <returns></returns>
-        [HttpPut("CancelSalesOrder")]
+        [HttpPost("CancelSalesOrder")]
         [Produces("application/json", "application/xml", Type = typeof(SalesOrderDto))]
-        public async Task<IActionResult> CancelSalesOrder(CancelSalesOrderCommand cancelSalesOrderCommand)
+        public async Task<IActionResult> CancelSalesOrder([FromBody] CancelSalesOrderCommand cancelSalesOrderCommand)
         {
             var result = await _mediator.Send(cancelSalesOrderCommand);
             return ReturnFormattedResponse(result);
@@ -325,7 +325,7 @@ namespace POS.API.Controllers.SalesOrder
         /// Gets all cancel sales order.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("CancelSalesOrder")]
+        [HttpGet("CancelSalesOrderList")]
         [Produces("application/json", "application/xml", Type = typeof(List<SalesOrderDto>))]
         public async Task<IActionResult> GetAllCancelSalesOrder([FromQuery] SalesOrderResource salesOrderResource)
         {
