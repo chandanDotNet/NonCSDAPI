@@ -1172,7 +1172,7 @@ namespace POS.API.Controllers.MobileApp
 
                 response.status = true;
                 response.StatusCode = 1;
-                response.message = "Sales order created successfully!";
+                response.message = "Order placed successfully!";
                 response.SalesOrderId = result.Data.Id;
             }
             else
