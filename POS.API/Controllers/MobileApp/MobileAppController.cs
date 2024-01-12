@@ -1795,16 +1795,16 @@ namespace POS.API.Controllers.MobileApp
         [HttpDelete("DeleteCategoryBanner/{id}")]
         public async Task<IActionResult> DeleteCategoryBanner(Guid Id)
         {
-            var deleteBannerCommand = new DeleteBannerCommand { Id = Id };
-            var result = await _mediator.Send(deleteBannerCommand);
+            var deleteCategoryBannerCommand = new DeleteCategoryBannerCommand { Id = Id };
+            var result = await _mediator.Send(deleteCategoryBannerCommand);
             //return ReturnFormattedResponse(result);            
-            BannerListResponseData response = new BannerListResponseData();
+            CategoryBannerListResponseData response = new CategoryBannerListResponseData();
             if (result.Success)
             {
                 response.status = true;
                 response.StatusCode = 1;
                 response.message = "Success";
-                response.Data = new BannerDto[0];
+                response.Data = new CategoryBannerDto[0];
             }
             else
             {
