@@ -31,7 +31,7 @@ namespace POS.Repository
             var collectionBeforePaging = AllIncluding(c => c.Customer, u => u.User, k => k.Counter
             //, r => r.User.Counter,
             //    cs => cs.SalesOrderItems, cp => cp.SalesOrderPayments
-                ).ApplySort(salesOrderResource.OrderBy,
+                ).Where(x => x.IsDeleted == false).ApplySort(salesOrderResource.OrderBy,
                  _propertyMappingService.GetPropertyMapping<SalesOrderDto, SalesOrder>());
 
 
@@ -84,7 +84,7 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                    .Where(a => a.SOCreatedDate >= new DateTime(salesOrderResource.SOCreatedDate.Value.Year, salesOrderResource.SOCreatedDate.Value.Month, salesOrderResource.SOCreatedDate.Value.Day, 0, 0, 1));
 
-                collectionBeforePaging = collectionBeforePaging                   
+                collectionBeforePaging = collectionBeforePaging
                 .Where(a => a.SOCreatedDate <= new DateTime(salesOrderResource.SOCreatedDate.Value.Year, salesOrderResource.SOCreatedDate.Value.Month, salesOrderResource.SOCreatedDate.Value.Day, 23, 59, 59));
             }
 
@@ -124,12 +124,14 @@ namespace POS.Repository
             {
                 if (salesOrderResource.CounterName != "all")
                 {
-                    if (salesOrderResource.CounterName == "App"){
+                    if (salesOrderResource.CounterName == "App")
+                    {
                         collectionBeforePaging = collectionBeforePaging
                    .Where(a => a.IsAppOrderRequest == true);
 
                     }
-                    else {
+                    else
+                    {
                         collectionBeforePaging = collectionBeforePaging
                         .Where(a => a.Counter.CounterName == salesOrderResource.CounterName);
                     }
@@ -141,8 +143,127 @@ namespace POS.Repository
                 }
             }
 
+            var salesOrders = new SalesOrderList(_mapper);
+            return await salesOrders
+                .Create(collectionBeforePaging, salesOrderResource.Skip, salesOrderResource.PageSize);
+        }
+
+        public async Task<SalesOrderList> GetAllCancelSalesOrders(SalesOrderResource salesOrderResource)
+        {
+            var collectionBeforePaging = AllIncluding(c => c.Customer, u => u.User, k => k.Counter
+            //, r => r.User.Counter,
+            //    cs => cs.SalesOrderItems, cp => cp.SalesOrderPayments
+                ).Where(x => x.IsDeleted == true).ApplySort(salesOrderResource.OrderBy,
+                 _propertyMappingService.GetPropertyMapping<SalesOrderDto, SalesOrder>());
 
 
+            collectionBeforePaging = collectionBeforePaging
+               .Where(a => a.IsSalesOrderRequest == salesOrderResource.IsSalesOrderRequest);
+
+            if (salesOrderResource.Status != SalesOrderStatus.All)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Status == salesOrderResource.Status);
+            }
+
+            if (salesOrderResource.CustomerId.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.CustomerId == salesOrderResource.CustomerId);
+            }
+
+            if (salesOrderResource.ProductId.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.SalesOrderItems.Any(c => c.ProductId == salesOrderResource.ProductId));
+            }
+
+            if (salesOrderResource.FromDate.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.SOCreatedDate >= new DateTime(salesOrderResource.FromDate.Value.Year, salesOrderResource.FromDate.Value.Month, salesOrderResource.FromDate.Value.Day, 0, 0, 1));
+            }
+            if (salesOrderResource.ToDate.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.SOCreatedDate <= new DateTime(salesOrderResource.ToDate.Value.Year, salesOrderResource.ToDate.Value.Month, salesOrderResource.ToDate.Value.Day, 23, 59, 59));
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(salesOrderResource.CustomerName))
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Customer.CustomerName == salesOrderResource.CustomerName.GetUnescapestring());
+            }
+            if (!string.IsNullOrWhiteSpace(salesOrderResource.MobileNo))
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Customer.MobileNo == salesOrderResource.MobileNo.GetUnescapestring());
+            }
+
+            if (salesOrderResource.SOCreatedDate.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                   .Where(a => a.SOCreatedDate >= new DateTime(salesOrderResource.SOCreatedDate.Value.Year, salesOrderResource.SOCreatedDate.Value.Month, salesOrderResource.SOCreatedDate.Value.Day, 0, 0, 1));
+
+                collectionBeforePaging = collectionBeforePaging
+                .Where(a => a.SOCreatedDate <= new DateTime(salesOrderResource.SOCreatedDate.Value.Year, salesOrderResource.SOCreatedDate.Value.Month, salesOrderResource.SOCreatedDate.Value.Day, 23, 59, 59));
+            }
+
+            if (!string.IsNullOrWhiteSpace(salesOrderResource.OrderNumber))
+            {
+                var orderNumber = salesOrderResource.OrderNumber.Trim();
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => EF.Functions.Like(a.OrderNumber, $"%{orderNumber}%"));
+
+            }
+            if (!string.IsNullOrWhiteSpace(salesOrderResource.OrderDeliveryStatus))
+            {
+                var orderDeliveryStatus = salesOrderResource.OrderDeliveryStatus;
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => EF.Functions.Like(a.OrderDeliveryStatus, $"%{orderDeliveryStatus}%"));
+
+            }
+
+            if (salesOrderResource.IsAppOrderRequest.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.IsAppOrderRequest == salesOrderResource.IsAppOrderRequest);
+
+                if (salesOrderResource.IsAppOrderRequest == true)
+                {
+                    salesOrderResource.CounterName = string.Empty;
+                }
+            }
+
+            if (salesOrderResource.IsAdvanceOrderRequest.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.IsAdvanceOrderRequest == salesOrderResource.IsAdvanceOrderRequest);
+            }
+
+            if (!string.IsNullOrWhiteSpace(salesOrderResource.CounterName))
+            {
+                if (salesOrderResource.CounterName != "all")
+                {
+                    if (salesOrderResource.CounterName == "App")
+                    {
+                        collectionBeforePaging = collectionBeforePaging
+                   .Where(a => a.IsAppOrderRequest == true);
+
+                    }
+                    else
+                    {
+                        collectionBeforePaging = collectionBeforePaging
+                        .Where(a => a.Counter.CounterName == salesOrderResource.CounterName);
+                    }
+                }
+                else
+                {
+                    collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.IsAppOrderRequest == false);
+                }
+            }
 
             var salesOrders = new SalesOrderList(_mapper);
             return await salesOrders

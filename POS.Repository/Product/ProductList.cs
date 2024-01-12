@@ -103,7 +103,7 @@ namespace POS.Repository
 
                 }).ToListAsync();
 
-            return entities.OrderBy(p => p.Name).ToList();
+            return entities.ToList();
         }
     }
 }

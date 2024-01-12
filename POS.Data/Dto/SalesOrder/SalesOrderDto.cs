@@ -47,5 +47,7 @@ namespace POS.Data.Dto
         public DateTime? PaymentReturnDate { get; set; }
         public string? OfflineMode { get; set; }
         public string? MobileNo { get; set; }
+        public string? CancelReason { get; set; }
+        public string? StatusType { get; set; }
     }
 }

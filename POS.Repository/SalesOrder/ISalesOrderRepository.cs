@@ -12,5 +12,6 @@ namespace POS.Repository
     public interface ISalesOrderRepository : IGenericRepository<SalesOrder>
     {
         Task<SalesOrderList> GetAllSalesOrders(SalesOrderResource salesOrderResource);
+        Task<SalesOrderList> GetAllCancelSalesOrders(SalesOrderResource salesOrderResource);
     }
 }

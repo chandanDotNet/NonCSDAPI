@@ -37,7 +37,7 @@ namespace POS.Repository
         public async Task<ProductList> GetProducts(ProductResource productResource)
         {
             var collectionBeforePaging =
-                AllIncluding(c => c.Brand, cs => cs.ProductCategory, u => u.Unit, c => c.ProductTaxes, (d => d.Cart), (i => i.Inventory)).OrderByDescending(p=>p.ProductUrl).ApplySort(productResource.ProductUrl, _propertyMappingService.GetPropertyMapping<ProductDto, Product>());
+                AllIncluding(c => c.Brand, cs => cs.ProductCategory, u => u.Unit, c => c.ProductTaxes, (d => d.Cart), (i => i.Inventory)).OrderBy(p => p.Name).ThenByDescending(p => p.ProductUrl).ApplySort(productResource.ProductUrl, _propertyMappingService.GetPropertyMapping<ProductDto, Product>());
 
             if (!string.IsNullOrWhiteSpace(productResource.Name))
             {
