@@ -31,7 +31,7 @@ namespace POS.Repository
             var collectionBeforePaging = AllIncluding(c => c.Customer, u => u.User, k => k.Counter
             //, r => r.User.Counter,
             //    cs => cs.SalesOrderItems, cp => cp.SalesOrderPayments 
-                ).Where(x => x.IsDeleted == false).ApplySort(salesOrderResource.OrderBy,
+                ).ApplySort(salesOrderResource.OrderBy,
                  _propertyMappingService.GetPropertyMapping<SalesOrderDto, SalesOrder>());
 
 
