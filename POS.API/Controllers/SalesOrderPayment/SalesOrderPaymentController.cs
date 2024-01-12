@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using POS.API.Helpers;
 using POS.Data.Dto;
+using POS.Data.Entities;
 using POS.Data.Resources;
 using POS.MediatR.SalesOrderPayment.Command;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace POS.API.Controllers.SalesOrderPayment
@@ -105,6 +107,53 @@ namespace POS.API.Controllers.SalesOrderPayment
                     Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
             return Ok(salesOrderPayments);
+        }
+
+        /// <summary>
+        /// Get Total Purchase Order payments Report.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("TotalReport")]
+        [ClaimCheck("REP_SO_PAYMENT_REP")]
+        [Produces("application/json", "application/xml", Type = typeof(List<SalesOrderPaymentDto>))]
+        public async Task<IActionResult> GetAllSalesOrderTotalPaymentsReport([FromQuery] SalesOrderResource salesOrderResource)
+        {
+            TotalPaymentsSalesReportResponseData response=new TotalPaymentsSalesReportResponseData();
+            var getAllSalesOrderPaymentsReportCommand = new GetAllSalesOrderPaymentsReportCommand
+            {
+                SalesOrderResource = salesOrderResource
+            };
+            var salesOrderPayments = await _mediator.Send(getAllSalesOrderPaymentsReportCommand);
+
+            //var paginationMetadata = new
+            //{
+            //    totalCount = salesOrderPayments.TotalCount,
+            //    pageSize = salesOrderPayments.PageSize,
+            //    skip = salesOrderPayments.Skip,
+            //    totalPages = salesOrderPayments.TotalPages
+            //};
+            
+            if (salesOrderPayments!=null)
+            {
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Success";
+                response.TotalAmount= salesOrderPayments.Sum(x => x.Amount).ToString("0.00");
+                response.PaymentType = "Cash";
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Invalid";
+            }
+
+            
+
+            //Response.Headers.Add("X-Pagination",
+            //        Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+            return Ok(response);
         }
     }
 }
