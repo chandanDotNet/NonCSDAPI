@@ -162,7 +162,7 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Please wait! Server is not responding.";
+                response.message = "Mobile number not exist.";
                 response.Data = new CustomerDto { };
             }
 
@@ -209,7 +209,7 @@ namespace POS.API.Controllers.MobileApp
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = "Please wait! Server is not responding.";
+                response.message = "Invalid OTP";
                 response.Data = customersFromRepo.FirstOrDefault();
             }
 
