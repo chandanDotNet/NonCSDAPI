@@ -330,8 +330,16 @@ namespace POS.Data.Entities
         public int StatusCode { get; set; }
         public string message { get; set; }       
         public string PaymentType { get; set; }      
-        public string TotalAmount { get; set; }      
+        public string TotalAmount { get; set; }
+        public List<PaymentsData> Data { get; set; }
 
+    }
+
+    public class PaymentsData
+    {
+        public string PaymentMethod { get; set; }
+        public decimal TotalAmount { get; set; }
+        
     }
 }
 

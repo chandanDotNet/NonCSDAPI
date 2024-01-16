@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using POS.API.Helpers;
+using POS.Data;
 using POS.Data.Dto;
 using POS.Data.Entities;
 using POS.Data.Resources;
@@ -119,6 +120,7 @@ namespace POS.API.Controllers.SalesOrderPayment
         public async Task<IActionResult> GetAllSalesOrderTotalPaymentsReport([FromQuery] SalesOrderResource salesOrderResource)
         {
             TotalPaymentsSalesReportResponseData response=new TotalPaymentsSalesReportResponseData();
+            List<PaymentsData> paymentsData = new List<PaymentsData>();
             var getAllSalesOrderPaymentsReportCommand = new GetAllSalesOrderPaymentsReportCommand
             {
                 SalesOrderResource = salesOrderResource
@@ -135,11 +137,31 @@ namespace POS.API.Controllers.SalesOrderPayment
             
             if (salesOrderPayments!=null)
             {
+
+                var paymentsData1 = salesOrderPayments.GroupBy(x => x.PaymentMethod)
+                       .Select(x => new
+                       {
+                           PaymentMethod = x.Max(y => y.PaymentMethod),                           
+                           TotalAmount = x.Sum(y => y.Amount)                         
+
+                       }).ToList();
+
+                foreach(var payments in paymentsData1)
+                {
+                    var PaymentsData2 = new PaymentsData();
+                    PaymentsData2.PaymentMethod = payments.PaymentMethod.ToString();
+                    PaymentsData2.TotalAmount = payments.TotalAmount;
+                    paymentsData.Add(PaymentsData2);
+                }
+
                 response.status = true;
                 response.StatusCode = 1;
                 response.message = "Success";
-                response.TotalAmount= salesOrderPayments.Sum(x => x.Amount).ToString("0.00");
-                response.PaymentType = "Cash";
+                //response.TotalAmount = salesOrderPayments.Sum(x => x.Amount).ToString("0.00");
+                //response.PaymentType = "Cash";
+                response.Data = paymentsData;
+
+
             }
             else
             {
