@@ -33,6 +33,7 @@ namespace POS.MediatR.NonCSDCanteen.Handler
                 {
                     Id = c.Id,
                     CanteenLocationName = c.CanteenLocationName,
+                    MainCategoryId = c.MainCategoryId,
                 }).ToListAsync();
             return entities;
         }

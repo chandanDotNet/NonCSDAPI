@@ -20,7 +20,6 @@ namespace POS.MediatR.CommandAndQuery
         public Guid CounterId { get; set; }
         public Guid? NonCSDCanteensId { get; set; }
         public string? PinCode { get; set; }
-
         public List<UserRoleDto> UserRoles { get; set; } = new List<UserRoleDto>();
     }
 }

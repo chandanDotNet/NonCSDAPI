@@ -34,5 +34,6 @@ namespace POS.Data
         public Guid? WarehouseId { get; set; }
         [ForeignKey("WarehouseId")]
         public Warehouse Warehouse { get; set; }
+
     }
 }

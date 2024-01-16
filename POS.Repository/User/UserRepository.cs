@@ -82,6 +82,7 @@ namespace POS.Repository
             ret.ProfilePhoto = appUser.ProfilePhoto;
             ret.CounterId = appUser.CounterId;
             ret.Counter = appUser.Counter;
+            ret.NonCSDCanteens = appUser.NonCSDCanteens;
             ret.NonCSDCanteensId = appUser.NonCSDCanteensId;
             
             // Get all claims for this user

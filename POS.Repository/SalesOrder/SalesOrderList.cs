@@ -93,7 +93,8 @@ namespace POS.Repository
                  PaymentReturnStatus = cs.PaymentReturnStatus,
                  MobileNo = cs.Customer.MobileNo,
                  StatusType = cs.StatusType,
-                 CancelReason = cs.CancelReason
+                 CancelReason = cs.CancelReason,
+                 ProductMainCategoryId = cs.ProductMainCategoryId
              })
              .ToListAsync();
                 for (int i = 0; i < entities.Count; i++)
@@ -156,7 +157,7 @@ namespace POS.Repository
                   OrderDeliveryStatus = cs.OrderDeliveryStatus,
                   AssignDeliveryPerson = cs.User.FirstName + " " + cs.User.LastName,
                   AssignDeliveryPersonId = cs.UserId,
-                  // DeliveryAddress = cs.DeliveryAddress
+                  //DeliveryAddress = cs.DeliveryAddress
                   CounterName = cs.Counter.CounterName == null ? "App" : cs.Counter.CounterName,
                   Quantity = cs.SalesOrderItems.Sum(c => c.Quantity),
                   BillNo = cs.OrderNumber.Substring(3, cs.OrderNumber.Length),
@@ -168,7 +169,8 @@ namespace POS.Repository
                   PaymentReturnStatus = cs.PaymentReturnStatus,
                   MobileNo = cs.Customer.MobileNo,
                   StatusType = cs.StatusType,
-                  CancelReason = cs.CancelReason
+                  CancelReason = cs.CancelReason,
+                  ProductMainCategoryId = cs.ProductMainCategoryId
               })
               .ToListAsync();
                 for (int i = 0; i < entities.Count; i++)

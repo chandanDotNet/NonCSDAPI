@@ -30,7 +30,8 @@ namespace POS.Repository
                 { "LastName", new PropertyMappingValue(new List<string>() { "LastName" } )},
                 { "PhoneNumber", new PropertyMappingValue(new List<string>() { "PhoneNumber" } )},
                 { "IsActive", new PropertyMappingValue(new List<string>() { "IsActive" } )},
-                { "NonCSDCanteensId", new PropertyMappingValue(new List<string>() { "NonCSDCanteensId" } )}
+                { "NonCSDCanteensId", new PropertyMappingValue(new List<string>() { "NonCSDCanteensId" } )},
+                { "MainCategoryId", new PropertyMappingValue(new List<string>() { "MainCategoryId" } )}
             };
 
         private Dictionary<string, PropertyMappingValue> _nLogMapping =
@@ -338,6 +339,7 @@ namespace POS.Repository
            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
            {
                 { "CanteenLocationName", new PropertyMappingValue(new List<string>() { "CanteenLocationName" } ) },
+                { "MainCategoryId", new PropertyMappingValue(new List<string>() { "MainCategoryId" } ) }
            };
 
         private Dictionary<string, PropertyMappingValue> _brandPropertyMapping =

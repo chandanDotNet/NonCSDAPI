@@ -30,6 +30,5 @@ namespace POS.MediatR.CommandAndQuery
         public Guid ProductMainCategoryId { get; set; }
         public Guid? CounterId { get; set; }
         public string PaymentType { get; set; }
-
     }
 }
