@@ -17989,7 +17989,11 @@ Error Number:53,State:0,Class:20
    at NLog.Targets.DatabaseTarget.WriteLogEventSuppressTransactionScope(LogEventInfo logEvent, String connectionString)
 ClientConnectionId:00000000-0000-0000-0000-000000000000
 Error Number:53,State:0,Class:20
+<<<<<<< HEAD
 2024-01-16 19:38:12.6749 Error DatabaseTarget(Name=db): Error when writing to database. Exception: Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+=======
+2024-01-16 16:25:14.3417 Error DatabaseTarget(Name=db): Error when writing to database. Exception: Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+>>>>>>> 8d80dc92ab685cac22871e15e7c43a6d88594dcc
  ---> System.ComponentModel.Win32Exception (53): The network path was not found.
    at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
    at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
@@ -18013,6 +18017,7 @@ Error Number:53,State:0,Class:20
    at NLog.Targets.DatabaseTarget.WriteLogEventSuppressTransactionScope(LogEventInfo logEvent, String connectionString)
 ClientConnectionId:00000000-0000-0000-0000-000000000000
 Error Number:53,State:0,Class:20
+<<<<<<< HEAD
 2024-01-16 19:38:12.8655 Error DatabaseTarget(Name=db): Error when writing to database. Exception: Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
  ---> System.ComponentModel.Win32Exception (53): The network path was not found.
    at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
@@ -18026,3 +18031,5 @@ Error Number:53,State:0,Class:20
    at NLog.Targets.DatabaseTarget.WriteLogEventSuppressTransactionScope(LogEventInfo logEvent, String connectionString)
 ClientConnectionId:00000000-0000-0000-0000-000000000000
 Error Number:53,State:0,Class:20
+=======
+>>>>>>> 8d80dc92ab685cac22871e15e7c43a6d88594dcc
