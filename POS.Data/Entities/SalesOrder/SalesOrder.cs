@@ -45,5 +45,6 @@ namespace POS.Data
         public string? OfflineMode { get; set; }
         public string? CancelReason { get; set; }
         public string? StatusType { get; set; }
+        public Guid? ProductMainCategoryId { get; set; }
     }
 }

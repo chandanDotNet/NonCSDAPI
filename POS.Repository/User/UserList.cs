@@ -57,8 +57,9 @@ namespace POS.Repository
                     IsActive = c.IsActive,
                     CounterId = c.CounterId,
                     NonCSDCanteensId = c.NonCSDCanteensId,
-                    PinCode = c.PinCode
-                    
+                    //MainCategoryId = _productRepository.All.Where(c => c.Id == cs.ProductId).FirstOrDefault().PurchasePrice,
+                    //MainCategoryId = c.NonCSDCanteens.Where(cs => (cs.Id == c.NonCSDCanteensId)).FirstOrDefault().MainCategoryId,
+                    PinCode = c.PinCode                    
                 })
                 .ToListAsync();
             return entities;

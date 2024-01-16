@@ -90,10 +90,5 @@ namespace POS.API.Controllers.Counter
             var result = await _mediator.Send(getCounterCommand);
             return ReturnFormattedResponse(result);
         }
-
-
-
-
-
     }
 }

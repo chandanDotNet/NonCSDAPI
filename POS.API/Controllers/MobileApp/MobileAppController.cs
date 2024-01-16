@@ -248,6 +248,20 @@ namespace POS.API.Controllers.MobileApp
         }
 
 
+        /// <summary>
+        /// Get Non CSD Canteen.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("GetNonCSDCanteen/{id}", Name = "GetNonCSDCanteen")]
+        [Produces("application/json", "application/xml", Type = typeof(NonCSDCanteenDto))]
+        public async Task<IActionResult> GetNonCSDCanteen(Guid id)
+        {
+            var getNonCSDCanteenCommand = new GetNonCSDCanteenCommand { Id = id };
+            var result = await _mediator.Send(getNonCSDCanteenCommand);
+            return ReturnFormattedResponse(result);
+        }
+
 
         /// <summary>
         /// Get All Products List.

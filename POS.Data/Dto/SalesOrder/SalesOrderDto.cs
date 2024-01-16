@@ -28,7 +28,6 @@ namespace POS.Data.Dto
         public List<SalesOrderItemDto> SalesOrderItems { get; set; }
         public List<SalesOrderPaymentDto> SalesOrderPayments { get; set; }
        // public List<CustomerAddressDto> DeliveryAddresses { get; set; }
-
         public CustomerDto Customer { get; set; }
         public bool? IsAppOrderRequest { get; set; }
         public bool? IsAdvanceOrderRequest { get; set; }
@@ -41,7 +40,6 @@ namespace POS.Data.Dto
         public string BillNo { get; set; }
         public string PaymentType { get; set; }
         public Guid? CounterId { get; set; }
-
         public SalesOrderReturnPaymentStatus? PaymentReturnStatus { get; set; }
         public string? UTRNo { get; set; }
         public DateTime? PaymentReturnDate { get; set; }
@@ -49,5 +47,6 @@ namespace POS.Data.Dto
         public string? MobileNo { get; set; }
         public string? CancelReason { get; set; }
         public string? StatusType { get; set; }
+        public Guid? ProductMainCategoryId { get; set; }
     }
 }

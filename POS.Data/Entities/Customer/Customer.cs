@@ -45,5 +45,6 @@ namespace POS.Data
         public string? DependantCard { get; set; }
         public string? ServiceNo { get; set; }
         public string? DeviceKey { get; set; }
+        public List<CustomerAddress> CustomerAddresses { get; set; }
     }
 }

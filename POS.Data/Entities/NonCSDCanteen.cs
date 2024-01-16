@@ -10,5 +10,6 @@ namespace POS.Data
     {
         public Guid Id { get; set; }
         public string CanteenLocationName { get; set; }
+        public Guid? MainCategoryId { get; set; }
     }
 }

@@ -869,6 +869,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetNonCSDCanteen(System.Guid)">
+            <summary>
+            Get Non CSD Canteen.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetProductsList(POS.Data.Resources.ProductResource)">
             <summary>
             Get All Products List.
