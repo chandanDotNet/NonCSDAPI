@@ -26,6 +26,7 @@ namespace POS.Data.Resources
         public string MobileNo { get; set; }
         public string? ProductCategoryName { get; set; }
         public Guid? ProductMainCategoryId { get; set; }
+        public string? BrandName { get; set; }
     }
 }
 

@@ -18,7 +18,7 @@ namespace POS.Data
         public decimal? Mrp { get; set; }
         public decimal? Margin { get; set; }
         public decimal? SalesPrice { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal TaxValue { get; set; }
         [Column(TypeName = "decimal(18,2)")]

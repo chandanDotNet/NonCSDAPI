@@ -15,7 +15,7 @@ namespace POS.Data.Dto
         public decimal? Margin { get; set; }
         public decimal? SalesPrice { get; set; }
         public string PurchaseOrderNumber { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public decimal TaxValue { get; set; }
         public decimal Discount { get; set; }
         public decimal DiscountPercentage { get; set; }
