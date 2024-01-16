@@ -27,7 +27,7 @@ namespace POS.API.Controllers.Manufacturer
         /// <returns></returns>
         [HttpPost("Manufacturer")]
         [Produces("application/json", "application/xml", Type = typeof(ManufacturerDto))]
-        public async Task<IActionResult> AddBrand(AddManufacturerCommand addManufacturerCommand)
+        public async Task<IActionResult> AddManufacturer(AddManufacturerCommand addManufacturerCommand)
         {
             var response = await _mediator.Send(addManufacturerCommand);
             if (!response.Success)

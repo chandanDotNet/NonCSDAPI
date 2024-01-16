@@ -834,7 +834,7 @@
             <param name="loginAuditResource"></param>
             <returns></returns>
         </member>
-        <member name="M:POS.API.Controllers.Manufacturer.ManufacturerController.AddBrand(POS.MediatR.Manufacturer.Command.AddManufacturerCommand)">
+        <member name="M:POS.API.Controllers.Manufacturer.ManufacturerController.AddManufacturer(POS.MediatR.Manufacturer.Command.AddManufacturerCommand)">
             <summary>
             Create Manufacturer.
             </summary>

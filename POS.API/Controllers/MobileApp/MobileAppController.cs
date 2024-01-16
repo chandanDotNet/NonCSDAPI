@@ -262,7 +262,6 @@ namespace POS.API.Controllers.MobileApp
             return ReturnFormattedResponse(result);
         }
 
-
         /// <summary>
         /// Get All Products List.
         /// </summary>

@@ -143,6 +143,13 @@ namespace POS.Repository
                 }
             }
 
+            if (salesOrderResource.ProductMainCategoryId.HasValue)
+            {
+                // trim & ignore casing
+                collectionBeforePaging = collectionBeforePaging
+                   .Where(a => a.ProductMainCategoryId == salesOrderResource.ProductMainCategoryId);
+            }
+
             var salesOrders = new SalesOrderList(_mapper);
             return await salesOrders
                 .Create(collectionBeforePaging, salesOrderResource.Skip, salesOrderResource.PageSize);
