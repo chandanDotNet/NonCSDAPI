@@ -1085,6 +1085,39 @@
             <param name="sendEmailCommand"></param>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddNotice(POS.MediatR.Notice.Command.AddNoticeCommand)">
+            <summary>
+            Add Notice.
+            </summary>
+            <param name="addNoticeCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetNotices">
+            <summary>
+            Get Notices.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddHomePageBanner(POS.MediatR.Banner.Command.AddHomePageBannerCommand)">
+            <summary>
+            Add Home Page Banner.
+            </summary>
+            <param name="addHomePageBannerCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetHomePageBanners">
+            <summary>
+            Get Home Page Banners.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.DeleteHomePageBanner(System.Guid)">
+            <summary>
+            Delete Home Page Banner.
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddBanner(POS.MediatR.Banner.Command.AddBannerCommand)">
             <summary>
             Add Banner.

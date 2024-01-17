@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using POS.Common.UnitOfWork;
 using POS.Data;
 using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
 
 namespace POS.Common.GenericRepository
 {
