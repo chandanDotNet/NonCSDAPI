@@ -75,11 +75,11 @@ namespace POS.Repository
                 UnitId = c.Product.Unit.Id,
                 BrandName = c.Product.Brand.Name,
                 BrandId = c.Product.Brand.Id,
-                SupplierName = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.SupplierName,
-                SupplierId = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.Id,
+                //SupplierName = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.SupplierName,
+                //SupplierId = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.Id,
 
-                //SupplierName = c.Product.,
-                // SupplierId = c.Product.SupplierId,
+                SupplierName = c.Product.Supplier.SupplierName,
+                SupplierId = c.Product.SupplierId,
                 TotalStockAmount = c.AveragePurchasePrice * c.Stock,
                 ClosingStock = c.Stock,
                 InventoryHistories = _mapper.Map<List<InventoryHistoryDto>>(c.Product.InventoryHistories),
@@ -138,11 +138,14 @@ namespace POS.Repository
                    UnitId = c.Product.Unit.Id,
                    BrandName = c.Product.Brand.Name,
                    BrandId = c.Product.Brand.Id,
-                   SupplierName = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.SupplierName,
-                   SupplierId = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.Id,
+                   //SupplierName = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.SupplierName,
+                   //SupplierId = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.Id,
                    TotalStockAmount = c.AveragePurchasePrice * c.Stock,
                    ClosingStock = c.Stock,
                    InventoryHistories = _mapper.Map<List<InventoryHistoryDto>>(c.Product.InventoryHistories),
+
+                   SupplierName = c.Product.Supplier.SupplierName,
+                   SupplierId = c.Product.SupplierId,
                    //OpeningStock = c.Product.InventoryHistories.Where(cs => (cs.ProductId == c.ProductId)
                    //&& cs.CreatedDate >= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 0, 0, 1)
                    //&& cs.CreatedDate <= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 23, 59, 59))

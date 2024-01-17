@@ -52,5 +52,6 @@ namespace POS.Data
         public Guid? SupplierId { get; set; }
         public Guid? ManufacturerId { get; set; }
         public List<InventoryHistory> InventoryHistories { get; set; }
+        public Supplier Supplier { get; set; }
     }
 }
