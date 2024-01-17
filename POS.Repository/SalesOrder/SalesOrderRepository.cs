@@ -116,7 +116,15 @@ namespace POS.Repository
             {
                 if (salesOrderResource.CounterName == "all")
                 {
+                    if (salesOrderResource.IsAppOrderRequest == true)
+                    {
 
+                    }
+                    else
+                    {
+                        collectionBeforePaging = collectionBeforePaging
+                        .Where(a => a.IsAppOrderRequest == salesOrderResource.IsAppOrderRequest);
+                    }                   
                 }
                 else
                 {
@@ -131,7 +139,6 @@ namespace POS.Repository
                         collectionBeforePaging = collectionBeforePaging
                         .Where(a => a.IsAppOrderRequest == salesOrderResource.IsAppOrderRequest);
                     }
-
                 }
             }
             
