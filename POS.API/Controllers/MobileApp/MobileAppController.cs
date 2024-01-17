@@ -57,6 +57,7 @@ using System.Net;
 using System.Web;
 using static System.Net.Mime.MediaTypeNames;
 using FirebaseAdmin.Messaging;
+using POS.MediatR.Notice.Command;
 
 namespace POS.API.Controllers.MobileApp
 {
@@ -1430,6 +1431,130 @@ namespace POS.API.Controllers.MobileApp
         }
 
         /// <summary>
+        /// Add Notice.
+        /// </summary>
+        /// <param name="addNoticeCommand"></param>
+        /// <returns></returns>
+        [HttpPost("AddNotice")]
+        [Produces("application/json", "application/xml", Type = typeof(NoticeDto))]
+        public async Task<IActionResult> AddNotice(AddNoticeCommand addNoticeCommand)
+        {
+            var response = await _mediator.Send(addNoticeCommand);
+            if (!response.Success)
+            {
+                return ReturnFormattedResponse(response);
+            }
+            return CreatedAtAction("GetNotices", new { id = response.Data.Id }, response.Data);
+        }
+
+        /// <summary>
+        /// Get Notices.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetNotices")]
+        [Produces("application/json", "application/xml", Type = typeof(List<NoticeDto>))]
+        public async Task<IActionResult> GetNotices()
+        {
+            NoticeResponseData response = new NoticeResponseData();
+            var getAllNoticeCommand = new GetAllNoticeCommand { };
+            var result = await _mediator.Send(getAllNoticeCommand);
+
+            if (result.Count > 0)
+            {
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Success";
+                response.Data = result.FirstOrDefault();
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Invalid";
+                response.Data = result.FirstOrDefault();
+            }
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Add Home Page Banner.
+        /// </summary>
+        /// <param name="addHomePageBannerCommand"></param>
+        /// <returns></returns>
+        [HttpPost("AddHomePageBanner")]
+        [Produces("application/json", "application/xml", Type = typeof(HomePageBannerDto))]
+        public async Task<IActionResult> AddHomePageBanner(AddHomePageBannerCommand addHomePageBannerCommand)
+        {
+            var response = await _mediator.Send(addHomePageBannerCommand);
+            if (!response.Success)
+            {
+                return ReturnFormattedResponse(response);
+            }
+            return CreatedAtAction("GetHomePageBanners", new { id = response.Data.Id }, response.Data);
+        }
+
+        /// <summary>
+        /// Get Home Page Banners.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetHomePageBanners")]
+        [Produces("application/json", "application/xml", Type = typeof(List<HomePageBannerDto>))]
+        public async Task<IActionResult> GetHomePageBanners()
+        {
+            HomePageBannerListResponseData response = new HomePageBannerListResponseData();
+            var getAllHomePageBannerCommand = new GetAllHomePageBannerCommand { };
+            var result = await _mediator.Send(getAllHomePageBannerCommand);
+
+            var getAllNoticeCommand = new GetAllNoticeCommand { };
+            var noticeResult = await _mediator.Send(getAllNoticeCommand);
+
+            if (result.Count > 0)
+            {
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Success";
+                response.Text = noticeResult.FirstOrDefault().Text;
+                response.Data = result;
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Invalid";
+                response.Data = result;
+            }
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Delete Home Page Banner.
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpDelete("DeleteHomePageBanner/{id}")]
+        public async Task<IActionResult> DeleteHomePageBanner(Guid Id)
+        {
+            var deleteHomePageBannerCommand = new DeleteHomePageBannerCommand { Id = Id };
+            var result = await _mediator.Send(deleteHomePageBannerCommand);
+            //return ReturnFormattedResponse(result);            
+            HomePageBannerListResponseData response = new HomePageBannerListResponseData();
+            if (result.Success)
+            {
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Success";
+                response.Data = new HomePageBannerDto[0];
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Invalid";
+            }
+            return Ok(response);
+        }
+
+        /// <summary>
         /// Add Banner.
         /// </summary>
         /// <param name="addBannerCommand"></param>
@@ -1444,7 +1569,7 @@ namespace POS.API.Controllers.MobileApp
                 return ReturnFormattedResponse(response);
             }
             return CreatedAtAction("GetBanners", new { id = response.Data.Id }, response.Data);
-        }
+        }        
 
         /// <summary>
         /// Get Banners.
@@ -2809,5 +2934,51 @@ namespace POS.API.Controllers.MobileApp
             }
             return Ok("All Messages sent successfully!");
         }
+
+        ///// <summary>
+        ///// Get All Products List.
+        ///// </summary>
+        ///// <param name="productResource"></param>
+        ///// <returns></returns>
+        //[HttpPost("GetProductCount")]
+        //public async Task<IActionResult> GetProductCount(ProductResource productResource)
+        //{
+        //    ProductListResponseData response = new ProductListResponseData();
+        //    try
+        //    {
+        //        var getAllProductCommand = new GetAllProductCommand
+        //        {
+        //            ProductResource = productResource
+        //        };
+        //        var result = await _mediator.Send(getAllProductCommand);
+
+        //        if (result.Count > 0)
+        //        {
+        //            response.TotalCount = result.TotalCount;
+        //            response.PageSize = result.PageSize;
+        //            response.Skip = result.Skip;
+        //            response.TotalPages = result.TotalPages;
+
+        //            response.status = true;
+        //            response.StatusCode = 1;
+        //            response.message = "Success";
+        //        }
+        //        else
+        //        {
+        //            response.status = false;
+        //            response.StatusCode = 0;
+        //            response.message = "Please wait! Server is not responding.";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response.status = false;
+        //        response.StatusCode = 0;
+        //        response.message = ex.Message;
+        //    }
+        //    return Ok(response);
+        //}
+
+
     }
 }
