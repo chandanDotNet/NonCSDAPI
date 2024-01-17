@@ -35,7 +35,7 @@ namespace POS.Repository
         public async Task<SupplierList> GetSuppliers(SupplierResource supplierResource)
         {
             var collectionBeforePaging =
-                AllIncluding(c => c.SupplierAddress).ApplySort(supplierResource.OrderBy,
+                AllIncluding(c => c.SupplierAddress).ApplySort(supplierResource.SupplierName,
                 _propertyMappingService.GetPropertyMapping<SupplierDto, Supplier>());
 
             if (supplierResource.Id != null)
