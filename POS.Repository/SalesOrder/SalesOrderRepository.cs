@@ -130,19 +130,19 @@ namespace POS.Repository
                 {
                     if (!string.IsNullOrWhiteSpace(salesOrderResource.CounterName))
                     {
-                        collectionBeforePaging = collectionBeforePaging
-                            .Where(a => a.IsAppOrderRequest == salesOrderResource.IsAppOrderRequest &&
-                            a.Counter.CounterName == salesOrderResource.CounterName);
-                    }
-                    else
-                    {
-                        collectionBeforePaging = collectionBeforePaging
+                        if (salesOrderResource.IsAppOrderRequest == true)
+                        {
+                            collectionBeforePaging = collectionBeforePaging
                         .Where(a => a.IsAppOrderRequest == salesOrderResource.IsAppOrderRequest);
-                    }
+                        }
+                        else
+                        {
+                            collectionBeforePaging = collectionBeforePaging
+                            .Where(a => a.Counter.CounterName == salesOrderResource.CounterName);
+                        }                        
+                    }                   
                 }
-            }
-            
-
+            } 
 
 
             //if (salesOrderResource.IsAppOrderRequest.HasValue && salesOrderResource.CounterName != "all")
