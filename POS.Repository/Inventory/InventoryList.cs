@@ -77,6 +77,9 @@ namespace POS.Repository
                 BrandId = c.Product.Brand.Id,
                 SupplierName = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.SupplierName,
                 SupplierId = c.Product.PurchaseOrderItems.PurchaseOrder.Supplier.Id,
+
+                //SupplierName = c.Product.,
+                // SupplierId = c.Product.SupplierId,
                 TotalStockAmount = c.AveragePurchasePrice * c.Stock,
                 ClosingStock = c.Stock,
                 InventoryHistories = _mapper.Map<List<InventoryHistoryDto>>(c.Product.InventoryHistories),

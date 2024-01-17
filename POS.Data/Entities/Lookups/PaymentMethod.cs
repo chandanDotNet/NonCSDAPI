@@ -12,6 +12,7 @@ namespace POS.Data
         Cheque,
         CreditCard,
         COD,
-        Other
+        Other,
+        PaytmAndOnlinePayment
     }
 }

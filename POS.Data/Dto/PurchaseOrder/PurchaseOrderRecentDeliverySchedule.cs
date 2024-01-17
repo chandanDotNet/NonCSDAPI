@@ -10,7 +10,7 @@ namespace POS.Data.Dto
     {
         public Guid PurchaseOrderId { get; set; }
         public string PurchaseOrderNumber { get; set; }
-        public int TotalQuantity { get; set; }
+        public decimal TotalQuantity { get; set; }
         public DateTime ExpectedDispatchDate { get; set; }
         public Guid SupplierId { get; set; }
         public string SupplierName { get; set; }
