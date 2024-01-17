@@ -103,6 +103,15 @@ namespace POS.Repository
 
             }
 
+            if(salesOrderResource.IsAppOrderRequest.HasValue)
+            {
+
+            }
+            else
+            {
+                salesOrderResource.IsAppOrderRequest = false;
+            }
+
             if (salesOrderResource.IsAppOrderRequest.HasValue)
             {
                 if (salesOrderResource.CounterName == "all")
@@ -125,8 +134,9 @@ namespace POS.Repository
 
                 }
             }
+            
 
-           
+
 
             //if (salesOrderResource.IsAppOrderRequest.HasValue && salesOrderResource.CounterName != "all")
             //{
