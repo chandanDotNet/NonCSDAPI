@@ -105,14 +105,40 @@ namespace POS.Repository
 
             if (salesOrderResource.IsAppOrderRequest.HasValue)
             {
-                collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.IsAppOrderRequest == salesOrderResource.IsAppOrderRequest);
-
-                if (salesOrderResource.IsAppOrderRequest == true)
+                if (salesOrderResource.CounterName == "all")
                 {
-                    salesOrderResource.CounterName = string.Empty;
+
+                }
+                else
+                {
+                    if (!string.IsNullOrWhiteSpace(salesOrderResource.CounterName))
+                    {
+                        collectionBeforePaging = collectionBeforePaging
+                            .Where(a => a.IsAppOrderRequest == salesOrderResource.IsAppOrderRequest &&
+                            a.Counter.CounterName == salesOrderResource.CounterName);
+                    }
+                    else
+                    {
+                        collectionBeforePaging = collectionBeforePaging
+                        .Where(a => a.IsAppOrderRequest == salesOrderResource.IsAppOrderRequest);
+                    }
+
                 }
             }
+
+           
+
+            //if (salesOrderResource.IsAppOrderRequest.HasValue && salesOrderResource.CounterName != "all")
+            //{
+            //    collectionBeforePaging = collectionBeforePaging
+            //        .Where(a => a.IsAppOrderRequest == salesOrderResource.IsAppOrderRequest &&
+            //        a.Counter.CounterName == salesOrderResource.CounterName);
+
+            //    //if (salesOrderResource.IsAppOrderRequest == true)
+            //    //{
+            //    //    salesOrderResource.CounterName = string.Empty;
+            //    //}
+            //}
 
             if (salesOrderResource.IsAdvanceOrderRequest.HasValue)
             {
@@ -120,28 +146,28 @@ namespace POS.Repository
                     .Where(a => a.IsAdvanceOrderRequest == salesOrderResource.IsAdvanceOrderRequest);
             }
 
-            if (!string.IsNullOrWhiteSpace(salesOrderResource.CounterName))
-            {
-                if (salesOrderResource.CounterName != "all")
-                {
-                    if (salesOrderResource.CounterName == "App")
-                    {
-                        collectionBeforePaging = collectionBeforePaging
-                   .Where(a => a.IsAppOrderRequest == true);
+            //if (!string.IsNullOrWhiteSpace(salesOrderResource.CounterName))
+            //{
+            //    if (salesOrderResource.CounterName != "all")
+            //    {
+            //        if (salesOrderResource.CounterName == "App")
+            //        {
+            //            collectionBeforePaging = collectionBeforePaging
+            //       .Where(a => a.IsAppOrderRequest == true);
 
-                    }
-                    else
-                    {
-                        collectionBeforePaging = collectionBeforePaging
-                        .Where(a => a.Counter.CounterName == salesOrderResource.CounterName);
-                    }
-                }
-                else
-                {
-                    collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.IsAppOrderRequest == false);
-                }
-            }
+            //        }
+            //        else
+            //        {
+            //            collectionBeforePaging = collectionBeforePaging
+            //            .Where(a => a.Counter.CounterName == salesOrderResource.CounterName);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        collectionBeforePaging = collectionBeforePaging
+            //        .Where(a => a.IsAppOrderRequest == false);
+            //    }
+            //}
 
             if (salesOrderResource.ProductMainCategoryId.HasValue)
             {
