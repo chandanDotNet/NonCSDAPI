@@ -255,7 +255,7 @@ namespace POS.Repository
         public async Task<InventoryList> GetInventories(InventoryResource inventoryResource)
         {
             var collectionBeforePaging =
-                AllIncluding(c => c.Product,u => u.Product.Unit, b => b.Product.Brand).ApplySort(inventoryResource.OrderBy,
+                AllIncluding(c => c.Product,u => u.Product.Unit, b => b.Product.Brand, s => s.Product.Supplier).ApplySort(inventoryResource.OrderBy,
                 _propertyMappingService.GetPropertyMapping<InventoryDto, Inventory>());
 
             if (!string.IsNullOrWhiteSpace(inventoryResource.ProductName))

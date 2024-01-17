@@ -49,5 +49,6 @@ namespace POS.Data.Dto
         public decimal? MinQty { get; set; }
         public Guid? SupplierId { get; set; }
         public Guid? ManufacturerId { get; set; }
+        public SupplierDto Supplier { get; set; }
     }
 }
