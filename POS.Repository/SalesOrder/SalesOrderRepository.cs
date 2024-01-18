@@ -102,15 +102,15 @@ namespace POS.Repository
                     .Where(a => EF.Functions.Like(a.OrderDeliveryStatus, $"%{orderDeliveryStatus}%"));
 
             }
+           
+            //if (salesOrderResource.IsAppOrderRequest.HasValue)
+            //{
 
-            if(salesOrderResource.IsAppOrderRequest.HasValue)
-            {
-
-            }
-            else
-            {
-                salesOrderResource.IsAppOrderRequest = false;
-            }
+            //}
+            //else
+            //{
+            //    salesOrderResource.IsAppOrderRequest = false;
+            //}
 
             if (salesOrderResource.IsAppOrderRequest.HasValue)
             {
@@ -124,7 +124,7 @@ namespace POS.Repository
                     {
                         collectionBeforePaging = collectionBeforePaging
                         .Where(a => a.IsAppOrderRequest == salesOrderResource.IsAppOrderRequest);
-                    }                   
+                    }
                 }
                 else
                 {
@@ -139,10 +139,10 @@ namespace POS.Repository
                         {
                             collectionBeforePaging = collectionBeforePaging
                             .Where(a => a.Counter.CounterName == salesOrderResource.CounterName);
-                        }                        
-                    }                   
+                        }
+                    }
                 }
-            } 
+            }
 
 
             //if (salesOrderResource.IsAppOrderRequest.HasValue && salesOrderResource.CounterName != "all")
