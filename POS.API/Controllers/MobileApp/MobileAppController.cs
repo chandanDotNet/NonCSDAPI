@@ -2994,6 +2994,52 @@ namespace POS.API.Controllers.MobileApp
                 Data.message = "Invalid";
             }
 
+
+            //=============================================Counter Wise Bill =====================
+
+            var getAllSalesOrderQuery = new GetAllSalesOrderCommand
+            {
+                SalesOrderResource = salesOrderResource
+            };
+            var salesOrders = await _mediator.Send(getAllSalesOrderQuery);
+
+            var paginationMetadata = new
+            {
+                totalCount = salesOrders.TotalCount,
+                pageSize = salesOrders.PageSize,
+                skip = salesOrders.Skip,
+                totalPages = salesOrders.TotalPages
+            };
+
+            Response.Headers.Add("X-Pagination",
+                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+            //var TotalSO = (from so in salesOrders
+            //               select so).Sum(e => e.TotalAmount);
+
+            var Counter = salesOrders.Where(x => x.IsAppOrderRequest == false).GroupBy(x => x.CounterName)
+                        .Select(x => new
+                        {
+                            CounterName = x.Key,
+                            TotalAmount = x.Sum(y => y.TotalAmount)
+                        }).ToList();
+
+            var App = salesOrders.Where(x => x.IsAppOrderRequest == true).GroupBy(x => x.CounterName)
+                       .Select(x => new
+                       {
+                           CounterName = "App",
+                           TotalAmount = x.Sum(y => y.TotalAmount)
+                       }).ToList();
+
+            if (App.Count > 0)
+            {
+                Counter.Insert(Counter.Count, App.FirstOrDefault());
+            }
+
+            //========================================================
+
+
+
             Response.Headers.Add("X-Pagination",
                 Newtonsoft.Json.JsonConvert.SerializeObject(Data));
 

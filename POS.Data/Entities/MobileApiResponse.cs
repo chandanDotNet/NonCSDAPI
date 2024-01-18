@@ -364,6 +364,22 @@ namespace POS.Data.Entities
         public decimal TotalAmount { get; set; }
         
     }
+
+    public class DayWiseSummaryReportResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+
+        public string ProductCategoryName { get; set; }
+        public string PurAmount { get; set; }
+        public string TotalAmount { get; set; }
+
+        public string OtherPurAmount { get; set; }
+        public string OtherTotalAmount { get; set; }
+
+    }
+
 }
 
 
