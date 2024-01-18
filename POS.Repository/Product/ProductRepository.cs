@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
 
 namespace POS.Repository
 {
@@ -37,7 +38,7 @@ namespace POS.Repository
         public async Task<ProductList> GetProducts(ProductResource productResource)
         {
             var collectionBeforePaging =
-                AllIncluding(c => c.Brand, cs => cs.ProductCategory, u => u.Unit, c => c.ProductTaxes, (d => d.Cart), (i => i.Inventory)).OrderBy(p => p.Name).ThenByDescending(p => p.ProductUrl).ThenBy(p => p.Inventory.Stock)
+                AllIncluding(c => c.Brand, cs => cs.ProductCategory, u => u.Unit, c => c.ProductTaxes, (d => d.Cart), (i => i.Inventory)).OrderBy(p => p.Name).ThenByDescending(p => p.ProductUrl)
                .ApplySort(productResource.ProductUrl, _propertyMappingService.GetPropertyMapping<ProductDto, Product>());
 
             if (!string.IsNullOrWhiteSpace(productResource.Name))
