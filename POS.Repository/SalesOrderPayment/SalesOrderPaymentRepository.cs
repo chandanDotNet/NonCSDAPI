@@ -39,6 +39,12 @@ namespace POS.Repository
                     .Where(a => a.PaymentDate <= new DateTime(salesOrderResource.ToDate.Value.Year, salesOrderResource.ToDate.Value.Month, salesOrderResource.ToDate.Value.Day, 23, 59, 59));
             }
 
+            if(salesOrderResource.ProductMainCategoryId.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging.Where(a => a.SalesOrder.ProductMainCategoryId== salesOrderResource.ProductMainCategoryId)
+
+            }
+
 
             var saleOrderPaymentList = new SaleOrderPaymentList();
             return await saleOrderPaymentList

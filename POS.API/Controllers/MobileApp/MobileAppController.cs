@@ -2948,15 +2948,9 @@ namespace POS.API.Controllers.MobileApp
             var getSalesOrderItemsReportCommand = new GetSalesOrderItemsReportCommand { SalesOrderResource = salesOrderResource };
             var response = await _mediator.Send(getSalesOrderItemsReportCommand);
 
-            //var paginationMetadata = new
-            //{
-            //    totalCount = response.TotalCount,
-            //    pageSize = response.PageSize,
-            //    skip = response.Skip,
-            //    totalPages = response.TotalPages
-            //};
-
-            ProductCategoryWiseSalesReportResponseData Data = new ProductCategoryWiseSalesReportResponseData();
+            DayWiseSummaryReportResponseData Data = new DayWiseSummaryReportResponseData();
+            List<PaymentsData> paymentsData = new List<PaymentsData>();
+            List<CounterSalesData> counterSalesData = new List<CounterSalesData>();
 
             if (response != null)
             {
@@ -2982,6 +2976,7 @@ namespace POS.API.Controllers.MobileApp
 
                 Data.OtherTotalAmount = (TotalAmount - VegTotalAmount).ToString("0.00");
                 Data.OtherPurAmount = (PurAmount - VegPurAmount).ToString("0.00");
+
                 Data.status = true;
                 Data.StatusCode = 1;
                 Data.message = "Success";
@@ -2997,51 +2992,79 @@ namespace POS.API.Controllers.MobileApp
 
             //=============================================Counter Wise Bill =====================
 
+           
+
             var getAllSalesOrderQuery = new GetAllSalesOrderCommand
             {
                 SalesOrderResource = salesOrderResource
             };
             var salesOrders = await _mediator.Send(getAllSalesOrderQuery);
 
-            var paginationMetadata = new
+            if (salesOrders.Count > 0)
             {
-                totalCount = salesOrders.TotalCount,
-                pageSize = salesOrders.PageSize,
-                skip = salesOrders.Skip,
-                totalPages = salesOrders.TotalPages
-            };
 
-            Response.Headers.Add("X-Pagination",
-                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+                var Counter = salesOrders.Where(x => x.IsAppOrderRequest == false).GroupBy(x => x.CounterName)
+                            .Select(x => new
+                            {
+                                CounterName = x.Key,
+                                TotalAmount = x.Sum(y => y.TotalAmount)
+                            }).ToList();
 
-            //var TotalSO = (from so in salesOrders
-            //               select so).Sum(e => e.TotalAmount);
+                var App = salesOrders.Where(x => x.IsAppOrderRequest == true).GroupBy(x => x.CounterName)
+                           .Select(x => new
+                           {
+                               CounterName = "App",
+                               TotalAmount = x.Sum(y => y.TotalAmount)
+                           }).ToList();
 
-            var Counter = salesOrders.Where(x => x.IsAppOrderRequest == false).GroupBy(x => x.CounterName)
-                        .Select(x => new
-                        {
-                            CounterName = x.Key,
-                            TotalAmount = x.Sum(y => y.TotalAmount)
-                        }).ToList();
+                if (App.Count > 0)
+                {
+                    Counter.Insert(Counter.Count, App.FirstOrDefault());
+                }
 
-            var App = salesOrders.Where(x => x.IsAppOrderRequest == true).GroupBy(x => x.CounterName)
-                       .Select(x => new
-                       {
-                           CounterName = "App",
-                           TotalAmount = x.Sum(y => y.TotalAmount)
-                       }).ToList();
+                foreach (var payments in Counter)
+                {
+                    var CounterSalesData1 = new CounterSalesData();
+                    CounterSalesData1.CounterName = payments.CounterName.ToString();
+                    CounterSalesData1.TotalAmount = payments.TotalAmount;
+                    counterSalesData.Add(CounterSalesData1);
+                }
 
-            if (App.Count > 0)
-            {
-                Counter.Insert(Counter.Count, App.FirstOrDefault());
+                Data.CounterSalesData=counterSalesData;
             }
-
             //========================================================
 
 
+            var getAllSalesOrderPaymentsReportCommand = new GetAllSalesOrderPaymentsReportCommand
+            {
+                SalesOrderResource = salesOrderResource
+            };
+            var salesOrderPayments = await _mediator.Send(getAllSalesOrderPaymentsReportCommand);
 
-            Response.Headers.Add("X-Pagination",
-                Newtonsoft.Json.JsonConvert.SerializeObject(Data));
+            if (salesOrderPayments != null)
+            {
+
+                var paymentsData1 = salesOrderPayments.GroupBy(x => x.PaymentMethod)
+                       .Select(x => new
+                       {
+                           PaymentMethod = x.Max(y => y.PaymentMethod),
+                           TotalAmount = x.Sum(y => y.Amount)
+
+                       }).ToList();
+
+                foreach (var payments in paymentsData1)
+                {
+                    var PaymentsData2 = new PaymentsData();
+                    PaymentsData2.PaymentMethod = payments.PaymentMethod.ToString();
+                    PaymentsData2.TotalAmount = payments.TotalAmount;
+                    paymentsData.Add(PaymentsData2);
+                }
+
+                Data.PaymentsData = paymentsData;
+            }
+
+                //Response.Headers.Add("X-Pagination",
+                //Newtonsoft.Json.JsonConvert.SerializeObject(Data));
 
             return Ok(Data);
         }
