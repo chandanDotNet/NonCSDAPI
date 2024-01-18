@@ -201,3 +201,5 @@ D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Repository\obj\Debug\net7.0\POS.Repos
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Repository\obj\Debug\net7.0\POS.Repository.AssemblyInfoInputs.cache
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Repository\obj\Debug\net7.0\POS.Repository.AssemblyInfo.cs
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Repository\obj\Debug\net7.0\POS.Repository.csproj.CoreCompileInputs.cache
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Repository\obj\Debug\net7.0\POS.Repository.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Repository\obj\Debug\net7.0\POS.Repository.pdb

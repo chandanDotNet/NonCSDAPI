@@ -219,3 +219,5 @@ D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.MediatR\obj\Debug\net7.0\POS.MediatR.
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.MediatR\obj\Debug\net7.0\POS.MediatR.AssemblyInfoInputs.cache
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.MediatR\obj\Debug\net7.0\POS.MediatR.AssemblyInfo.cs
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.MediatR\obj\Debug\net7.0\POS.MediatR.csproj.CoreCompileInputs.cache
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.MediatR\obj\Debug\net7.0\POS.MediatR.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.MediatR\obj\Debug\net7.0\POS.MediatR.pdb
