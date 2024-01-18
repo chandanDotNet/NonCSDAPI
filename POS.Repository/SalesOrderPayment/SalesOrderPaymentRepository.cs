@@ -41,7 +41,7 @@ namespace POS.Repository
 
             if(salesOrderResource.ProductMainCategoryId.HasValue)
             {
-                collectionBeforePaging = collectionBeforePaging.Where(a => a.SalesOrder.ProductMainCategoryId== salesOrderResource.ProductMainCategoryId)
+                collectionBeforePaging = collectionBeforePaging.Where(a => a.SalesOrder.ProductMainCategoryId == salesOrderResource.ProductMainCategoryId);
 
             }
 

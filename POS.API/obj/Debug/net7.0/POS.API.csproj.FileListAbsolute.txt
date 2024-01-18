@@ -1,25 +1,3 @@
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.csproj.AssemblyReference.cache
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.GeneratedMSBuildEditorConfig.editorconfig
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.AssemblyInfoInputs.cache
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.AssemblyInfo.cs
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.csproj.CoreCompileInputs.cache
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.MvcApplicationPartsAssemblyInfo.cache
-<<<<<<< HEAD
-=======
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\staticwebassets\msbuild.POS.API.Microsoft.AspNetCore.StaticWebAssets.props
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\staticwebassets\msbuild.build.POS.API.props
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.POS.API.props
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.POS.API.props
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\staticwebassets.pack.json
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\staticwebassets.build.json
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\staticwebassets.development.json
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\scopedcss\bundle\POS.API.styles.css
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.csproj.CopyComplete
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.dll
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\refint\POS.API.dll
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.pdb
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\POS.API.genruntimeconfig.cache
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Debug\net7.0\ref\POS.API.dll
 D:\NON CSD API\POS.API\bin\Debug\net7.0\web.config
 D:\NON CSD API\POS.API\bin\Debug\net7.0\appsettings.Development.json
 D:\NON CSD API\POS.API\bin\Debug\net7.0\appsettings.json
@@ -165,4 +143,3 @@ D:\NON CSD API\POS.API\obj\Debug\net7.0\refint\POS.API.dll
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.pdb
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.genruntimeconfig.cache
 D:\NON CSD API\POS.API\obj\Debug\net7.0\ref\POS.API.dll
->>>>>>> 190a3eb201ac594af56ddb19ed22c3bd9dbf9b22
