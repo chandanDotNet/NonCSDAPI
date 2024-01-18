@@ -33,6 +33,22 @@
       "PackagePath": "staticwebassets\\DownloadFileFormat\\StockInventoryFormat.xlsx"
     },
     {
+<<<<<<< HEAD
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\HomePageBannerImages\\1eb4ffc2-f82c-4e55-81d6-4293a197f320.png",
+      "PackagePath": "staticwebassets\\HomePageBannerImages\\1eb4ffc2-f82c-4e55-81d6-4293a197f320.png"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\HomePageBannerImages\\8442b561-e31a-4498-91a8-ea5820a3307a.png",
+      "PackagePath": "staticwebassets\\HomePageBannerImages\\8442b561-e31a-4498-91a8-ea5820a3307a.png"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\HomePageBannerImages\\a0be6ab5-d1fc-42cd-8be8-1d4ffd38ac09.png",
+      "PackagePath": "staticwebassets\\HomePageBannerImages\\a0be6ab5-d1fc-42cd-8be8-1d4ffd38ac09.png"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\HomePageBannerImages\\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png",
+      "PackagePath": "staticwebassets\\HomePageBannerImages\\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png"
+=======
       "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\HomePageBannerImages\\1eb4ffc2-f82c-4e55-81d6-4293a197f320.png",
       "PackagePath": "staticwebassets\\HomePageBannerImages\\1eb4ffc2-f82c-4e55-81d6-4293a197f320.png"
     },
@@ -43,6 +59,7 @@
     {
       "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\HomePageBannerImages\\a0be6ab5-d1fc-42cd-8be8-1d4ffd38ac09.png",
       "PackagePath": "staticwebassets\\HomePageBannerImages\\a0be6ab5-d1fc-42cd-8be8-1d4ffd38ac09.png"
+>>>>>>> 190a3eb201ac594af56ddb19ed22c3bd9dbf9b22
     },
     {
       "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\HomePageBannerImages\\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png",

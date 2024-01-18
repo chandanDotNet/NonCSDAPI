@@ -365,11 +365,21 @@ namespace POS.Data.Entities
         
     }
 
+    public class CounterSalesData
+    {
+        public string CounterName { get; set; }
+        public decimal TotalAmount { get; set; }
+
+    }
+
     public class DayWiseSummaryReportResponseData
     {
         public bool status { get; set; }
         public int StatusCode { get; set; }
         public string message { get; set; }
+
+        public List<CounterSalesData> CounterSalesData { get; set; }
+        public List<PaymentsData> PaymentsData { get; set; }
 
         public string ProductCategoryName { get; set; }
         public string PurAmount { get; set; }
