@@ -103,7 +103,14 @@ namespace POS.Repository
 
                 }).ToListAsync();
 
-            return entities.ToList();
+            //return entities.ToList();
+
+            var stockList = entities.ToList().Where(x => x.Stock != 0).ToList().OrderBy(x => x.Name).ToList();
+            var outstockList = entities.ToList().Where(x => x.Stock == 0).ToList();
+
+            stockList.AddRange(outstockList);
+
+            return stockList.ToList();
         }
     }
 }
