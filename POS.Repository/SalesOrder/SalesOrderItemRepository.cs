@@ -78,6 +78,12 @@ namespace POS.Repository
                     .Where(a => a.SalesOrder.Customer.CustomerName == purchaseOrderResource.CustomerName.GetUnescapestring());
             }
 
+            if (purchaseOrderResource.ProductMainCategoryId.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.SalesOrder.ProductMainCategoryId == purchaseOrderResource.ProductMainCategoryId);
+            }
+
 
             if (!string.IsNullOrWhiteSpace(purchaseOrderResource.OrderNumber))
             {
