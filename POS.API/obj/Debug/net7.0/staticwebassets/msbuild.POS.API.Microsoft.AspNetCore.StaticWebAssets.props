@@ -192,6 +192,8 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\HomePageBannerImages\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png))</OriginalItemSpec>
     </StaticWebAsset>
+<<<<<<< HEAD
+=======
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\LoginPageBannerImages\3c344938-bcc7-4280-a60d-e2592c3586af.png))">
       <SourceType>Package</SourceType>
       <SourceId>POS.API</SourceId>
@@ -208,6 +210,7 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\LoginPageBannerImages\3c344938-bcc7-4280-a60d-e2592c3586af.png))</OriginalItemSpec>
     </StaticWebAsset>
+>>>>>>> 8b5622781399ae65c587ea76282d9dfa0a372ad0
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\LoginPageBannerImages\3d3b13e3-1b80-4a22-b98a-ea83a82e7dbd.png))">
       <SourceType>Package</SourceType>
       <SourceId>POS.API</SourceId>
