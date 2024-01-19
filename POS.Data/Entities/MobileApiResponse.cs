@@ -60,6 +60,7 @@ namespace POS.Data.Entities
         public bool status { get; set; }
         public int StatusCode { get; set; }
         public string message { get; set; }
+        public int productCount { get; set; }
         public IList<ProductCategoryDto> Data { get; set; }
     }
 
