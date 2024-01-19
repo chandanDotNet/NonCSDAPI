@@ -380,11 +380,15 @@ namespace POS.API.Controllers.MobileApp
             {
                 var result = await _mediator.Send(getAllProductCategoriesQuery);
                 result = result.Where(x => x.Name.ToLower() != "BAGGAGE".ToLower() && x.ProductMainCategoryId == getAllProductCategoriesQuery.ProductMainCategoryId).ToList();
+
+                var count = await GetProductCount(getAllProductCategoriesQuery.ProductMainCategoryId);
+
                 if (result.Count > 0)
                 {
                     response.status = true;
                     response.StatusCode = 1;
                     response.message = "Success";
+                    response.productCount = count;
                     response.Data = result;
                 }
                 else
@@ -3069,50 +3073,35 @@ namespace POS.API.Controllers.MobileApp
             return Ok(Data);
         }
 
-        ///// <summary>
-        ///// Get All Products List.
-        ///// </summary>
+        /// <summary>
+        /// Get All Products List.
+        /// </summary>
         ///// <param name="productResource"></param>
-        ///// <returns></returns>
-        //[HttpPost("GetProductCount")]
-        //public async Task<IActionResult> GetProductCount(ProductResource productResource)
-        //{
-        //    ProductListResponseData response = new ProductListResponseData();
-        //    try
-        //    {
-        //        var getAllProductCommand = new GetAllProductCommand
-        //        {
-        //            ProductResource = productResource
-        //        };
-        //        var result = await _mediator.Send(getAllProductCommand);
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet("GetProductCount/{Id}")]
+        public async Task<int> GetProductCount(Guid Id)
+        {
+            int count = 0;
+            try
+            {
+                ProductResource productResource = new ProductResource();
+                productResource.ProductMainCategoryId = Id;
+                var getAllProductCommand = new GetAllProductCommand
+                {
+                    ProductResource = productResource
+                };
+                var result = await _mediator.Send(getAllProductCommand);
 
-        //        if (result.Count > 0)
-        //        {
-        //            response.TotalCount = result.TotalCount;
-        //            response.PageSize = result.PageSize;
-        //            response.Skip = result.Skip;
-        //            response.TotalPages = result.TotalPages;
-
-        //            response.status = true;
-        //            response.StatusCode = 1;
-        //            response.message = "Success";
-        //        }
-        //        else
-        //        {
-        //            response.status = false;
-        //            response.StatusCode = 0;
-        //            response.message = "Please wait! Server is not responding.";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        response.status = false;
-        //        response.StatusCode = 0;
-        //        response.message = ex.Message;
-        //    }
-        //    return Ok(response);
-        //}
-
-
+                count = result.TotalCount;
+              
+                return count;
+            }
+            catch (Exception ex)
+            {
+                _ = ex;
+            }
+            return count;
+        }
     }
 }
