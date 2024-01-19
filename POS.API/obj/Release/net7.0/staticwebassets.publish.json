@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nDuFium9HCr8ey/SFLdWeiDAJlf2GeAxDO3qMfDshnM=",
+  "Hash": "dhBDX6w9iZLKSfyaeed6Avuqq0MZxDlrKxYtShE9sME=",
   "Source": "POS.API",
   "BasePath": "_content/POS.API",
   "Mode": "Default",
@@ -219,6 +219,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\HomePageBannerImages\\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png"
+    },
+    {
+      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\LoginPageBannerImages\\3c344938-bcc7-4280-a60d-e2592c3586af.png",
+      "SourceId": "POS.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "BasePath": "_content/POS.API",
+      "RelativePath": "LoginPageBannerImages/3c344938-bcc7-4280-a60d-e2592c3586af.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\LoginPageBannerImages\\3c344938-bcc7-4280-a60d-e2592c3586af.png"
     },
     {
       "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\LoginPageBannerImages\\3d3b13e3-1b80-4a22-b98a-ea83a82e7dbd.png",

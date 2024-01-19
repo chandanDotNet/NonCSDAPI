@@ -127,8 +127,9 @@ namespace POS.MediatR.Handlers
             {
                 c.SalesOrderId = salesOrderUpdate.Id;
                 c.CreatedDate = DateTime.UtcNow;
+                c.TotalSalesPrice= decimal.Round((decimal)c.UnitPrice*c.Quantity);
             });
-
+            salesOrderExit.TotalAmount = decimal.Round((decimal)salesOrderExit.SalesOrderItems.Sum(item => item.TotalSalesPrice));
             _salesOrderRepository.Update(salesOrderExit);
 
             var inventories = request.SalesOrderItems

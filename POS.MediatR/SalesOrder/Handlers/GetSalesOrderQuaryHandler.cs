@@ -65,13 +65,13 @@ namespace POS.MediatR.Handlers
                 {
                     entity.DeliveryAddress = entity.Customer.Address;
                 }
-                //if (entity.SalesOrderItems.Count > 0)
-                //{
-                //    for (int i = 0; i < entity.SalesOrderItems.Count; i++)
-                //    {
-                //        entity.SalesOrderItems[i].SaveAmount = (entity.SalesOrderItems[i].Product.Mrp * entity.SalesOrderItems[i].Quantity) - (entity.SalesOrderItems[i].Product.SalesPrice * entity.SalesOrderItems[i].Quantity);
-                //    }
-                //}
+                if (entity.SalesOrderItems.Count > 0)
+                {
+                    for (int i = 0; i < entity.SalesOrderItems.Count; i++)
+                    {
+                        entity.SalesOrderItems[i].TotalSalesPrice = decimal.Round((decimal)(entity.SalesOrderItems[i].UnitPrice * entity.SalesOrderItems[i].Quantity));
+                    }
+                }
             }
             var dto = _mapper.Map<SalesOrderDto>(entity);
             dto.BillNo = dto.OrderNumber.Substring(3, dto.OrderNumber.Length - 3);

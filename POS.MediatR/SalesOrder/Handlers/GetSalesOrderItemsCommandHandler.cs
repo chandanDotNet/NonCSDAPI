@@ -48,7 +48,7 @@ namespace POS.MediatR.SalesOrder.Handlers
                     Discount = c.Discount,
                     TaxValue = c.TaxValue,
                     ProductId = c.ProductId,
-                    
+                    Total= decimal.Round((decimal)c.UnitPrice* c.Quantity),
                     SalesOrderId = c.SalesOrderId,
                     Id = c.Id,
                     Status = c.Status,
