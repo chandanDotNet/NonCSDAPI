@@ -70,8 +70,9 @@ namespace POS.MediatR.Handlers
                 item.CreatedDate = DateTime.UtcNow;
                 if (product != null)
                 {
-                    item.TotalPurPrice = (decimal)product.PurchasePrice * item.Quantity;
-                    item.TotalSalesPrice = (decimal)item.UnitPrice * item.Quantity;
+                    item.TotalPurPrice = decimal.Round((decimal)product.PurchasePrice) * item.Quantity;
+                    item.TotalSalesPrice = decimal.Round((decimal)item.UnitPrice * item.Quantity);
+                   
                 }
                 //if (item.LooseQuantity>0)
                 //{
@@ -79,6 +80,9 @@ namespace POS.MediatR.Handlers
                 //    //item.UnitId=
                 //}
             });
+
+            salesOrder.TotalAmount= decimal.Round((decimal)salesOrder.SalesOrderItems.Sum(item => item.TotalSalesPrice));
+
             _salesOrderRepository.Add(salesOrder);
 
 
