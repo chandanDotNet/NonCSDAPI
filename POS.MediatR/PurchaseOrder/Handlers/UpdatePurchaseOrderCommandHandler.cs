@@ -118,7 +118,7 @@ namespace POS.MediatR.PurchaseOrder.Handlers
             purchaseOrderExit.TotalAmount = purchaseOrderUpdate.TotalAmount;
             purchaseOrderExit.TotalTax = purchaseOrderUpdate.TotalTax;
             purchaseOrderExit.TotalDiscount = purchaseOrderUpdate.TotalDiscount;
-           
+
             purchaseOrderExit.PurchasePaymentType = purchaseOrderUpdate.PurchasePaymentType;
             purchaseOrderExit.InvoiceNo = purchaseOrderUpdate.InvoiceNo;
 
@@ -198,7 +198,9 @@ namespace POS.MediatR.PurchaseOrder.Handlers
 
             if (purchaseOrderExit.PurchaseOrderItems.Count > 0)
             {
-                foreach (var item in purchaseOrderExit.PurchaseOrderItems)
+                var productlist = purchaseOrderExit.PurchaseOrderItems.DistinctBy(x => x.ProductId).ToList();
+
+                foreach (var item in productlist)
                 {
                     var productDetails = await _productRepository.FindBy(p => p.Id == item.ProductId)
                         .FirstOrDefaultAsync();
