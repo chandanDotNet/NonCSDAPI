@@ -2867,18 +2867,18 @@ namespace POS.API.Controllers.MobileApp
                 var getSalesOrderItemsReportCommand1 = new GetSalesOrderItemsReportCommand { SalesOrderResource = salesOrderResource1 };
                 var response2 = await _mediator.Send(getSalesOrderItemsReportCommand1);
 
-                decimal TotalAmount = response2.Sum(x => x.Total);
-                decimal PurAmount = response2.Sum(x => x.PurPrice);
+                decimal TotalAmount = decimal.Round(response2.Sum(x => x.Total));
+                decimal PurAmount = decimal.Round(response2.Sum(x => x.PurPrice));
 
                 //=============
-                decimal VegTotalAmount = response.Sum(x => x.Total);
-                decimal VegPurAmount = response.Sum(x => x.PurPrice);
+                decimal VegTotalAmount = decimal.Round(response.Sum(x => x.Total));
+                decimal VegPurAmount = decimal.Round(response.Sum(x => x.PurPrice));
 
 
 
                 Data.ProductCategoryName = salesOrderResource.ProductCategoryName;
-                Data.TotalAmount = response.Sum(x => x.Total).ToString("0.00");
-                Data.PurAmount = response.Sum(x => x.PurPrice).ToString("0.00");
+                Data.TotalAmount = decimal.Round(response.Sum(x => x.Total)).ToString("0.00");
+                Data.PurAmount = decimal.Round(response.Sum(x => x.PurPrice)).ToString("0.00");
 
                 Data.OtherTotalAmount = (TotalAmount - VegTotalAmount).ToString("0.00");
                 Data.OtherPurAmount = (PurAmount - VegPurAmount).ToString("0.00");
