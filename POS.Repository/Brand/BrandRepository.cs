@@ -6,6 +6,7 @@ using POS.Data;
 using POS.Data.Dto;
 using POS.Data.Resources;
 using POS.Domain;
+using POS.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +22,15 @@ namespace POS.Repository
     {
         private readonly IPropertyMappingService _propertyMappingService;
         private readonly IMapper _mapper;
+        private readonly PathHelper _pathHelper;
         public BrandRepository(IUnitOfWork<POSDbContext> uow,
              IPropertyMappingService propertyMappingService,
-             IMapper mapper)
+             IMapper mapper, PathHelper pathHelper)
           : base(uow)
         {
             _mapper = mapper;
             _propertyMappingService = propertyMappingService;
+            _pathHelper = pathHelper;
         }
 
         public async Task<BrandList> GetBrands(BrandResource brandResource)
@@ -47,8 +50,15 @@ namespace POS.Repository
                 encodingName = encodingName.Replace(@"\", @"\\").Replace("%", @"\%").Replace("_", @"\_").Replace("[", @"\[").Replace(" ", "%");
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => EF.Functions.Like(a.Name, $"{encodingName}%"));
-            }            
-            var BrandList = new BrandList(_mapper);
+            }
+
+            if (brandResource.ProductMainCategoryId.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.ProductMainCategoryId == brandResource.ProductMainCategoryId.Value);
+            }
+
+            var BrandList = new BrandList(_mapper,_pathHelper);
             return await BrandList.Create(collectionBeforePaging, brandResource.Skip, brandResource.PageSize);
         }
     }

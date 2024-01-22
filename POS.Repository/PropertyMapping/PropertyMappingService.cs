@@ -312,15 +312,15 @@ namespace POS.Repository
                 { "LandMark", new PropertyMappingValue(new List<string>() { "LandMark" } ) },
                 { "Type", new PropertyMappingValue(new List<string>() { "Type" } ) },
                 { "CustomerId", new PropertyMappingValue(new List<string>() { "CustomerId" } ) },
-                { "CustomerName", new PropertyMappingValue(new List<string>() { "Customer.CustomerName" } )},                
+                { "CustomerName", new PropertyMappingValue(new List<string>() { "Customer.CustomerName" } )},
           };
 
         private Dictionary<string, PropertyMappingValue> _wishlistMapping =
            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
            {
                 { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
-                { "CustomerId", new PropertyMappingValue(new List<string>() { "CustomerId" } )},               
-                { "ProductId", new PropertyMappingValue(new List<string>() { "ProductId" } )},                
+                { "CustomerId", new PropertyMappingValue(new List<string>() { "CustomerId" } )},
+                { "ProductId", new PropertyMappingValue(new List<string>() { "ProductId" } )},
            };
 
         private Dictionary<string, PropertyMappingValue> _paymentCardPropertyMapping =
@@ -434,8 +434,6 @@ namespace POS.Repository
                 }
             }
             return true;
-
         }
-
     }
 }

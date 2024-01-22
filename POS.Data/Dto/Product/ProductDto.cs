@@ -50,5 +50,6 @@ namespace POS.Data.Dto
         public Guid? SupplierId { get; set; }
         public Guid? ManufacturerId { get; set; }
         public SupplierDto Supplier { get; set; }
+        public string PackagingName { get; set; }
     }
 }

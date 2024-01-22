@@ -95,6 +95,7 @@ namespace POS.Domain
         public DbSet<CategoryBanner> CategoryBanners { get; set; }
         public DbSet<HomePageBanner> HomePageBanners { get; set; }
         public DbSet<Notice> Notices { get; set; }
+        public DbSet<Packaging> Packagings { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -641,6 +642,13 @@ namespace POS.Domain
             });
 
             builder.Entity<Notice>(b =>
+            {
+                b.HasOne(e => e.CreatedByUser)
+                    .WithMany()
+                    .HasForeignKey(ur => ur.CreatedBy)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+            builder.Entity<Packaging>(b =>
             {
                 b.HasOne(e => e.CreatedByUser)
                     .WithMany()

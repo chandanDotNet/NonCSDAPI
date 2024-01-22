@@ -3103,5 +3103,75 @@ namespace POS.API.Controllers.MobileApp
             }
             return count;
         }
+
+
+        ///// <summary>
+        ///// Get all Product Categories
+        ///// </summary>
+        ///// <param name="getAllProductCategoriesQuery"></param>
+        ///// <returns></returns>
+        ////[HttpGet]
+        //[HttpPost("ProductBrandList")]
+        //[Produces("application/json", "application/xml", Type = typeof(List<ProductCategoryDto>))]
+        //public async Task<IActionResult> ProductBrandList([FromBody] GetAllProductCategoriesQuery getAllProductCategoriesQuery)
+        //{
+        //    ProductCategoriesResponseData response = new ProductCategoriesResponseData();
+        //    try
+        //    {
+        //        var result = await _mediator.Send(getAllProductCategoriesQuery);
+        //        result = result.Where(x => x.Name.ToLower() != "BAGGAGE".ToLower() && x.ProductMainCategoryId == getAllProductCategoriesQuery.ProductMainCategoryId).ToList();
+
+        //        var count = await GetProductCount(getAllProductCategoriesQuery.ProductMainCategoryId);
+
+        //        if (result.Count > 0)
+        //        {
+        //            response.status = true;
+        //            response.StatusCode = 1;
+        //            response.message = "Success";
+        //            response.productCount = count;
+        //            response.Data = result;
+        //        }
+        //        else
+        //        {
+        //            response.status = false;
+        //            response.StatusCode = 0;
+        //            response.message = "Please wait! Server is not responding.";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response.status = false;
+        //        response.StatusCode = 0;
+        //        response.message = ex.Message;
+        //    }
+        //    return Ok(response);
+        //}
+
+        /// <summary>
+        /// Prduct Brand List.
+        /// </summary>
+        /// <param name="prductBrandList">The search query.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <returns></returns>
+        [HttpGet("PrductBrandList")]
+        public async Task<IActionResult> PrductBrandList([FromQuery] BrandResource brandResource)
+        {
+            var searchBrandQuery = new SearchBrandQuery
+            {
+                BrandResource = brandResource
+            };
+            var result = await _mediator.Send(searchBrandQuery);
+
+            var paginationMetadata = new
+            {
+                totalCount = result.TotalCount,
+                pageSize = result.PageSize,
+                skip = result.Skip,
+                totalPages = result.TotalPages
+            };
+            Response.Headers.Add("X-Pagination",
+                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+            return Ok(result);
+        }
     }
 }

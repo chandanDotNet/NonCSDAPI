@@ -1299,6 +1299,14 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.PrductBrandList(POS.Data.Resources.BrandResource)">
+            <summary>
+            Prduct Brand List.
+            </summary>
+            <param name="prductBrandList">The search query.</param>
+            <param name="pageSize">Size of the page.</param>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.NewsletterSubscriber.NewsletterSubscriberController.CreateNewsletterSubscriber(POS.MediatR.CommandAndQuery.AddNewsletterSubscriberCommand)">
             <summary>
             Creates the newsletter subscriber.
@@ -1325,6 +1333,31 @@
             Create Log.
             </summary>
             <param name="addLogCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="T:POS.API.Controllers.PackagingController">
+            <summary>
+            Packaging Controller
+            </summary>
+        </member>
+        <member name="M:POS.API.Controllers.PackagingController.#ctor(MediatR.IMediator)">
+            <summary>
+            
+            </summary>
+            <param name="mediator"></param>
+        </member>
+        <member name="M:POS.API.Controllers.PackagingController.GetPackagings(POS.MediatR.CommandAndQuery.GetAllPackagingQuery)">
+            <summary>
+            Get all Packagings
+            </summary>
+            <param name="getAllPackagingsQuery"></param>
+            <returns></returns>       
+        </member>
+        <member name="M:POS.API.Controllers.PackagingController.GetPackaging(System.Guid)">
+            <summary>
+            Get Packaging.
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="T:POS.API.Controllers.PageController">
