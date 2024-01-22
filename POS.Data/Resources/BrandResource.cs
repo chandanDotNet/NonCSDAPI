@@ -16,5 +16,6 @@ namespace POS.Data.Resources
         public Guid? Id { get; set; }
         //public string Name { get; set; }
         public string SearchQuery { get; set; }
+        public Guid? ProductMainCategoryId { get; set; }
     }
 }

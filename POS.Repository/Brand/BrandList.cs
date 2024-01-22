@@ -7,15 +7,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using POS.Helper;
 
 namespace POS.Repository
 {
     public class BrandList : List<BrandDto>
     {
         public IMapper _mapper { get; set; }
-        public BrandList(IMapper mapper)
+        private PathHelper _pathHelper { get; set; }
+        public BrandList(IMapper mapper, PathHelper pathHelper)
         {
             _mapper = mapper;
+            _pathHelper = pathHelper;
         }
         public int Skip { get; private set; }
         public int TotalPages { get; private set; }
@@ -64,6 +68,8 @@ namespace POS.Repository
                 {
                     Id = c.Id,
                     Name= c.Name,
+                    ImageUrl = !string.IsNullOrWhiteSpace(c.ImageUrl) ? Path.Combine(_pathHelper.BrandImagePath, c.ImageUrl) : "",
+                    ProductMainCategoryId = c.ProductMainCategoryId,
 
                 }).ToListAsync();
             return _mapper.Map<List<BrandDto>>(entities);
