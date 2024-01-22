@@ -1295,6 +1295,10 @@
             <param name="salesOrderResource"></param>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetProductCount(System.Guid)">
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.NewsletterSubscriber.NewsletterSubscriberController.CreateNewsletterSubscriber(POS.MediatR.CommandAndQuery.AddNewsletterSubscriberCommand)">
             <summary>
             Creates the newsletter subscriber.

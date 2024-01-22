@@ -127,7 +127,10 @@ namespace POS.MediatR.Handlers
             {
                 c.SalesOrderId = salesOrderUpdate.Id;
                 c.CreatedDate = DateTime.UtcNow;
-                c.TotalSalesPrice= decimal.Round((decimal)c.UnitPrice*c.Quantity);
+                //c.TotalSalesPrice= decimal.Round((decimal)c.UnitPrice*c.Quantity);
+                decimal value = (decimal)(c.UnitPrice) * c.Quantity;
+                int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
+                c.TotalSalesPrice = (decimal)roundedValue;
             });
             salesOrderExit.TotalAmount = decimal.Round((decimal)salesOrderExit.SalesOrderItems.Sum(item => item.TotalSalesPrice));
             _salesOrderRepository.Update(salesOrderExit);
