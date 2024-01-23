@@ -60,7 +60,6 @@ namespace POS.MediatR.Cart.Handlers
             cart.Discount = request.Discount;
             cart.DiscountPercentage = request.DiscountPercentage;
             cart.IsAdvanceOrderRequest = request.IsAdvanceOrderRequest;
-            cart.PackagingName = request.PackagingName;
 
             //var updateCart = _mapper.Map(request, cart);
             _cartRepository.Update(cart);
