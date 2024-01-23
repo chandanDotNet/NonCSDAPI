@@ -61,6 +61,7 @@ namespace POS.MediatR.Handlers
             var salesOrder = _mapper.Map<Data.SalesOrder>(request);
             salesOrder.PaymentStatus = PaymentStatus.Pending;
             salesOrder.OrderDeliveryStatus = "Order Placed";
+            salesOrder.SOCreatedDate = DateTime.Now;
             salesOrder.SalesOrderItems.ForEach(item =>
             {
                 var product = _productRepository.All.Where(c => c.Id == item.ProductId).FirstOrDefault();

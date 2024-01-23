@@ -196,25 +196,26 @@ namespace POS.MediatR.PurchaseOrder.Handlers
 
             //============
 
-            if (purchaseOrderExit.PurchaseOrderItems.Count > 0)
-            {
-                var productlist = purchaseOrderExit.PurchaseOrderItems.DistinctBy(x => x.ProductId).ToList();
+            //if (purchaseOrderExit.PurchaseOrderItems.Count > 0)
+            //{
+            //    var productlist = purchaseOrderExit.PurchaseOrderItems.DistinctBy(x => x.ProductId).ToList();
 
-                foreach (var item in productlist)
-                {
-                    var productDetails = await _productRepository.FindBy(p => p.Id == item.ProductId)
-                        .FirstOrDefaultAsync();
-                    productDetails.SalesPrice = item.SalesPrice;
-                    productDetails.Mrp = item.Mrp;
-                    productDetails.Margin = item.Margin;
-                    productDetails.PurchasePrice = item.UnitPrice;
-                    _productRepository.Update(productDetails);
-                    if (await _uow.SaveAsync() <= 0)
-                    {
-                        return ServiceResponse<PurchaseOrderDto>.Return500();
-                    }
-                }
-            }
+            //    foreach (var item in productlist)
+            //    {
+            //        var productDetails = await _productRepository.FindBy(p => p.Id == item.ProductId)
+            //            .FirstOrDefaultAsync();
+            //        productDetails.SalesPrice = item.SalesPrice;
+            //        productDetails.Mrp = item.Mrp;
+            //        productDetails.Margin = item.Margin;
+            //        productDetails.PurchasePrice = item.UnitPrice;
+            //        _productRepository.Update(productDetails);
+            //        if (await _uow.SaveAsync() <= 0)
+            //        {
+            //            return ServiceResponse<PurchaseOrderDto>.Return500();
+            //        }
+            //    }
+            //}
+
             var dto = _mapper.Map<PurchaseOrderDto>(purchaseOrderExit);
             return ServiceResponse<PurchaseOrderDto>.ReturnResultWith201(dto);
         }

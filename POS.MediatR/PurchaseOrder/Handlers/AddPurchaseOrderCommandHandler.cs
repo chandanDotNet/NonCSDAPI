@@ -69,7 +69,8 @@ namespace POS.MediatR.Handlers
                 item.Product = null;
                 item.Warehouse = null;
                 item.PurchaseOrderItemTaxes.ForEach(tax => { tax.Tax = null; });
-                item.CreatedDate = DateTime.UtcNow;
+                item.CreatedDate = DateTime.Now;
+               // item.CreatedDate = DateTime.UtcNow;
             });
             _purchaseOrderRepository.Add(purchaseOrder);
 
@@ -145,7 +146,7 @@ namespace POS.MediatR.Handlers
                 {
                     var productDetails = await _productRepository.FindBy(p => p.Id == item.ProductId)
                         .FirstOrDefaultAsync();
-                    productDetails.SalesPrice = item.SalesPrice;
+                    productDetails.SalesPrice =(decimal) Math.Round((decimal)item.SalesPrice, MidpointRounding.AwayFromZero);
                     productDetails.Mrp = item.Mrp;
                     productDetails.Margin = item.Margin;
                     productDetails.PurchasePrice = item.UnitPrice;
