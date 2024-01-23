@@ -118,21 +118,6 @@ D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.Data\obj\Debug\net7.0\POS.Data
 D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.Data\obj\Debug\net7.0\refint\POS.Data.dll
 D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.Data\obj\Debug\net7.0\POS.Data.pdb
 D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.Data\obj\Debug\net7.0\ref\POS.Data.dll
-D:\NON CSD API\POS.Data\bin\Debug\net7.0\POS.Data.deps.json
-D:\NON CSD API\POS.Data\bin\Debug\net7.0\POS.Data.dll
-D:\NON CSD API\POS.Data\bin\Debug\net7.0\POS.Data.pdb
-D:\NON CSD API\POS.Data\bin\Debug\net7.0\POS.Helper.dll
-D:\NON CSD API\POS.Data\bin\Debug\net7.0\POS.Helper.pdb
-D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.csproj.AssemblyReference.cache
-D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.GeneratedMSBuildEditorConfig.editorconfig
-D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.AssemblyInfoInputs.cache
-D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.AssemblyInfo.cs
-D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.csproj.CoreCompileInputs.cache
-D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.csproj.CopyComplete
-D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.dll
-D:\NON CSD API\POS.Data\obj\Debug\net7.0\refint\POS.Data.dll
-D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.pdb
-D:\NON CSD API\POS.Data\obj\Debug\net7.0\ref\POS.Data.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Data\bin\Debug\net7.0\POS.Data.deps.json
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Data\bin\Debug\net7.0\POS.Data.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Data\bin\Debug\net7.0\POS.Data.pdb
@@ -148,3 +133,18 @@ D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Data\obj\Debug\net7.0\POS.Data.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Data\obj\Debug\net7.0\refint\POS.Data.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Data\obj\Debug\net7.0\POS.Data.pdb
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Data\obj\Debug\net7.0\ref\POS.Data.dll
+D:\NON CSD API\POS.Data\bin\Debug\net7.0\POS.Data.deps.json
+D:\NON CSD API\POS.Data\bin\Debug\net7.0\POS.Data.dll
+D:\NON CSD API\POS.Data\bin\Debug\net7.0\POS.Data.pdb
+D:\NON CSD API\POS.Data\bin\Debug\net7.0\POS.Helper.dll
+D:\NON CSD API\POS.Data\bin\Debug\net7.0\POS.Helper.pdb
+D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.csproj.AssemblyReference.cache
+D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.AssemblyInfoInputs.cache
+D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.AssemblyInfo.cs
+D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.csproj.CoreCompileInputs.cache
+D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.csproj.CopyComplete
+D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.dll
+D:\NON CSD API\POS.Data\obj\Debug\net7.0\refint\POS.Data.dll
+D:\NON CSD API\POS.Data\obj\Debug\net7.0\POS.Data.pdb
+D:\NON CSD API\POS.Data\obj\Debug\net7.0\ref\POS.Data.dll
