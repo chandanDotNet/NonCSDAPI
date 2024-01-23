@@ -107,7 +107,7 @@ namespace POS.Repository
 
             //return entities.ToList();
 
-            var stockList = entities.Where(x => x.Stock != 0).OrderBy(x => x.Name).ToList();
+            var stockList = entities.Where(x => x.Stock > 0).OrderBy(x => x.Name).ToList();
             var outstockList = entities.Where(x => x.Stock <= 0).OrderBy(x => x.Name).ToList();
 
             stockList.AddRange(outstockList);
