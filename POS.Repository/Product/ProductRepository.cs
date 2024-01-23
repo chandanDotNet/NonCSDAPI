@@ -13,6 +13,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
+using System.Security.Cryptography.X509Certificates;
 
 namespace POS.Repository
 {
