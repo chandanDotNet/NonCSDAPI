@@ -36,12 +36,11 @@ namespace POS.MediatR.Product.Handler
 
         public async Task<ServiceResponse<ProductDto>> Handle(GetProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.AllIncluding(c => c.ProductTaxes, (i => i.Inventory),u=>u.Unit).FirstOrDefaultAsync(c => c.Id == request.Id);
+            var product = await _productRepository.AllIncluding(c => c.ProductTaxes, p => p.Packaging, (i => i.Inventory), u => u.Unit).FirstOrDefaultAsync(c => c.Id == request.Id);
             if (product == null)
             {
                 _logger.LogError("Not found");
                 return ServiceResponse<ProductDto>.Return404();
-
             }
 
             if (!string.IsNullOrWhiteSpace(product.ProductUrl))
@@ -54,9 +53,9 @@ namespace POS.MediatR.Product.Handler
             }
             var productRes = _mapper.Map<ProductDto>(product);
 
-            if(productRes != null)
+            if (productRes != null)
             {
-                if(productRes.Inventory==null)
+                if (productRes.Inventory == null)
                 {
                     productRes.Inventory = new InventoryDto();
                 }

@@ -85,7 +85,7 @@ namespace POS.API.Controllers.MobileApp
             _unitConversationRepository = unitConversationRepository;
             _warehouseRepository = warehouseRepository;
             _customerRepository = customerRepository;
-           
+
         }
 
         /// <summary>
@@ -125,31 +125,31 @@ namespace POS.API.Controllers.MobileApp
                 {
                     Id = customersFromRepo.FirstOrDefault().Id,
                     DeviceKey = customerResource.DeviceKey,
-                    AadharCard= customer.AadharCard,
-                    Address= customer.Address,
-                    Category= customer.Category,
-                    CityId= customer.CityId,
-                    CityName= customer.CityName,
-                    ContactPerson= customer.ContactPerson,
-                    CountryId= customer.CountryId,
-                    CountryName= customer.CountryName,
-                    CustomerName= customer.CustomerName,
-                    CustomerProfile= customer.CustomerProfile,
-                    DependantCard= customer.DependantCard,
-                    Description= customer.Description,
-                    Email= customer.Email,
-                    Fax= customer.Fax,
-                    IsVarified= customer.IsVarified,
+                    AadharCard = customer.AadharCard,
+                    Address = customer.Address,
+                    Category = customer.Category,
+                    CityId = customer.CityId,
+                    CityName = customer.CityName,
+                    ContactPerson = customer.ContactPerson,
+                    CountryId = customer.CountryId,
+                    CountryName = customer.CountryName,
+                    CustomerName = customer.CustomerName,
+                    CustomerProfile = customer.CustomerProfile,
+                    DependantCard = customer.DependantCard,
+                    Description = customer.Description,
+                    Email = customer.Email,
+                    Fax = customer.Fax,
+                    IsVarified = customer.IsVarified,
                     OTP = customer.OTP,
-                    MobileNo= customer.MobileNo,
-                    PinCode= customer.PinCode,
-                    PhoneNo= customer.PhoneNo,
-                    Website= customer.Website,
-                    Url= customer.Url,
-                    Password= customer.Password,
-                    ServiceNo= customer.ServiceNo,
-                    RewardPoints= customer.RewardPoints
-                    
+                    MobileNo = customer.MobileNo,
+                    PinCode = customer.PinCode,
+                    PhoneNo = customer.PhoneNo,
+                    Website = customer.Website,
+                    Url = customer.Url,
+                    Password = customer.Password,
+                    ServiceNo = customer.ServiceNo,
+                    RewardPoints = customer.RewardPoints
+
 
                 };
                 var result = await _mediator.Send(updateCustomerCommand);
@@ -1591,7 +1591,7 @@ namespace POS.API.Controllers.MobileApp
                 return ReturnFormattedResponse(response);
             }
             return CreatedAtAction("GetBanners", new { id = response.Data.Id }, response.Data);
-        }        
+        }
 
         /// <summary>
         /// Get Banners.
@@ -2919,7 +2919,7 @@ namespace POS.API.Controllers.MobileApp
 
             return Ok(Data);
         }
-        
+
         [AllowAnonymous]
         [HttpPost("PushNotification")]
         public async Task<IActionResult> SendNotificationAsync([FromBody] MessageRequest request)
@@ -3016,7 +3016,7 @@ namespace POS.API.Controllers.MobileApp
 
             //=============================================Counter Wise Bill =====================
 
-           
+
 
             var getAllSalesOrderQuery = new GetAllSalesOrderCommand
             {
@@ -3054,7 +3054,7 @@ namespace POS.API.Controllers.MobileApp
                     counterSalesData.Add(CounterSalesData1);
                 }
 
-                Data.CounterSalesData=counterSalesData;
+                Data.CounterSalesData = counterSalesData;
             }
             //========================================================
 
@@ -3087,8 +3087,8 @@ namespace POS.API.Controllers.MobileApp
                 Data.PaymentsData = paymentsData;
             }
 
-                //Response.Headers.Add("X-Pagination",
-                //Newtonsoft.Json.JsonConvert.SerializeObject(Data));
+            //Response.Headers.Add("X-Pagination",
+            //Newtonsoft.Json.JsonConvert.SerializeObject(Data));
 
             return Ok(Data);
         }
@@ -3114,7 +3114,7 @@ namespace POS.API.Controllers.MobileApp
                 var result = await _mediator.Send(getAllProductCommand);
 
                 count = result.TotalCount;
-              
+
                 return count;
             }
             catch (Exception ex)
@@ -3176,22 +3176,44 @@ namespace POS.API.Controllers.MobileApp
         [HttpGet("PrductBrandList")]
         public async Task<IActionResult> PrductBrandList([FromQuery] BrandResource brandResource)
         {
-            var searchBrandQuery = new SearchBrandQuery
+            BrandListResponseData response = new BrandListResponseData();
+            try
             {
-                BrandResource = brandResource
-            };
-            var result = await _mediator.Send(searchBrandQuery);
+                var searchBrandQuery = new SearchBrandQuery
+                {
+                    BrandResource = brandResource
+                };
+                var result = await _mediator.Send(searchBrandQuery);
 
-            var paginationMetadata = new
+                if (result.Count > 0)
+                {
+                    response.TotalCount = result.TotalCount;
+                    response.PageSize = result.PageSize;
+                    response.Skip = result.Skip;
+                    response.TotalPages = result.TotalPages;
+
+                    response.status = true;
+                    response.StatusCode = 1;
+                    response.message = "Success";
+                    response.Data = result;
+                }
+                else
+                {
+                    response.status = false;
+                    response.StatusCode = 0;
+                    response.message = "Please wait! Server is not responding.";
+                    response.Data = result;
+
+                }
+
+            }
+            catch (Exception ex)
             {
-                totalCount = result.TotalCount,
-                pageSize = result.PageSize,
-                skip = result.Skip,
-                totalPages = result.TotalPages
-            };
-            Response.Headers.Add("X-Pagination",
-                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
-            return Ok(result);
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = ex.Message;
+            }
+            return Ok(response);
         }
     }
 }
