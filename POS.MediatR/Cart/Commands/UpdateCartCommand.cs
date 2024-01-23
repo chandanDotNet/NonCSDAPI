@@ -27,5 +27,7 @@ namespace POS.MediatR.CommandAndQuery
         public decimal DiscountPercentage { get; set; }
         public bool? IsAdvanceOrderRequest { get; set; }
         public Guid ProductMainCategoryId { get; set; }
+        public string PackagingName { get; set; }
+        public Guid? PackagingId { get; set; }
     }
 }

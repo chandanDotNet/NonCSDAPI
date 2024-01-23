@@ -24,5 +24,7 @@ namespace POS.Data.Dto
         public ProductDto Product { get; set; }
         public bool? IsAdvanceOrderRequest { get; set; }
         public InventoryDto Inventory { get; set; }
+        public string PackagingName { get; set; }
+        public Guid? PackagingId { get; set; }
     }
 }
