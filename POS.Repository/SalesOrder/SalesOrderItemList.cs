@@ -77,6 +77,7 @@ namespace POS.Repository
                                  Status = c.Status,
                                  Id = c.Id,
                                  Total = decimal.Round((decimal.Round(c.UnitPrice) * c.Quantity) - c.Discount + c.TaxValue),
+                                 TotalSalesPrice = c.TotalSalesPrice,
                                  SalesOrderItemTaxes = c.SalesOrderItemTaxes.Select(c => new SalesOrderItemTaxDto
                                  {
                                      TaxName = c.Tax.Name,
@@ -111,7 +112,8 @@ namespace POS.Repository
                                  SOCreatedDate = c.SalesOrder.SOCreatedDate,
                                  Status = c.Status,
                                  Id = c.Id,
-                                 Total = decimal.Round((decimal.Round(c.UnitPrice) * c.Quantity) - c.Discount + c.TaxValue),                                 
+                                 Total = decimal.Round((decimal.Round(c.UnitPrice) * c.Quantity) - c.Discount + c.TaxValue),
+                                 TotalSalesPrice = c.TotalSalesPrice,
                                  SalesOrderItemTaxes = c.SalesOrderItemTaxes.Select(c => new SalesOrderItemTaxDto
                                  {
                                      TaxName = c.Tax.Name,

@@ -490,6 +490,14 @@ namespace POS.API.Controllers.MobileApp
                     response.Skip = result.Skip;
                     response.TotalPages = result.TotalPages;
 
+
+                    result.ForEach(item =>
+                    {
+                        decimal value = (decimal)(item.UnitPrice) * item.Quantity;
+                        int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
+                        item.Total = roundedValue;
+                    });
+
                     var price = result.Sum(x => x.Total);
                     var discount = result.Sum(x => x.Discount);
                     var items = result.Sum(x => x.Quantity);
@@ -1301,9 +1309,18 @@ namespace POS.API.Controllers.MobileApp
                 if (result.Count > 0)
                 {
 
+                    result.ForEach(item =>
+                    {
+                        decimal value = (decimal)(item.UnitPrice) * item.Quantity;
+                        int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
+                        item.Total=roundedValue;
+                    });
+
                     var Data = new OrderSummary
                     {
-                        Price = result.Sum(x => x.Total).ToString("0.00"),
+                        //Price = result.Sum(x => x.Total).ToString("0.00"),
+                        Price = Math.Round(result.Sum(x => x.Total), MidpointRounding.AwayFromZero).ToString("0.00"),
+                        //Price = Math.Round((decimal)result.Sum(x => x.Quantity*x.UnitPrice), MidpointRounding.AwayFromZero).ToString("0.00"),
                         Discount = result.Sum(x => x.Discount).ToString("0.00"),
                         DeliveryCharges = "0.00",
                         Items = result.Sum(x => x.Quantity),
@@ -2860,6 +2877,11 @@ namespace POS.API.Controllers.MobileApp
 
             if (response != null)
             {
+                //=============
+                decimal VegTotalAmount = decimal.Round((decimal)response.Sum(x => x.TotalSalesPrice));
+                decimal VegPurAmount = decimal.Round(response.Sum(x => x.PurPrice));
+
+
                 //========================
                 SalesOrderResource salesOrderResource1 = new SalesOrderResource();
                 salesOrderResource1 = salesOrderResource;
@@ -2867,17 +2889,14 @@ namespace POS.API.Controllers.MobileApp
                 var getSalesOrderItemsReportCommand1 = new GetSalesOrderItemsReportCommand { SalesOrderResource = salesOrderResource1 };
                 var response2 = await _mediator.Send(getSalesOrderItemsReportCommand1);
 
-                decimal TotalAmount = decimal.Round(response2.Sum(x => x.Total));
+                decimal TotalAmount = decimal.Round((decimal)response2.Sum(x => x.TotalSalesPrice));
                 decimal PurAmount = decimal.Round(response2.Sum(x => x.PurPrice));
 
-                //=============
-                decimal VegTotalAmount = decimal.Round(response.Sum(x => x.Total));
-                decimal VegPurAmount = decimal.Round(response.Sum(x => x.PurPrice));
-
+                
 
 
                 Data.ProductCategoryName = salesOrderResource.ProductCategoryName;
-                Data.TotalAmount = decimal.Round(response.Sum(x => x.Total)).ToString("0.00");
+                Data.TotalAmount = decimal.Round((decimal)response.Sum(x => x.TotalSalesPrice)).ToString("0.00");
                 Data.PurAmount = decimal.Round(response.Sum(x => x.PurPrice)).ToString("0.00");
 
                 Data.OtherTotalAmount = (TotalAmount - VegTotalAmount).ToString("0.00");
