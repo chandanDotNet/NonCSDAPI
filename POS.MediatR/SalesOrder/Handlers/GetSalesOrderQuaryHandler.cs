@@ -69,7 +69,10 @@ namespace POS.MediatR.Handlers
                 {
                     for (int i = 0; i < entity.SalesOrderItems.Count; i++)
                     {
-                        entity.SalesOrderItems[i].TotalSalesPrice = decimal.Round((decimal)(entity.SalesOrderItems[i].UnitPrice * entity.SalesOrderItems[i].Quantity));
+                        decimal value = (decimal)(entity.SalesOrderItems[i].UnitPrice) * entity.SalesOrderItems[i].Quantity;
+                        int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
+                        entity.SalesOrderItems[i].TotalSalesPrice = roundedValue;
+                        //entity.SalesOrderItems[i].TotalSalesPrice = decimal.Round((decimal)(entity.SalesOrderItems[i].UnitPrice * entity.SalesOrderItems[i].Quantity));
                     }
                 }
             }
