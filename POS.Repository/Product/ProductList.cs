@@ -100,7 +100,8 @@ namespace POS.Repository
                     Stock = c.Inventory.Stock == null ? 0 : c.Inventory.Stock,
                     IsLoose = c.IsLoose == null ? false : c.IsLoose,
                     MinQty = c.MinQty,
-                    PackagingName = c.Packaging.Name != null ? c.Packaging.Name : ""
+                    PackagingName = c.Packaging.Name != null ? c.Packaging.Name : "",
+                    PackagingId = c.Packaging.Id != null ? c.Packaging.Id : new Guid()
 
                 }).ToListAsync();
 
