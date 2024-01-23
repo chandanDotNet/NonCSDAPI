@@ -498,7 +498,8 @@ namespace POS.API.Controllers.MobileApp
                         item.Total = roundedValue;
                     });
 
-                    var price = result.Sum(x => x.Total);
+                    var price = Math.Round(result.Sum(x => x.Total), MidpointRounding.AwayFromZero).ToString("0.00");
+                    //var price = result.Sum(x => x.Total);
                     var discount = result.Sum(x => x.Discount);
                     var items = result.Sum(x => x.Quantity);
                     var deliveryCharges = 0;
@@ -2878,7 +2879,7 @@ namespace POS.API.Controllers.MobileApp
             if (response != null)
             {
                 //=============
-                decimal VegTotalAmount = decimal.Round((decimal)response.Sum(x => x.TotalSalesPrice));
+                decimal VegTotalAmount = Math.Round((decimal)response.Sum(x => x.TotalSalesPrice));
                 decimal VegPurAmount = decimal.Round(response.Sum(x => x.PurPrice));
 
 

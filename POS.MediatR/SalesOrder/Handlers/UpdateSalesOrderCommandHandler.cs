@@ -94,8 +94,8 @@ namespace POS.MediatR.Handlers
                 await _inventoryRepository.RemoveExistingWareHouseInventory(warehouseInventoriesToRemove);
                 if (await _uow.SaveAsync() <= 0)
                 {
-                    _logger.LogError("Error while Updating Sales Order.");
-                    return ServiceResponse<SalesOrderDto>.Return500();
+                    //_logger.LogError("Error while Updating Sales Order.");
+                    //return ServiceResponse<SalesOrderDto>.Return500();
                 }
             }
 
