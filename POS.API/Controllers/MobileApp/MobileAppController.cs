@@ -1296,7 +1296,8 @@ namespace POS.API.Controllers.MobileApp
         [HttpPost("GetOrderSummary")]
         public async Task<IActionResult> GetOrderSummary(CartResource cartResource)
         {
-
+            decimal totalSaleAmount = 0;
+            decimal totalMrpAmount = 0;
             CustomerOrderSummaryResponseData response = new CustomerOrderSummaryResponseData();
 
             try
@@ -1309,12 +1310,15 @@ namespace POS.API.Controllers.MobileApp
 
                 if (result.Count > 0)
                 {
-
                     result.ForEach(item =>
                     {
                         decimal value = (decimal)(item.UnitPrice) * item.Quantity;
                         int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
                         item.Total=roundedValue;
+
+                        totalSaleAmount += (decimal)(item.UnitPrice) * item.Quantity;
+                        totalMrpAmount += (decimal)(item.MRP) * item.Quantity;
+
                     });
 
                     var Data = new OrderSummary
@@ -1325,6 +1329,7 @@ namespace POS.API.Controllers.MobileApp
                         Discount = result.Sum(x => x.Discount).ToString("0.00"),
                         DeliveryCharges = "0.00",
                         Items = result.Sum(x => x.Quantity),
+                        TotalSaveAmount = totalMrpAmount - totalSaleAmount,
                     };
 
                     response.status = true;

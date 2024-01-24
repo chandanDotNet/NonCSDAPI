@@ -68,7 +68,7 @@ namespace POS.Repository
                     ProductId = c.ProductId,
                     ProductName = c.ProductName,
                     UnitId = c.UnitId,
-                    UnitName = c.UnitName,
+                    UnitName = c.UnitName,                    
                     UnitPrice = decimal.Parse(c.UnitPrice.ToString("0.00")),
                     Quantity = c.Quantity,
                     Total = decimal.Parse(c.Total.ToString("0.00")),
@@ -77,8 +77,8 @@ namespace POS.Repository
                     Inventory = _mapper.Map<InventoryDto>(c.Product.Inventory),
                     PackagingId = c.PackagingId,
                     PackagingName = c.PackagingName,
-                    MinQty = c.MinQty
-
+                    MinQty = c.MinQty,
+                    MRP = c.Product.Mrp
                 })
                 .ToListAsync();
             foreach (var item in entities.Where(e => e.Product.CategoryId == e.Product.ProductCategory.Id))
