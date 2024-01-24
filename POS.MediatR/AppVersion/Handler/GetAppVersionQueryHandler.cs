@@ -30,7 +30,8 @@ namespace POS.MediatR.AppVersion.Handler
                {
                    Id = c.Id,
                    AppType = c.AppType,
-                   Version = c.Version
+                   Version = c.Version,
+                   StoreOpenClose= c.StoreOpenClose
                }).ToListAsync();
 
             return entities;

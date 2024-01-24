@@ -58,6 +58,7 @@ using System.Web;
 using static System.Net.Mime.MediaTypeNames;
 using FirebaseAdmin.Messaging;
 using POS.MediatR.Notice.Command;
+using static Google.Apis.Requests.BatchRequest;
 
 namespace POS.API.Controllers.MobileApp
 {
@@ -383,11 +384,14 @@ namespace POS.API.Controllers.MobileApp
 
                 var count = await GetProductCount(getAllProductCategoriesQuery.ProductMainCategoryId);
 
+                var returnVal = await GetStoreOpenClose();
+
                 if (result.Count > 0)
                 {
                     response.status = true;
                     response.StatusCode = 1;
                     response.message = "Success";
+                    response.StoreOpenClose = returnVal;
                     response.productCount = count;
                     response.Data = result;
                 }
@@ -1329,7 +1333,7 @@ namespace POS.API.Controllers.MobileApp
                         Discount = result.Sum(x => x.Discount).ToString("0.00"),
                         DeliveryCharges = "0.00",
                         Items = result.Sum(x => x.Quantity),
-                        TotalSaveAmount = totalMrpAmount - totalSaleAmount,
+                        TotalSaveAmount = (totalMrpAmount - totalSaleAmount).ToString("0.00"),
                     };
 
                     response.status = true;
@@ -3129,6 +3133,31 @@ namespace POS.API.Controllers.MobileApp
             return count;
         }
 
+
+
+        /// <summary>
+        /// Get Store Open Close.
+        /// </summary>
+        ///// <param name="productResource"></param>
+        ///// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet("GetStoreOpenClose")]
+        public async Task<bool> GetStoreOpenClose()
+        {
+            bool storeOpenClose = false;
+            try
+            {
+                var getAppVersionQuery = new GetAppVersionQuery { };
+                var result = await _mediator.Send(getAppVersionQuery);
+                storeOpenClose = result.FirstOrDefault().StoreOpenClose;
+                return storeOpenClose;
+            }
+            catch (Exception ex)
+            {
+                _ = ex;
+            }
+            return storeOpenClose;
+        }
 
         ///// <summary>
         ///// Get all Product Categories

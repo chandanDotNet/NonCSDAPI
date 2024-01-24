@@ -61,6 +61,7 @@ namespace POS.Data.Entities
         public int StatusCode { get; set; }
         public string message { get; set; }
         public int productCount { get; set; }
+        public bool StoreOpenClose { get; set; }
         public IList<ProductCategoryDto> Data { get; set; }
     }
 
@@ -198,7 +199,7 @@ namespace POS.Data.Entities
         public string Price { get; set; }
         public string Discount { get; set; }
         public decimal Items { get; set; }
-        public decimal TotalSaveAmount { get; set; }
+        public string TotalSaveAmount { get; set; }
         public string DeliveryCharges { get; set; }
     }
 

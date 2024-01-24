@@ -11,5 +11,6 @@ namespace POS.Data.Dto
         public Guid Id { get; set; }
         public string AppType { get; set; }
         public string Version { get; set; }
+        public bool StoreOpenClose { get; set; }
     }
 }
