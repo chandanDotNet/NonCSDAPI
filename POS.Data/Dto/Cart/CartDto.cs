@@ -27,5 +27,6 @@ namespace POS.Data.Dto
         public string PackagingName { get; set; }
         public Guid? PackagingId { get; set; }
         public decimal MinQty { get; set; }
+        public decimal? MRP { get; set; }
     }
 }

@@ -55,13 +55,20 @@ namespace POS.MediatR.Handlers
             //{
             //    var product1 = _productRepository.All.Where(c => c.Id == item1.ProductId);
             //    item1.Product = _mapper.Map<ProductDto>(product1);// (ProductDto)_productRepository.All.Where(c => c.Id == item1.ProductId);                
-               
+
             //});
 
             var salesOrder = _mapper.Map<Data.SalesOrder>(request);
             salesOrder.PaymentStatus = PaymentStatus.Pending;
             salesOrder.OrderDeliveryStatus = "Order Placed";
-            salesOrder.SOCreatedDate = DateTime.Now;
+            if (salesOrder.IsAdvanceOrderRequest == true)
+            {
+                salesOrder.SOCreatedDate = request.DeliveryDate;
+            }
+            else
+            {
+                salesOrder.SOCreatedDate = DateTime.Now;
+            }
             salesOrder.SalesOrderItems.ForEach(item =>
             {
                 var product = _productRepository.All.Where(c => c.Id == item.ProductId).FirstOrDefault();
@@ -78,7 +85,7 @@ namespace POS.MediatR.Handlers
                     decimal value = (decimal)(item.UnitPrice) * item.Quantity;
                     int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
                     item.TotalSalesPrice = (decimal)roundedValue;
-                   
+
                 }
                 //if (item.LooseQuantity>0)
                 //{
@@ -87,13 +94,13 @@ namespace POS.MediatR.Handlers
                 //}
             });
 
-            salesOrder.TotalAmount= (decimal)Math.Round((decimal)salesOrder.SalesOrderItems.Sum(item => item.TotalSalesPrice), MidpointRounding.AwayFromZero);
+            salesOrder.TotalAmount = (decimal)Math.Round((decimal)salesOrder.SalesOrderItems.Sum(item => item.TotalSalesPrice), MidpointRounding.AwayFromZero);
 
             _salesOrderRepository.Add(salesOrder);
 
 
             var inventories = request.SalesOrderItems
-                
+
                 .Select(cs => new InventoryDto
                 {
                     ProductId = cs.ProductId,
@@ -125,9 +132,9 @@ namespace POS.MediatR.Handlers
                     PricePerUnit = cs.Sum(d => d.PricePerUnit * d.Stock + d.TaxValue - d.Discount) / cs.Sum(d => d.Stock),
                     SalesOrderId = salesOrder.Id,
                     Stock = cs.Sum(d => d.Stock),
-                    PurchasePrice=cs.FirstOrDefault().PurchasePrice,
-                    Margin=cs.FirstOrDefault().Margin,
-                    Mrp=cs.FirstOrDefault().Mrp
+                    PurchasePrice = cs.FirstOrDefault().PurchasePrice,
+                    Margin = cs.FirstOrDefault().Margin,
+                    Mrp = cs.FirstOrDefault().Mrp
                 }).ToList();
 
             foreach (var inventory in inventoriesToAdd)

@@ -198,6 +198,7 @@ namespace POS.Data.Entities
         public string Price { get; set; }
         public string Discount { get; set; }
         public decimal Items { get; set; }
+        public decimal TotalSaveAmount { get; set; }
         public string DeliveryCharges { get; set; }
     }
 
