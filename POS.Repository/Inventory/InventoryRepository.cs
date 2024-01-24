@@ -283,6 +283,33 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => EF.Functions.Like(a.Product.Brand.Name, $"{encodingName}%"));
             }
+
+            if (!string.IsNullOrEmpty(inventoryResource.ProductCategoryName))
+            {
+                // trim & ignore casing
+                var genreForWhereClause = inventoryResource.ProductCategoryName
+                    .Trim().ToLowerInvariant();
+                var name = Uri.UnescapeDataString(genreForWhereClause);
+                var encodingName = WebUtility.UrlDecode(name);
+                var ecapestring = Regex.Unescape(encodingName);
+                encodingName = encodingName.Replace(@"\", @"\\").Replace("%", @"\%").Replace("_", @"\_").Replace("[", @"\[").Replace(" ", "%");
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => EF.Functions.Like(a.Product.ProductCategory.Name, $"{encodingName}%"));
+            }
+
+            if (!string.IsNullOrEmpty(inventoryResource.ProductCode))
+            {
+                // trim & ignore casing
+                var genreForWhereClause = inventoryResource.ProductCode
+                    .Trim().ToLowerInvariant();
+                var name = Uri.UnescapeDataString(genreForWhereClause);
+                var encodingName = WebUtility.UrlDecode(name);
+                var ecapestring = Regex.Unescape(encodingName);
+                encodingName = encodingName.Replace(@"\", @"\\").Replace("%", @"\%").Replace("_", @"\_").Replace("[", @"\[").Replace(" ", "%");
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => EF.Functions.Like(a.Product.Code, $"{encodingName}%"));
+            }
+
             if (!string.IsNullOrEmpty(inventoryResource.SupplierName))
             {
                 // trim & ignore casing
