@@ -1299,6 +1299,9 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetStoreOpenClose">
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.PrductBrandList(POS.Data.Resources.BrandResource)">
             <summary>
             Prduct Brand List.
