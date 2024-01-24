@@ -105,14 +105,14 @@ namespace POS.Repository
 
                 }).ToListAsync();
 
-            //return entities.ToList();
+            return entities.ToList();
 
-            var stockList = entities.Where(x => x.Stock > 0).OrderBy(x => x.Name).ToList();
-            var outstockList = entities.Where(x => x.Stock <= 0).ToList();
+            //var stockList = entities.Where(x => x.Stock > 0).OrderBy(x => x.Name).ToList();
+            //var outstockList = entities.Where(x => x.Stock <= 0).ToList();
 
-            stockList.AddRange(outstockList);
+            //stockList.AddRange(outstockList);
 
-            return stockList;
+            //return stockList;
         }
     }
 }
