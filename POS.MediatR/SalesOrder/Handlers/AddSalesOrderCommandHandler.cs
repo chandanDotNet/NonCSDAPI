@@ -82,7 +82,7 @@ namespace POS.MediatR.Handlers
 
                     //decimal aa = (decimal)(item.UnitPrice) * item.Quantity;
                     //decimal ff=decimal.Round((decimal)aa);
-                    decimal value = (decimal)(item.UnitPrice) * item.Quantity;
+                    decimal value = (decimal)(item.UnitPrice * item.Quantity);
                     int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
                     item.TotalSalesPrice = (decimal)roundedValue;
 
