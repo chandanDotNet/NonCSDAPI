@@ -76,7 +76,8 @@ namespace POS.Repository
                     Product = _mapper.Map<ProductDto>(c.Product),
                     Inventory = _mapper.Map<InventoryDto>(c.Product.Inventory),
                     PackagingId = c.PackagingId,
-                    PackagingName = c.PackagingName
+                    PackagingName = c.PackagingName,
+                    MinQty = c.MinQty
 
                 })
                 .ToListAsync();

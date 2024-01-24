@@ -26,6 +26,7 @@ namespace POS.Data
         public Guid? ProductMainCategoryId { get; set; }
         public string PackagingName { get; set; }
         public Guid? PackagingId { get; set; }
+        public decimal MinQty { get; set; }
 
     }
 }
