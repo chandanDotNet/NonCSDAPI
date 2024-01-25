@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ExcelDataReader.Log;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using POS.Common.UnitOfWork;
@@ -69,32 +70,66 @@ namespace POS.MediatR.Handlers
             {
                 salesOrder.SOCreatedDate = DateTime.Now;
             }
-            salesOrder.SalesOrderItems.ForEach(item =>
+            
+            //salesOrder.SalesOrderItems.ForEach(item =>
+            //{
+            //    var product = _productRepository.All.Where(c => c.Id == item.ProductId).FirstOrDefault();
+            //    item.Product = null;
+            //    item.Warehouse = null;
+            //    item.SalesOrderItemTaxes.ForEach(tax => { tax.Tax = null; });
+            //    item.CreatedDate = DateTime.Now;
+            //    if (product != null)
+            //    {
+            //        item.TotalPurPrice = Math.Round((decimal)product.PurchasePrice) * item.Quantity;
+
+            //        //decimal aa = (decimal)(item.UnitPrice) * item.Quantity;
+            //        //decimal ff=decimal.Round((decimal)aa);
+            //        decimal value = (decimal)(item.UnitPrice * item.Quantity);
+            //        int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
+            //        item.TotalSalesPrice = (decimal)roundedValue;
+
+            //    }
+            //    //if (item.LooseQuantity>0)
+            //    //{
+            //    //    item.LooseQuantity = item.LooseQuantity * 1000;
+            //    //    //item.UnitId=
+            //    //}
+            //});
+
+            //==================
+
+            if (salesOrder.SalesOrderItems.Count > 0)
             {
-                var product = _productRepository.All.Where(c => c.Id == item.ProductId).FirstOrDefault();
-                item.Product = null;
-                item.Warehouse = null;
-                item.SalesOrderItemTaxes.ForEach(tax => { tax.Tax = null; });
-                item.CreatedDate = DateTime.UtcNow;
-                if (product != null)
+                for (int i = 0; i < salesOrder.SalesOrderItems.Count; i++)
                 {
-                    item.TotalPurPrice = Math.Round((decimal)product.PurchasePrice) * item.Quantity;
+                    decimal TotalPurPrice = 0, value=0;
+                    int roundedValue = 0;
+                    var product = _productRepository.All.Where(c => c.Id == salesOrder.SalesOrderItems[i].ProductId).FirstOrDefault();
+                    if (product != null)
+                    {
+                        TotalPurPrice= Math.Round((decimal)product.PurchasePrice) * salesOrder.SalesOrderItems[i].Quantity;
+                    }
 
-                    //decimal aa = (decimal)(item.UnitPrice) * item.Quantity;
-                    //decimal ff=decimal.Round((decimal)aa);
-                    decimal value = (decimal)(item.UnitPrice * item.Quantity);
-                    int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
-                    item.TotalSalesPrice = (decimal)roundedValue;
+                    value = (decimal)(salesOrder.SalesOrderItems[i].UnitPrice) * salesOrder.SalesOrderItems[i].Quantity;
+                    roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
+                    salesOrder.SalesOrderItems[i].TotalSalesPrice = roundedValue;
+                    salesOrder.SalesOrderItems[i].TotalPurPrice = TotalPurPrice;
 
+                    salesOrder.SalesOrderItems[i].Product = null;
+                    salesOrder.SalesOrderItems[i].Warehouse = null;
+                    salesOrder.SalesOrderItems[i].SalesOrderItemTaxes.ForEach(tax => { tax.Tax = null; });
+                    salesOrder.SalesOrderItems[i].CreatedDate = DateTime.Now;
+                    //entity.SalesOrderItems[i].TotalSalesPrice = decimal.Round((decimal)(entity.SalesOrderItems[i].UnitPrice * entity.SalesOrderItems[i].Quantity));
+                    _logger.LogError("TotalSalesPrice -", roundedValue);
                 }
-                //if (item.LooseQuantity>0)
-                //{
-                //    item.LooseQuantity = item.LooseQuantity * 1000;
-                //    //item.UnitId=
-                //}
-            });
+            }
 
-            salesOrder.TotalAmount = (decimal)Math.Round((decimal)salesOrder.SalesOrderItems.Sum(item => item.TotalSalesPrice), MidpointRounding.AwayFromZero);
+            //==================
+            decimal TotalAmount = 0;
+            TotalAmount = (decimal)salesOrder.SalesOrderItems.Sum(item => item.TotalSalesPrice);
+            salesOrder.TotalAmount = (decimal)Math.Round(TotalAmount, MidpointRounding.AwayFromZero);
+
+            _logger.LogError("TotalAmount -", TotalAmount);
 
             _salesOrderRepository.Add(salesOrder);
 
