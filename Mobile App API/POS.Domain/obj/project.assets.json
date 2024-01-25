@@ -3138,11 +3138,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\NON CSD API\\POS.Domain\\POS.Domain.csproj",
+      "projectUniqueName": "D:\\NON CSD API\\Mobile App API\\POS.Domain\\POS.Domain.csproj",
       "projectName": "POS.Domain",
-      "projectPath": "D:\\NON CSD API\\POS.Domain\\POS.Domain.csproj",
+      "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Domain\\POS.Domain.csproj",
       "packagesPath": "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\",
-      "outputPath": "D:\\NON CSD API\\POS.Domain\\obj\\",
+      "outputPath": "D:\\NON CSD API\\Mobile App API\\POS.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\siddiqui.rahil\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3159,8 +3159,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\NON CSD API\\POS.Data\\POS.Data.csproj": {
-              "projectPath": "D:\\NON CSD API\\POS.Data\\POS.Data.csproj"
+            "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj": {
+              "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj"
             }
           }
         }

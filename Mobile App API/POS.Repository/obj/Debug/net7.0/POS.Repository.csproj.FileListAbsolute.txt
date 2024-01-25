@@ -218,3 +218,25 @@ D:\NON CSD API\POS.Repository\obj\Debug\net7.0\POS.Repository.dll
 D:\NON CSD API\POS.Repository\obj\Debug\net7.0\refint\POS.Repository.dll
 D:\NON CSD API\POS.Repository\obj\Debug\net7.0\POS.Repository.pdb
 D:\NON CSD API\POS.Repository\obj\Debug\net7.0\ref\POS.Repository.dll
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\Migrations\20221105115351_Initial_Data.sql
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\POS.Repository.deps.json
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\POS.Repository.dll
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\POS.Repository.pdb
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\POS.Common.dll
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\POS.Data.dll
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\POS.Domain.dll
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\POS.Helper.dll
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\POS.Common.pdb
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\POS.Data.pdb
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\POS.Domain.pdb
+D:\NON CSD API\Mobile App API\POS.Repository\bin\Debug\net7.0\POS.Helper.pdb
+D:\NON CSD API\Mobile App API\POS.Repository\obj\Debug\net7.0\POS.Repository.csproj.AssemblyReference.cache
+D:\NON CSD API\Mobile App API\POS.Repository\obj\Debug\net7.0\POS.Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\NON CSD API\Mobile App API\POS.Repository\obj\Debug\net7.0\POS.Repository.AssemblyInfoInputs.cache
+D:\NON CSD API\Mobile App API\POS.Repository\obj\Debug\net7.0\POS.Repository.AssemblyInfo.cs
+D:\NON CSD API\Mobile App API\POS.Repository\obj\Debug\net7.0\POS.Repository.csproj.CoreCompileInputs.cache
+D:\NON CSD API\Mobile App API\POS.Repository\obj\Debug\net7.0\POS.Repository.csproj.CopyComplete
+D:\NON CSD API\Mobile App API\POS.Repository\obj\Debug\net7.0\POS.Repository.dll
+D:\NON CSD API\Mobile App API\POS.Repository\obj\Debug\net7.0\refint\POS.Repository.dll
+D:\NON CSD API\Mobile App API\POS.Repository\obj\Debug\net7.0\POS.Repository.pdb
+D:\NON CSD API\Mobile App API\POS.Repository\obj\Debug\net7.0\ref\POS.Repository.dll

@@ -74,10 +74,10 @@ namespace POS.Repository
                     Total = decimal.Parse(c.Total.ToString("0.00")),
                     IsAdvanceOrderRequest = c.IsAdvanceOrderRequest == null ? false : Convert.ToBoolean(c.IsAdvanceOrderRequest),
                     Product = _mapper.Map<ProductDto>(c.Product),
-                    Inventory = _mapper.Map<InventoryDto>(c.Product.Inventory),
-                    PackagingId = c.PackagingId,
-                    PackagingName = c.PackagingName,
-                    MinQty = c.MinQty
+                    Inventory = _mapper.Map<InventoryDto>(c.Product.Inventory)
+                    //PackagingId = c.PackagingId,
+                    //PackagingName = c.PackagingName,
+                    //MinQty = c.MinQty
 
                 })
                 .ToListAsync();

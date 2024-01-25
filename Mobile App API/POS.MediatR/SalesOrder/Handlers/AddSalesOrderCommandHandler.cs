@@ -61,7 +61,14 @@ namespace POS.MediatR.Handlers
             var salesOrder = _mapper.Map<Data.SalesOrder>(request);
             salesOrder.PaymentStatus = PaymentStatus.Pending;
             salesOrder.OrderDeliveryStatus = "Order Placed";
-            salesOrder.SOCreatedDate = DateTime.Now;
+            if (salesOrder.IsAdvanceOrderRequest == true)
+            {
+                salesOrder.SOCreatedDate = request.DeliveryDate;
+            }
+            else
+            {
+                salesOrder.SOCreatedDate = DateTime.Now;
+            }
             salesOrder.SalesOrderItems.ForEach(item =>
             {
                 var product = _productRepository.All.Where(c => c.Id == item.ProductId).FirstOrDefault();
@@ -78,7 +85,7 @@ namespace POS.MediatR.Handlers
                     decimal value = (decimal)(item.UnitPrice) * item.Quantity;
                     int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
                     item.TotalSalesPrice = (decimal)roundedValue;
-                   
+
                 }
                 //if (item.LooseQuantity>0)
                 //{
@@ -87,7 +94,41 @@ namespace POS.MediatR.Handlers
                 //}
             });
 
-            salesOrder.TotalAmount= (decimal)Math.Round((decimal)salesOrder.SalesOrderItems.Sum(item => item.TotalSalesPrice), MidpointRounding.AwayFromZero);
+            //==================
+
+            //if (salesOrder.SalesOrderItems.Count > 0)
+            //{
+            //    for (int i = 0; i < salesOrder.SalesOrderItems.Count; i++)
+            //    {
+            //        decimal TotalPurPrice = 0, value = 0;
+            //        int roundedValue = 0;
+            //        var product = _productRepository.All.Where(c => c.Id == salesOrder.SalesOrderItems[i].ProductId).FirstOrDefault();
+            //        if (product != null)
+            //        {
+            //            TotalPurPrice = Math.Round((decimal)product.PurchasePrice) * salesOrder.SalesOrderItems[i].Quantity;
+            //        }
+
+            //        value = (decimal)(salesOrder.SalesOrderItems[i].UnitPrice) * salesOrder.SalesOrderItems[i].Quantity;
+            //        roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
+            //        salesOrder.SalesOrderItems[i].TotalSalesPrice = roundedValue;
+            //        salesOrder.SalesOrderItems[i].TotalPurPrice = TotalPurPrice;
+
+            //        salesOrder.SalesOrderItems[i].Product = null;
+            //        salesOrder.SalesOrderItems[i].Warehouse = null;
+            //        salesOrder.SalesOrderItems[i].SalesOrderItemTaxes.ForEach(tax => { tax.Tax = null; });
+            //        salesOrder.SalesOrderItems[i].CreatedDate = DateTime.Now;
+            //        //entity.SalesOrderItems[i].TotalSalesPrice = decimal.Round((decimal)(entity.SalesOrderItems[i].UnitPrice * entity.SalesOrderItems[i].Quantity));
+            //        _logger.LogError("TotalSalesPrice -", roundedValue);
+            //    }
+            //}
+
+            //==================
+
+            decimal TotalAmount = 0;
+            TotalAmount = (decimal)salesOrder.SalesOrderItems.Sum(item => item.TotalSalesPrice);
+            salesOrder.TotalAmount = (decimal)Math.Round(TotalAmount, MidpointRounding.AwayFromZero);
+
+            //salesOrder.TotalAmount= (decimal)Math.Round((decimal)salesOrder.SalesOrderItems.Sum(item => item.TotalSalesPrice), MidpointRounding.AwayFromZero);
 
             _salesOrderRepository.Add(salesOrder);
 
