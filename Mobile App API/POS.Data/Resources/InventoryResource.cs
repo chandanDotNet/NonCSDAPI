@@ -17,5 +17,7 @@ namespace POS.Data
         public string BrandName { get; set; }
         public string SupplierName { get; set; }
         public DateTime? DefaultDate { get; set; } = DateTime.Now;
+        public string? ProductCategoryName { get; set; }
+        public string? ProductCode { get; set; }
     }
 }

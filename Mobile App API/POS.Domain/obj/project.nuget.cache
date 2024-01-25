@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MCmx08I0C9K6Svxvm6LmW81Y+NoqyMZVc7BrRfuiV3yl0D22A8ZsPeXBGjTEMshQNkvib7Rcwf4lCRb1TQUl1w==",
+  "dgSpecHash": "2jmwPxdUghiHdifkdw+eAhbGKA1hw+g0fXTsIOIKcNPQKLAua+bXuCCZ3rXOydp+Xi3TmIWUF9JenBGPUo9xQw==",
   "success": true,
-  "projectFilePath": "D:\\NON CSD API\\POS.Domain\\POS.Domain.csproj",
+  "projectFilePath": "D:\\NON CSD API\\Mobile App API\\POS.Domain\\POS.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

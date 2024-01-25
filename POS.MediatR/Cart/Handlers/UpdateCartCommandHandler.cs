@@ -63,6 +63,7 @@ namespace POS.MediatR.Cart.Handlers
             cart.PackagingId = request.PackagingId;
             cart.PackagingName = request.PackagingName;
             cart.MinQty = request.MinQty;
+            cart.NoOfItems = request.NoOfItems;
 
             //var updateCart = _mapper.Map(request, cart);
             _cartRepository.Update(cart);

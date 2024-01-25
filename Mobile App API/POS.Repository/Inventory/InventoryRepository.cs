@@ -295,6 +295,35 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => EF.Functions.Like(a.Product.PurchaseOrderItems.PurchaseOrder.Supplier.SupplierName, $"{encodingName}%"));
             }
+
+
+            if (!string.IsNullOrEmpty(inventoryResource.ProductCategoryName))
+            {
+                // trim & ignore casing
+                var genreForWhereClause = inventoryResource.ProductCategoryName
+                    .Trim().ToLowerInvariant();
+                var name = Uri.UnescapeDataString(genreForWhereClause);
+                var encodingName = WebUtility.UrlDecode(name);
+                var ecapestring = Regex.Unescape(encodingName);
+                encodingName = encodingName.Replace(@"\", @"\\").Replace("%", @"\%").Replace("_", @"\_").Replace("[", @"\[").Replace(" ", "%");
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => EF.Functions.Like(a.Product.ProductCategory.Name, $"{encodingName}%"));
+            }
+
+            if (!string.IsNullOrEmpty(inventoryResource.ProductCode))
+            {
+                // trim & ignore casing
+                var genreForWhereClause = inventoryResource.ProductCode
+                    .Trim().ToLowerInvariant();
+                var name = Uri.UnescapeDataString(genreForWhereClause);
+                var encodingName = WebUtility.UrlDecode(name);
+                var ecapestring = Regex.Unescape(encodingName);
+                encodingName = encodingName.Replace(@"\", @"\\").Replace("%", @"\%").Replace("_", @"\_").Replace("[", @"\[").Replace(" ", "%");
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => EF.Functions.Like(a.Product.Code, $"{encodingName}%"));
+            }
+           
+
             var inventoryList = new InventoryList(_mapper);
             return await inventoryList.Create(collectionBeforePaging, inventoryResource.Skip, inventoryResource.PageSize,inventoryResource.DefaultDate);
         }

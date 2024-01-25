@@ -114,6 +114,14 @@ namespace POS.MediatR.Handlers
             salesOrderExit.Note = salesOrderUpdate.Note;
             salesOrderExit.TermAndCondition = salesOrderUpdate.TermAndCondition;
             salesOrderExit.IsSalesOrderRequest = salesOrderUpdate.IsSalesOrderRequest;
+            if (salesOrderExit.IsAdvanceOrderRequest == true)
+            {
+                salesOrderExit.SOCreatedDate = salesOrderUpdate.DeliveryDate;
+            }
+            else
+            {
+                salesOrderExit.SOCreatedDate = salesOrderUpdate.SOCreatedDate;
+            }
             salesOrderExit.SOCreatedDate = salesOrderUpdate.SOCreatedDate;
             salesOrderExit.Status = salesOrderUpdate.Status;
             salesOrderExit.DeliveryDate = salesOrderUpdate.DeliveryDate;
@@ -123,16 +131,48 @@ namespace POS.MediatR.Handlers
             salesOrderExit.TotalTax = salesOrderUpdate.TotalTax;
             salesOrderExit.TotalDiscount = salesOrderUpdate.TotalDiscount;
             salesOrderExit.SalesOrderItems = salesOrderUpdate.SalesOrderItems;
-            salesOrderExit.SalesOrderItems.ForEach(c =>
+            //salesOrderExit.SalesOrderItems.ForEach(c =>
+            //{
+            //    c.SalesOrderId = salesOrderUpdate.Id;
+            //    c.CreatedDate = DateTime.UtcNow;
+            //    //c.TotalSalesPrice= decimal.Round((decimal)c.UnitPrice*c.Quantity);
+            //    decimal value = (decimal)(c.UnitPrice) * c.Quantity;
+            //    int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
+            //    c.TotalSalesPrice = (decimal)roundedValue;
+            //});
+
+
+            //==================
+
+            if (salesOrderExit.SalesOrderItems.Count > 0)
             {
-                c.SalesOrderId = salesOrderUpdate.Id;
-                c.CreatedDate = DateTime.UtcNow;
-                //c.TotalSalesPrice= decimal.Round((decimal)c.UnitPrice*c.Quantity);
-                decimal value = (decimal)(c.UnitPrice) * c.Quantity;
-                int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
-                c.TotalSalesPrice = (decimal)roundedValue;
-            });
-            salesOrderExit.TotalAmount = decimal.Round((decimal)salesOrderExit.SalesOrderItems.Sum(item => item.TotalSalesPrice));
+                for (int i = 0; i < salesOrderExit.SalesOrderItems.Count; i++)
+                {
+                    decimal TotalPurPrice = 0, value = 0;
+                    int roundedValue = 0;
+                    //var product = _productRepository.All.Where(c => c.Id == salesOrder.SalesOrderItems[i].ProductId).FirstOrDefault();
+                    //if (product != null)
+                    //{
+                    //    TotalPurPrice = Math.Round((decimal)product.PurchasePrice) * salesOrder.SalesOrderItems[i].Quantity;
+                    //}
+                    salesOrderExit.SalesOrderItems[i].SalesOrderId = salesOrderUpdate.Id;
+                    value = (decimal)(salesOrderExit.SalesOrderItems[i].UnitPrice) * salesOrderExit.SalesOrderItems[i].Quantity;
+                    roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
+                    salesOrderExit.SalesOrderItems[i].TotalSalesPrice = roundedValue;
+                    //salesOrderExit.SalesOrderItems[i].TotalPurPrice = TotalPurPrice;
+                    salesOrderExit.SalesOrderItems[i].CreatedDate = DateTime.Now;
+                    //entity.SalesOrderItems[i].TotalSalesPrice = decimal.Round((decimal)(entity.SalesOrderItems[i].UnitPrice * entity.SalesOrderItems[i].Quantity));
+                    //_logger.LogError("TotalSalesPrice -", roundedValue);
+                }
+            }
+
+            //==================
+
+            decimal TotalAmount = 0;
+            TotalAmount = (decimal)salesOrderExit.SalesOrderItems.Sum(item => item.TotalSalesPrice);
+            salesOrderExit.TotalAmount = (decimal)Math.Round(TotalAmount, MidpointRounding.AwayFromZero);
+
+            //salesOrderExit.TotalAmount = decimal.Round((decimal)salesOrderExit.SalesOrderItems.Sum(item => item.TotalSalesPrice));
             _salesOrderRepository.Update(salesOrderExit);
 
             var inventories = request.SalesOrderItems

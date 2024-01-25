@@ -71,6 +71,7 @@ namespace POS.Repository
                     UnitName = c.UnitName,                    
                     UnitPrice = decimal.Parse(c.UnitPrice.ToString("0.00")),
                     Quantity = c.Quantity,
+                    NoOfItems = c.NoOfItems,
                     Total = decimal.Parse(c.Total.ToString("0.00")),
                     IsAdvanceOrderRequest = c.IsAdvanceOrderRequest == null ? false : Convert.ToBoolean(c.IsAdvanceOrderRequest),
                     Product = _mapper.Map<ProductDto>(c.Product),

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jvwYZexzCKW/DZCBn5wdOjjF7dpzUC932frArJyk2pbujTTNXxkRzhiY31SNB8jlwwLpoNzCBi8IUCLMSBNXpw==",
+  "dgSpecHash": "CyKnw8Tj2wJ8h4iHsuU5ixlbGFaPNYX77zkto7GSVARHRNDp12Dj2pT1uqAihSC5R2IH5iPDGPBmRjOxKqMrDg==",
   "success": true,
-  "projectFilePath": "D:\\NON CSD API\\POS.MediatR\\POS.MediatR.csproj",
+  "projectFilePath": "D:\\NON CSD API\\Mobile App API\\POS.MediatR\\POS.MediatR.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

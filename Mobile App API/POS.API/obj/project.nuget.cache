@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1AAVZ2SVEI02x2YT3GbBz7sDm6hXIRlXhzGHTfzYd2PZebb9Sld0YeQ5+Dzicwmyx2dUJoPsuIryc9ytbhiQyA==",
+  "dgSpecHash": "sA963j/yK0+t33JzG66qzV1a2G82qMHleX/DuYS60Spaw1qJWnJAdfi0coujMZzyx3B6If0zyogzLGSOm8uQcA==",
   "success": true,
-  "projectFilePath": "D:\\NON CSD API\\POS.API\\POS.API.csproj",
+  "projectFilePath": "D:\\NON CSD API\\Mobile App API\\POS.API\\POS.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

@@ -29,6 +29,7 @@ namespace POS.MediatR.CommandAndQuery
         public string PackagingName { get; set; }
         public Guid? PackagingId { get; set; }
         public decimal? MinQty { get; set; }
+        public int NoOfItems { get; set; }
 
     }
 }

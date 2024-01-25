@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\NON CSD API\\POS.MediatR\\POS.MediatR.csproj": {}
+    "D:\\NON CSD API\\Mobile App API\\POS.MediatR\\POS.MediatR.csproj": {}
   },
   "projects": {
-    "D:\\NON CSD API\\POS.Common\\POS.Common.csproj": {
+    "D:\\NON CSD API\\Mobile App API\\POS.Common\\POS.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NON CSD API\\POS.Common\\POS.Common.csproj",
+        "projectUniqueName": "D:\\NON CSD API\\Mobile App API\\POS.Common\\POS.Common.csproj",
         "projectName": "POS.Common",
-        "projectPath": "D:\\NON CSD API\\POS.Common\\POS.Common.csproj",
+        "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Common\\POS.Common.csproj",
         "packagesPath": "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\",
-        "outputPath": "D:\\NON CSD API\\POS.Common\\obj\\",
+        "outputPath": "D:\\NON CSD API\\Mobile App API\\POS.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\siddiqui.rahil\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\NON CSD API\\POS.Data\\POS.Data.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Data\\POS.Data.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj"
               }
             }
           }
@@ -69,14 +69,14 @@
         }
       }
     },
-    "D:\\NON CSD API\\POS.Data\\POS.Data.csproj": {
+    "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NON CSD API\\POS.Data\\POS.Data.csproj",
+        "projectUniqueName": "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj",
         "projectName": "POS.Data",
-        "projectPath": "D:\\NON CSD API\\POS.Data\\POS.Data.csproj",
+        "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj",
         "packagesPath": "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\",
-        "outputPath": "D:\\NON CSD API\\POS.Data\\obj\\",
+        "outputPath": "D:\\NON CSD API\\Mobile App API\\POS.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\siddiqui.rahil\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -93,8 +93,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\NON CSD API\\POS.Helper\\POS.Helper.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Helper\\POS.Helper.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Helper\\POS.Helper.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Helper\\POS.Helper.csproj"
               }
             }
           }
@@ -134,14 +134,14 @@
         }
       }
     },
-    "D:\\NON CSD API\\POS.Domain\\POS.Domain.csproj": {
+    "D:\\NON CSD API\\Mobile App API\\POS.Domain\\POS.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NON CSD API\\POS.Domain\\POS.Domain.csproj",
+        "projectUniqueName": "D:\\NON CSD API\\Mobile App API\\POS.Domain\\POS.Domain.csproj",
         "projectName": "POS.Domain",
-        "projectPath": "D:\\NON CSD API\\POS.Domain\\POS.Domain.csproj",
+        "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Domain\\POS.Domain.csproj",
         "packagesPath": "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\",
-        "outputPath": "D:\\NON CSD API\\POS.Domain\\obj\\",
+        "outputPath": "D:\\NON CSD API\\Mobile App API\\POS.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\siddiqui.rahil\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -158,8 +158,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\NON CSD API\\POS.Data\\POS.Data.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Data\\POS.Data.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj"
               }
             }
           }
@@ -211,14 +211,14 @@
         }
       }
     },
-    "D:\\NON CSD API\\POS.Helper\\POS.Helper.csproj": {
+    "D:\\NON CSD API\\Mobile App API\\POS.Helper\\POS.Helper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NON CSD API\\POS.Helper\\POS.Helper.csproj",
+        "projectUniqueName": "D:\\NON CSD API\\Mobile App API\\POS.Helper\\POS.Helper.csproj",
         "projectName": "POS.Helper",
-        "projectPath": "D:\\NON CSD API\\POS.Helper\\POS.Helper.csproj",
+        "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Helper\\POS.Helper.csproj",
         "packagesPath": "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\",
-        "outputPath": "D:\\NON CSD API\\POS.Helper\\obj\\",
+        "outputPath": "D:\\NON CSD API\\Mobile App API\\POS.Helper\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\siddiqui.rahil\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -283,14 +283,14 @@
         }
       }
     },
-    "D:\\NON CSD API\\POS.MediatR\\POS.MediatR.csproj": {
+    "D:\\NON CSD API\\Mobile App API\\POS.MediatR\\POS.MediatR.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NON CSD API\\POS.MediatR\\POS.MediatR.csproj",
+        "projectUniqueName": "D:\\NON CSD API\\Mobile App API\\POS.MediatR\\POS.MediatR.csproj",
         "projectName": "POS.MediatR",
-        "projectPath": "D:\\NON CSD API\\POS.MediatR\\POS.MediatR.csproj",
+        "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.MediatR\\POS.MediatR.csproj",
         "packagesPath": "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\",
-        "outputPath": "D:\\NON CSD API\\POS.MediatR\\obj\\",
+        "outputPath": "D:\\NON CSD API\\Mobile App API\\POS.MediatR\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\siddiqui.rahil\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -307,20 +307,20 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\NON CSD API\\POS.Common\\POS.Common.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Common\\POS.Common.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Common\\POS.Common.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Common\\POS.Common.csproj"
               },
-              "D:\\NON CSD API\\POS.Data\\POS.Data.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Data\\POS.Data.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj"
               },
-              "D:\\NON CSD API\\POS.Domain\\POS.Domain.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Domain\\POS.Domain.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Domain\\POS.Domain.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Domain\\POS.Domain.csproj"
               },
-              "D:\\NON CSD API\\POS.Helper\\POS.Helper.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Helper\\POS.Helper.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Helper\\POS.Helper.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Helper\\POS.Helper.csproj"
               },
-              "D:\\NON CSD API\\POS.Repository\\POS.Repository.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Repository\\POS.Repository.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Repository\\POS.Repository.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Repository\\POS.Repository.csproj"
               }
             }
           }
@@ -387,14 +387,14 @@
         }
       }
     },
-    "D:\\NON CSD API\\POS.Repository\\POS.Repository.csproj": {
+    "D:\\NON CSD API\\Mobile App API\\POS.Repository\\POS.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NON CSD API\\POS.Repository\\POS.Repository.csproj",
+        "projectUniqueName": "D:\\NON CSD API\\Mobile App API\\POS.Repository\\POS.Repository.csproj",
         "projectName": "POS.Repository",
-        "projectPath": "D:\\NON CSD API\\POS.Repository\\POS.Repository.csproj",
+        "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Repository\\POS.Repository.csproj",
         "packagesPath": "C:\\Users\\siddiqui.rahil\\.nuget\\packages\\",
-        "outputPath": "D:\\NON CSD API\\POS.Repository\\obj\\",
+        "outputPath": "D:\\NON CSD API\\Mobile App API\\POS.Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\siddiqui.rahil\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -411,17 +411,17 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\NON CSD API\\POS.Common\\POS.Common.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Common\\POS.Common.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Common\\POS.Common.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Common\\POS.Common.csproj"
               },
-              "D:\\NON CSD API\\POS.Data\\POS.Data.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Data\\POS.Data.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Data\\POS.Data.csproj"
               },
-              "D:\\NON CSD API\\POS.Domain\\POS.Domain.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Domain\\POS.Domain.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Domain\\POS.Domain.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Domain\\POS.Domain.csproj"
               },
-              "D:\\NON CSD API\\POS.Helper\\POS.Helper.csproj": {
-                "projectPath": "D:\\NON CSD API\\POS.Helper\\POS.Helper.csproj"
+              "D:\\NON CSD API\\Mobile App API\\POS.Helper\\POS.Helper.csproj": {
+                "projectPath": "D:\\NON CSD API\\Mobile App API\\POS.Helper\\POS.Helper.csproj"
               }
             }
           }
