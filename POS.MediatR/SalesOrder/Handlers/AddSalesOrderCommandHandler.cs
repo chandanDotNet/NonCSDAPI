@@ -68,9 +68,15 @@ namespace POS.MediatR.Handlers
             }
             else
             {
-                salesOrder.SOCreatedDate = DateTime.Now;
-            }
-            
+                if (DateTime.Now.TimeOfDay.Hours >= 17 && DateTime.Now.TimeOfDay.Minutes > 0)
+                {
+                    salesOrder.SOCreatedDate = DateTime.Now.AddDays(1);
+                }
+                else
+                {
+                    salesOrder.SOCreatedDate = DateTime.Now;
+                }                
+            }            
             //salesOrder.SalesOrderItems.ForEach(item =>
             //{
             //    var product = _productRepository.All.Where(c => c.Id == item.ProductId).FirstOrDefault();

@@ -48,5 +48,6 @@ namespace POS.Data.Dto
         public string? CancelReason { get; set; }
         public string? StatusType { get; set; }
         public Guid? ProductMainCategoryId { get; set; }
+        public string? TotalSaveAmount { get; set; }
     }
 }
