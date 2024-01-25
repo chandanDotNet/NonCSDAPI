@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using POS.Data.Dto;
+using POS.Data.Entities;
 using POS.Helper;
 using POS.MediatR.CommandAndQuery;
 using POS.Repository;
@@ -28,6 +29,10 @@ namespace POS.MediatR.Handlers
 
         public async Task<ServiceResponse<SalesOrderDto>> Handle(GetSalesOrderCommand request, CancellationToken cancellationToken)
         {
+            decimal totalSaleAmount = 0;
+            decimal totalMrpAmount = 0;
+            string TotalSaveAmount = string.Empty;
+
             var entity = await _salesOrderRepository.All
                  .Include(c => c.SalesOrderPayments)
                  .Include(c => c.Customer)
@@ -76,11 +81,16 @@ namespace POS.MediatR.Handlers
                         int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
                         entity.SalesOrderItems[i].TotalSalesPrice = roundedValue;
                         //entity.SalesOrderItems[i].TotalSalesPrice = decimal.Round((decimal)(entity.SalesOrderItems[i].UnitPrice * entity.SalesOrderItems[i].Quantity));
+
+                        totalMrpAmount += (decimal)(entity.SalesOrderItems[i].Product.Mrp) * entity.SalesOrderItems[i].Quantity;
                     }
+
+                    TotalSaveAmount = (totalMrpAmount - entity.TotalAmount).ToString("0.00");
                 }
             }
             var dto = _mapper.Map<SalesOrderDto>(entity);
             dto.BillNo = dto.OrderNumber.Substring(3, dto.OrderNumber.Length - 3);
+            dto.TotalSaveAmount = TotalSaveAmount;
             return ServiceResponse<SalesOrderDto>.ReturnResultWith200(dto);
         }
     }
