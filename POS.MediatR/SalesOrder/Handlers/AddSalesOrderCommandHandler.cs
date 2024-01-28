@@ -71,6 +71,7 @@ namespace POS.MediatR.Handlers
                 if (DateTime.Now.TimeOfDay.Hours >= 17 && DateTime.Now.TimeOfDay.Minutes > 0)
                 {
                     salesOrder.SOCreatedDate = DateTime.Now.AddDays(1);
+                    salesOrder.DeliveryDate = salesOrder.SOCreatedDate;
                 }
                 else
                 {
@@ -209,6 +210,9 @@ namespace POS.MediatR.Handlers
                 _logger.LogError("Error while creating Sales Order.");
                 return ServiceResponse<SalesOrderDto>.Return500();
             }
+
+
+
             var dto = _mapper.Map<SalesOrderDto>(salesOrder);
             return ServiceResponse<SalesOrderDto>.ReturnResultWith201(dto);
         }
