@@ -36,7 +36,9 @@ namespace POS.MediatR.Notice.Handler
                 .Select(c => new NoticeDto
                 {
                     Id = c.Id,
-                    Text = c.Text
+                    Text = c.Text,
+                    AlertMessage= c.AlertMessage,
+                    StoreOpenClose= c.StoreOpenClose
                 }).ToListAsync();
             return entities;
         }

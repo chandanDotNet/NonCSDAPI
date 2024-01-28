@@ -384,14 +384,14 @@ namespace POS.API.Controllers.MobileApp
 
                 var count = await GetProductCount(getAllProductCategoriesQuery.ProductMainCategoryId);
 
-                var returnVal = await GetStoreOpenClose();
+                //var returnVal = await GetStoreOpenClose();
 
                 if (result.Count > 0)
                 {
                     response.status = true;
                     response.StatusCode = 1;
                     response.message = "Success";
-                    response.StoreOpenClose = returnVal;
+                    //response.StoreOpenClose = returnVal;
                     response.productCount = count;
                     response.Data = result;
                 }
@@ -1545,6 +1545,8 @@ namespace POS.API.Controllers.MobileApp
                 response.StatusCode = 1;
                 response.message = "Success";
                 response.Text = noticeResult.FirstOrDefault().Text;
+                response.AlertMessage = noticeResult.FirstOrDefault().AlertMessage;
+                response.StoreOpenClose = noticeResult.FirstOrDefault().StoreOpenClose;
                 response.Data = result;
             }
             else

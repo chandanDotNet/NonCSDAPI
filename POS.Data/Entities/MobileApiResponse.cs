@@ -61,7 +61,7 @@ namespace POS.Data.Entities
         public int StatusCode { get; set; }
         public string message { get; set; }
         public int productCount { get; set; }
-        public bool StoreOpenClose { get; set; }
+        //public bool StoreOpenClose { get; set; }
         public IList<ProductCategoryDto> Data { get; set; }
     }
 
@@ -239,6 +239,8 @@ namespace POS.Data.Entities
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
         public string Text { get; set; }
+        public string AlertMessage { get; set; }
+        public bool StoreOpenClose { get; set; }
         public IList<HomePageBannerDto> Data { get; set; }
     }
     public class NoticeResponseData
