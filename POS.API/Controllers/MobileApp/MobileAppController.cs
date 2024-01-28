@@ -1333,7 +1333,7 @@ namespace POS.API.Controllers.MobileApp
                         Discount = result.Sum(x => x.Discount).ToString("0.00"),
                         DeliveryCharges = "0.00",
                         Items = result.Sum(x => x.Quantity),
-                        TotalSaveAmount = (totalMrpAmount - totalSaleAmount).ToString("0.00"),
+                        TotalSaveAmount = Math.Round((totalMrpAmount - totalSaleAmount), MidpointRounding.AwayFromZero).ToString("0.00"),
                     };
 
                     response.status = true;

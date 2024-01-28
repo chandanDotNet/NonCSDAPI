@@ -85,7 +85,7 @@ namespace POS.MediatR.Handlers
                         totalMrpAmount += (decimal)(entity.SalesOrderItems[i].Product.Mrp) * entity.SalesOrderItems[i].Quantity;
                     }
 
-                    TotalSaveAmount = (totalMrpAmount - entity.TotalAmount).ToString("0.00");
+                    TotalSaveAmount = Math.Round((totalMrpAmount - entity.TotalAmount), MidpointRounding.AwayFromZero).ToString("0.00");
                 }
             }
             var dto = _mapper.Map<SalesOrderDto>(entity);
