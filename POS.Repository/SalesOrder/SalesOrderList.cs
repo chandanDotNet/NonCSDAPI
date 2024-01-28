@@ -202,7 +202,8 @@ namespace POS.Repository
                         }
                     }
                 }
-                return entities.OrderBy(x=>x.SOCreatedDate).ToList();
+                //return entities.OrderBy(x=>x.SOCreatedDate).ToList();
+                return entities;
             }
 
         }
