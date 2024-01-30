@@ -1118,6 +1118,19 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddOTPPageBanner(POS.MediatR.Banner.Command.AddOTPBannerCommand)">
+            <summary>
+            Add Banner.
+            </summary>
+            <param name="addOTPBannerCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetOTPBanners">
+            <summary>
+            Get Banners.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddBanner(POS.MediatR.Banner.Command.AddBannerCommand)">
             <summary>
             Add Banner.

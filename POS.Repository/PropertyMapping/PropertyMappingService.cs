@@ -220,6 +220,19 @@ namespace POS.Repository
                 { "CounterName", new PropertyMappingValue(new List<string>() { "CounterName" } ) },
            };
 
+        private Dictionary<string, PropertyMappingValue> _shopHolidayMapping =
+           new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+           {
+                { "HolidayName", new PropertyMappingValue(new List<string>() { "HolidayName" } ) },
+                { "FromDate", new PropertyMappingValue(new List<string>() { "FromDate" } ) },
+                { "ToDate", new PropertyMappingValue(new List<string>() { "ToDate" } ) },
+                { "FromTime", new PropertyMappingValue(new List<string>() { "FromTime" } ) },
+                { "ToTime", new PropertyMappingValue(new List<string>() { "ToTime" } ) },
+                { "NotificationMessage", new PropertyMappingValue(new List<string>() { "NotificationMessage" } ) },
+                { "IsOpenClose", new PropertyMappingValue(new List<string>() { "IsOpenClose" } ) },
+                { "IsAdvanceOrder", new PropertyMappingValue(new List<string>() { "IsAdvanceOrder" } ) }
+           };
+
         private Dictionary<string, PropertyMappingValue> _inquiryPropertyMapping =
             new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
             {
@@ -387,6 +400,7 @@ namespace POS.Repository
             propertyMappings.Add(new PropertyMapping<NonCSDCanteenDto, NonCSDCanteen>(_nonCSDCanteenMapping));
             propertyMappings.Add(new PropertyMapping<BrandDto, Brand>(_brandPropertyMapping));
             propertyMappings.Add(new PropertyMapping<ManufacturerDto, Manufacturer>(_manufacturerPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<ShopHolidayDto, ShopHoliday>(_shopHolidayMapping));
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()

@@ -68,6 +68,8 @@ namespace POS.API.Helpers.Mapping
                 mc.AddProfile(new HomePageBannerProfile());
                 mc.AddProfile(new NoticeProfile());
                 mc.AddProfile(new PackagingProfile());
+                mc.AddProfile(new OTPBannerProfile());
+                mc.AddProfile(new ShopHolidayProfile());
             });
             return mappingConfig.CreateMapper();
         }
