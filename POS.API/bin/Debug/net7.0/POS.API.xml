@@ -320,7 +320,7 @@
             </summary>
             <param name="mediator"></param>
         </member>
-        <member name="M:POS.API.Controllers.Dashboard.DashboardController.GetDashboardStatistics">
+        <member name="M:POS.API.Controllers.Dashboard.DashboardController.GetDashboardStatistics(System.Guid)">
             <summary>
             Gets the dashboard statistics.
             </summary>

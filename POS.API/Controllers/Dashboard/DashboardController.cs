@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using POS.MediatR.CommandAndQuery;
 using POS.MediatR.Dashboard.Commands;
 using POS.API.Helpers;
+using System;
 
 namespace POS.API.Controllers.Dashboard
 {
@@ -34,9 +35,9 @@ namespace POS.API.Controllers.Dashboard
         [HttpGet("statistics")]
         [ClaimCheck("DB_STATISTICS")]
         [Produces("application/json", "application/xml", Type = typeof(int))]
-        public async Task<IActionResult> GetDashboardStatistics()
+        public async Task<IActionResult> GetDashboardStatistics(Guid ProductMainCategoryId)
         {
-            var dashboardStaticaticsQuery = new DashboardStaticaticsQuery { };
+            var dashboardStaticaticsQuery = new DashboardStaticaticsQuery { ProductMainCategoryId= ProductMainCategoryId };
             var result = await _mediator.Send(dashboardStaticaticsQuery);
             return Ok(result);
         }

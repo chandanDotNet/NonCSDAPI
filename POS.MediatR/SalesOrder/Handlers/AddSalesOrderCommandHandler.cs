@@ -66,7 +66,8 @@ namespace POS.MediatR.Handlers
             {
                 salesOrder.SOCreatedDate = request.DeliveryDate;
             }
-            else
+
+            if(salesOrder.IsAppOrderRequest == true)
             {
                 if (DateTime.Now.TimeOfDay.Hours >= 17 && DateTime.Now.TimeOfDay.Minutes > 0)
                 {
@@ -77,6 +78,10 @@ namespace POS.MediatR.Handlers
                 {
                     salesOrder.SOCreatedDate = DateTime.Now;
                 }
+            }
+            else
+            {
+                salesOrder.SOCreatedDate = DateTime.Now;
             }
 
             salesOrder.SalesOrderItems.ForEach(item =>
@@ -91,13 +96,12 @@ namespace POS.MediatR.Handlers
                     item.TotalPurPrice = Math.Round((decimal)product.PurchasePrice) * item.Quantity;
 
                 }
-                    //decimal aa = (decimal)(item.UnitPrice) * item.Quantity;
-                    //decimal ff=decimal.Round((decimal)aa);
-                    decimal value = (decimal)(item.UnitPrice * item.Quantity);
-                    int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
-                    item.TotalSalesPrice = (decimal)roundedValue;
 
-                
+                decimal value = (decimal)(item.UnitPrice * item.Quantity);
+                int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
+                item.TotalSalesPrice = (decimal)roundedValue;
+
+
                 //if (item.LooseQuantity>0)
                 //{
                 //    item.LooseQuantity = item.LooseQuantity * 1000;
@@ -134,6 +138,7 @@ namespace POS.MediatR.Handlers
             //}
 
             //==================
+
             decimal TotalAmount = 0;
             TotalAmount = (decimal)salesOrder.SalesOrderItems.Sum(item => item.TotalSalesPrice);
             salesOrder.TotalAmount = (decimal)Math.Round(TotalAmount, MidpointRounding.AwayFromZero);
