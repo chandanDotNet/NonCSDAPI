@@ -23,6 +23,7 @@ namespace POS.Data.Resources
         public string? HSNCode { get; set; }
         public string? Code { get; set; }
         public Guid? ProductMainCategoryId { get; set; }
+        public Guid? SupplierId { get; set; }
         public string ProductUrl { get; set; }
     }
 }

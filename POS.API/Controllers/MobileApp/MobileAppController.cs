@@ -2917,6 +2917,11 @@ namespace POS.API.Controllers.MobileApp
         [HttpGet("GetSalesReportProductCategoryWise")]
         public async Task<IActionResult> GetSalesReportProductCategoryWise([FromQuery] SalesOrderResource salesOrderResource)
         {
+            if(salesOrderResource.ProductCategoryName == "VEGETABLES")
+            {
+                salesOrderResource.ProductCategoryId = new Guid("4015D064-3CFF-4459-9E9B-5DA260598447"); //Vegetables 
+                salesOrderResource.ProductCategoryName = null;
+            }
             var getSalesOrderItemsReportCommand = new GetSalesOrderItemsReportCommand { SalesOrderResource = salesOrderResource };
             var response = await _mediator.Send(getSalesOrderItemsReportCommand);
 
