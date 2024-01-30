@@ -2984,36 +2984,37 @@ namespace POS.API.Controllers.MobileApp
             {
                 foreach (var itemKey in DeviceKey)
                 {
-                    var message = new Message()
+                    if (!String.IsNullOrEmpty(itemKey))
                     {
-                        Notification = new Notification
+                        var message = new Message()
                         {
-                            Title = request.Title,
-                            Body = request.Body,
-                        },
-                        Data = new Dictionary<string, string>()
+                            Notification = new Notification
+                            {
+                                Title = request.Title,
+                                Body = request.Body,
+                            },
+                            Data = new Dictionary<string, string>()
+                            {
+                                ["FirstName"] = "Sainik",
+                                ["LastName"] = "Grocery"
+                            },
+                            Token = itemKey
+                        };
+                        var messaging = FirebaseMessaging.DefaultInstance;
+                        result = await messaging.SendAsync(message);
+                        //if (!string.IsNullOrEmpty(result))
+                        //{
+                        //    return Ok("Message sent successfully!");
+                        //}
+                        if (string.IsNullOrEmpty(result))
                         {
-                            ["FirstName"] = "Sainik",
-                            ["LastName"] = "Grocery"
-                        },
-                        Token = itemKey
-                    };
-                    var messaging = FirebaseMessaging.DefaultInstance;
-                    result = await messaging.SendAsync(message);
-                    if (!string.IsNullOrEmpty(result))
-                    {
-                        return Ok("Message sent successfully!");
+                            throw new Exception("Error sending the message.");
+                        }
                     }
-                    else
-                    {
-                        throw new Exception("Error sending the message.");
-                    }
-                }
+                }                
             }
             return Ok("All Messages sent successfully!");
         }
-
-
 
         /// <summary>
         /// Get Day Wise Summary.

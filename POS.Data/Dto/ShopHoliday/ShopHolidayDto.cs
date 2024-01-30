@@ -12,6 +12,7 @@ namespace POS.Data.Dto
         public string HolidayName { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
+        public DateTime OpenDate { get; set; }
         public string FromTime { get; set; }
         public string ToTime { get; set; }
         public string NotificationMessage { get; set; }
