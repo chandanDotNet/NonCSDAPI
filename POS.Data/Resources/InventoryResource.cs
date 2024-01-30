@@ -19,5 +19,6 @@ namespace POS.Data
         public string ProductCategoryName { get; set; }
         public string ProductCode { get; set; }
         public DateTime? DefaultDate { get; set; } = DateTime.Now;
+        public Guid? ProductMainCategoryId { get; set; }
     }
 }
