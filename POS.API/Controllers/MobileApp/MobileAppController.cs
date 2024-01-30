@@ -3011,9 +3011,11 @@ namespace POS.API.Controllers.MobileApp
                             throw new Exception("Error sending the message.");
                         }
                     }
-                }                
+                }
+
+                return Ok("All Messages sent successfully!");
             }
-            return Ok("All Messages sent successfully!");
+            return Ok("Push Notification failed!");
         }
 
         /// <summary>
