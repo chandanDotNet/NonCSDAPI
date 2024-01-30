@@ -3209,6 +3209,7 @@ namespace POS.API.Controllers.MobileApp
                     response.status = false;
                     response.StatusCode = 0;
                     response.message = "Invalid";
+                    response.Data = new ShopHolidayDto { };
                 }
             }
             catch (Exception ex)
