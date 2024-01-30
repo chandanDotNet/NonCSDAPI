@@ -4,6 +4,7 @@ using POS.Common.GenericRepository;
 using POS.Common.UnitOfWork;
 using POS.Data;
 using POS.Data.Dto;
+using POS.Data.Resources;
 using POS.Domain;
 using System;
 using System.Collections.Generic;
@@ -255,7 +256,7 @@ namespace POS.Repository
         public async Task<InventoryList> GetInventories(InventoryResource inventoryResource)
         {
             var collectionBeforePaging =
-                AllIncluding(c => c.Product,u => u.Product.Unit, b => b.Product.Brand, s => s.Product.Supplier).ApplySort(inventoryResource.OrderBy,
+                AllIncluding(c => c.Product,u => u.Product.Unit, b => b.Product.Brand, s => s.Product.Supplier, cs => cs.Product.ProductCategory).ApplySort(inventoryResource.OrderBy,
                 _propertyMappingService.GetPropertyMapping<InventoryDto, Inventory>());
 
             if (!string.IsNullOrWhiteSpace(inventoryResource.ProductName))
@@ -322,6 +323,13 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => EF.Functions.Like(a.Product.PurchaseOrderItems.PurchaseOrder.Supplier.SupplierName, $"{encodingName}%"));
             }
+            if (inventoryResource.ProductMainCategoryId.HasValue)
+            {
+                
+                collectionBeforePaging = collectionBeforePaging
+                   .Where(a => a.Product.ProductCategory.ProductMainCategoryId == inventoryResource.ProductMainCategoryId);
+            }
+
             var inventoryList = new InventoryList(_mapper);
             return await inventoryList.Create(collectionBeforePaging, inventoryResource.Skip, inventoryResource.PageSize,inventoryResource.DefaultDate);
         }

@@ -18,6 +18,7 @@ namespace POS.Data
         public int OTP { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string? DeviceKey { get; set; }
+        public Guid? ProductMainCategoryId { get; set; }
 
     }
 }

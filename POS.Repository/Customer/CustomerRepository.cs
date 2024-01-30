@@ -176,6 +176,13 @@ namespace POS.Repository
                     .Where(a => EF.Functions.Like(a.Customer.CustomerName, $"{encodingName}%"));
             }
 
+            if (customerResource.ProductMainCategoryId.HasValue)
+            {
+
+                collectionBeforePaging = collectionBeforePaging
+                   .Where(a => a.ProductMainCategoryId == customerResource.ProductMainCategoryId);
+            }
+
             var groupedCollection = collectionBeforePaging.GroupBy(c => c.CustomerId);
 
             var supplierPayments = new CustomerPaymentList();

@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\BannerImages\\1de01127-ebf3-4896-8906-1f563aa58c80.png",
+      "PackagePath": "staticwebassets\\BannerImages\\1de01127-ebf3-4896-8906-1f563aa58c80.png"
+    },
+    {
       "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\BannerImages\\6ed832e5-409c-464b-b2a8-fcb5d4c7b9e3.png",
       "PackagePath": "staticwebassets\\BannerImages\\6ed832e5-409c-464b-b2a8-fcb5d4c7b9e3.png"
     },
@@ -55,6 +59,10 @@
     {
       "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\LoginPageBannerImages\\3d3b13e3-1b80-4a22-b98a-ea83a82e7dbd.png",
       "PackagePath": "staticwebassets\\LoginPageBannerImages\\3d3b13e3-1b80-4a22-b98a-ea83a82e7dbd.png"
+    },
+    {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\OTPBannerImages\\06c5b7cf-1232-4f7a-9466-f5856da7bc90.png",
+      "PackagePath": "staticwebassets\\OTPBannerImages\\06c5b7cf-1232-4f7a-9466-f5856da7bc90.png"
     },
     {
       "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\StockExcelUploadFilePath\\GRNStockUpload.xlsx",
