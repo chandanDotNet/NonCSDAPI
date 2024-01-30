@@ -110,9 +110,15 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                    .Where(a => a.Code == productResource.Code);
             }
+            if (productResource.SupplierId.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.SupplierId == productResource.SupplierId.Value);
+            }
 
-             //collectionBeforePaging = collectionBeforePaging.Where(x => x.Inventory.Stock > 0).OrderBy(x => x.Name);
-             //collectionBeforePaging.Where(x => x.Inventory.Stock <= 0)
+            
+            //collectionBeforePaging = collectionBeforePaging.Where(x => x.Inventory.Stock > 0).OrderBy(x => x.Name);
+            //collectionBeforePaging.Where(x => x.Inventory.Stock <= 0)
 
             var products = new ProductList(_mapper, _pathHelper);
             return await products.Create(collectionBeforePaging, productResource.Skip, productResource.PageSize);

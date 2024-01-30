@@ -42,6 +42,12 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => a.Product.ProductCategory.Name == purchaseOrderResource.ProductCategoryName);
             }
+            if (purchaseOrderResource.ProductCategoryId.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Product.ProductCategory.Id == purchaseOrderResource.ProductCategoryId);
+
+            }
 
             if (!string.IsNullOrWhiteSpace(purchaseOrderResource.BrandName))
             {
