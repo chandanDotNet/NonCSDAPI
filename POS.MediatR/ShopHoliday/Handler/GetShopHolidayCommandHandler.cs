@@ -18,7 +18,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace POS.MediatR.ShopHoliday.Handler
 {
-    public class GetShopHolidayCommandHandler : IRequestHandler<GetShopHolidayCommand, ServiceResponse<List<ShopHolidayDto>>>
+    public class GetShopHolidayCommandHandler : IRequestHandler<GetShopHolidayCommand, ServiceResponse<ShopHolidayDto>>
     {
         private readonly IShopHolidayRepository _shopHolidayRepository;
         private readonly IMapper _mapper;
@@ -34,7 +34,7 @@ namespace POS.MediatR.ShopHoliday.Handler
             _logger = logger;
         }
 
-        public async Task<ServiceResponse<List<ShopHolidayDto>>> Handle(GetShopHolidayCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResponse<ShopHolidayDto>> Handle(GetShopHolidayCommand request, CancellationToken cancellationToken)
         {
             var objEntityDto = await _shopHolidayRepository.All           
             .ProjectTo<ShopHolidayDto>(_mapper.ConfigurationProvider)
@@ -45,14 +45,14 @@ namespace POS.MediatR.ShopHoliday.Handler
                            where DateTime.Now <= t1.ToDate
                            select t1;
 
-            var entityDto = _list.ToList();
+            var entityDto = _list.FirstOrDefault();
 
             if (entityDto == null)
             {
                 //_logger.LogError("Holiday is not exists");
-                return ServiceResponse<List<ShopHolidayDto>>.Return404("No Data Found");
+                return ServiceResponse<ShopHolidayDto>.Return404("No Data Found");
             }
-            return ServiceResponse<List<ShopHolidayDto>>.ReturnResultWith200(entityDto);
+            return ServiceResponse<ShopHolidayDto>.ReturnResultWith200(entityDto);
         }
     }
 }

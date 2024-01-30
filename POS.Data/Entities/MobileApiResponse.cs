@@ -321,6 +321,14 @@ namespace POS.Data.Entities
         public string message { get; set; }
         public IList<FAQDto> Data { get; set; }
     }
+
+    public class StoreOpenCloseResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public ShopHolidayDto Data { get; set; }
+    }
     public class HelpAndSupportResponseData
     {
         public bool status { get; set; }

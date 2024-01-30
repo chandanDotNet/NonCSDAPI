@@ -3187,9 +3187,39 @@ namespace POS.API.Controllers.MobileApp
         [HttpGet("GetStoreOpenClose")]
         public async Task<IActionResult> GetStoreOpenClose()
         {
-            var getShopHolidayCommand = new GetShopHolidayCommand { };
-            var result = await _mediator.Send(getShopHolidayCommand);
-            return ReturnFormattedResponse(result);
+            //var getShopHolidayCommand = new GetShopHolidayCommand { };
+            //var result = await _mediator.Send(getShopHolidayCommand);
+            //return ReturnFormattedResponse(result);
+
+            StoreOpenCloseResponseData response = new StoreOpenCloseResponseData();
+            try
+            {
+                var getShopHolidayCommand = new GetShopHolidayCommand { };
+                var result = await _mediator.Send(getShopHolidayCommand);
+
+                if (result.Data != null)
+                {
+                    response.status = true;
+                    response.StatusCode = 1;
+                    response.message = "Success";
+                    response.Data = result.Data;
+                }
+                else
+                {
+                    response.status = false;
+                    response.StatusCode = 0;
+                    response.message = "Invalid";
+                    response.Data = new ShopHolidayDto { };
+                }
+            }
+            catch (Exception ex)
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = ex.Message;
+            }
+
+            return Ok(response);
 
         }
 

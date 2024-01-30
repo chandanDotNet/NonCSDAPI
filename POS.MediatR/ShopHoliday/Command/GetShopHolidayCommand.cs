@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace POS.MediatR.ShopHoliday.Command
 {
-    public class GetShopHolidayCommand : IRequest<ServiceResponse<List<ShopHolidayDto>>>
+    public class GetShopHolidayCommand : IRequest<ServiceResponse<ShopHolidayDto>>
     {
        
     }

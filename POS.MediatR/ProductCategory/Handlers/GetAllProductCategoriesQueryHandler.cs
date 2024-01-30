@@ -54,7 +54,8 @@ namespace POS.MediatR.Handler
                    Description = c.Description,
                    ProductMainCategoryId = c.ProductMainCategoryId,
                    ProductCategoryUrl = !string.IsNullOrWhiteSpace(c.ProductCategoryUrl) ?
-                   Path.Combine(_pathHelper.ProductCategoryImagePath, c.ProductCategoryUrl) : ""
+                   Path.Combine(_pathHelper.ProductCategoryImagePath, c.ProductCategoryUrl) : "",
+                   ProductMainCategoryName = c.ProductMainCategory.Name
                })
                .Where(c => request.IsDropDown || c.ParentId == request.Id)
                .OrderBy(c => c.Name)
