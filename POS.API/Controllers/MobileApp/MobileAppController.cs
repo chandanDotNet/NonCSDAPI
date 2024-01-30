@@ -59,6 +59,7 @@ using static System.Net.Mime.MediaTypeNames;
 using FirebaseAdmin.Messaging;
 using POS.MediatR.Notice.Command;
 using static Google.Apis.Requests.BatchRequest;
+using POS.MediatR.ShopHoliday.Command;
 
 namespace POS.API.Controllers.MobileApp
 {
@@ -1318,7 +1319,7 @@ namespace POS.API.Controllers.MobileApp
                     {
                         decimal value = (decimal)(item.UnitPrice) * item.Quantity;
                         int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
-                        item.Total=roundedValue;
+                        item.Total = roundedValue;
 
                         totalSaleAmount += (decimal)(item.UnitPrice) * item.Quantity;
                         totalMrpAmount += (decimal)(item.MRP) * item.Quantity;
@@ -1590,6 +1591,53 @@ namespace POS.API.Controllers.MobileApp
         /// <summary>
         /// Add Banner.
         /// </summary>
+        /// <param name="addOTPBannerCommand"></param>
+        /// <returns></returns>
+        [HttpPost("AddOTPBanner")]
+        [Produces("application/json", "application/xml", Type = typeof(OTPBannerDto))]
+        public async Task<IActionResult> AddOTPPageBanner(AddOTPBannerCommand addOTPBannerCommand)
+        {
+            var response = await _mediator.Send(addOTPBannerCommand);
+            if (!response.Success)
+            {
+                return ReturnFormattedResponse(response);
+            }
+            return CreatedAtAction("GetOTPBanners", new { id = response.Data.Id }, response.Data);
+        }
+
+
+        /// <summary>
+        /// Get Banners.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetOTPBanners")]
+        [Produces("application/json", "application/xml", Type = typeof(List<OTPBannerDto>))]
+        public async Task<IActionResult> GetOTPBanners()
+        {
+            OTPBannerListResponseData response = new OTPBannerListResponseData();
+            var getAllOTPBannerCommand = new GetAllOTPBannerCommand { };
+            var result = await _mediator.Send(getAllOTPBannerCommand);
+
+            if (result.Count > 0)
+            {
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Success";
+                response.Data = result;
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Invalid";
+                response.Data = result;
+            }
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Add Banner.
+        /// </summary>
         /// <param name="addBannerCommand"></param>
         /// <returns></returns>
         [HttpPost("AddBanner")]
@@ -1618,11 +1666,6 @@ namespace POS.API.Controllers.MobileApp
 
             if (result.Count > 0)
             {
-                //response.TotalCount = result.TotalCount;
-                //response.PageSize = result.PageSize;
-                //response.Skip = result.Skip;
-                //response.TotalPages = result.TotalPages;
-
                 response.status = true;
                 response.StatusCode = 1;
                 response.message = "Success";
@@ -2904,7 +2947,7 @@ namespace POS.API.Controllers.MobileApp
                 decimal TotalAmount = decimal.Round((decimal)response2.Sum(x => x.TotalSalesPrice));
                 decimal PurAmount = decimal.Round(response2.Sum(x => x.PurPrice));
 
-                
+
 
 
                 Data.ProductCategoryName = salesOrderResource.ProductCategoryName;
@@ -3135,8 +3178,6 @@ namespace POS.API.Controllers.MobileApp
             return count;
         }
 
-
-
         /// <summary>
         /// Get Store Open Close.
         /// </summary>
@@ -3144,22 +3185,37 @@ namespace POS.API.Controllers.MobileApp
         ///// <param name="Id"></param>
         /// <returns></returns>
         [HttpGet("GetStoreOpenClose")]
-        public async Task<bool> GetStoreOpenClose()
+        public async Task<IActionResult> GetStoreOpenClose()
         {
-            bool storeOpenClose = false;
-            try
-            {
-                var getAppVersionQuery = new GetAppVersionQuery { };
-                var result = await _mediator.Send(getAppVersionQuery);
-                storeOpenClose = result.FirstOrDefault().StoreOpenClose;
-                return storeOpenClose;
-            }
-            catch (Exception ex)
-            {
-                _ = ex;
-            }
-            return storeOpenClose;
+            var getShopHolidayCommand = new GetShopHolidayCommand { };
+            var result = await _mediator.Send(getShopHolidayCommand);
+            return ReturnFormattedResponse(result);
+
         }
+
+        ///// <summary>
+        ///// Get Store Open Close.
+        ///// </summary>
+        /////// <param name="productResource"></param>
+        /////// <param name="Id"></param>
+        ///// <returns></returns>
+        //[HttpGet("GetStoreOpenClose")]
+        //public async Task<bool> GetStoreOpenClose()
+        //{
+        //    bool storeOpenClose = false;
+        //    try
+        //    {
+        //        var getAppVersionQuery = new GetAppVersionQuery { };
+        //        var result = await _mediator.Send(getAppVersionQuery);
+        //        storeOpenClose = result.FirstOrDefault().StoreOpenClose;
+        //        return storeOpenClose;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _ = ex;
+        //    }
+        //    return storeOpenClose;
+        //}
 
         ///// <summary>
         ///// Get all Product Categories
@@ -3251,5 +3307,7 @@ namespace POS.API.Controllers.MobileApp
             }
             return Ok(response);
         }
+
+
     }
 }

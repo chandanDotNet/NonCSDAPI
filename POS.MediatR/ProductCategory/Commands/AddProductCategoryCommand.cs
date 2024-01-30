@@ -16,5 +16,6 @@ namespace POS.MediatR.Category.Commands
         public Guid? ParentId { get; set; }
         public string Description { get; set; }
         public string ProductCategoryUrl { get; set; }
+        public Guid? ProductMainCategoryId { get; set; }
     }
 }

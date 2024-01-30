@@ -38,6 +38,7 @@ namespace POS.MediatR.Banner.Handler
                 {
                     Id = c.Id,
                     Name = c.Name,
+                    ProductMainCategoryId = c.ProductMainCategoryId,
                     ImageUrl = !string.IsNullOrWhiteSpace(c.ImageUrl) ? Path.Combine(_pathHelper.BannerImagePath, c.ImageUrl) : ""
                 }).ToListAsync();
             return entities;

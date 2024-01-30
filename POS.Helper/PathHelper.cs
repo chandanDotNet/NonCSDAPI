@@ -28,6 +28,13 @@ namespace POS.Helper
                 return _configuration["ImagePathSettings:BannerImages"];
             }
         }
+        public string OTPBannerImagePath
+        {
+            get
+            {
+                return _configuration["ImagePathSettings:OTPBannerImages"];
+            }
+        }
 
         public string HomePageBannerImagePath
         {

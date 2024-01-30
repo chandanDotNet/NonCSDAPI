@@ -112,6 +112,7 @@ namespace POS.Repository
                                     item.PaymentMethod == PaymentMethod.Cheque ? "Chq" :
                                     item.PaymentMethod == PaymentMethod.CreditCard ? "CC" :
                                     item.PaymentMethod == PaymentMethod.COD ? "COD" :
+                                    item.PaymentMethod == PaymentMethod.PaytmAndOnlinePayment ? "Paytm" :
                                     item.PaymentMethod == PaymentMethod.Other ? "Oth" : "") + ",";
                             }
                             else
@@ -121,6 +122,7 @@ namespace POS.Repository
                                     item.PaymentMethod == PaymentMethod.Cheque ? "Chq" :
                                     item.PaymentMethod == PaymentMethod.CreditCard ? "CC" :
                                     item.PaymentMethod == PaymentMethod.COD ? "COD" :
+                                    item.PaymentMethod == PaymentMethod.PaytmAndOnlinePayment ? "Paytm" :
                                     item.PaymentMethod == PaymentMethod.Other ? "Oth" : "");
                             }
                         }
@@ -187,7 +189,8 @@ namespace POS.Repository
                                     (item.PaymentMethod == PaymentMethod.Cash ? "Cash" :
                                     item.PaymentMethod == PaymentMethod.Cheque ? "Chq" :
                                     item.PaymentMethod == PaymentMethod.CreditCard ? "CC" :
-                                    item.PaymentMethod == PaymentMethod.COD ? "GC" :
+                                    item.PaymentMethod == PaymentMethod.COD ? "COD" :
+                                    item.PaymentMethod == PaymentMethod.PaytmAndOnlinePayment ? "Paytm" :
                                     item.PaymentMethod == PaymentMethod.Other ? "Oth" : "") + ",";
                             }
                             else
@@ -196,7 +199,8 @@ namespace POS.Repository
                                     (item.PaymentMethod == PaymentMethod.Cash ? "Cash" :
                                     item.PaymentMethod == PaymentMethod.Cheque ? "Chq" :
                                     item.PaymentMethod == PaymentMethod.CreditCard ? "CC" :
-                                    item.PaymentMethod == PaymentMethod.COD ? "GC" :
+                                    item.PaymentMethod == PaymentMethod.COD ? "COD" :
+                                    item.PaymentMethod == PaymentMethod.PaytmAndOnlinePayment ? "Paytm" :
                                     item.PaymentMethod == PaymentMethod.Other ? "Oth" : "");
                             }
                         }
