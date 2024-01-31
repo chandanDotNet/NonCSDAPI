@@ -250,7 +250,7 @@ namespace POS.Data.Entities
         public int TotalPages { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
-        public string Text { get; set; }
+        public IList<NoticeDto> TextData { get; set; }
         public string AlertMessage { get; set; }
         public bool StoreOpenClose { get; set; }
         public IList<HomePageBannerDto> Data { get; set; }

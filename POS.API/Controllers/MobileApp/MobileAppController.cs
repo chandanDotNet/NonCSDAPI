@@ -1545,9 +1545,9 @@ namespace POS.API.Controllers.MobileApp
                 response.status = true;
                 response.StatusCode = 1;
                 response.message = "Success";
-                response.Text = noticeResult.FirstOrDefault().Text;
-                response.AlertMessage = noticeResult.FirstOrDefault().AlertMessage;
-                response.StoreOpenClose = noticeResult.FirstOrDefault().StoreOpenClose;
+                response.TextData = noticeResult;
+                //response.AlertMessage = noticeResult.FirstOrDefault().AlertMessage;
+                //response.StoreOpenClose = noticeResult.FirstOrDefault().StoreOpenClose;
                 response.Data = result;
             }
             else

@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using POS.Helper;
+using Microsoft.IdentityModel.Tokens;
 
 namespace POS.MediatR.Handler
 {
@@ -41,6 +42,10 @@ namespace POS.MediatR.Handler
                    Description = c.Description
                }).ToListAsync();
 
+            if (!string.IsNullOrEmpty(request.Name))
+            {
+                return entities.Where(x => x.Name == request.Name).ToList();
+            }
             return entities;
 
             //var categories = await _mainCategoryRepository.All                
