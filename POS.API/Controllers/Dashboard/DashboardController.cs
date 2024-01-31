@@ -161,7 +161,7 @@ namespace POS.API.Controllers.Dashboard
         /// <param name="month"></param>
         /// <param name="year"></param>
         /// <returns></returns>
-        [HttpGet("bestsellingproduct/{month}/{year}")]
+        [HttpGet("bestsellingproduct/{month}/{year}/{productMainCategoryId}")]
         [ClaimCheck("DB_BEST_SELLING_PROS")]
         [Produces("application/json", "application/xml", Type = typeof(int))]
         public async Task<IActionResult> BestSellingProduct(int month, int year,Guid ProductMainCategoryId)
