@@ -1151,11 +1151,11 @@
             <param name="addCategoryBannerCommand"></param>
             <returns></returns>
         </member>
-        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetCategoryBanners">
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetCategoryBanners(System.String)">
             <summary>
             Get Login Page Banners.
             </summary>
-            <returns></returns>
+            <returns></returns>     
         </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddLoginPageBanner(POS.MediatR.Banner.Command.AddLoginPageBannerCommand)">
             <summary>
