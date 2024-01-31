@@ -6,6 +6,7 @@ using POS.MediatR.CommandAndQuery;
 using POS.MediatR.Dashboard.Commands;
 using POS.API.Helpers;
 using System;
+using POS.Data;
 
 namespace POS.API.Controllers.Dashboard
 {
@@ -35,7 +36,7 @@ namespace POS.API.Controllers.Dashboard
         [HttpGet("statistics")]
         [ClaimCheck("DB_STATISTICS")]
         [Produces("application/json", "application/xml", Type = typeof(int))]
-        public async Task<IActionResult> GetDashboardStatistics(Guid ProductMainCategoryId)
+        public async Task<IActionResult> GetDashboardStatistics(int month, int year,Guid ProductMainCategoryId)
         {
             var dashboardStaticaticsQuery = new DashboardStaticaticsQuery { ProductMainCategoryId= ProductMainCategoryId };
             var result = await _mediator.Send(dashboardStaticaticsQuery);
@@ -163,9 +164,9 @@ namespace POS.API.Controllers.Dashboard
         [HttpGet("bestsellingproduct/{month}/{year}")]
         [ClaimCheck("DB_BEST_SELLING_PROS")]
         [Produces("application/json", "application/xml", Type = typeof(int))]
-        public async Task<IActionResult> BestSellingProduct(int month, int year)
+        public async Task<IActionResult> BestSellingProduct(int month, int year,Guid ProductMainCategoryId)
         {
-            var monthlyEventQuery = new GetBestSellingProductCommand { Month = month, Year = year };
+            var monthlyEventQuery = new GetBestSellingProductCommand { Month = month, Year = year, ProductMainCategoryId= ProductMainCategoryId };
             var result = await _mediator.Send(monthlyEventQuery);
             return Ok(result);
         }

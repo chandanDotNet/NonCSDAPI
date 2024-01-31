@@ -15,6 +15,7 @@ namespace POS.Data
         public SalesOrder SalesOrder { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal UnitPrice { get; set; }
+        [Column(TypeName = "decimal(18,3)")]
         public decimal Quantity { get; set; }
         public decimal? TotalSalesPrice { get; set; }
         public decimal? TotalPurPrice { get; set; }
