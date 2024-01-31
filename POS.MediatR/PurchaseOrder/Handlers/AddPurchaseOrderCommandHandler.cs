@@ -152,6 +152,7 @@ namespace POS.MediatR.Handlers
                     productDetails.Mrp = item.Mrp;
                     productDetails.Margin = item.Margin;
                     productDetails.PurchasePrice = item.UnitPrice;
+                    productDetails.SupplierId = request.SupplierId;
                     _productRepository.Update(productDetails);
                     if (await _uow.SaveAsync() <= 0)
                     {

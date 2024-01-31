@@ -37,5 +37,7 @@ namespace POS.MediatR.Product.Command
         public string? HSNCode { get; set; }
         public bool? IsLoose { get; set; }
         public decimal? MinQty { get; set; }
+        public Guid? SupplierId { get; set; }
+        public Guid? ManufacturerId { get; set; }
     }
 }

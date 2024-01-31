@@ -63,7 +63,7 @@ namespace POS.MediatR.Product.Handler
                                .FirstOrDefaultAsync(c => c.Barcode == request.Barcode && c.Id != request.Id);
                 if (existProduct != null)
                 {
-                    _logger.LogError("Proudct Barcode Number is duplicate.");
+                    _logger.LogError("Product Barcode Number is duplicate.");
                     return ServiceResponse<ProductDto>.Return409("Proudct Barcode Number is duplicate.");
                 }
             }
@@ -101,6 +101,16 @@ namespace POS.MediatR.Product.Handler
                 {
                     existingProduct.QRCodeUrl = null;
                 }
+            }
+
+            if (request.SupplierId.HasValue)
+            {
+                existingProduct.SupplierId = request.SupplierId;              
+            }
+
+            if (request.ManufacturerId.HasValue)
+            {
+                existingProduct.ManufacturerId = request.ManufacturerId;
             }
 
             var productTaxes = _productTaxRepository.All.Where(c => c.ProductId == request.Id).ToList();
