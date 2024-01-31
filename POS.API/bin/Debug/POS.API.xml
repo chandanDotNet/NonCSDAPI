@@ -1319,8 +1319,15 @@
             <summary>
             Prduct Brand List.
             </summary>
-            <param name="prductBrandList">The search query.</param>
+            <param name="brandResource">The search query.</param>
             <param name="pageSize">Size of the page.</param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.SimilarProductList(POS.Data.Resources.ProductResource)">
+            <summary>
+            Prduct Brand List.
+            </summary>
+            <param name="similarProductResource">The search query.</param>
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.NewsletterSubscriber.NewsletterSubscriberController.CreateNewsletterSubscriber(POS.MediatR.CommandAndQuery.AddNewsletterSubscriberCommand)">
@@ -1468,6 +1475,26 @@
             Delete Product Category.
             </summary>
             <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.ProductType.ProductTypeController.#ctor(MediatR.IMediator)">
+            <summary>
+            
+            </summary>
+            <param name="mediator"></param>
+        </member>
+        <member name="M:POS.API.Controllers.ProductType.ProductTypeController.GetProductTypes(POS.MediatR.ProductType.Command.GetAllProductTypeQuery)">
+            <summary>
+            Get all Packagings
+            </summary>
+            <param name="getAllProductTypesQuery"></param>
+            <returns></returns>       
+        </member>
+        <member name="M:POS.API.Controllers.ProductType.ProductTypeController.GetProductType(System.Guid)">
+            <summary>
+            Get Packaging.
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.Product.ProductController.GetProducts(POS.Data.Resources.ProductResource)">

@@ -340,12 +340,33 @@ namespace POS.API.Controllers.MobileApp
                     Guid id = new Guid(productRequestData.Id);
                     var getProductCommand = new GetProductCommand { Id = id };
                     var result = await _mediator.Send(getProductCommand);
+
                     if (result.Success)
                     {
+                        ProductResource similarProductResource = new ProductResource()
+                        {
+                            ProductId = id,
+                            ProductTypeId = result.Data.ProductTypeId
+                        };
+
+                        var getAllProductCommand = new GetAllProductCommand
+                        {
+                            ProductResource = similarProductResource
+                        };
+                        var similarProductResult = await _mediator.Send(getAllProductCommand);
+
                         response.status = true;
                         response.StatusCode = 1;
                         response.message = "Success";
                         response.Data = result.Data;
+                        if (similarProductResult.Count > 0)
+                        {
+                            response.SimilarProductData = similarProductResult;
+                        }
+                        else
+                        {
+                            response.SimilarProductData = new List<ProductDto>();
+                        }                        
                     }
                     else
                     {
@@ -1546,8 +1567,8 @@ namespace POS.API.Controllers.MobileApp
                 response.StatusCode = 1;
                 response.message = "Success";
                 response.TextData = noticeResult;
-                //response.AlertMessage = noticeResult.FirstOrDefault().AlertMessage;
-                //response.StoreOpenClose = noticeResult.FirstOrDefault().StoreOpenClose;
+                response.AlertMessage = noticeResult.FirstOrDefault().AlertMessage;
+                response.StoreOpenClose = noticeResult.FirstOrDefault().StoreOpenClose;
                 response.Data = result;
             }
             else
@@ -2917,7 +2938,7 @@ namespace POS.API.Controllers.MobileApp
         [HttpGet("GetSalesReportProductCategoryWise")]
         public async Task<IActionResult> GetSalesReportProductCategoryWise([FromQuery] SalesOrderResource salesOrderResource)
         {
-            if(salesOrderResource.ProductCategoryName == "VEGETABLES")
+            if (salesOrderResource.ProductCategoryName == "VEGETABLES")
             {
                 salesOrderResource.ProductCategoryId = new Guid("4015D064-3CFF-4459-9E9B-5DA260598447"); //Vegetables 
                 salesOrderResource.ProductCategoryName = null;
@@ -3300,7 +3321,7 @@ namespace POS.API.Controllers.MobileApp
         /// <summary>
         /// Prduct Brand List.
         /// </summary>
-        /// <param name="prductBrandList">The search query.</param>
+        /// <param name="brandResource">The search query.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <returns></returns>
         [HttpGet("PrductBrandList")]
@@ -3346,6 +3367,53 @@ namespace POS.API.Controllers.MobileApp
             return Ok(response);
         }
 
+        /// <summary>
+        /// Prduct Brand List.
+        /// </summary>
+        /// <param name="similarProductResource">The search query.</param>
+        /// <returns></returns>
+        [HttpPost("SimilarProductList")]
+        public async Task<IActionResult> SimilarProductList(ProductResource similarProductResource)
+        {
+            ProductListResponseData response = new ProductListResponseData();
+            try
+            {
+                var getAllProductCommand = new GetAllProductCommand
+                {
+                    ProductResource = similarProductResource
+                };
+                var result = await _mediator.Send(getAllProductCommand);
 
+                if (result.Count > 0)
+                {
+                    response.TotalCount = result.TotalCount;
+                    response.PageSize = result.PageSize;
+                    response.Skip = result.Skip;
+                    response.TotalPages = result.TotalPages;
+
+                    response.status = true;
+                    response.StatusCode = 1;
+                    response.message = "Success";
+                    response.Data = result;
+                }
+                else
+                {
+                    response.status = false;
+                    response.StatusCode = 0;
+                    response.message = "Please wait! Server is not responding.";
+                    response.Data = result;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = ex.Message;
+            }
+
+            return Ok(response);
+        }
     }
 }

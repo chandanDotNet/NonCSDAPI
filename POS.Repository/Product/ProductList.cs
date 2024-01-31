@@ -101,7 +101,9 @@ namespace POS.Repository
                     IsLoose = c.IsLoose == null ? false : c.IsLoose,
                     MinQty = c.MinQty,
                     PackagingName = c.Packaging.Name != null ? c.Packaging.Name : "",
-                    PackagingId = c.Packaging.Id != null ? c.Packaging.Id : new Guid()
+                    PackagingId = c.Packaging.Id != null ? c.Packaging.Id : new Guid(),
+                    ProductTypeId = c.ProductType.Id != null ? c.ProductType.Id : new Guid(),
+                    ProductTypeName = c.ProductType.Name != null ? c.ProductType.Name : ""
 
                 }).ToListAsync();
 

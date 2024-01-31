@@ -116,7 +116,12 @@ namespace POS.Repository
                     .Where(a => a.SupplierId == productResource.SupplierId.Value);
             }
 
-            
+            if (productResource.ProductTypeId.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.ProductTypeId == productResource.ProductTypeId.Value && a.Id != productResource.ProductId);
+            }
+
             //collectionBeforePaging = collectionBeforePaging.Where(x => x.Inventory.Stock > 0).OrderBy(x => x.Name);
             //collectionBeforePaging.Where(x => x.Inventory.Stock <= 0)
 

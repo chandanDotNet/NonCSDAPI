@@ -119,21 +119,21 @@ namespace POS.Domain
             .HasDefaultValueSql("GETUTCDATE()");
 
             modelBuilder.Entity<Batch>()
-    .Property(b => b.ModifiedDate)
-    .HasDefaultValueSql("GETUTCDATE()");
+            .Property(b => b.ModifiedDate)
+            .HasDefaultValueSql("GETUTCDATE()");
 
 
             modelBuilder.Entity<Manufacturer>()
-    .Property(b => b.ModifiedDate)
-    .HasDefaultValueSql("GETUTCDATE()");
+            .Property(b => b.ModifiedDate)
+            .HasDefaultValueSql("GETUTCDATE()");
 
             modelBuilder.Entity<CategoryBanner>()
              .Property(b => b.ModifiedDate)
              .HasDefaultValueSql("GETUTCDATE()");
 
             modelBuilder.Entity<HomePageBanner>()
-  .Property(b => b.ModifiedDate)
-  .HasDefaultValueSql("GETUTCDATE()");
+            .Property(b => b.ModifiedDate)
+            .HasDefaultValueSql("GETUTCDATE()");
 
             modelBuilder.Entity<Notice>()
              .Property(b => b.ModifiedDate)
@@ -141,16 +141,20 @@ namespace POS.Domain
 
 
             modelBuilder.Entity<Packaging>()
- .Property(b => b.ModifiedDate)
- .HasDefaultValueSql("GETUTCDATE()");
+            .Property(b => b.ModifiedDate)
+            .HasDefaultValueSql("GETUTCDATE()");
 
             modelBuilder.Entity<OTPBanner>()
-.Property(b => b.ModifiedDate)
-.HasDefaultValueSql("GETUTCDATE()");
-
-            modelBuilder.Entity<ShopHoliday>()
-.Property(b => b.ModifiedDate)
-.HasDefaultValueSql("GETUTCDATE()");
+            .Property(b => b.ModifiedDate)
+            .HasDefaultValueSql("GETUTCDATE()");
+            
+                        modelBuilder.Entity<ShopHoliday>()
+            .Property(b => b.ModifiedDate)
+            .HasDefaultValueSql("GETUTCDATE()");
+            
+                        modelBuilder.Entity<ProductType>()
+            .Property(b => b.ModifiedDate)
+            .HasDefaultValueSql("GETUTCDATE()");
         }
 
         public static void DefalutDeleteValueFilter(this ModelBuilder modelBuilder)
@@ -303,6 +307,9 @@ namespace POS.Domain
       .HasQueryFilter(p => !p.IsDeleted);
 
             modelBuilder.Entity<ShopHoliday>()
+      .HasQueryFilter(p => !p.IsDeleted);
+
+            modelBuilder.Entity<ProductType>()
       .HasQueryFilter(p => !p.IsDeleted);
 
         }
