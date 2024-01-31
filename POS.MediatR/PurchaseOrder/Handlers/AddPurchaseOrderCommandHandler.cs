@@ -142,7 +142,9 @@ namespace POS.MediatR.Handlers
 
             if (purchaseOrder.PurchaseOrderItems.Count > 0)
             {
-                foreach (var item in purchaseOrder.PurchaseOrderItems)
+                var productlist = purchaseOrder.PurchaseOrderItems.DistinctBy(x => x.ProductId).ToList();
+
+                foreach (var item in productlist)
                 {
                     var productDetails = await _productRepository.FindBy(p => p.Id == item.ProductId)
                         .FirstOrDefaultAsync();

@@ -13,6 +13,7 @@ namespace POS.MediatR.Banner.Command
     {
         public string Name { get; set; }
         public string ImageUrlData { get; set; }
+        public string ImageType { get; set; }
     }
 }
 

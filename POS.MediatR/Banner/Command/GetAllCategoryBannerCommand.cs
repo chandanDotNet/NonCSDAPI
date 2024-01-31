@@ -10,5 +10,6 @@ namespace POS.MediatR.Banner.Command
 {
     public class GetAllCategoryBannerCommand : IRequest<List<CategoryBannerDto>>
     {
+        public string Type { get; set; }
     }
 }

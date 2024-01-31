@@ -38,8 +38,14 @@ namespace POS.MediatR.Banner.Handler
                 {
                     Id = c.Id,
                     Name = c.Name,
-                    ImageUrl = !string.IsNullOrWhiteSpace(c.ImageUrl) ? Path.Combine(_pathHelper.CategoryBannerImagePath, c.ImageUrl) : ""
+                    ImageUrl = !string.IsNullOrWhiteSpace(c.ImageUrl) ? Path.Combine(_pathHelper.CategoryBannerImagePath, c.ImageUrl) : "",
+                    ImageType = c.ImageType
                 }).ToListAsync();
+
+            if (!string.IsNullOrEmpty(request.Type))
+            {
+                entities = entities.Where(x => x.ImageType == request.Type).ToList();
+            }
             return entities;
         }
     }
