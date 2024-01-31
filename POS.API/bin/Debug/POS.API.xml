@@ -320,7 +320,7 @@
             </summary>
             <param name="mediator"></param>
         </member>
-        <member name="M:POS.API.Controllers.Dashboard.DashboardController.GetDashboardStatistics(System.Guid)">
+        <member name="M:POS.API.Controllers.Dashboard.DashboardController.GetDashboardStatistics(System.Int32,System.Int32,System.Guid)">
             <summary>
             Gets the dashboard statistics.
             </summary>
@@ -382,7 +382,7 @@
             <param name="year"></param>
             <returns></returns>
         </member>
-        <member name="M:POS.API.Controllers.Dashboard.DashboardController.BestSellingProduct(System.Int32,System.Int32)">
+        <member name="M:POS.API.Controllers.Dashboard.DashboardController.BestSellingProduct(System.Int32,System.Int32,System.Guid)">
             <summary>
             Get Best Selling Products
             </summary>

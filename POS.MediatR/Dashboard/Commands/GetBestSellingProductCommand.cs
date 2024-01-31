@@ -12,5 +12,6 @@ namespace POS.MediatR.Dashboard.Commands
     {
         public int Month { get; set; }
         public int Year { get; set; }
+        public Guid? ProductMainCategoryId { get; set; }
     }
 }

@@ -2967,6 +2967,7 @@ namespace POS.API.Controllers.MobileApp
                 SalesOrderResource salesOrderResource1 = new SalesOrderResource();
                 salesOrderResource1 = salesOrderResource;
                 salesOrderResource1.ProductCategoryName = null;
+                salesOrderResource1.ProductCategoryId = null;
                 var getSalesOrderItemsReportCommand1 = new GetSalesOrderItemsReportCommand { SalesOrderResource = salesOrderResource1 };
                 var response2 = await _mediator.Send(getSalesOrderItemsReportCommand1);
 

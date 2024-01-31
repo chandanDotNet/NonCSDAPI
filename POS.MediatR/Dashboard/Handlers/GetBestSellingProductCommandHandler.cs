@@ -24,7 +24,7 @@ namespace POS.MediatR.Dashboard.Handlers
         public async Task<List<BestSellingProductStatisticDto>> Handle(GetBestSellingProductCommand request, CancellationToken cancellationToken)
         {
             var bestSellingProductStatistics = await _salesOrderItemRepository.AllIncluding(c => c.SalesOrder, cs => cs.Product)
-                .Where(c => c.SalesOrder.CreatedDate.Month == request.Month && c.SalesOrder.CreatedDate.Year == request.Year)
+                .Where(c => c.SalesOrder.CreatedDate.Month == request.Month && c.SalesOrder.CreatedDate.Year == request.Year && c.SalesOrder.ProductMainCategoryId==request.ProductMainCategoryId)
                 .GroupBy(c => c.ProductId)
                 .Select(cs => new BestSellingProductStatisticDto
                 {
