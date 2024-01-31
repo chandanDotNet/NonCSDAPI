@@ -94,6 +94,7 @@ namespace POS.API.Helpers
             services.AddScoped<IPackagingRepository, PackagingRepository>();
             services.AddScoped<IOTPBannerRepository, OTPBannerRepository>();
             services.AddScoped<IShopHolidayRepository, ShopHolidayRepository>();
+            services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
         }
     }
 }

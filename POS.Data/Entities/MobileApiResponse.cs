@@ -47,6 +47,7 @@ namespace POS.Data.Entities
         public int StatusCode { get; set; }
         public string message { get; set; }
         public ProductDto Data { get; set; }
+        public IList<ProductDto> SimilarProductData { get; set; }
     }
 
     public class ProductDetailsRequestData

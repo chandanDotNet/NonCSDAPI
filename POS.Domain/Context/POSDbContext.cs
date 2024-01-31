@@ -98,6 +98,7 @@ namespace POS.Domain
         public DbSet<Packaging> Packagings { get; set; }
         public DbSet<OTPBanner> OTPBanners { get; set; }
         public DbSet<ShopHoliday> ShopHolidays { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -666,6 +667,15 @@ namespace POS.Domain
             });
 
             builder.Entity<ShopHoliday>(b =>
+            {
+                b.HasOne(e => e.CreatedByUser)
+                    .WithMany()
+                    .HasForeignKey(ur => ur.CreatedBy)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+
+            builder.Entity<ProductType>(b =>
             {
                 b.HasOne(e => e.CreatedByUser)
                     .WithMany()

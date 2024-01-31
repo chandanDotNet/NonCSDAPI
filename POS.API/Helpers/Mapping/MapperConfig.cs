@@ -70,6 +70,7 @@ namespace POS.API.Helpers.Mapping
                 mc.AddProfile(new PackagingProfile());
                 mc.AddProfile(new OTPBannerProfile());
                 mc.AddProfile(new ShopHolidayProfile());
+                mc.AddProfile(new ProductTypeProfile());
             });
             return mappingConfig.CreateMapper();
         }
