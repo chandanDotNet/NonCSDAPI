@@ -27,7 +27,7 @@ namespace POS.MediatR.Dashboard.Handlers
         public async Task<List<BestSellingProductStatisticDto>> Handle(GetBestSellingProductCommand request, CancellationToken cancellationToken)
         {
             var bestSellingProductStatistics = await _salesOrderItemRepository.AllIncluding(c => c.SalesOrder, cs => cs.Product)
-                .Where(c => c.SalesOrder.CreatedDate.Month == request.Month && c.SalesOrder.CreatedDate.Year == request.Year && c.SalesOrder.ProductMainCategoryId==request.ProductMainCategoryId)
+                .Where(c => c.SalesOrder.CreatedDate.Month == request.Month && c.SalesOrder.CreatedDate.Year == request.Year && c.SalesOrder.ProductMainCategoryId == request.ProductMainCategoryId)
                 .GroupBy(c => c.ProductId)
                 .Select(cs => new BestSellingProductStatisticDto
                 {
@@ -38,12 +38,22 @@ namespace POS.MediatR.Dashboard.Handlers
                 .Take(10)
                 .ToListAsync();
 
+            //using (var context = new DatabaseContext())
+            //{
+            //    var clientIdParameter = new SqlParameter("@ClientId", 4);
 
-            //BestSellingProductStatisticDto bestSellingProductStatisticDto= new BestSellingProductStatisticDto();
-            //List<BestSellingProductStatisticDto> bestSellingProductList= new List<BestSellingProductStatisticDto>();
+            //    var result = context.Database
+            //        .SqlQuery<ResultForCampaign>("GetResultsForCampaign @ClientId", clientIdParameter)
+            //        .ToList();
+            //}
+
+            //string connectionString = "Server=10.200.109.231,1433;Database=NonCSD_29_01_2024;user=sa; password=Shyam@2023;Trusted_Connection=True;TrustServerCertificate=True;Integrated Security=FALSE";
+
+            //BestSellingProductStatisticDto bestSellingProductStatisticDto = new BestSellingProductStatisticDto();
+            //List<BestSellingProductStatisticDto> bestSellingProductList = new List<BestSellingProductStatisticDto>();
             //using (SqlConnection con = new SqlConnection(connectionString))
             //{
-            //    SqlCommand cmd = new SqlCommand("SP_MasterManagement", con);
+            //    SqlCommand cmd = new SqlCommand("SP_BestSellingProductStatistic", con);
             //    cmd.CommandType = CommandType.StoredProcedure;
             //    cmd.Parameters.AddWithValue("@ActionId", 1);
 
@@ -51,18 +61,19 @@ namespace POS.MediatR.Dashboard.Handlers
             //    SqlDataReader rdr = cmd.ExecuteReader();
 
             //    while (rdr.Read())
-            //    {                    
+            //    {
             //        bestSellingProductStatisticDto.Name = rdr["Name"].ToString();
-            //        bestSellingProductStatisticDto.Count =(decimal) rdr["Count"];
+            //        bestSellingProductStatisticDto.Count = (decimal)rdr["Count"];
             //        bestSellingProductList.Add(bestSellingProductStatisticDto);
             //    }
             //    con.Close();
             //}
 
 
+            // return bestSellingProductList;
             return bestSellingProductStatistics;
         }
 
-        
+
     }
 }
