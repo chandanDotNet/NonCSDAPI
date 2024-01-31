@@ -11,6 +11,7 @@ namespace POS.MediatR.CommandAndQuery
     public class GetProductMainCategoriesQuery : IRequest<List<ProductMainCategoryDto>>
     {
         public Guid? Id { get; set; }
+        public string? Name { get; set; }
         public bool IsDropDown { get; set; } = false;
     }
 }
