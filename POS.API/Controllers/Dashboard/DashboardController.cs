@@ -38,7 +38,7 @@ namespace POS.API.Controllers.Dashboard
         [Produces("application/json", "application/xml", Type = typeof(int))]
         public async Task<IActionResult> GetDashboardStatistics(int month, int year,Guid ProductMainCategoryId)
         {
-            var dashboardStaticaticsQuery = new DashboardStaticaticsQuery { ProductMainCategoryId= ProductMainCategoryId };
+            var dashboardStaticaticsQuery = new DashboardStaticaticsQuery { ProductMainCategoryId= ProductMainCategoryId,Month=month,Year=year };
             var result = await _mediator.Send(dashboardStaticaticsQuery);
             return Ok(result);
         }
