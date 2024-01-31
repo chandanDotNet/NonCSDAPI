@@ -366,7 +366,7 @@ namespace POS.API.Controllers.MobileApp
                         else
                         {
                             response.SimilarProductData = new List<ProductDto>();
-                        }                        
+                        }
                     }
                     else
                     {
@@ -1722,14 +1722,17 @@ namespace POS.API.Controllers.MobileApp
         /// <summary>
         /// Get Login Page Banners.
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>     
         [AllowAnonymous]
         [HttpGet("GetCategoryBanners")]
         [Produces("application/json", "application/xml", Type = typeof(List<CategoryBannerDto>))]
-        public async Task<IActionResult> GetCategoryBanners()
+        public async Task<IActionResult> GetCategoryBanners([FromQuery] string ImgType)
         {
             CategoryBannerListResponseData response = new CategoryBannerListResponseData();
-            var getAllCategoryBannerCommand = new GetAllCategoryBannerCommand { };
+            var getAllCategoryBannerCommand = new GetAllCategoryBannerCommand
+            {
+                Type = ImgType
+            };
             var result = await _mediator.Send(getAllCategoryBannerCommand);
 
             if (result.Count > 0)
