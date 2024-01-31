@@ -1,10 +1,13 @@
 ﻿using MediatR;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using POS.Data;
 using POS.Data.Dto;
 using POS.MediatR.Dashboard.Commands;
 using POS.Repository;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -34,7 +37,32 @@ namespace POS.MediatR.Dashboard.Handlers
                 .OrderByDescending(c => c.Count)
                 .Take(10)
                 .ToListAsync();
+
+
+            //BestSellingProductStatisticDto bestSellingProductStatisticDto= new BestSellingProductStatisticDto();
+            //List<BestSellingProductStatisticDto> bestSellingProductList= new List<BestSellingProductStatisticDto>();
+            //using (SqlConnection con = new SqlConnection(connectionString))
+            //{
+            //    SqlCommand cmd = new SqlCommand("SP_MasterManagement", con);
+            //    cmd.CommandType = CommandType.StoredProcedure;
+            //    cmd.Parameters.AddWithValue("@ActionId", 1);
+
+            //    con.Open();
+            //    SqlDataReader rdr = cmd.ExecuteReader();
+
+            //    while (rdr.Read())
+            //    {                    
+            //        bestSellingProductStatisticDto.Name = rdr["Name"].ToString();
+            //        bestSellingProductStatisticDto.Count =(decimal) rdr["Count"];
+            //        bestSellingProductList.Add(bestSellingProductStatisticDto);
+            //    }
+            //    con.Close();
+            //}
+
+
             return bestSellingProductStatistics;
         }
+
+        
     }
 }

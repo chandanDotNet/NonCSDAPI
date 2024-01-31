@@ -54,6 +54,16 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => a.Product.Brand.Name == purchaseOrderResource.BrandName);
             }
+            if (purchaseOrderResource.Month.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.SalesOrder.SOCreatedDate.Month == purchaseOrderResource.Month);
+            }
+            if (purchaseOrderResource.Year.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.SalesOrder.SOCreatedDate.Year == purchaseOrderResource.Year);
+            }
 
             if (purchaseOrderResource.ProductId.HasValue)
             {

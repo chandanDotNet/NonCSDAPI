@@ -28,6 +28,9 @@ namespace POS.Data.Resources
         public Guid? ProductCategoryId { get; set; }
         public Guid? ProductMainCategoryId { get; set; }
         public string? BrandName { get; set; }
+
+        public int? Month { get; set; }
+        public int? Year { get; set; }
     }
 }
 
