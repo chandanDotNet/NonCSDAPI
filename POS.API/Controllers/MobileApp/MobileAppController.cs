@@ -1189,7 +1189,6 @@ namespace POS.API.Controllers.MobileApp
             return Ok(response);
         }
 
-
         /// <summary>
         /// Creates the Customer sales order.
         /// </summary>

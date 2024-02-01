@@ -45,13 +45,11 @@ namespace POS.MediatR.Handlers
 
         public async Task<ServiceResponse<PurchaseOrderDto>> Handle(AddPurchaseOrderCommand request, CancellationToken cancellationToken)
         {
-
             var existingPONumber = _purchaseOrderRepository.All.Any(c => c.OrderNumber == request.OrderNumber);
             if (existingPONumber)
             {
                 return ServiceResponse<PurchaseOrderDto>.Return409("Purchase Order Number is already Exists.");
             }
-
 
             var purchaseOrder = _mapper.Map<Data.PurchaseOrder>(request);
             purchaseOrder.PaymentStatus = PaymentStatus.Pending;
@@ -70,7 +68,7 @@ namespace POS.MediatR.Handlers
                 item.Warehouse = null;
                 item.PurchaseOrderItemTaxes.ForEach(tax => { tax.Tax = null; });
                 item.CreatedDate = DateTime.Now;
-               // item.CreatedDate = DateTime.UtcNow;
+                // item.CreatedDate = DateTime.UtcNow;
             });
             _purchaseOrderRepository.Add(purchaseOrder);
 
@@ -148,7 +146,7 @@ namespace POS.MediatR.Handlers
                 {
                     var productDetails = await _productRepository.FindBy(p => p.Id == item.ProductId)
                         .FirstOrDefaultAsync();
-                    productDetails.SalesPrice =(decimal) Math.Round((decimal)item.SalesPrice, MidpointRounding.AwayFromZero);
+                    productDetails.SalesPrice = (decimal)Math.Round((decimal)item.SalesPrice, MidpointRounding.AwayFromZero);
                     productDetails.Mrp = item.Mrp;
                     productDetails.Margin = item.Margin;
                     productDetails.PurchasePrice = item.UnitPrice;
