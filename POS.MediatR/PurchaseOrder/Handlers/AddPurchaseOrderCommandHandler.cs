@@ -45,6 +45,10 @@ namespace POS.MediatR.Handlers
 
         public async Task<ServiceResponse<PurchaseOrderDto>> Handle(AddPurchaseOrderCommand request, CancellationToken cancellationToken)
         {
+            if (request.PurchaseOrderItems.Count > 0)
+            {
+                request.PurchaseOrderItems = request.PurchaseOrderItems.DistinctBy(x => x.ProductId).ToList();
+            }
 
             var existingPONumber = _purchaseOrderRepository.All.Any(c => c.OrderNumber == request.OrderNumber);
             if (existingPONumber)
@@ -70,7 +74,20 @@ namespace POS.MediatR.Handlers
                 item.Warehouse = null;
                 item.PurchaseOrderItemTaxes.ForEach(tax => { tax.Tax = null; });
                 item.CreatedDate = DateTime.Now;
-               // item.CreatedDate = DateTime.UtcNow;
+
+                var productDetails = _productRepository.FindBy(p => p.Id == item.ProductId).FirstOrDefault();
+                {
+                    if (productDetails != null)
+                    {
+                        productDetails.SalesPrice = (decimal)Math.Round((decimal)item.SalesPrice, MidpointRounding.AwayFromZero);
+                        productDetails.Mrp = item.Mrp;
+                        productDetails.Margin = item.Margin;
+                        productDetails.PurchasePrice = item.UnitPrice;
+                        productDetails.SupplierId = request.SupplierId;
+                        _productRepository.Update(productDetails);
+                    }
+                }
+                // item.CreatedDate = DateTime.UtcNow;
             });
             _purchaseOrderRepository.Add(purchaseOrder);
 
@@ -140,26 +157,26 @@ namespace POS.MediatR.Handlers
 
             //============
 
-            if (purchaseOrder.PurchaseOrderItems.Count > 0)
-            {
-                var productlist = purchaseOrder.PurchaseOrderItems.DistinctBy(x => x.ProductId).ToList();
+            //if (purchaseOrder.PurchaseOrderItems.Count > 0)
+            //{
+            //    var productlist = purchaseOrder.PurchaseOrderItems.DistinctBy(x => x.ProductId).ToList();
 
-                foreach (var item in productlist)
-                {
-                    var productDetails = await _productRepository.FindBy(p => p.Id == item.ProductId)
-                        .FirstOrDefaultAsync();
-                    productDetails.SalesPrice =(decimal) Math.Round((decimal)item.SalesPrice, MidpointRounding.AwayFromZero);
-                    productDetails.Mrp = item.Mrp;
-                    productDetails.Margin = item.Margin;
-                    productDetails.PurchasePrice = item.UnitPrice;
-                    productDetails.SupplierId = request.SupplierId;
-                    _productRepository.Update(productDetails);
-                    if (await _uow.SaveAsync() <= 0)
-                    {
-                        return ServiceResponse<PurchaseOrderDto>.Return500();
-                    }
-                }
-            }
+            //    foreach (var item in productlist)
+            //    {
+            //        var productDetails = await _productRepository.FindBy(p => p.Id == item.ProductId)
+            //            .FirstOrDefaultAsync();
+            //        productDetails.SalesPrice =(decimal) Math.Round((decimal)item.SalesPrice, MidpointRounding.AwayFromZero);
+            //        productDetails.Mrp = item.Mrp;
+            //        productDetails.Margin = item.Margin;
+            //        productDetails.PurchasePrice = item.UnitPrice;
+            //        productDetails.SupplierId = request.SupplierId;
+            //        _productRepository.Update(productDetails);
+            //        if (await _uow.SaveAsync() <= 0)
+            //        {
+            //            return ServiceResponse<PurchaseOrderDto>.Return500();
+            //        }
+            //    }
+            //}
 
             var dto = _mapper.Map<PurchaseOrderDto>(purchaseOrder);
             return ServiceResponse<PurchaseOrderDto>.ReturnResultWith201(dto);
