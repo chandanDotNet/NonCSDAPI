@@ -184,6 +184,13 @@ namespace POS.Helper
             }
 
         }
+        public string InvoiceFile
+        {
+            get
+            {
+                return _configuration["ImagePathSettings:InvoiceFile"];
+            }
+        }
         public string DownloadFileFormat
         {
             get
