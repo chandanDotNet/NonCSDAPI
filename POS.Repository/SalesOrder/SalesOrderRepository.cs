@@ -114,7 +114,7 @@ namespace POS.Repository
 
             if (salesOrderResource.IsAppOrderRequest.HasValue)
             {
-                if (salesOrderResource.CounterName == "all")
+                if (salesOrderResource.CounterName == "All")
                 {
                     if (salesOrderResource.IsAppOrderRequest == true)
                     {
