@@ -2963,6 +2963,12 @@ namespace POS.API.Controllers.MobileApp
                 salesOrderResource.ProductCategoryId = new Guid("4015D064-3CFF-4459-9E9B-5DA260598447"); //Vegetables 
                 salesOrderResource.ProductCategoryName = null;
             }
+
+            if (salesOrderResource.ProductCategoryName == "BAKERY")
+            {
+                salesOrderResource.ProductMainCategoryId = new Guid("06C71507-B6DE-4D59-DE84-08DBEB3C9568"); //BAKERY 
+                salesOrderResource.ProductCategoryName = null;
+            }
             var getSalesOrderItemsReportCommand = new GetSalesOrderItemsReportCommand { SalesOrderResource = salesOrderResource };
             var response = await _mediator.Send(getSalesOrderItemsReportCommand);
 

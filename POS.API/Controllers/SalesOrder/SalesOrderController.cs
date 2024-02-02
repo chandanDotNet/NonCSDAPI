@@ -88,6 +88,13 @@ namespace POS.API.Controllers.SalesOrder
         [Produces("application/json", "application/xml", Type = typeof(SalesOrderDto))]
         public async Task<IActionResult> CreateSalesOrder(AddSalesOrderCommand addSalesOrderCommand)
         {
+            var getNewSalesOrderNumberQuery = new GetNewSalesOrderNumberCommand { };
+            var response = await _mediator.Send(getNewSalesOrderNumberQuery);
+            if(response!=null)
+            {
+                addSalesOrderCommand.OrderNumber = response;
+            }
+
             var result = await _mediator.Send(addSalesOrderCommand);
             return ReturnFormattedResponse(result);
         }
