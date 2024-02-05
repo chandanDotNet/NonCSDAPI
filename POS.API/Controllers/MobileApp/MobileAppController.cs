@@ -279,16 +279,21 @@ namespace POS.API.Controllers.MobileApp
         [HttpPost("GetProductsList")]
         public async Task<IActionResult> GetProductsList(ProductResource productResource)
         {
-
             ProductListResponseData response = new ProductListResponseData();
-
             try
             {
                 var getAllProductCommand = new GetAllProductCommand
                 {
                     ProductResource = productResource
                 };
+
                 var result = await _mediator.Send(getAllProductCommand);
+
+                //List<ProductDto> myResult = new List<ProductDto>();
+                //if (productResource.BrandNameFilter != null)
+                //{
+                //    myResult = (from s in result where productResource.BrandNameFilter.Contains(s.BrandId) select s).ToList();
+                //}
 
                 if (result.Count > 0)
                 {
@@ -300,7 +305,7 @@ namespace POS.API.Controllers.MobileApp
                     response.status = true;
                     response.StatusCode = 1;
                     response.message = "Success";
-                    response.Data = result;
+                    response.Data = result;                  
                 }
                 else
                 {
@@ -310,7 +315,6 @@ namespace POS.API.Controllers.MobileApp
                     response.Data = result;
 
                 }
-
             }
             catch (Exception ex)
             {

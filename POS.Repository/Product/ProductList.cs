@@ -96,7 +96,7 @@ namespace POS.Repository
                     OrderEndTime = c.OrderEndTime,
                     RackNo = c.RackNo,
                     HSNCode = c.HSNCode,
-                    // Cart= _mapper.Map<CartDto>(c.Cart),
+                    //Cart= _mapper.Map<CartDto>(c.Cart),
                     Stock = c.Inventory.Stock == null ? 0 : c.Inventory.Stock,
                     IsLoose = c.IsLoose == null ? false : c.IsLoose,
                     MinQty = c.MinQty,
