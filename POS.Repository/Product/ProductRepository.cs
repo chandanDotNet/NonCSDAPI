@@ -123,13 +123,7 @@ namespace POS.Repository
             {
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => a.SupplierId == productResource.SupplierId.Value);
-            }
-
-            if (productResource.BrandNameFilter != null)
-            {
-                collectionBeforePaging = collectionBeforePaging
-                    .Where(a => productResource.BrandNameFilter.Contains(a.BrandId));
-            }
+            }          
 
             if (productResource.ProductTypeId.HasValue)
             {
@@ -137,35 +131,41 @@ namespace POS.Repository
                     .Where(a => a.ProductTypeId == productResource.ProductTypeId.Value && a.Id != productResource.ProductId);
             }
 
+            //if (productResource.BrandNameFilter != null)
+            //{
+            //    collectionBeforePaging = collectionBeforePaging
+            //        .Where(a => productResource.BrandNameFilter.Contains(a.BrandId));
+            //}
+
             //if (productResource.PriceLesser.HasValue)
             //{
             //    collectionBeforePaging = collectionBeforePaging
             //        .Where(a => a.SalesPrice >= productResource.PriceLesser.Value && a.SalesPrice <= productResource.PriceGreater.Value);
             //}
 
-            if (productResource.PriceLesser.HasValue || productResource.PriceGreater.HasValue)
-            {
-                collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.SalesPrice >= productResource.PriceLesser.Value && a.SalesPrice <= productResource.PriceGreater.Value);
-            }
+            //if (productResource.PriceLesser.HasValue || productResource.PriceGreater.HasValue)
+            //{
+            //    collectionBeforePaging = collectionBeforePaging
+            //        .Where(a => a.SalesPrice >= productResource.PriceLesser.Value && a.SalesPrice <= productResource.PriceGreater.Value);
+            //}
 
-            if (productResource.PriceHighToLow == true)
-            {
-                // trim & ignore casing
-                collectionBeforePaging = collectionBeforePaging.OrderByDescending(x => x.SalesPrice);
-            }
-            
-            if (productResource.PriceLowToHigh == true)
-            {
-                // trim & ignore casing
-                collectionBeforePaging = collectionBeforePaging.OrderBy(x => x.SalesPrice);
-            }
+            //if (productResource.PriceHighToLow == true)
+            //{
+            //    // trim & ignore casing
+            //    collectionBeforePaging = collectionBeforePaging.OrderByDescending(x => x.SalesPrice);
+            //}
 
-            if (productResource.AlphabaticalOrder == true)
-            {
-                // trim & ignore casing
-                collectionBeforePaging = collectionBeforePaging.OrderBy(x => x.Name);
-            }
+            //if (productResource.PriceLowToHigh == true)
+            //{
+            //    // trim & ignore casing
+            //    collectionBeforePaging = collectionBeforePaging.OrderBy(x => x.SalesPrice);
+            //}
+
+            //if (productResource.AlphabaticalOrder == true)
+            //{
+            //    // trim & ignore casing
+            //    collectionBeforePaging = collectionBeforePaging.OrderBy(x => x.Name);
+            //}
 
             //collectionBeforePaging = collectionBeforePaging.Where(x => x.Inventory.Stock > 0).OrderBy(x => x.Name);
             //collectionBeforePaging.Where(x => x.Inventory.Stock <= 0)
