@@ -1045,6 +1045,11 @@
             <param name="salesOrderCommand"></param>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.DownloadInvoice(System.String)">
+            <summary>
+            Download Product File Format.
+            </summary>
+        </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.CreateCustomerSalesOrder(POS.MediatR.CommandAndQuery.AddSalesOrderCommand)">
             <summary>
             Creates the Customer sales order.

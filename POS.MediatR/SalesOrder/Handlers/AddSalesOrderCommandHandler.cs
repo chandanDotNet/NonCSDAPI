@@ -67,23 +67,25 @@ namespace POS.MediatR.Handlers
                 salesOrder.SOCreatedDate = request.DeliveryDate;
             }
 
-            if(salesOrder.IsAppOrderRequest == true)
+            if (salesOrder.IsAdvanceOrderRequest == false)
             {
-                if (DateTime.Now.TimeOfDay.Hours >= 17 && DateTime.Now.TimeOfDay.Minutes > 0)
+                if (salesOrder.IsAppOrderRequest == true)
                 {
-                    salesOrder.SOCreatedDate = DateTime.Now.AddDays(1);
-                    salesOrder.DeliveryDate = salesOrder.SOCreatedDate;
+                    if (DateTime.Now.TimeOfDay.Hours >= 17 && DateTime.Now.TimeOfDay.Minutes > 0)
+                    {
+                        salesOrder.SOCreatedDate = DateTime.Now.AddDays(1);
+                        salesOrder.DeliveryDate = salesOrder.SOCreatedDate;
+                    }
+                    else
+                    {
+                        salesOrder.SOCreatedDate = DateTime.Now;
+                    }
                 }
                 else
                 {
                     salesOrder.SOCreatedDate = DateTime.Now;
                 }
             }
-            else
-            {
-                salesOrder.SOCreatedDate = DateTime.Now;
-            }
-
             salesOrder.SalesOrderItems.ForEach(item =>
             {
                 var product = _productRepository.All.Where(c => c.Id == item.ProductId).FirstOrDefault();
