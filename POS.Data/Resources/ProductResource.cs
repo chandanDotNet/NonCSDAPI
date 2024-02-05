@@ -27,5 +27,11 @@ namespace POS.Data.Resources
         public string ProductUrl { get; set; }
         public Guid? ProductTypeId { get; set; }
         public Guid? ProductId { get; set; }
+        public bool PriceLowToHigh { get; set; }
+        public bool PriceHighToLow { get; set; }
+        public bool AlphabaticalOrder { get; set; }
+        public decimal? PriceLesser { get; set; }
+        public decimal? PriceGreater { get; set; }
+        public Guid[]? BrandNameFilter { get; set; }
     }
 }

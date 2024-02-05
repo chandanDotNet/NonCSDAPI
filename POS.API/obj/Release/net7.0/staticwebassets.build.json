@@ -1,6 +1,10 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "Hash": "c/KvUWjN617+pIYEV67vf5wqA8H9BCgkCx56AZDifl4=",
+=======
+  "Hash": "50xKDnKnk6d7hH56xajRF9LwVbpo4SdWOj1lQWwXg3Q=",
+>>>>>>> 06812f17063c8f3b60905074a823e3c5a35bc084
   "Source": "POS.API",
   "BasePath": "_content/POS.API",
   "Mode": "Default",
@@ -10,17 +14,17 @@
     {
       "Name": "POS.API\\wwwroot",
       "Source": "POS.API",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\BannerImages\\1de01127-ebf3-4896-8906-1f563aa58c80.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\BannerImages\\1de01127-ebf3-4896-8906-1f563aa58c80.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "BannerImages/1de01127-ebf3-4896-8906-1f563aa58c80.png",
       "AssetKind": "All",
@@ -34,10 +38,10 @@
       "OriginalItemSpec": "wwwroot\\BannerImages\\1de01127-ebf3-4896-8906-1f563aa58c80.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\BannerImages\\6ed832e5-409c-464b-b2a8-fcb5d4c7b9e3.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\BannerImages\\6ed832e5-409c-464b-b2a8-fcb5d4c7b9e3.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "BannerImages/6ed832e5-409c-464b-b2a8-fcb5d4c7b9e3.png",
       "AssetKind": "All",
@@ -51,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\BannerImages\\6ed832e5-409c-464b-b2a8-fcb5d4c7b9e3.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\BannerImages\\a55c55b3-490c-41df-a3a4-fb2377605239.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\BannerImages\\a55c55b3-490c-41df-a3a4-fb2377605239.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "BannerImages/a55c55b3-490c-41df-a3a4-fb2377605239.png",
       "AssetKind": "All",
@@ -68,10 +72,10 @@
       "OriginalItemSpec": "wwwroot\\BannerImages\\a55c55b3-490c-41df-a3a4-fb2377605239.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\CategoryBannerImages\\269a4fd0-f516-4f9e-acf1-7d74738f40f5.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\CategoryBannerImages\\269a4fd0-f516-4f9e-acf1-7d74738f40f5.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "CategoryBannerImages/269a4fd0-f516-4f9e-acf1-7d74738f40f5.png",
       "AssetKind": "All",
@@ -85,10 +89,10 @@
       "OriginalItemSpec": "wwwroot\\CategoryBannerImages\\269a4fd0-f516-4f9e-acf1-7d74738f40f5.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\CategoryBannerImages\\85a4c60b-2626-4d70-ac39-d5092ab57ff5.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\CategoryBannerImages\\85a4c60b-2626-4d70-ac39-d5092ab57ff5.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "CategoryBannerImages/85a4c60b-2626-4d70-ac39-d5092ab57ff5.png",
       "AssetKind": "All",
@@ -102,10 +106,10 @@
       "OriginalItemSpec": "wwwroot\\CategoryBannerImages\\85a4c60b-2626-4d70-ac39-d5092ab57ff5.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\CategoryBannerImages\\aafe062d-402d-419d-98bb-a31252e765f0.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\CategoryBannerImages\\aafe062d-402d-419d-98bb-a31252e765f0.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "CategoryBannerImages/aafe062d-402d-419d-98bb-a31252e765f0.png",
       "AssetKind": "All",
@@ -119,10 +123,10 @@
       "OriginalItemSpec": "wwwroot\\CategoryBannerImages\\aafe062d-402d-419d-98bb-a31252e765f0.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\CategoryBannerImages\\c639aa3b-a5b9-444a-aa75-f20bfb369f2a.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\CategoryBannerImages\\c639aa3b-a5b9-444a-aa75-f20bfb369f2a.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "CategoryBannerImages/c639aa3b-a5b9-444a-aa75-f20bfb369f2a.png",
       "AssetKind": "All",
@@ -136,10 +140,10 @@
       "OriginalItemSpec": "wwwroot\\CategoryBannerImages\\c639aa3b-a5b9-444a-aa75-f20bfb369f2a.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\CategoryBannerImages\\e64750d2-908f-4fee-b9c9-daa9d945a7e6.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\CategoryBannerImages\\e64750d2-908f-4fee-b9c9-daa9d945a7e6.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "CategoryBannerImages/e64750d2-908f-4fee-b9c9-daa9d945a7e6.png",
       "AssetKind": "All",
@@ -153,10 +157,10 @@
       "OriginalItemSpec": "wwwroot\\CategoryBannerImages\\e64750d2-908f-4fee-b9c9-daa9d945a7e6.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\DownloadFileFormat\\StockInventoryFormat.xlsx",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\DownloadFileFormat\\StockInventoryFormat.xlsx",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "DownloadFileFormat/StockInventoryFormat.xlsx",
       "AssetKind": "All",
@@ -170,10 +174,10 @@
       "OriginalItemSpec": "wwwroot\\DownloadFileFormat\\StockInventoryFormat.xlsx"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\HomePageBannerImages\\1eb4ffc2-f82c-4e55-81d6-4293a197f320.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\HomePageBannerImages\\1eb4ffc2-f82c-4e55-81d6-4293a197f320.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "HomePageBannerImages/1eb4ffc2-f82c-4e55-81d6-4293a197f320.png",
       "AssetKind": "All",
@@ -187,10 +191,10 @@
       "OriginalItemSpec": "wwwroot\\HomePageBannerImages\\1eb4ffc2-f82c-4e55-81d6-4293a197f320.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\HomePageBannerImages\\8442b561-e31a-4498-91a8-ea5820a3307a.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\HomePageBannerImages\\8442b561-e31a-4498-91a8-ea5820a3307a.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "HomePageBannerImages/8442b561-e31a-4498-91a8-ea5820a3307a.png",
       "AssetKind": "All",
@@ -204,10 +208,10 @@
       "OriginalItemSpec": "wwwroot\\HomePageBannerImages\\8442b561-e31a-4498-91a8-ea5820a3307a.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\HomePageBannerImages\\a0be6ab5-d1fc-42cd-8be8-1d4ffd38ac09.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\HomePageBannerImages\\a0be6ab5-d1fc-42cd-8be8-1d4ffd38ac09.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "HomePageBannerImages/a0be6ab5-d1fc-42cd-8be8-1d4ffd38ac09.png",
       "AssetKind": "All",
@@ -221,10 +225,10 @@
       "OriginalItemSpec": "wwwroot\\HomePageBannerImages\\a0be6ab5-d1fc-42cd-8be8-1d4ffd38ac09.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\HomePageBannerImages\\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\HomePageBannerImages\\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "HomePageBannerImages/cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png",
       "AssetKind": "All",
@@ -238,6 +242,7 @@
       "OriginalItemSpec": "wwwroot\\HomePageBannerImages\\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png"
     },
     {
+<<<<<<< HEAD
       "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile\\SO#000089.pdf",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
@@ -256,9 +261,29 @@
     },
     {
       "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\LoginPageBannerImages\\3c344938-bcc7-4280-a60d-e2592c3586af.png",
+=======
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO#000089.pdf",
+>>>>>>> 06812f17063c8f3b60905074a823e3c5a35bc084
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
+      "BasePath": "_content/POS.API",
+      "RelativePath": "InvoiceFile/SO#000089.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\InvoiceFile\\SO#000089.pdf"
+    },
+    {
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\LoginPageBannerImages\\3c344938-bcc7-4280-a60d-e2592c3586af.png",
+      "SourceId": "POS.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "LoginPageBannerImages/3c344938-bcc7-4280-a60d-e2592c3586af.png",
       "AssetKind": "All",
@@ -272,10 +297,10 @@
       "OriginalItemSpec": "wwwroot\\LoginPageBannerImages\\3c344938-bcc7-4280-a60d-e2592c3586af.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\LoginPageBannerImages\\3d3b13e3-1b80-4a22-b98a-ea83a82e7dbd.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\LoginPageBannerImages\\3d3b13e3-1b80-4a22-b98a-ea83a82e7dbd.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "LoginPageBannerImages/3d3b13e3-1b80-4a22-b98a-ea83a82e7dbd.png",
       "AssetKind": "All",
@@ -289,10 +314,10 @@
       "OriginalItemSpec": "wwwroot\\LoginPageBannerImages\\3d3b13e3-1b80-4a22-b98a-ea83a82e7dbd.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\OTPBannerImages\\06c5b7cf-1232-4f7a-9466-f5856da7bc90.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\OTPBannerImages\\06c5b7cf-1232-4f7a-9466-f5856da7bc90.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "OTPBannerImages/06c5b7cf-1232-4f7a-9466-f5856da7bc90.png",
       "AssetKind": "All",
@@ -306,10 +331,10 @@
       "OriginalItemSpec": "wwwroot\\OTPBannerImages\\06c5b7cf-1232-4f7a-9466-f5856da7bc90.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\StockExcelUploadFilePath\\bakery.xlsx",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\StockExcelUploadFilePath\\bakery.xlsx",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "StockExcelUploadFilePath/bakery.xlsx",
       "AssetKind": "All",
@@ -323,10 +348,10 @@
       "OriginalItemSpec": "wwwroot\\StockExcelUploadFilePath\\bakery.xlsx"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\StockExcelUploadFilePath\\GRNStockUpload.xlsx",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\StockExcelUploadFilePath\\GRNStockUpload.xlsx",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "StockExcelUploadFilePath/GRNStockUpload.xlsx",
       "AssetKind": "All",
@@ -340,10 +365,10 @@
       "OriginalItemSpec": "wwwroot\\StockExcelUploadFilePath\\GRNStockUpload.xlsx"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\StockExcelUploadFilePath\\StockInventoryFormat.xlsx",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\StockExcelUploadFilePath\\StockInventoryFormat.xlsx",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "StockExcelUploadFilePath/StockInventoryFormat.xlsx",
       "AssetKind": "All",
@@ -357,10 +382,10 @@
       "OriginalItemSpec": "wwwroot\\StockExcelUploadFilePath\\StockInventoryFormat.xlsx"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\StockExcelUploadFilePath\\StockUpload.xlsx",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\StockExcelUploadFilePath\\StockUpload.xlsx",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "StockExcelUploadFilePath/StockUpload.xlsx",
       "AssetKind": "All",
@@ -374,10 +399,10 @@
       "OriginalItemSpec": "wwwroot\\StockExcelUploadFilePath\\StockUpload.xlsx"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\StockExcelUploadFilePath\\SupplierUpload.xlsx",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\StockExcelUploadFilePath\\SupplierUpload.xlsx",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "StockExcelUploadFilePath/SupplierUpload.xlsx",
       "AssetKind": "All",
@@ -391,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\StockExcelUploadFilePath\\SupplierUpload.xlsx"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\Users\\no-image-found.png",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\Users\\no-image-found.png",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "Users/no-image-found.png",
       "AssetKind": "All",
