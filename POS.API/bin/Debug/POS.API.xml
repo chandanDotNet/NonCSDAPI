@@ -1960,6 +1960,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.SalesOrder.SalesOrderController.UpdateSalesOrderDateTime(POS.MediatR.SalesOrder.Commands.UpdateSalesOrderDateTimeCommand)">
+            <summary>
+            Update the Sales order date time.
+            </summary>
+            <param name="updateSalesOrderDateTimeCommand">The add Sales order date time command.</param>
+            <returns></returns>
+        </member>
         <member name="T:POS.API.Controllers.SendEmailController">
             <summary>
             Supplier Controller
