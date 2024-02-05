@@ -127,6 +127,7 @@ namespace POS.MediatR.PurchaseOrder.Handlers
 
             purchaseOrderExit.PurchasePaymentType = purchaseOrderUpdate.PurchasePaymentType;
             purchaseOrderExit.InvoiceNo = purchaseOrderUpdate.InvoiceNo;
+            purchaseOrderExit.TotalSaleAmount = purchaseOrderUpdate.TotalSaleAmount;
 
             purchaseOrderExit.PurchaseOrderItems = purchaseOrderUpdate.PurchaseOrderItems;
             purchaseOrderExit.PurchaseOrderItems.ForEach(c =>
