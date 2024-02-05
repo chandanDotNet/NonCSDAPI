@@ -2697,6 +2697,8 @@ namespace POS.API.Controllers.MobileApp
                                         PurchaseOrderItems.ProductId = findProduct.Id;
                                         PurchaseOrderItems.ProductName = findProduct.Name;
                                         PurchaseOrderItems.ProductCode = ProductCode;
+                                        PurchaseOrderItems.UnitId = findProduct.UnitId;
+
                                     }
                                     else
                                     {
@@ -2720,22 +2722,22 @@ namespace POS.API.Controllers.MobileApp
                                     }
                                 }
 
-                                if (!string.IsNullOrEmpty(UnitName))
-                                {
-                                    var findUnit = _unitConversationRepository.FindBy(c => c.Name == UnitName).FirstOrDefault();
-                                    if (findUnit != null)
-                                    {
-                                        PurchaseOrderItems.UnitId = findUnit.Id;
-                                        PurchaseOrderItems.UnitName = findUnit.Name;
-                                    }
-                                    else
-                                    {
-                                        PurchaseOrderItems.UnitId = new Guid { };
-                                        PurchaseOrderItems.UnitName = UnitName;
-                                        PurchaseOrderItems.Message += "Invalid Unit|";
-                                        VerifyStatus = false;
-                                    }
-                                }
+                                //if (!string.IsNullOrEmpty(UnitName))
+                                //{
+                                //    var findUnit = _unitConversationRepository.FindBy(c => c.Name == UnitName).FirstOrDefault();
+                                //    if (findUnit != null)
+                                //    {
+                                //        PurchaseOrderItems.UnitId = findUnit.Id;
+                                //        PurchaseOrderItems.UnitName = findUnit.Name;
+                                //    }
+                                //    else
+                                //    {
+                                //        PurchaseOrderItems.UnitId = new Guid { };
+                                //        PurchaseOrderItems.UnitName = UnitName;
+                                //        PurchaseOrderItems.Message += "Invalid Unit|";
+                                //        VerifyStatus = false;
+                                //    }
+                                //}
 
                                 if (!string.IsNullOrEmpty(WHName))
                                 {
@@ -2798,8 +2800,8 @@ namespace POS.API.Controllers.MobileApp
                                 ResponseStatus = true;
                             }
 
-                            decimal TotalSaleAmount = addStockExcelUploadCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.SalesPrice));
-                            decimal TotalAmount = addStockExcelUploadCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.UnitPrice));
+                            decimal TotalSaleAmount = addStockExcelUploadCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.SalesPrice * x.Quantity));
+                            decimal TotalAmount = addStockExcelUploadCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.UnitPrice*x.Quantity));
                             addStockExcelUploadCommand.TotalAmount = TotalAmount;
                             addStockExcelUploadCommand.TotalSaleAmount = TotalSaleAmount;
 
