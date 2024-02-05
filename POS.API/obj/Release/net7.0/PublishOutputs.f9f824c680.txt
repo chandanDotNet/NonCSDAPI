@@ -28,6 +28,16 @@ D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Han
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Hangfire.Core.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Hangfire.NetCore.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Hangfire.SqlServer.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\itext.barcodes.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\itext.forms.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\itext.io.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\itext.kernel.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\itext.layout.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\itext.pdfa.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\itext.sign.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\itext.styledxmlparser.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\itext.svg.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\itext.commons.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\MediatR.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\MediatR.Contracts.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
@@ -39,10 +49,12 @@ D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Mic
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.AspNetCore.SpaServices.Extensions.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.Data.SqlClient.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.DotNet.PlatformAbstractions.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Relational.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.Extensions.DependencyModel.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.Extensions.Identity.Core.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.Extensions.Identity.Stores.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Microsoft.Extensions.Options.dll
@@ -63,6 +75,7 @@ D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\NLo
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\NLog.Database.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\NLog.Extensions.Logging.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\NLog.Web.AspNetCore.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\BouncyCastle.Crypto.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\SixLabors.ImageSharp.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\obj\Release\net7.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
