@@ -73,7 +73,9 @@ namespace POS.MediatR.Handlers
                 {
                     if (DateTime.Now.TimeOfDay.Hours >= 17 && DateTime.Now.TimeOfDay.Minutes > 0)
                     {
-                        salesOrder.SOCreatedDate = DateTime.Now.AddDays(1);
+                        TimeSpan ts = new TimeSpan(01, 00, 0);
+                        DateTime dt = DateTime.Now.AddDays(1);
+                        salesOrder.SOCreatedDate = dt.Date + ts;
                         salesOrder.DeliveryDate = salesOrder.SOCreatedDate;
                     }
                     else
