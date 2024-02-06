@@ -356,18 +356,18 @@ namespace POS.API.Controllers.SalesOrder
             return Ok(salesOrders);
         }
 
-        ///// <summary>
-        ///// Update the Sales order date time.
-        ///// </summary>
-        ///// <param name="updateSalesOrderDateTimeCommand">The add Sales order date time command.</param>
-        ///// <returns></returns>
-        //[HttpPut("ChangeSalesOrderDateTime")]        
-        //[Produces("application/json", "application/xml", Type = typeof(SalesOrderDto))]
-        //public async Task<IActionResult> UpdateSalesOrderDateTime(UpdateSalesOrderDateTimeCommand updateSalesOrderDateTimeCommand)
-        //{
-        //    var result = await _mediator.Send(updateSalesOrderDateTimeCommand);
-        //    return ReturnFormattedResponse(result);
-        //}
+        /// <summary>
+        /// Update the Sales order date time.
+        /// </summary>
+        /// <param name="updateSalesOrderDateTimeCommand">The add Sales order date time command.</param>
+        /// <returns></returns>
+        [HttpPut("ChangeSalesOrderDateTime")]
+        [Produces("application/json", "application/xml", Type = typeof(SalesOrderDto))]
+        public async Task<IActionResult> UpdateSalesOrderDateTime(UpdateSalesOrderDateTimeCommand updateSalesOrderDateTimeCommand)
+        {
+            var result = await _mediator.Send(updateSalesOrderDateTimeCommand);
+            return ReturnFormattedResponse(result);
+        }
 
     }
 }
