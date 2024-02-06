@@ -72,13 +72,15 @@ namespace POS.MediatR.Handlers
                 if (salesOrder.IsAppOrderRequest == true)
                 {
                     string today = DateTime.Now.ToString("dddd");
-                    if (today  == "Sunday")
+                    if (today == "Sunday")
                     {
                         if (DateTime.Now.TimeOfDay.Hours >= 13 && DateTime.Now.TimeOfDay.Minutes > 0)
                         {
-                            TimeSpan ts = new TimeSpan(01, 00, 30, 7384771);
-                            DateTime dt = DateTime.Now.AddDays(1);
-                            salesOrder.SOCreatedDate = dt.Date + ts;
+                            //TimeSpan ts = new TimeSpan(01, 00, 01, 0000001);
+                            //DateTime dt = DateTime.Now.AddDays(1).AddHours(1).AddMinutes(1).AddSeconds(1).AddMilliseconds(1);
+                            DateTime ts = DateTime.Now;
+                            ts = new DateTime(ts.Year, ts.Month, ts.Day, 01, 0, 0, 1, DateTimeKind.Local);
+                            salesOrder.SOCreatedDate = ts.AddDays(1);
                             salesOrder.DeliveryDate = salesOrder.SOCreatedDate;
                         }
                         else
@@ -90,9 +92,9 @@ namespace POS.MediatR.Handlers
                     {
                         if (DateTime.Now.TimeOfDay.Hours >= 17 && DateTime.Now.TimeOfDay.Minutes > 0)
                         {
-                            TimeSpan ts = new TimeSpan(01, 00, 30, 7384771);
-                            DateTime dt = DateTime.Now.AddDays(1);
-                            salesOrder.SOCreatedDate = dt.Date + ts;
+                            DateTime ts = DateTime.Now;
+                            ts = new DateTime(ts.Year, ts.Month, ts.Day, 01, 0, 0, 1, DateTimeKind.Local);
+                            salesOrder.SOCreatedDate = ts.AddDays(1);
                             salesOrder.DeliveryDate = salesOrder.SOCreatedDate;
                         }
                         else
