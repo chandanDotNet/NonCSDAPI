@@ -63,12 +63,23 @@ namespace POS.Repository
             //    collectionBeforePaging = collectionBeforePaging
             //       .Where(d => d.Cart.CustomerId == productResource.CustomerId);
             //}
-
+            if (productResource.Id.HasValue)
+            {
+                // trim & ignore casing
+                collectionBeforePaging = collectionBeforePaging
+                   .Where(a => a.Id == productResource.Id);
+            }
             if (productResource.ProductMainCategoryId.HasValue)
             {
                 // trim & ignore casing
                 collectionBeforePaging = collectionBeforePaging
                    .Where(a => a.ProductCategory.ProductMainCategoryId == productResource.ProductMainCategoryId);
+            }
+            if (productResource.IsAppOrderRequest == true)
+            {
+                // trim & ignore casing
+                collectionBeforePaging = collectionBeforePaging.
+                    Where(x => x.Brand.Name != "Baggage" && x.Brand.Name != "DELIVERY");
             }
 
             if (productResource.ProductMainCategoryId.HasValue)

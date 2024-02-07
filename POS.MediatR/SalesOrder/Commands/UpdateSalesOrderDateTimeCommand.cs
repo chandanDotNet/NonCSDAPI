@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using POS.Data;
 using POS.Data.Dto;
 using POS.Helper;
 using System;
@@ -11,7 +12,9 @@ namespace POS.MediatR.SalesOrder.Commands
 {
     public class UpdateSalesOrderDateTimeCommand : IRequest<ServiceResponse<SalesOrderDto>>
     {
-       public List<SalesOrderDto> SalesOrder { get; set; }
+        public DateTime SOCreatedDate { get; set; }        
+        public DateTime DeliveryDate { get; set; }
+        public List<SalesOrderDto> SalesOrder { get; set; }
 
     }
 }

@@ -6,6 +6,7 @@ namespace POS.Data.Dto
 {
     public class SalesOrderDto
     {
+        public int SNo { get; set; }
         public Guid Id { get; set; }
         public string OrderNumber { get; set; }
         public string Note { get; set; }

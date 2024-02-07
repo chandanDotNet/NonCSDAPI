@@ -75,8 +75,10 @@ namespace POS.Repository
             }
             if (!string.IsNullOrWhiteSpace(salesOrderResource.MobileNo))
             {
+                var mobileNo = salesOrderResource.MobileNo.GetUnescapestring();
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(a => a.Customer.MobileNo == salesOrderResource.MobileNo.GetUnescapestring());
+                    //.Where(a => a.Customer.MobileNo == salesOrderResource.MobileNo.GetUnescapestring());
+                .Where(a => EF.Functions.Like(a.Customer.MobileNo, $"%{mobileNo}%"));
             }
 
             if (salesOrderResource.SOCreatedDate.HasValue)
@@ -142,6 +144,23 @@ namespace POS.Repository
                         }
                     }
                 }
+            }else
+            {
+                var counterName = salesOrderResource.CounterName; 
+                if(counterName!=null)
+                {
+                    if (counterName.ToUpper() == "APP")
+                    {
+                        collectionBeforePaging = collectionBeforePaging
+                            .Where(a => a.IsAppOrderRequest==true);
+                    }
+                    else
+                    {
+                        collectionBeforePaging = collectionBeforePaging
+                                .Where(a => EF.Functions.Like(a.Counter.CounterName.ToUpper(), $"%{counterName.ToUpper()}%"));
+                    }
+                }
+                              
             }
 
 
@@ -161,6 +180,7 @@ namespace POS.Repository
             {
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => a.IsAdvanceOrderRequest == salesOrderResource.IsAdvanceOrderRequest);
+
             }
 
             //if (!string.IsNullOrWhiteSpace(salesOrderResource.CounterName))
@@ -191,6 +211,7 @@ namespace POS.Repository
                 // trim & ignore casing
                 collectionBeforePaging = collectionBeforePaging
                    .Where(a => a.ProductMainCategoryId == salesOrderResource.ProductMainCategoryId);
+
             }
 
             var salesOrders = new SalesOrderList(_mapper);

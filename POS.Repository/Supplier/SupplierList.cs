@@ -55,12 +55,14 @@ namespace POS.Repository
 
         public async Task<List<SupplierDto>> GetDtos(IQueryable<Supplier> source, int skip, int pageSize)
         {
+            int SNo = 1;
             var entities = await source
                 .Skip(skip)
                 .Take(pageSize)
                 .AsNoTracking()
                 .Select(c => new SupplierDto
                 {
+                   
                     Id = c.Id,
                     BusinessType = c.BusinessType,
                     ContactPerson = c.ContactPerson,
@@ -79,6 +81,7 @@ namespace POS.Repository
                     Pin=c.Pin
                     
                 }).ToListAsync();
+            entities.ForEach(x => x.SNo = SNo++);
             return _mapper.Map<List<SupplierDto>>(entities);
         }
     }

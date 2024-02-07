@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using System.Reflection.Metadata.Ecma335;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace POS.Repository
 {
@@ -55,12 +58,14 @@ namespace POS.Repository
 
         public async Task<List<SalesOrderDto>> GetDtos(IQueryable<SalesOrder> source, int skip, int pageSize)
         {
+            int SNo = 1;
             if (pageSize == 0)
             {
                 var entities = await source
              .AsNoTracking()
              .Select(cs => new SalesOrderDto
-             {
+             { 
+                 
                  Id = cs.Id,
                  SOCreatedDate = cs.SOCreatedDate,
                  OrderNumber = cs.OrderNumber,
@@ -128,16 +133,19 @@ namespace POS.Repository
                         }
                     }
                 }
+                entities.ForEach(x => x.SNo = SNo++);
                 return entities;
             }
             else
             {
+                
                 var entities = await source
               .Skip(skip)
               .Take(pageSize)
               .AsNoTracking()
-              .Select(cs => new SalesOrderDto
+              .Select((cs) => new SalesOrderDto
               {
+                
                   Id = cs.Id,
                   SOCreatedDate = cs.SOCreatedDate,
                   OrderNumber = cs.OrderNumber,
@@ -206,6 +214,7 @@ namespace POS.Repository
                         }
                     }
                 }
+                entities.ForEach(x => x.SNo = SNo++);
                 //return entities.OrderBy(x=>x.SOCreatedDate).ToList();
                 return entities;
             }
