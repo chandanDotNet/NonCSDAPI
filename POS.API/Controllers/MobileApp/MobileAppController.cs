@@ -3662,7 +3662,7 @@ namespace POS.API.Controllers.MobileApp
 
                 foreach (var item in invoice.SalesOrderItems)
                 {
-                    var save = (item.Product.Mrp * item.UnitPrice) - (item.UnitPrice * item.Quantity);
+                    var save = (item.Product.Mrp * item.Quantity) - (item.UnitPrice * item.Quantity);
                     table.AddCell(new Cell().Add(new Paragraph((i++).ToString())).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
                     table.AddCell(new Cell().Add(new Paragraph(item.ProductName)).SetTextAlignment(TextAlignment.LEFT).SetFontSize(7));
                     table.AddCell(new Cell().Add(new Paragraph(item.UnitPrice.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
