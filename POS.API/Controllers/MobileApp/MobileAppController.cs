@@ -67,6 +67,8 @@ using iText.Layout.Element;
 using static iText.IO.Util.IntHashtable;
 using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Kernel.Pdf.Canvas.Parser.Listener;
+using iText.Layout.Borders;
+using iText.IO.Image;
 
 namespace POS.API.Controllers.MobileApp
 {
@@ -293,7 +295,7 @@ namespace POS.API.Controllers.MobileApp
                 //List<ProductDto> myResult = new List<ProductDto>();
                 //if (productResource.BrandNameFilter != null)
                 //{
-                //    myResult = (from s in result where productResource.BrandNameFilter.Contains(s.BrandId) select s).ToList();
+                //    myResult = result.Where(x => x.BrandName != "Baggage" && x.BrandName != "Delivery").ToList();
                 //}
 
                 if (result.Count > 0)
@@ -306,7 +308,7 @@ namespace POS.API.Controllers.MobileApp
                     response.status = true;
                     response.StatusCode = 1;
                     response.message = "Success";
-                    response.Data = result;                  
+                    response.Data = result;
                 }
                 else
                 {
@@ -1198,17 +1200,7 @@ namespace POS.API.Controllers.MobileApp
             }
 
             return Ok(response);
-        }
-
-        /// <summary>
-        /// Download Product File Format.
-        /// </summary>
-        [HttpGet("DownloadInvoice")]
-        public IActionResult DownloadInvoice([FromQuery] string OrderNumber)
-        {
-            var filepath = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.InvoiceFile, OrderNumber + ".pdf");
-            return File(System.IO.File.ReadAllBytes(filepath), "application/pdf", System.IO.Path.GetFileName(filepath));
-        }
+        }      
 
         /// <summary>
         /// Creates the Customer sales order.
@@ -1248,7 +1240,7 @@ namespace POS.API.Controllers.MobileApp
                 response.message = "Order placed successfully!";
                 response.SalesOrderId = result.Data.Id;
 
-                //CreateInvoice(response.SalesOrderId);
+                //CreateInvoice(response.SalesOrderId.Value);
             }
             else
             {
@@ -2801,7 +2793,7 @@ namespace POS.API.Controllers.MobileApp
                             }
 
                             decimal TotalSaleAmount = addStockExcelUploadCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.SalesPrice * x.Quantity));
-                            decimal TotalAmount = addStockExcelUploadCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.UnitPrice*x.Quantity));
+                            decimal TotalAmount = addStockExcelUploadCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.UnitPrice * x.Quantity));
                             addStockExcelUploadCommand.TotalAmount = TotalAmount;
                             addStockExcelUploadCommand.TotalSaleAmount = TotalSaleAmount;
 
@@ -3450,95 +3442,257 @@ namespace POS.API.Controllers.MobileApp
             return Ok(response);
         }
 
-        //////[NonAction] async void
-        //[HttpPost("GetCustomerOrderDetailsById")]
-        //public async Task<IActionResult> CreateInvoice([FromQuery] Guid? InvoiceId)
+        /// <summary>
+        /// Download Product File Format.
+        /// </summary>
+        //[HttpGet("DownloadInvoice")]
+        //public IActionResult DownloadInvoice([FromQuery] string OrderNumber)
         //{
-        //    var getSalesOrderQuery = new GetSalesOrderCommand
-        //    {
-        //        Id = InvoiceId.Value
-        //    };
-        //    var invoiceDetails = await _mediator.Send(getSalesOrderQuery);
-
-        //    var pdfByte = GeneratePDF(invoiceDetails.Data);
-
-        //    var pathToSave = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.InvoiceFile);
-        //    if (!Directory.Exists(pathToSave))
-        //    {
-        //        Directory.CreateDirectory(pathToSave);
-        //    }
-        //    System.IO.File.WriteAllBytes(Path.Combine(pathToSave, invoiceDetails.Data.OrderNumber + ".pdf"), pdfByte);
-        //    return Ok();
+        //    var filepath = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.InvoiceFile, OrderNumber + ".pdf");
+        //    return File(System.IO.File.ReadAllBytes(filepath), "application/pdf", System.IO.Path.GetFileName(filepath));
         //}
 
+        ////[NonAction] async  Task<IActionResult>
+        [HttpPost("DownloadInvoice")]
         //[NonAction]
-        //public byte[] GeneratePDF(SalesOrderDto invoice)
-        //{
-        //    //Define your memory stream which will temporarily hold the PDF
-        //    using (MemoryStream stream = new MemoryStream())
-        //    {
-        //        //Initialize PDF writer
-        //        PdfWriter writer = new PdfWriter(stream);
-        //        //Initialize PDF document
-        //        PdfDocument pdf = new PdfDocument(writer);
-        //        // Initialize document
-        //        Document document = new Document(pdf);
-        //        // Add content to the document
-        //        // Header
+        public async Task<IActionResult> DownloadInvoice([FromQuery] Guid? SaleOrderId)
+        {
+            var getSalesOrderQuery = new GetSalesOrderCommand
+            {
+                Id = SaleOrderId.Value
+            };
+            var invoiceDetails = await _mediator.Send(getSalesOrderQuery);
 
-        //        document.Add(new Paragraph("Sales Order Invoice")
-        //            .SetTextAlignment(TextAlignment.LEFT)
-        //            .SetFontSize(10));
-        //        document.Add(new Paragraph($"Sales Order: {invoice.OrderNumber}")
-        //            .SetTextAlignment(TextAlignment.LEFT)
-        //            .SetFontSize(8));
-        //        document.Add(new Paragraph($"Order Date: {invoice.SOCreatedDate.ToShortDateString()}")
-        //            .SetTextAlignment(TextAlignment.LEFT)
-        //            .SetFontSize(8));
-        //        document.Add(new Paragraph($"Order Type: {invoice.StatusType}")
-        //           .SetTextAlignment(TextAlignment.LEFT)
-        //           .SetFontSize(8));
+            var pdfByte = GeneratePDF(invoiceDetails.Data);
 
-        //        //List list = new List().SetTextAlignment(TextAlignment.LEFT).SetFontSize(10);
-        //        //list.Add(new ListItem($"Sales Order Invoice"))
-        //        //    .Add(new ListItem($"Sales Order: {invoice.OrderNumber}"))
-        //        //    .Add(new ListItem($"Order Date: {invoice.SOCreatedDate}"))
-        //        //    .Add(new ListItem($"Order Type: {invoice.StatusType}"));
+            var pathToSave = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.InvoiceFile);
+            if (!Directory.Exists(pathToSave))
+            {
+                Directory.CreateDirectory(pathToSave);
+            }
+            System.IO.File.WriteAllBytes(Path.Combine(pathToSave, invoiceDetails.Data.OrderNumber + ".pdf"), pdfByte);
+            //return Ok();
 
-        //        LineSeparator lineSeparator = new LineSeparator(new SolidLine());
-        //        document.Add(lineSeparator);
-        //        //document.Add(new chunk
-        //        // Invoice data
-        //        //document.Add(new Paragraph($"Invoice Number: {invoice.OrderNumber}").SetFontSize(10));
-        //        //document.Add(new Paragraph($"Date: {invoice.SOCreatedDate.ToShortDateString()}").SetFontSize(10));
-        //        document.Add(new Paragraph("To,").SetFontSize(8));
-        //        document.Add(new Paragraph($"Customer Name: {invoice.Customer.CustomerName}").SetFontSize(8));
-        //        document.Add(new Paragraph($"Address: {invoice.DeliveryAddress}").SetFontSize(8));
-        //        document.Add(new Paragraph($"Delivery Status: {invoice.DeliveryStatus}").SetFontSize(8));
-        //        // Table for invoice items
-        //        iText.Layout.Element.Table table = new iText.Layout.Element.Table(new float[] { 3, 1, 1, 1 });
-        //        table.SetWidth(UnitValue.CreatePercentValue(100));
-        //        table.AddHeaderCell("Product Name").SetTextAlignment(TextAlignment.CENTER).SetFontSize(8);
-        //        table.AddHeaderCell("Quantity").SetTextAlignment(TextAlignment.CENTER).SetFontSize(8);
-        //        table.AddHeaderCell("Unit Price").SetTextAlignment(TextAlignment.CENTER).SetFontSize(8);
-        //        table.AddHeaderCell("Total").SetTextAlignment(TextAlignment.CENTER).SetFontSize(8);
-        //        foreach (var item in invoice.SalesOrderItems)
-        //        {
-        //            table.AddCell(new Cell().Add(new Paragraph(item.ProductName)).SetTextAlignment(TextAlignment.LEFT).SetFontSize(8));
-        //            table.AddCell(new Cell().Add(new Paragraph(item.Quantity.ToString())).SetTextAlignment(TextAlignment.CENTER).SetFontSize(8));
-        //            table.AddCell(new Cell().Add(new Paragraph(item.UnitPrice.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(8));
-        //            table.AddCell(new Cell().Add(new Paragraph(item.TotalSalesPrice.Value.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(8));
-        //        }
-        //        //Add the Table to the PDF Document
-        //        document.Add(table);
-        //        // Total Amount
-        //        document.Add(new Paragraph($"Total Amount: {invoice.TotalAmount.ToString("C")}")
-        //            .SetTextAlignment(TextAlignment.RIGHT).SetFontSize(9));
-        //        // Close the Document
-        //        document.Add(new Paragraph($"Payment Mode: {invoice.PaymentStatus}").SetFontSize(8));
-        //        document.Close();
-        //        return stream.ToArray();
-        //    }
-        //}
+            var filepath = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.InvoiceFile, invoiceDetails.Data.OrderNumber + ".pdf");
+            return File(System.IO.File.ReadAllBytes(filepath), "application/pdf", System.IO.Path.GetFileName(filepath));
+        }
+
+        [NonAction]
+        public byte[] GeneratePDF(SalesOrderDto invoice)
+        {
+            //Define your memory stream which will temporarily hold the PDF
+            using (MemoryStream stream = new MemoryStream())
+            {
+                //Initialize PDF writer
+                PdfWriter writer = new PdfWriter(stream);
+                //Initialize PDF document
+                PdfDocument pdf = new PdfDocument(writer);
+                // Initialize document
+                Document document = new Document(pdf);
+                // Add content to the document
+                // Header
+
+                var imgpath = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.InvoiceFile, "sg-image.png");
+                iText.Layout.Element.Image logo = new iText.Layout.Element.Image(ImageDataFactory.Create(imgpath));
+                logo.SetHeight(15);
+                logo.SetWidth(15);
+                logo.SetFixedPosition(530, 790);
+
+                iText.Layout.Element.Table topHeaderTable = new iText.Layout.Element.Table(new float[] { 3, 1, 1, 1, 1, 1 });
+                topHeaderTable.SetWidth(UnitValue.CreatePercentValue(100));
+                topHeaderTable.AddCell(new Cell().Add(new Paragraph("Sales Order Invoice")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(9).SetBorder(Border.NO_BORDER).SetBold());
+                topHeaderTable.AddCell(new Cell().Add(new Paragraph("                   ")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(7).SetBorder(Border.NO_BORDER));
+                topHeaderTable.AddCell(new Cell().Add(new Paragraph("                   ")).SetTextAlignment(TextAlignment.LEFT).SetFontSize(7).SetBorder(Border.NO_BORDER));
+                topHeaderTable.AddCell(new Cell().Add(new Paragraph("                   ")).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7).SetBorder(Border.NO_BORDER));
+                topHeaderTable.AddCell(new Cell().Add(new Paragraph("                   ")).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7).SetBorder(Border.NO_BORDER));
+                topHeaderTable.AddCell(new Cell().Add(logo).SetTextAlignment(TextAlignment.RIGHT).SetFontSize(7).SetBorder(Border.NO_BORDER));
+                document.Add(topHeaderTable);
+                //
+                float icol = 300f;
+                float[] icolWidth = { icol, icol };
+                iText.Layout.Element.Table invoiceDetails = new iText.Layout.Element.Table(new float[] { 3, 1 });
+                invoiceDetails.SetWidth(UnitValue.CreatePercentValue(100));
+
+                //Cell cell1 = new Cell(1, 1)
+                //    .SetFontSize(9)
+                //    .SetBold()
+                //    .SetBorder(Border.NO_BORDER)
+                //    .Add(new Paragraph("Sales Order Invoice"));
+
+                //Cell cellimg = new Cell(2, 1)
+                //  .SetBorder(Border.NO_BORDER)
+                //  .SetTextAlignment(TextAlignment.RIGHT)
+                //  .Add(logo);
+
+                string orderType = invoice.IsAdvanceOrderRequest == true ? "Advance" : "Current";
+
+                Cell cell2 = new Cell(1, 1)
+                    .SetFontSize(7)
+                    .SetBorder(Border.NO_BORDER)
+                    .Add(new Paragraph(
+                    $"Sales Order: {invoice.OrderNumber}\n" +
+                    $"Order Date: {invoice.SOCreatedDate.ToShortDateString()}\n" +
+                    $"Order Type: {orderType}"));
+
+
+                float dcol = 300f;
+                float[] dcolWidth = { dcol, dcol };
+                iText.Layout.Element.Table tblDetails = new iText.Layout.Element.Table(new float[] { 3, 2, 2, 3 });
+
+                Cell cell3 = new Cell(1, 1)
+                    .SetFontSize(7)
+                    .SetBorder(Border.NO_BORDER)
+                    .Add(new Paragraph($"To,\n" +
+                    $"Customer Name: {invoice.Customer.CustomerName}\n" +
+                    $"Address: {invoice.DeliveryAddress}\n"));
+
+                Cell cell5 = new Cell(2, 1)
+                    .SetFontSize(7)
+                    .SetBorder(Border.NO_BORDER)
+                    .Add(new Paragraph(""));
+
+                Cell cell6 = new Cell(3, 1)
+                   .SetFontSize(7)
+                   .SetBorder(Border.NO_BORDER)
+                   .Add(new Paragraph(""));
+
+
+                Cell cell4 = new Cell(4, 1)
+                    .SetFontSize(7)
+                    .SetBorder(Border.NO_BORDER)
+                    .Add(new Paragraph($"From,\n" +
+                    $"Sainik Grocery\n" +
+                    $"Address:\n" +
+                    $"NEEDS, Southern Command HQ, Pune\n" +
+                    $"Phone: +91 8149580080\n" +
+                    $"Email: it@sainikgrocery.in\n"));
+
+                //Cell cell2 = new Cell(1, 1)
+                //    .SetFontSize(9)
+                //    .SetBorder(Border.NO_BORDER)
+                //    .Add(new Paragraph($"Sales Order: {invoice.OrderNumber}"));
+
+                //Cell cell3 = new Cell(1, 1)
+                //    .SetFontSize(9)
+                //    .SetBorder(Border.NO_BORDER)
+                //    .Add(new Paragraph($"Order Date: {invoice.SOCreatedDate.ToShortDateString()}"));
+
+                //Cell cell4 = new Cell(1, 1)
+                //   .SetFontSize(9)
+                //   .SetBorder(Border.NO_BORDER)
+                //   .Add(new Paragraph($"Order Type: {invoice.StatusType}"));
+
+
+                //float customerCol = 300f;
+                //float[] customerColWidth = { customerCol, customerCol };
+                //iText.Layout.Element.Table CustomerDetails = new iText.Layout.Element.Table(customerColWidth);
+
+                //Cell cell5 = new Cell(1, 1)                  
+                //   .SetBorder(Border.NO_BORDER)
+                //   .Add(new Paragraph("To,"));
+
+                //Cell cell6 = new Cell(2, 1)
+                //   .SetBorder(Border.NO_BORDER)
+                //   .Add(new Paragraph($"Customer Name: {invoice.Customer.CustomerName}"));
+
+                //Cell cell7 = new Cell(3, 1)
+                //   .SetBorder(Border.NO_BORDER)
+                //   .Add(new Paragraph($"Address: {invoice.DeliveryAddress}").SetFontSize(8)));
+
+                //invoiceDetails.AddCell(cell1);
+                //invoiceDetails.AddCell(cellimg);
+                invoiceDetails.AddCell(cell2);
+                //invoiceDetails.AddCell(cell3);
+                //invoiceDetails.AddCell(cell4);
+
+
+                tblDetails.AddCell(cell3);
+                tblDetails.AddCell(cell5);
+                tblDetails.AddCell(cell6);
+                tblDetails.AddCell(cell4);
+
+                document.Add(invoiceDetails);
+                LineSeparator firstSeparator = new LineSeparator(new SolidLine());
+                document.Add(firstSeparator);
+                document.Add(tblDetails);
+                LineSeparator secondSeparator = new LineSeparator(new SolidLine());
+                document.Add(secondSeparator);
+                document.Add(new Paragraph());
+
+                //document.Add(new Paragraph("Sales Order Invoice")
+                //    .SetTextAlignment(TextAlignment.LEFT)
+                //    .SetFontSize(10));
+                //document.Add(new Paragraph($"Sales Order: {invoice.OrderNumber}")
+                //    .SetTextAlignment(TextAlignment.LEFT)
+                //    .SetFontSize(8));
+                //document.Add(new Paragraph($"Order Date: {invoice.SOCreatedDate.ToShortDateString()}")
+                //    .SetTextAlignment(TextAlignment.LEFT)
+                //    .SetFontSize(8));
+                //document.Add(new Paragraph($"Order Type: {invoice.StatusType}")
+                //   .SetTextAlignment(TextAlignment.LEFT)
+                //   .SetFontSize(8));
+
+                ////List list = new List().SetTextAlignment(TextAlignment.LEFT).SetFontSize(10);
+                ////list.Add(new ListItem($"Sales Order Invoice"))
+                ////    .Add(new ListItem($"Sales Order: {invoice.OrderNumber}"))
+                ////    .Add(new ListItem($"Order Date: {invoice.SOCreatedDate}"))
+                ////    .Add(new ListItem($"Order Type: {invoice.StatusType}"));
+
+                //LineSeparator lineSeparator = new LineSeparator(new SolidLine());
+                //document.Add(lineSeparator);
+                ////document.Add(new chunk
+                //// Invoice data
+                ////document.Add(new Paragraph($"Invoice Number: {invoice.OrderNumber}").SetFontSize(10));
+                ////document.Add(new Paragraph($"Date: {invoice.SOCreatedDate.ToShortDateString()}").SetFontSize(10));
+                //document.Add(new Paragraph("To,").SetFontSize(8));
+                //document.Add(new Paragraph($"Customer Name: {invoice.Customer.CustomerName}").SetFontSize(8));
+                //document.Add(new Paragraph($"Address: {invoice.DeliveryAddress}").SetFontSize(8));
+                //document.Add(new Paragraph($"Delivery Status: {invoice.DeliveryStatus}").SetFontSize(8));
+
+                // Table for invoice items
+                iText.Layout.Element.Table table = new iText.Layout.Element.Table(new float[] { 1, 3, 1, 1, 1, 1 });
+                table.SetWidth(UnitValue.CreatePercentValue(100));
+                table.AddHeaderCell("Sl No.").SetTextAlignment(TextAlignment.CENTER).SetFontSize(8);
+                table.AddHeaderCell("Description").SetTextAlignment(TextAlignment.CENTER).SetFontSize(8);
+                table.AddHeaderCell("Unit Price").SetTextAlignment(TextAlignment.CENTER).SetFontSize(8);
+                table.AddHeaderCell("Quantity").SetTextAlignment(TextAlignment.CENTER).SetFontSize(8);
+                table.AddHeaderCell("Save").SetTextAlignment(TextAlignment.CENTER).SetFontSize(8);
+                table.AddHeaderCell("Total").SetTextAlignment(TextAlignment.CENTER).SetFontSize(8);
+                int i = 1;
+
+                foreach (var item in invoice.SalesOrderItems)
+                {
+                    var save = (item.Product.Mrp * item.UnitPrice) - (item.UnitPrice * item.Quantity);
+                    table.AddCell(new Cell().Add(new Paragraph((i++).ToString())).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                    table.AddCell(new Cell().Add(new Paragraph(item.ProductName)).SetTextAlignment(TextAlignment.LEFT).SetFontSize(7));
+                    table.AddCell(new Cell().Add(new Paragraph(item.UnitPrice.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                    table.AddCell(new Cell().Add(new Paragraph(item.Quantity.ToString())).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                    table.AddCell(new Cell().Add(new Paragraph(save.Value.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                    table.AddCell(new Cell().Add(new Paragraph(item.TotalSalesPrice.Value.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                }
+
+                table.AddCell(new Cell().Add(new Paragraph()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(7));
+                table.AddCell(new Cell().Add(new Paragraph()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(7));
+                table.AddCell(new Cell().Add(new Paragraph()).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                table.AddCell(new Cell().Add(new Paragraph()).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                table.AddCell(new Cell().Add(new Paragraph("Total Amt")).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                table.AddCell(new Cell().Add(new Paragraph(invoice.TotalAmount.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(8));
+
+                //Add the Table to the PDF Document
+                document.Add(table);
+                // Total Amount
+                //document.Add(new Paragraph($"Total Amount: {invoice.TotalAmount.ToString("C")}")
+                //    .SetTextAlignment(TextAlignment.RIGHT).SetFontSize(9));
+                // Close the Document
+
+                document.Add(new Paragraph());
+                document.Add(new Paragraph($"Term & Condition:\n" + invoice.TermAndCondition).SetFontSize(8));
+                document.Add(new Paragraph($"__________________\n" + "Authorized Signature").
+                SetTextAlignment(TextAlignment.RIGHT).SetFontSize(8));
+                document.Add(new Paragraph($"Payment Status: {invoice.PaymentStatus}").SetFontSize(8));
+                document.Close();
+                return stream.ToArray();
+            }
+        }
     }
 }

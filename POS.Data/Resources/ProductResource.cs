@@ -33,5 +33,6 @@ namespace POS.Data.Resources
         public decimal? PriceLesser { get; set; }
         public decimal? PriceGreater { get; set; }
         public Guid[]? BrandNameFilter { get; set; }
+       
     }
 }
