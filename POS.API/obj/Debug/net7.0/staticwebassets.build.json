@@ -1,10 +1,6 @@
 {
   "Version": 1,
-<<<<<<< HEAD
   "Hash": "KPEBPPj/PEe83nnCXeO/gM2nBJKK2XmAc1T/qsqk4JA=",
-=======
-  "Hash": "Xf6mg1MtkNnnXtjW1Ns3+T381Gbr1/P7ABSNvNQCE/s=",
->>>>>>> 95272833b1c0419e8f776cf5646aa0d38a31ede8
   "Source": "POS.API",
   "BasePath": "_content/POS.API",
   "Mode": "Default",
@@ -242,7 +238,6 @@
       "OriginalItemSpec": "wwwroot\\HomePageBannerImages\\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png"
     },
     {
-<<<<<<< HEAD
       "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile.rar",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
@@ -261,12 +256,9 @@
     },
     {
       "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\sg-image.png",
-=======
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile\\sg-image.png",
->>>>>>> 95272833b1c0419e8f776cf5646aa0d38a31ede8
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "InvoiceFile/sg-image.png",
       "AssetKind": "All",
@@ -280,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\InvoiceFile\\sg-image.png"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile\\SO#0000106.pdf",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO#0000106.pdf",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "InvoiceFile/SO#0000106.pdf",
       "AssetKind": "All",
@@ -297,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\InvoiceFile\\SO#0000106.pdf"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile\\SO#0000112.pdf",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO#0000112.pdf",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "InvoiceFile/SO#0000112.pdf",
       "AssetKind": "All",
@@ -314,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\InvoiceFile\\SO#0000112.pdf"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile\\SO#0000154.pdf",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO#0000154.pdf",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "InvoiceFile/SO#0000154.pdf",
       "AssetKind": "All",
@@ -331,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\InvoiceFile\\SO#0000154.pdf"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile\\SO#0000155.pdf",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO#0000155.pdf",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "InvoiceFile/SO#0000155.pdf",
       "AssetKind": "All",
@@ -348,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\InvoiceFile\\SO#0000155.pdf"
     },
     {
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile\\SO#000089.pdf",
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO#000089.pdf",
       "SourceId": "POS.API",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
       "BasePath": "_content/POS.API",
       "RelativePath": "InvoiceFile/SO#000089.pdf",
       "AssetKind": "All",
@@ -365,11 +357,7 @@
       "OriginalItemSpec": "wwwroot\\InvoiceFile\\SO#000089.pdf"
     },
     {
-<<<<<<< HEAD
       "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\LoginPageBannerImages\\3c344938-bcc7-4280-a60d-e2592c3586af.png",
-=======
-      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\LoginPageBannerImages\\3c344938-bcc7-4280-a60d-e2592c3586af.png",
->>>>>>> 95272833b1c0419e8f776cf5646aa0d38a31ede8
       "SourceId": "POS.API",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
