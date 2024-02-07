@@ -3453,9 +3453,9 @@ namespace POS.API.Controllers.MobileApp
         //}
 
         ////[NonAction] async  Task<IActionResult>
-        [HttpPost("DownloadInvoice")]
+        [HttpGet("DownloadInvoice/{SaleOrderId}")]
         //[NonAction]
-        public async Task<IActionResult> DownloadInvoice([FromQuery] Guid? SaleOrderId)
+        public async Task<IActionResult> DownloadInvoice(Guid? SaleOrderId)
         {
             var getSalesOrderQuery = new GetSalesOrderCommand
             {
