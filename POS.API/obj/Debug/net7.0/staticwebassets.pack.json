@@ -53,11 +53,39 @@
       "PackagePath": "staticwebassets\\HomePageBannerImages\\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png"
     },
     {
+<<<<<<< HEAD
       "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile\\SO#000089.pdf",
       "PackagePath": "staticwebassets\\InvoiceFile\\SO#000089.pdf"
     },
     {
       "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\LoginPageBannerImages\\3c344938-bcc7-4280-a60d-e2592c3586af.png",
+=======
+      "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO#0000106.pdf",
+      "PackagePath": "staticwebassets\\InvoiceFile\\SO#0000106.pdf"
+    },
+    {
+      "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO#0000112.pdf",
+      "PackagePath": "staticwebassets\\InvoiceFile\\SO#0000112.pdf"
+    },
+    {
+      "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO#0000154.pdf",
+      "PackagePath": "staticwebassets\\InvoiceFile\\SO#0000154.pdf"
+    },
+    {
+      "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO#0000155.pdf",
+      "PackagePath": "staticwebassets\\InvoiceFile\\SO#0000155.pdf"
+    },
+    {
+      "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO#000089.pdf",
+      "PackagePath": "staticwebassets\\InvoiceFile\\SO#000089.pdf"
+    },
+    {
+      "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\sg-image.png",
+      "PackagePath": "staticwebassets\\InvoiceFile\\sg-image.png"
+    },
+    {
+      "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\LoginPageBannerImages\\3c344938-bcc7-4280-a60d-e2592c3586af.png",
+>>>>>>> 37ef8b0571cc9420ea0e20d312640e27d0e16b60
       "PackagePath": "staticwebassets\\LoginPageBannerImages\\3c344938-bcc7-4280-a60d-e2592c3586af.png"
     },
     {

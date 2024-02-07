@@ -56,7 +56,7 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => EF.Functions.Like(a.Name, $"%{encodingName}%") || EF.Functions.Like(a.Barcode, $"%{encodingName}%") || EF.Functions.Like(a.Code, $"% {encodingName}%"));
             }
-
+           
             //if (productResource.CustomerId.HasValue)
             //{
             //    // trim & ignore casing
@@ -134,7 +134,7 @@ namespace POS.Repository
             {
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => a.SupplierId == productResource.SupplierId.Value);
-            }          
+            }
 
             if (productResource.ProductTypeId.HasValue)
             {
