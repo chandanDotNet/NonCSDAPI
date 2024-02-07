@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MNnxkrLucXdDM4JWnU43Hkq4VEDN6zHlVkAavj4gmCA=",
+  "Hash": "A70w7fzLOnZhJRzX1ez9cU17nNsruAV0MR1nJ6S+BRA=",
   "Source": "POS.API",
   "BasePath": "_content/POS.API",
   "Mode": "Default",
@@ -236,6 +236,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\HomePageBannerImages\\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png"
+    },
+    {
+      "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile.rar",
+      "SourceId": "POS.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\",
+      "BasePath": "_content/POS.API",
+      "RelativePath": "InvoiceFile.rar",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\InvoiceFile.rar"
     },
     {
       "Identity": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile\\sg-image.png",

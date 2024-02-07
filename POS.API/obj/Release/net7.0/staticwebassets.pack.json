@@ -53,6 +53,10 @@
       "PackagePath": "staticwebassets\\HomePageBannerImages\\cc62ee8a-1213-4a34-ac8a-a399bc29a3d0.png"
     },
     {
+      "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile.rar",
+      "PackagePath": "staticwebassets\\InvoiceFile.rar"
+    },
+    {
       "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile\\SO#0000106.pdf",
       "PackagePath": "staticwebassets\\InvoiceFile\\SO#0000106.pdf"
     },

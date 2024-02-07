@@ -1,8 +1,8 @@
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\web.config
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\appsettings.json
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\noncsd-ad414-firebase-adminsdk-26zqk-d0f548e807.json
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\skd-non-csd-firebase-adminsdk-8pk2m-2286c6be47.json
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\appsettings.Development.json
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\appsettings.json
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\POS.API.staticwebassets.runtime.json
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\POS.API.exe
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\bin\Release\net7.0\Migrations\20221105115351_Initial_Data.sql
