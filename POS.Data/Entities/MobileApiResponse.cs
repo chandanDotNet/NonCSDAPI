@@ -428,7 +428,14 @@ namespace POS.Data.Entities
         public IList<BrandDto> Data { get; set; }
     }
 
-}
+    public class UpdateSODateTimeResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+    }
+
+    }
 
 
 

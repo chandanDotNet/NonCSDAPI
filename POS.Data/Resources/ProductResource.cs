@@ -13,6 +13,7 @@ namespace POS.Data.Resources
         {
         }
 
+        public Guid? Id { get; set; }
         public string Name { get; set; }
         public string Barcode { get; set; }
         public Guid? UnitId { get; set; }
@@ -33,6 +34,6 @@ namespace POS.Data.Resources
         public decimal? PriceLesser { get; set; }
         public decimal? PriceGreater { get; set; }
         public Guid[]? BrandNameFilter { get; set; }
-       
+        public bool? IsAppOrderRequest { get; set; }
     }
 }

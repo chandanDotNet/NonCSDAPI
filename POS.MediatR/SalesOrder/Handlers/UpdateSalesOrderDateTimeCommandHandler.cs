@@ -55,8 +55,8 @@ namespace POS.MediatR.SalesOrder.Handlers
                 var salesOrderExit =  _salesOrderRepository.FindBy(c => c.Id == SalesOrder.Id).FirstOrDefault();
                 if(salesOrderExit != null)
                 {
-                    salesOrderExit.SOCreatedDate = SalesOrder.SOCreatedDate;                    
-                    salesOrderExit.DeliveryDate = SalesOrder.DeliveryDate;
+                    salesOrderExit.SOCreatedDate = request.SOCreatedDate;                    
+                    salesOrderExit.DeliveryDate = request.DeliveryDate;
                     _salesOrderRepository.Update(salesOrderExit);
                 }             
 

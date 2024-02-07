@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using Azure;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using POS.API.Helpers;
 using POS.Data.Dto;
+using POS.Data.Entities;
 using POS.Data.Resources;
 using POS.MediatR.CommandAndQuery;
 using POS.MediatR.Commands;
@@ -365,8 +367,21 @@ namespace POS.API.Controllers.SalesOrder
         [Produces("application/json", "application/xml", Type = typeof(SalesOrderDto))]
         public async Task<IActionResult> UpdateSalesOrderDateTime(UpdateSalesOrderDateTimeCommand updateSalesOrderDateTimeCommand)
         {
+            UpdateSODateTimeResponseData response = new UpdateSODateTimeResponseData();
             var result = await _mediator.Send(updateSalesOrderDateTimeCommand);
-            return ReturnFormattedResponse(result);
+            if (result.StatusCode == 200)
+            {
+                response.status = true;
+                response.StatusCode = 200;
+                response.message = "Success";                
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Invalid";                
+            }
+            return Ok(response);
         }
 
     }

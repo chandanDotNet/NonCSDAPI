@@ -55,6 +55,7 @@ namespace POS.Repository
 
         public async Task<List<CustomerDto>> GetDtos(IQueryable<Customer> source, int skip, int pageSize)
         {
+            int SNo = 1;
             var entities = await source
                 .Skip(skip)
                 .Take(pageSize)
@@ -80,6 +81,7 @@ namespace POS.Repository
                     DeviceKey = c.DeviceKey
                 })
                 .ToListAsync();
+            entities.ForEach(x => x.SNo = SNo++);
             return entities;
         }
     }

@@ -5,6 +5,7 @@ namespace POS.Data.Dto
 {
     public class CustomerDto
     {
+        public int SNo { get; set; }
         public Guid? Id { get; set; }
         public string CustomerName { get; set; }
         public string ContactPerson { get; set; }
