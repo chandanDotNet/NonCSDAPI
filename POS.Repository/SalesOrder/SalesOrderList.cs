@@ -58,7 +58,7 @@ namespace POS.Repository
 
         public async Task<List<SalesOrderDto>> GetDtos(IQueryable<SalesOrder> source, int skip, int pageSize)
         {
-            int SNo = 1;
+            int SNo = skip;
             if (pageSize == 0)
             {
                 var entities = await source
