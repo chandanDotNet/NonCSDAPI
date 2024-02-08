@@ -70,6 +70,8 @@ using iText.Kernel.Pdf.Canvas.Parser.Listener;
 using iText.Layout.Borders;
 using iText.IO.Image;
 using static iText.Svg.SvgConstants;
+using System.ComponentModel;
+using iText.Kernel.Colors;
 
 namespace POS.API.Controllers.MobileApp
 {
@@ -3471,7 +3473,7 @@ namespace POS.API.Controllers.MobileApp
             {
                 Directory.CreateDirectory(pathToSave);
             }
-            System.IO.File.WriteAllBytes(Path.Combine(pathToSave, invoiceDetails.Data.OrderNumber.Replace("#","_") + ".pdf"), pdfByte);
+            System.IO.File.WriteAllBytes(Path.Combine(pathToSave, invoiceDetails.Data.OrderNumber.Replace("#", "_") + ".pdf"), pdfByte);
             //return Ok();
 
             var filepath = Path.Combine(_pathHelper.InvoiceFile, invoiceDetails.Data.OrderNumber.Replace("#", "_") + ".pdf");
@@ -3567,6 +3569,7 @@ namespace POS.API.Controllers.MobileApp
                 document.Add(secondSeparator);
                 document.Add(new Paragraph());
 
+                iText.Kernel.Colors.Color bgColour = new DeviceRgb(169, 169, 169);
                 // Table for invoice items
                 iText.Layout.Element.Table table = new iText.Layout.Element.Table(new float[] { 1, 3, 1, 1, 1, 1 });
                 table.SetWidth(UnitValue.CreatePercentValue(100));
@@ -3585,7 +3588,7 @@ namespace POS.API.Controllers.MobileApp
                     table.AddCell(new Cell().Add(new Paragraph((i++).ToString())).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
                     table.AddCell(new Cell().Add(new Paragraph(item.ProductName)).SetTextAlignment(TextAlignment.LEFT).SetFontSize(7));
                     table.AddCell(new Cell().Add(new Paragraph(item.UnitPrice.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
-                    table.AddCell(new Cell().Add(new Paragraph(item.Quantity.ToString())).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                    table.AddCell(new Cell().Add(new Paragraph(item.Quantity.ToString() + " " + item.UnitConversation.Name)).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
                     table.AddCell(new Cell().Add(new Paragraph(save.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
                     table.AddCell(new Cell().Add(new Paragraph(item.TotalSalesPrice.Value.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
                 }
@@ -3594,8 +3597,8 @@ namespace POS.API.Controllers.MobileApp
                 table.AddCell(new Cell().Add(new Paragraph()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(7));
                 table.AddCell(new Cell().Add(new Paragraph()).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
                 table.AddCell(new Cell().Add(new Paragraph()).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
-                table.AddCell(new Cell().Add(new Paragraph("Total Amount")).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
-                table.AddCell(new Cell().Add(new Paragraph(invoice.TotalAmount.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(8));
+                table.AddCell(new Cell().Add(new Paragraph("Total Amount")).SetTextAlignment(TextAlignment.CENTER).SetFontSize(8).SetBold());
+                table.AddCell(new Cell().Add(new Paragraph(invoice.TotalAmount.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(8).SetBold());
 
                 //Add the Table to the PDF Document
                 document.Add(table);
