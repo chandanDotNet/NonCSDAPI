@@ -3429,7 +3429,6 @@ namespace POS.API.Controllers.MobileApp
                     response.StatusCode = 0;
                     response.message = "Please wait! Server is not responding.";
                     response.Data = result;
-
                 }
 
             }
@@ -3458,6 +3457,7 @@ namespace POS.API.Controllers.MobileApp
         //[NonAction]
         public async Task<IActionResult> DownloadInvoice([FromQuery] Guid? SaleOrderId)
         {
+            FileDownloadResponseData response = new FileDownloadResponseData();
             var getSalesOrderQuery = new GetSalesOrderCommand
             {
                 Id = SaleOrderId.Value
@@ -3474,8 +3474,24 @@ namespace POS.API.Controllers.MobileApp
             System.IO.File.WriteAllBytes(Path.Combine(pathToSave, invoiceDetails.Data.OrderNumber + ".pdf"), pdfByte);
             //return Ok();
 
-            var filepath = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.InvoiceFile, invoiceDetails.Data.OrderNumber + ".pdf");
-            return File(System.IO.File.ReadAllBytes(filepath), "application/pdf", System.IO.Path.GetFileName(filepath));
+            var filepath = Path.Combine(_pathHelper.InvoiceFile, invoiceDetails.Data.OrderNumber + ".pdf");
+
+            if (!string.IsNullOrEmpty(filepath))
+            {
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Success";
+                response.Data = filepath;
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "File failed to download.";
+            }
+
+            return Ok(response);
+            //return File(System.IO.File.ReadAllBytes(filepath), "application/pdf", System.IO.Path.GetFileName(filepath));
         }
 
         [NonAction]
