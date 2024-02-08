@@ -77,7 +77,15 @@
       "PackagePath": "staticwebassets\\InvoiceFile\\SO#000089.pdf"
     },
     {
+<<<<<<< HEAD
       "Id": "D:\\Projects-2023\\Dot Net\\NonCSDAPI2024\\POS.API\\wwwroot\\InvoiceFile\\sg-image.png",
+=======
+      "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO_0000106.pdf",
+      "PackagePath": "staticwebassets\\InvoiceFile\\SO_0000106.pdf"
+    },
+    {
+      "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\sg-image.png",
+>>>>>>> 3cc1cb15c89b61ee67d7734cbb16e5224ffb2755
       "PackagePath": "staticwebassets\\InvoiceFile\\sg-image.png"
     },
     {

@@ -6,9 +6,13 @@ using POS.MediatR.Packaging.Command;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace POS.API.Controllers.ProductType
 {
+    [Route("api")]
+    [ApiController]
+    [Authorize]
     public class ProductTypeController : BaseController
     {
         private readonly IMediator _mediator;

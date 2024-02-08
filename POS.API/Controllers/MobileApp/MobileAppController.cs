@@ -3351,8 +3351,8 @@ namespace POS.API.Controllers.MobileApp
         /// <param name="brandResource">The search query.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <returns></returns>
-        [HttpGet("PrductBrandList")]
-        public async Task<IActionResult> PrductBrandList([FromQuery] BrandResource brandResource)
+        [HttpGet("ProductBrandList")]
+        public async Task<IActionResult> ProductBrandList([FromQuery] BrandResource brandResource)
         {
             BrandListResponseData response = new BrandListResponseData();
             try
@@ -3471,10 +3471,10 @@ namespace POS.API.Controllers.MobileApp
             {
                 Directory.CreateDirectory(pathToSave);
             }
-            System.IO.File.WriteAllBytes(Path.Combine(pathToSave, invoiceDetails.Data.OrderNumber + ".pdf"), pdfByte);
+            System.IO.File.WriteAllBytes(Path.Combine(pathToSave, invoiceDetails.Data.OrderNumber.Replace("#","_") + ".pdf"), pdfByte);
             //return Ok();
 
-            var filepath = Path.Combine(_pathHelper.InvoiceFile, invoiceDetails.Data.OrderNumber + ".pdf");
+            var filepath = Path.Combine(_pathHelper.InvoiceFile, invoiceDetails.Data.OrderNumber.Replace("#", "_") + ".pdf");
 
             if (!string.IsNullOrEmpty(filepath))
             {
