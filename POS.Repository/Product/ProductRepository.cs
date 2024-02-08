@@ -142,7 +142,7 @@ namespace POS.Repository
                     .Where(a => a.ProductTypeId == productResource.ProductTypeId.Value && a.Id != productResource.ProductId);
             }
 
-            if (productResource.BrandNameFilter != null)
+            if (productResource.BrandNameFilter != null && productResource.BrandNameFilter.Length > 0)
             {
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => productResource.BrandNameFilter.Contains(a.BrandId));
