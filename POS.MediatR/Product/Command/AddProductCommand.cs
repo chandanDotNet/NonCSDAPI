@@ -39,5 +39,6 @@ namespace POS.MediatR.Product.Command
         public decimal? MinQty { get; set; }
         public Guid? SupplierId { get; set; }
         public Guid? ManufacturerId { get; set; }
+        public Guid? ProductTypeId { get; set; }
     }
 }
