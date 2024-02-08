@@ -1502,6 +1502,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.ProductType.ProductTypeController.SearchProductType(POS.Data.Resources.ProductTypeResource)">
+            <summary>
+            Searches the Product Type.
+            </summary>
+            <param name="searchQuery">The search query.</param>
+            <param name="pageSize">Size of the page.</param>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.Product.ProductController.GetProducts(POS.Data.Resources.ProductResource)">
             <summary>
             Get All Products.
