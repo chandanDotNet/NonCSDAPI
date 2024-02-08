@@ -1315,7 +1315,7 @@
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetStoreOpenClose">
             <returns></returns>
         </member>
-        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.PrductBrandList(POS.Data.Resources.BrandResource)">
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.ProductBrandList(POS.Data.Resources.BrandResource)">
             <summary>
             Prduct Brand List.
             </summary>
