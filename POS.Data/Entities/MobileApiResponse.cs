@@ -13,6 +13,14 @@ namespace POS.Data.Entities
 
     }
 
+    public class FileDownloadResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public string Data { get; set; }
+    }
+
     public class CustomerResponseData
     {
         public bool status { get; set; }
