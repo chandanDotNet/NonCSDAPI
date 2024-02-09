@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using POS.Helper;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using POS.Data.Entities;
 
 namespace POS.Repository
 {
@@ -36,11 +37,11 @@ namespace POS.Repository
             AddRange(items);
         }
 
-        public async Task<ProductList> Create(IQueryable<Product> source, int skip, int pageSize)
+        public async Task<ProductList> Create(IQueryable<Product> source, int skip, int pageSize, Guid? customerId)
         {
             var count = await GetCount(source);
             pageSize = GetAllData(count, pageSize);
-            var dtoList = await GetDtos(source, skip, pageSize);
+            var dtoList = await GetDtos(source, skip, pageSize, customerId.Value);
             var dtoPageList = new ProductList(dtoList, count, skip, pageSize);
             return dtoPageList;
         }
@@ -58,53 +59,55 @@ namespace POS.Repository
             return pageSize;
         }
 
-        public async Task<List<ProductDto>> GetDtos(IQueryable<Product> source, int skip, int pageSize)
+        public async Task<List<ProductDto>> GetDtos(IQueryable<Product> source, int skip, int pageSize,Guid? customerId)
         {
-            int SNo = skip+1;
+            int SNo = skip + 1;
             var entities = await source
                 .Skip(skip)
                 .Take(pageSize)
                 .AsNoTracking()
-                .Select(c => new ProductDto
+                .Select(p => new ProductDto
                 {
-                    Id = c.Id,
-                    Name = c.Name,
-                    Code = c.Code,
-                    SkuName = c.SkuName,
-                    SkuCode = c.SkuCode,
-                    QRCodeUrl = c.QRCodeUrl,
-                    Description = c.Description,
-                    CreatedDate = c.CreatedDate,
-                    Mrp = c.Mrp,
-                    Margin = c.Margin,
-                    SalesPrice = c.SalesPrice,
-                    PurchasePrice = c.PurchasePrice,
-                    CategoryId = c.CategoryId,
-                    CategoryName = c.ProductCategory.Name,
-                    UnitName = c.Unit.Name,
-                    UnitId = c.UnitId,
-                    BrandId = c.BrandId,
-                    Barcode = c.Barcode,
-                    BrandName = c.Brand.Name,
-                    WarehouseId = c.WarehouseId,
-                    WarehouseName = c.Warehouse.Name,
+                    Id = p.Id,
+                    Name = p.Name,
+                    Code = p.Code,
+                    SkuName = p.SkuName,
+                    SkuCode = p.SkuCode,
+                    QRCodeUrl = p.QRCodeUrl,
+                    Description = p.Description,
+                    CreatedDate = p.CreatedDate,
+                    Mrp = p.Mrp,
+                    Margin = p.Margin,
+                    SalesPrice = p.SalesPrice,
+                    PurchasePrice = p.PurchasePrice,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.ProductCategory.Name,
+                    UnitName = p.Unit.Name,
+                    UnitId = p.UnitId,
+                    BrandId = p.BrandId,
+                    Barcode = p.Barcode,
+                    BrandName = p.Brand.Name,
+                    WarehouseId = p.WarehouseId,
+                    WarehouseName = p.Warehouse.Name,
                     Discount = 0,
-                    ProductTaxes = _mapper.Map<List<ProductTaxDto>>(c.ProductTaxes),
-                    Unit = _mapper.Map<UnitConversationDto>(c.Unit),
-                    ProductUrl = !string.IsNullOrWhiteSpace(c.ProductUrl) ? Path.Combine(_pathHelper.ProductThumbnailImagePath, c.ProductUrl) : "",
-                    IsProductOrderTime = c.IsProductOrderTime,
-                    OrderStartTime = c.OrderStartTime,
-                    OrderEndTime = c.OrderEndTime,
-                    RackNo = c.RackNo,
-                    HSNCode = c.HSNCode,
+                    ProductTaxes = _mapper.Map<List<ProductTaxDto>>(p.ProductTaxes),
+                    Unit = _mapper.Map<UnitConversationDto>(p.Unit),
+                    ProductUrl = !string.IsNullOrWhiteSpace(p.ProductUrl) ? Path.Combine(_pathHelper.ProductThumbnailImagePath, p.ProductUrl) : "",
+                    IsProductOrderTime = p.IsProductOrderTime,
+                    OrderStartTime = p.OrderStartTime,
+                    OrderEndTime = p.OrderEndTime,
+                    RackNo = p.RackNo,
+                    HSNCode = p.HSNCode,
                     //Cart= _mapper.Map<CartDto>(c.Cart),
-                    Stock = c.Inventory.Stock == null ? 0 : c.Inventory.Stock,
-                    IsLoose = c.IsLoose == null ? false : c.IsLoose,
-                    MinQty = c.MinQty,
-                    PackagingName = c.Packaging.Name != null ? c.Packaging.Name : "",
-                    PackagingId = c.Packaging.Id != null ? c.Packaging.Id : new Guid(),
-                    ProductTypeId = c.ProductType.Id != null ? c.ProductType.Id : new Guid(),
-                    ProductTypeName = c.ProductType.Name != null ? c.ProductType.Name : ""
+                    Stock = p.Inventory.Stock == null ? 0 : p.Inventory.Stock,
+                    IsLoose = p.IsLoose == null ? false : p.IsLoose,
+                    MinQty = p.MinQty,
+                    PackagingName = p.Packaging.Name != null ? p.Packaging.Name : "",
+                    PackagingId = p.Packaging.Id != null ? p.Packaging.Id : new Guid(),
+                    ProductTypeId = p.ProductType.Id != null ? p.ProductType.Id : new Guid(),
+                    ProductTypeName = p.ProductType.Name != null ? p.ProductType.Name : "",
+                    ProductCartQuantity = p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Quantity == null ? 0 
+                    : p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Quantity
 
                 }).ToListAsync();
 

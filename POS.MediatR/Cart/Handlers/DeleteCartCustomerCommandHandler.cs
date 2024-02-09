@@ -44,19 +44,35 @@ namespace POS.MediatR.Cart.Handlers
 
             // _cartRepository.Delete(existingCart);
             var result = _cartRepository.All.Where(c => c.CustomerId == request.CustomerId && c.ProductMainCategoryId == request.ProductMainCategoryId).ToList();
-            if (result.Count>0)
+
+            if (result.Count > 0)
             {
-                foreach (var cartdata in result)
+                _cartRepository.RemoveRange(result);
+                if (await _uow.SaveAsync() <= 0)
                 {
-                    var existingCart = await _cartRepository.FindAsync(cartdata.Id);
-                    _cartRepository.Delete(existingCart);
-                    if (await _uow.SaveAsync() <= 0)
-                    {
-                        _logger.LogError("Error While deleting Cart.");
-                        return ServiceResponse<bool>.Return500();
-                    }
-                }
+                    _logger.LogError("Error While deleting Cart.");
+                    return ServiceResponse<bool>.Return500();
+                }             
             }
+            //if (result.Count>0)
+            //{
+            //    foreach (var cartdata in result)
+            //    {
+            //        var existingCart = await _cartRepository.FindAsync(cartdata.Id);
+            //        _cartRepository.Delete(existingCart);
+            //        if (await _uow.SaveAsync() <= 0)
+            //        {
+            //            _logger.LogError("Error While deleting Cart.");
+            //            return ServiceResponse<bool>.Return500();
+            //        }
+            //    }
+            //}
+
+
+
+
+
+
             //_cartRepository.Delete(result.FirstOrDefault());
             //var existingCart = await _cartRepository.All.Any(c => c.CustomerId = request.CustomerId);
             //if (existingCart == null)
