@@ -331,10 +331,11 @@ namespace POS.API.Controllers.SalesOrder
         }
 
         /// <summary>
-        /// Gets all cancel sales order.
+        /// Gets all cancel sales order list.
         /// </summary>
+        /// <param name="salesOrderResource"></param>
         /// <returns></returns>
-        [HttpGet("CancelSalesOrderList")]
+        [HttpGet("GetAllCancelSalesOrder")]
         [Produces("application/json", "application/xml", Type = typeof(List<SalesOrderDto>))]
         public async Task<IActionResult> GetAllCancelSalesOrder([FromQuery] SalesOrderResource salesOrderResource)
         {

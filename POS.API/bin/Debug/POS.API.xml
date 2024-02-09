@@ -1969,8 +1969,9 @@
         </member>
         <member name="M:POS.API.Controllers.SalesOrder.SalesOrderController.GetAllCancelSalesOrder(POS.Data.Resources.SalesOrderResource)">
             <summary>
-            Gets all cancel sales order.
+            Gets all cancel sales order list.
             </summary>
+            <param name="salesOrderResource"></param>
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.SalesOrder.SalesOrderController.UpdateSalesOrderDateTime(POS.MediatR.SalesOrder.Commands.UpdateSalesOrderDateTimeCommand)">
