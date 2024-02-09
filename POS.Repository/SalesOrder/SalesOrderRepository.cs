@@ -227,7 +227,7 @@ namespace POS.Repository
                 ).Where(x => x.IsDeleted == true).ApplySort(salesOrderResource.OrderBy,
                  _propertyMappingService.GetPropertyMapping<SalesOrderDto, SalesOrder>());
 
-
+            collectionBeforePaging.IgnoreQueryFilters();
             collectionBeforePaging = collectionBeforePaging
                .Where(a => a.IsSalesOrderRequest == salesOrderResource.IsSalesOrderRequest);
 

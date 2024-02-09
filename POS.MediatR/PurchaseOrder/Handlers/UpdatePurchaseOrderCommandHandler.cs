@@ -148,7 +148,10 @@ namespace POS.MediatR.PurchaseOrder.Handlers
                         productDetails.Mrp = item.Mrp;
                         productDetails.Margin = item.Margin;
                         productDetails.PurchasePrice = item.UnitPrice;
-                        productDetails.SupplierId = request.SupplierId;
+                        if (request.SupplierId != new Guid("31354991-4C89-4BBF-BA52-08DC247B544B")) //Open Stock
+                        {
+                            productDetails.SupplierId = request.SupplierId;
+                        }
                         _productRepository.Update(productDetails);
                     }
                 }
