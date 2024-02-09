@@ -185,6 +185,17 @@ namespace POS.Repository
               .ToListAsync();
                 for (int i = 0; i < entities.Count; i++)
                 {
+                    if (entities[i].CounterName =="App")
+                    {
+
+                        if (entities[i].ProductMainCategoryId ==(new Guid("AFC982AC-5E05-4633-99FB-08DBE76CDB9B")))
+                        {
+                            entities[i].CounterName = "App(Needs)";
+                        }else if(entities[i].ProductMainCategoryId == (new Guid("06C71507-B6DE-4D59-DE84-08DBEB3C9568")))
+                        {
+                            entities[i].CounterName = "App(Bakery)";
+                        }
+                    }
                     var entity = entities[i];
                     if (entity.SalesOrderPayments != null)
                     {
