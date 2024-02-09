@@ -20,7 +20,7 @@ namespace POS.Data.Resources
         public Guid? CategoryId { get; set; }
         public Guid? BrandId { get; set; }
         public Guid? WarehouseId { get; set; }
-        public Guid? CustomerId { get; set; }
+        public Guid? CustomerId { get; set; } = new Guid();
         public string? HSNCode { get; set; }
         public string? Code { get; set; }
         public Guid? ProductMainCategoryId { get; set; }
