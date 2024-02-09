@@ -67,7 +67,7 @@ namespace POS.MediatR.CustomerAddress.Handlers
             //remove other as Primary Address
             if (entityExist.IsPrimary)
             {
-                var defaultPrimaryAddressSettings = await _customerAddressRepository.All.Where(c => c.CustomerId == request.CustomerId && c.Id != request.Id && c.IsPrimary).ToListAsync();
+                var defaultPrimaryAddressSettings = await _customerAddressRepository.All.Where(c => c.CustomerId == request.CustomerId && c.Id != request.Id).ToListAsync();
                 defaultPrimaryAddressSettings.ForEach(c => c.IsPrimary = false);
                 _customerAddressRepository.UpdateRange(defaultPrimaryAddressSettings);
             }

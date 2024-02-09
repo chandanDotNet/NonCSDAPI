@@ -288,6 +288,10 @@ namespace POS.API.Controllers.MobileApp
             ProductListResponseData response = new ProductListResponseData();
             try
             {
+                if (productResource.Skip > 0)
+                {
+                    productResource.Skip = productResource.PageSize * productResource.Skip;
+                }
                 var getAllProductCommand = new GetAllProductCommand
                 {
                     ProductResource = productResource

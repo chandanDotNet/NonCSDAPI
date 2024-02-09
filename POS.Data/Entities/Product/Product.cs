@@ -39,7 +39,7 @@ namespace POS.Data
         public Guid? WarehouseId { get; set; }
         [ForeignKey("WarehouseId")]
         public Warehouse Warehouse { get; set; }
-        public Cart Cart { get; set; }
+        public List<Cart> Cart { get; set; }
         public bool? IsProductOrderTime { get; set; }
         public string? OrderStartTime { get; set; }
         public string? OrderEndTime { get; set; }

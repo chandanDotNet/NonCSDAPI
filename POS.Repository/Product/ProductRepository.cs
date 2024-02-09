@@ -182,7 +182,7 @@ namespace POS.Repository
             //collectionBeforePaging.Where(x => x.Inventory.Stock <= 0)
 
             var products = new ProductList(_mapper, _pathHelper);
-            return await products.Create(collectionBeforePaging, productResource.Skip, productResource.PageSize);
+            return await products.Create(collectionBeforePaging, productResource.Skip, productResource.PageSize, productResource.CustomerId);
         }
     }
 }
