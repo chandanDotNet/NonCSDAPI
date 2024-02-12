@@ -39,7 +39,7 @@ namespace POS.Repository
         public async Task<ProductList> GetProducts(ProductResource productResource)
         {
             var collectionBeforePaging =
-                AllIncluding(c => c.Brand, p => p.Packaging, cs => cs.ProductCategory, u => u.Unit, c => c.ProductTaxes, (d => d.Cart), (i => i.Inventory)).OrderBy(p => p.Name).ThenByDescending(p => p.ProductUrl)
+                AllIncluding(c => c.Brand, p => p.Packaging, cs => cs.ProductCategory, u => u.Unit, c => c.ProductTaxes, (d => d.Cart), (i => i.Inventory)).OrderBy(p => p.Name).ThenBy(p => p.ProductUrl)
                .ApplySort(productResource.ProductUrl, _propertyMappingService.GetPropertyMapping<ProductDto, Product>());
 
             //collectionBeforePaging = collectionBeforePaging.OrderBy(x => x.Name).ThenByDescending(x => x.Inventory.Stock != null ? x.Inventory.Stock : 0);
