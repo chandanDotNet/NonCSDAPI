@@ -1335,6 +1335,19 @@
             Download Product File Format.
             </summary>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetYears">
+            <summary>
+            Get all Years
+            </summary>
+            <param name="getAllYearQuery"></param>
+            <returns></returns>       
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetMonthYearList">
+            <summary>
+            Get All Products List.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.NewsletterSubscriber.NewsletterSubscriberController.CreateNewsletterSubscriber(POS.MediatR.CommandAndQuery.AddNewsletterSubscriberCommand)">
             <summary>
             Creates the newsletter subscriber.

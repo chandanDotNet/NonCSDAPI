@@ -149,7 +149,7 @@ namespace POS.Repository
                 var counterName = salesOrderResource.CounterName; 
                 if(counterName!=null)
                 {
-                    if (counterName.ToUpper() == "APP")
+                    if (counterName.ToUpper() == "APP" || counterName.ToUpper() == "AP" || counterName.ToUpper() == "A")
                     {
                         collectionBeforePaging = collectionBeforePaging
                             .Where(a => a.IsAppOrderRequest==true);
@@ -159,8 +159,7 @@ namespace POS.Repository
                         collectionBeforePaging = collectionBeforePaging
                                 .Where(a => EF.Functions.Like(a.Counter.CounterName.ToUpper(), $"%{counterName.ToUpper()}%"));
                     }
-                }
-                              
+                }                              
             }
 
 
@@ -181,6 +180,12 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => a.IsAdvanceOrderRequest == salesOrderResource.IsAdvanceOrderRequest);
 
+            }
+
+            if (salesOrderResource.PaymentStatus!= PaymentStatus.NA)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                   .Where(a => a.PaymentStatus ==salesOrderResource.PaymentStatus);
             }
 
             //if (!string.IsNullOrWhiteSpace(salesOrderResource.CounterName))
