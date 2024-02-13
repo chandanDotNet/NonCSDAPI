@@ -3669,7 +3669,7 @@ namespace POS.API.Controllers.MobileApp
         /// Get All Products List.
         /// </summary>
         /// <returns></returns>
-        [HttpPost("GetMonthYearList")]
+        [HttpGet("GetMonthYearList")]
         public async Task<IActionResult> GetMonthYearList([FromQuery] string DefaultQueryYear)
         {
             YearListResponseData response = new YearListResponseData();
