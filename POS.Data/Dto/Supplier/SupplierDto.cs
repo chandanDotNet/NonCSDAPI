@@ -35,5 +35,6 @@ namespace POS.Data.Dto
         public SupplierAddressDto BillingAddress { get; set; }
         public Guid? ShippingAddressId { get; set; }
         public SupplierAddressDto ShippingAddress { get; set; }
+        public int? ProductCount { get; set; }
     }
 }

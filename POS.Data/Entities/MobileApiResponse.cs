@@ -43,8 +43,15 @@ namespace POS.Data.Entities
         public int StatusCode { get; set; }
         public string message { get; set; }
         public int TotalCount { get; set; }        
-        public IList<string> Data { get; set; }
+        public IList<YearMonthDto> Data { get; set; }
         public IList<YearDto> YearData { get; set; }
+    }
+
+    public class YearMonthDto { 
+
+        public string YearMonth { get; set; }
+        public int Month { get; set; }
+        public string Year { get; set; }
     }
 
     public class ProductListResponseData
@@ -453,7 +460,16 @@ namespace POS.Data.Entities
         public string message { get; set; }
     }
 
+    public class SupplierResponseData
+    {
+        public int TotalCount { get; set; }
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public IList<SupplierDto> Data { get; set; }
     }
+
+}
 
 
 

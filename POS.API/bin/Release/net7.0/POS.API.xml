@@ -1342,12 +1342,25 @@
             <param name="getAllYearQuery"></param>
             <returns></returns>       
         </member>
+<<<<<<< HEAD
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetMonthYearList">
+=======
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetMonthYearList(System.String)">
+>>>>>>> d39aaa6b714c66deb3ded73b97d15422f1f83282
             <summary>
             Get All Products List.
             </summary>
             <returns></returns>
         </member>
+<<<<<<< HEAD
+=======
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetPurchaseOrderSuppliers(POS.Data.Resources.PurchaseOrderResource)">
+            <summary>
+            Gets all purchase order suppliers.
+            </summary>
+            <returns></returns>
+        </member>
+>>>>>>> d39aaa6b714c66deb3ded73b97d15422f1f83282
         <member name="M:POS.API.Controllers.NewsletterSubscriber.NewsletterSubscriberController.CreateNewsletterSubscriber(POS.MediatR.CommandAndQuery.AddNewsletterSubscriberCommand)">
             <summary>
             Creates the newsletter subscriber.

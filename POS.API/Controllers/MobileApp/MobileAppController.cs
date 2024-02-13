@@ -72,6 +72,8 @@ using iText.IO.Image;
 using static iText.Svg.SvgConstants;
 using System.ComponentModel;
 using iText.Kernel.Colors;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
+using System.IO.Pipelines;
 
 namespace POS.API.Controllers.MobileApp
 {
@@ -3660,27 +3662,49 @@ namespace POS.API.Controllers.MobileApp
                 response.StatusCode = 0;
                 response.message = ex.Message;
             }
-            return Ok(response);           
+            return Ok(response);
         }
 
         /// <summary>
         /// Get All Products List.
         /// </summary>
         /// <returns></returns>
-        [HttpPost("GetMonthYearList")]
-        public async Task<IActionResult> GetMonthYearList()
+        [HttpGet("GetMonthYearList")]
+        public async Task<IActionResult> GetMonthYearList([FromQuery] string DefaultQueryYear)
         {
             YearListResponseData response = new YearListResponseData();
             try
             {
+                string defaultYear = string.Empty;
+
                 var getAllyearQuery = new GetAllYearQuery { };
                 var yearResult = await _mediator.Send(getAllyearQuery);
-                var defaultYear = yearResult.Where(x => x.DefaultYear == true).SingleOrDefault().Name;
 
+                if (!string.IsNullOrEmpty(DefaultQueryYear))
+                {
+                    defaultYear = DefaultQueryYear;
+                   
+                }
+                else
+                {
+                    defaultYear = yearResult.Where(x => x.DefaultYear == true).SingleOrDefault().Name;
+                }
                 var getEnum = Enum.GetNames(typeof(Months));
                 var result = string.Join(" " + defaultYear + ",", getEnum).Split(',');
                 result[11] = result[11] + " " + defaultYear;
                 var resultData = result.ToList();
+
+                int i = 1;
+                List<YearMonthDto> yearMonth = new List<YearMonthDto>();
+                foreach (var item in resultData)
+                {
+                    yearMonth.Add(new YearMonthDto()
+                    {
+                        YearMonth = item,
+                        Month = i++,
+                        Year = defaultYear
+                    });
+                }
 
                 if (resultData != null)
                 {
@@ -3688,8 +3712,81 @@ namespace POS.API.Controllers.MobileApp
                     response.status = true;
                     response.StatusCode = 1;
                     response.message = "success";
-                    response.Data = resultData;
+                    response.Data = yearMonth;
                     response.YearData = yearResult;
+                }
+                else
+                {
+                    response.status = false;
+                    response.StatusCode = 0;
+                    response.message = "please wait! server is not responding.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = ex.Message;
+            }
+            return Ok(response);
+        }
+
+
+        /// <summary>
+        /// Gets all purchase order suppliers.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetPurchaseOrderSuppliers")]
+        [Produces("application/json", "application/xml", Type = typeof(List<PurchaseOrderDto>))]
+        public async Task<IActionResult> GetPurchaseOrderSuppliers([FromQuery] PurchaseOrderResource purchaseOrderResource)
+        {
+            SupplierResponseData response = new SupplierResponseData();
+            try
+            {
+                purchaseOrderResource = new PurchaseOrderResource()
+                {
+                    PageSize = 0,
+                    Skip = 0,
+                    Year = purchaseOrderResource.Year,
+                    Month = purchaseOrderResource.Month
+                };
+                var getAllPurchaseOrderQuery = new GetAllPurchaseOrderQuery
+                {
+                    PurchaseOrderResource = purchaseOrderResource
+                };
+                var purchaseOrders = await _mediator.Send(getAllPurchaseOrderQuery);
+
+                ProductResource productResource = new ProductResource()
+                {
+                    PageSize = 0,
+                    Skip = 0
+                };
+                var getAllProductCommand = new GetAllProductCommand
+                {
+                    ProductResource = productResource
+                };
+                var products = await _mediator.Send(getAllProductCommand);
+
+                var suppliers = purchaseOrders.Where(x => x.POCreatedDate.Year == purchaseOrderResource.Year
+                && x.POCreatedDate.Month == purchaseOrderResource.Month);
+
+                List<SupplierDto> supplier = new List<SupplierDto>();
+                foreach (var item in suppliers)
+                {
+                    supplier.Add(new SupplierDto
+                    {
+                        Id = item.SupplierId,
+                        SupplierName = item.SupplierName,
+                        ProductCount = products.Count(x => x.SupplierId == item.SupplierId)
+                    });
+                }
+                if (supplier != null)
+                {
+                    response.TotalCount = supplier.Count;
+                    response.status = true;
+                    response.StatusCode = 1;
+                    response.message = "success";
+                    response.Data = supplier;
                 }
                 else
                 {
