@@ -188,6 +188,7 @@ namespace POS.Repository
                    .Where(a => a.PaymentStatus ==salesOrderResource.PaymentStatus);
             }
 
+            
             //if (!string.IsNullOrWhiteSpace(salesOrderResource.CounterName))
             //{
             //    if (salesOrderResource.CounterName != "all")
