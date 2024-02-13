@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rpd/yxBgmZg8FQ86zlcxvmrRVvFaVnVJK6+wxdlyk+g=",
+  "Hash": "i1uZZ2MMH1IRy4oIOeyWqd4ueh/EZLxU1k7Y0h0+RvU=",
   "Source": "POS.API",
   "BasePath": "_content/POS.API",
   "Mode": "Default",
@@ -372,6 +372,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\InvoiceFile\\SO_0000106.pdf"
+    },
+    {
+      "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO_0000141.pdf",
+      "SourceId": "POS.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\NON CSD API\\POS.API\\wwwroot\\",
+      "BasePath": "_content/POS.API",
+      "RelativePath": "InvoiceFile/SO_0000141.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\InvoiceFile\\SO_0000141.pdf"
     },
     {
       "Identity": "D:\\NON CSD API\\POS.API\\wwwroot\\LoginPageBannerImages\\3c344938-bcc7-4280-a60d-e2592c3586af.png",

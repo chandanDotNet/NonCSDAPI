@@ -1342,9 +1342,15 @@
             <param name="getAllYearQuery"></param>
             <returns></returns>       
         </member>
-        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetMonthYearList">
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetMonthYearList(System.String)">
             <summary>
             Get All Products List.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetPurchaseOrderSuppliers(POS.Data.Resources.PurchaseOrderResource)">
+            <summary>
+            Gets all purchase order suppliers.
             </summary>
             <returns></returns>
         </member>

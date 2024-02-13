@@ -81,6 +81,10 @@
       "PackagePath": "staticwebassets\\InvoiceFile\\SO_0000106.pdf"
     },
     {
+      "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\SO_0000141.pdf",
+      "PackagePath": "staticwebassets\\InvoiceFile\\SO_0000141.pdf"
+    },
+    {
       "Id": "D:\\NON CSD API\\POS.API\\wwwroot\\InvoiceFile\\sg-image.png",
       "PackagePath": "staticwebassets\\InvoiceFile\\sg-image.png"
     },
