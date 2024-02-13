@@ -61,7 +61,7 @@ namespace POS.Repository
 
         public async Task<List<ProductDto>> GetDtos(IQueryable<Product> source, int skip, int pageSize,Guid? customerId)
         {
-            int SNo = skip + 1;
+           
             var entities = await source
                 .Skip(skip)
                 .Take(pageSize)
@@ -110,8 +110,8 @@ namespace POS.Repository
                     : p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Quantity
 
                 }).ToListAsync();
-
-            entities.ForEach(x => x.SNo = SNo++);
+            int SNo = skip;
+           entities.ForEach(x => x.SNo = SNo++);
             return entities.ToList();
 
             //var stockList = entities.Where(x => x.Stock > 0).OrderBy(x => x.Name).ToList();
