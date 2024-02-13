@@ -106,8 +106,12 @@ namespace POS.Repository
                     PackagingId = p.Packaging.Id != null ? p.Packaging.Id : new Guid(),
                     ProductTypeId = p.ProductType.Id != null ? p.ProductType.Id : new Guid(),
                     ProductTypeName = p.ProductType.Name != null ? p.ProductType.Name : "",
+                    CartId = p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Id == null ? new Guid()
+                    : p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Id,
                     ProductCartQuantity = p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Quantity == null ? 0 
-                    : p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Quantity
+                    : p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Quantity,
+                    NoOfItemsInCart = p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().NoOfItems == null ? 0
+                    : p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().NoOfItems
 
                 }).ToListAsync();
 

@@ -99,6 +99,7 @@ namespace POS.Domain
         public DbSet<OTPBanner> OTPBanners { get; set; }
         public DbSet<ShopHoliday> ShopHolidays { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<Year> Years { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -676,6 +677,14 @@ namespace POS.Domain
 
 
             builder.Entity<ProductType>(b =>
+            {
+                b.HasOne(e => e.CreatedByUser)
+                    .WithMany()
+                    .HasForeignKey(ur => ur.CreatedBy)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<Year>(b =>
             {
                 b.HasOne(e => e.CreatedByUser)
                     .WithMany()

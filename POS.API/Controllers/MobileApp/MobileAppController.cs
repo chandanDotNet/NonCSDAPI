@@ -3619,6 +3619,92 @@ namespace POS.API.Controllers.MobileApp
                 document.Close();
                 return stream.ToArray();
             }
+
+        }
+
+        //========================== MSTB ===============================================
+
+        /// <summary>
+        /// Get all Years
+        /// </summary>
+        /// <param name="getAllYearQuery"></param>
+        /// <returns></returns>       
+        [HttpGet("GetYears")]
+        [Produces("application/json", "application/xml", Type = typeof(List<YearDto>))]
+        public async Task<IActionResult> GetYears()
+        {
+            YearListResponseData response = new YearListResponseData();
+            try
+            {
+                var getAllyearQuery = new GetAllYearQuery { };
+                var result = await _mediator.Send(getAllyearQuery);
+
+                if (result != null)
+                {
+                    response.TotalCount = result.Count;
+                    response.status = true;
+                    response.StatusCode = 1;
+                    response.message = "success";
+                    response.YearData = result;
+                }
+                else
+                {
+                    response.status = false;
+                    response.StatusCode = 0;
+                    response.message = "please wait! server is not responding.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = ex.Message;
+            }
+            return Ok(response);           
+        }
+
+        /// <summary>
+        /// Get All Products List.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("GetMonthYearList")]
+        public async Task<IActionResult> GetMonthYearList()
+        {
+            YearListResponseData response = new YearListResponseData();
+            try
+            {
+                var getAllyearQuery = new GetAllYearQuery { };
+                var yearResult = await _mediator.Send(getAllyearQuery);
+                var defaultYear = yearResult.Where(x => x.DefaultYear == true).SingleOrDefault().Name;
+
+                var getEnum = Enum.GetNames(typeof(Months));
+                var result = string.Join(" " + defaultYear + ",", getEnum).Split(',');
+                result[11] = result[11] + " " + defaultYear;
+                var resultData = result.ToList();
+
+                if (resultData != null)
+                {
+                    response.TotalCount = resultData.Count;
+                    response.status = true;
+                    response.StatusCode = 1;
+                    response.message = "success";
+                    response.Data = resultData;
+                    response.YearData = yearResult;
+                }
+                else
+                {
+                    response.status = false;
+                    response.StatusCode = 0;
+                    response.message = "please wait! server is not responding.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = ex.Message;
+            }
+            return Ok(response);
         }
     }
 }

@@ -56,5 +56,7 @@ namespace POS.Data.Dto
         public Guid? ProductTypeId { get; set; }
         public string ProductTypeName { get; set; }
         public decimal? ProductCartQuantity { get; set; }
+        public Guid? CartId { get; set; }
+        public int? NoOfItemsInCart { get; set; }
     }
 }

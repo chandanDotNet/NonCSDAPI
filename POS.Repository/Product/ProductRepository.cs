@@ -39,7 +39,7 @@ namespace POS.Repository
         public async Task<ProductList> GetProducts(ProductResource productResource)
         {
             var collectionBeforePaging =
-                AllIncluding(c => c.Brand, p => p.Packaging, cs => cs.ProductCategory, u => u.Unit, c => c.ProductTaxes, (d => d.Cart), (i => i.Inventory)).OrderBy(p => p.Name).ThenByDescending(p => p.ProductUrl)
+                AllIncluding(c => c.Brand, p => p.Packaging, cs => cs.ProductCategory, u => u.Unit, c => c.ProductTaxes, (d => d.Cart), (i => i.Inventory)).OrderBy(p => p.ProductUrl == null ? 1 : 0).ThenBy(p => p.Name)
                .ApplySort(productResource.ProductUrl, _propertyMappingService.GetPropertyMapping<ProductDto, Product>());
 
             //collectionBeforePaging = collectionBeforePaging.OrderBy(x => x.Name).ThenByDescending(x => x.Inventory.Stock != null ? x.Inventory.Stock : 0);
@@ -82,12 +82,12 @@ namespace POS.Repository
                     Where(x => x.Brand.Name != "Baggage" && x.Brand.Name != "DELIVERY");
             }
 
-            if (productResource.ProductMainCategoryId.HasValue)
-            {
-                // trim & ignore casing
-                collectionBeforePaging = collectionBeforePaging
-                   .Where(a => a.ProductCategory.ProductMainCategoryId == productResource.ProductMainCategoryId);
-            }
+            //if (productResource.ProductMainCategoryId.HasValue)
+            //{
+            //    // trim & ignore casing
+            //    collectionBeforePaging = collectionBeforePaging
+            //       .Where(a => a.ProductCategory.ProductMainCategoryId == productResource.ProductMainCategoryId);
+            //}
 
             if (!string.IsNullOrWhiteSpace(productResource.Barcode))
             {

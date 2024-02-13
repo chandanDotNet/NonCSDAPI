@@ -37,6 +37,16 @@ namespace POS.Data.Entities
         public IList<NonCSDCanteenDto> Data { get; set; }
     }
 
+    public class YearListResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public int TotalCount { get; set; }        
+        public IList<string> Data { get; set; }
+        public IList<YearDto> YearData { get; set; }
+    }
+
     public class ProductListResponseData
     {
         public bool status { get; set; }

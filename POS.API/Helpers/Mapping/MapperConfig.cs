@@ -71,6 +71,7 @@ namespace POS.API.Helpers.Mapping
                 mc.AddProfile(new OTPBannerProfile());
                 mc.AddProfile(new ShopHolidayProfile());
                 mc.AddProfile(new ProductTypeProfile());
+                mc.AddProfile(new YearProfile());
             });
             return mappingConfig.CreateMapper();
         }
