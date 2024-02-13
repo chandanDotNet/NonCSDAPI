@@ -3694,12 +3694,15 @@ namespace POS.API.Controllers.MobileApp
                 result[11] = result[11] + " " + defaultYear;
                 var resultData = result.ToList();
 
+                int i = 1;
                 List<YearMonthDto> yearMonth = new List<YearMonthDto>();
                 foreach (var item in resultData)
                 {
                     yearMonth.Add(new YearMonthDto()
                     {
-                        YearMonth = item
+                        YearMonth = item,
+                        Month = i++,
+                        Year = defaultYear
                     });
                 }
 

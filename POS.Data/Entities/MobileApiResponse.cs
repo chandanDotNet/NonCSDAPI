@@ -50,6 +50,8 @@ namespace POS.Data.Entities
     public class YearMonthDto { 
 
         public string YearMonth { get; set; }
+        public int Month { get; set; }
+        public string Year { get; set; }
     }
 
     public class ProductListResponseData
