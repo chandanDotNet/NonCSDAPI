@@ -56,8 +56,7 @@ namespace POS.MediatR.CustomerAddress.Handlers
             var existingEntity = await _customerAddressRepository
                 .All
                 .FirstOrDefaultAsync(c => c.HouseNo == request.HouseNo
-                && c.StreetDetails == request.StreetDetails
-                && c.LandMark == request.LandMark);
+                && c.CustomerId == request.CustomerId);
 
             if (existingEntity != null)
             {
