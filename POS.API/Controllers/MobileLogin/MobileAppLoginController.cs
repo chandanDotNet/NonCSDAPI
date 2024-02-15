@@ -38,7 +38,9 @@ namespace POS.API.Controllers.MobileLogin
                     MobileAppLogin data = new MobileAppLogin()
                     {
                         Mobile = result.Data.PhoneNumber,
-                        Otp = result.Data.Otp.Value
+                        Otp = result.Data.Otp.Value,
+                        FirstName = result.Data.FirstName,
+                        LastName = result.Data.LastName,
                     };
                     response.status = true;
                     response.StatusCode = 1;
@@ -79,14 +81,16 @@ namespace POS.API.Controllers.MobileLogin
                 var result = await _mediator.Send(appUserLoginCommand);
                 if (result != null)
                 {
-                    MobileAppLoginToken token = new MobileAppLoginToken()
+                    MobileAppLoginToken tokenData = new MobileAppLoginToken()
                     {
-                        Token = result.Data.BearerToken
+                        Token = result.Data.BearerToken,
+                        FirstName = result.Data.FirstName,
+                        LastName= result.Data.LastName,
                     };
                     response.status = true;
                     response.StatusCode = 1;
                     response.message = "success";
-                    response.Data = token;
+                    response.Data = tokenData;
                 }
                 else
                 {

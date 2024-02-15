@@ -1,0 +1,17 @@
+D:\NON CSD API\POS.Common\bin\Release\net7.0\POS.Common.deps.json
+D:\NON CSD API\POS.Common\bin\Release\net7.0\POS.Common.dll
+D:\NON CSD API\POS.Common\bin\Release\net7.0\POS.Common.pdb
+D:\NON CSD API\POS.Common\bin\Release\net7.0\POS.Data.dll
+D:\NON CSD API\POS.Common\bin\Release\net7.0\POS.Helper.dll
+D:\NON CSD API\POS.Common\bin\Release\net7.0\POS.Data.pdb
+D:\NON CSD API\POS.Common\bin\Release\net7.0\POS.Helper.pdb
+D:\NON CSD API\POS.Common\obj\Release\net7.0\POS.Common.csproj.AssemblyReference.cache
+D:\NON CSD API\POS.Common\obj\Release\net7.0\POS.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\NON CSD API\POS.Common\obj\Release\net7.0\POS.Common.AssemblyInfoInputs.cache
+D:\NON CSD API\POS.Common\obj\Release\net7.0\POS.Common.AssemblyInfo.cs
+D:\NON CSD API\POS.Common\obj\Release\net7.0\POS.Common.csproj.CoreCompileInputs.cache
+D:\NON CSD API\POS.Common\obj\Release\net7.0\POS.Common.csproj.CopyComplete
+D:\NON CSD API\POS.Common\obj\Release\net7.0\POS.Common.dll
+D:\NON CSD API\POS.Common\obj\Release\net7.0\refint\POS.Common.dll
+D:\NON CSD API\POS.Common\obj\Release\net7.0\POS.Common.pdb
+D:\NON CSD API\POS.Common\obj\Release\net7.0\ref\POS.Common.dll
