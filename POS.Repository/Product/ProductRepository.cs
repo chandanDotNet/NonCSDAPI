@@ -128,7 +128,8 @@ namespace POS.Repository
             {
                 // trim & ignore casing
                 collectionBeforePaging = collectionBeforePaging
-                   .Where(a => a.Code == productResource.Code);
+                   .Where(a => EF.Functions.Like(a.Code, $"{productResource.Code}%"));
+                   //.Where(a => a.Code == productResource.Code);
             }
             if (productResource.SupplierId.HasValue)
             {
