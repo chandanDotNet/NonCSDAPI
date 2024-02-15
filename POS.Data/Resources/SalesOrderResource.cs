@@ -31,6 +31,8 @@ namespace POS.Data.Resources
 
         public int? Month { get; set; }
         public int? Year { get; set; }
+
+        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.NA;
     }
 }
 

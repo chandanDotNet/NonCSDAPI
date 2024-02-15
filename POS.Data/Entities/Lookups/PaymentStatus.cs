@@ -10,6 +10,7 @@ namespace POS.Data
     {
         Paid,
         Pending,
-        Partial
+        Partial,
+        NA
     }
 }
