@@ -1354,6 +1354,20 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.AppLogin(POS.MediatR.CommandAndQuery.UpdateAppUserProfileCommand)">
+            <summary>
+            App User Login
+            </summary>
+            <param name="appUserProfileCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.AppLoginOtpVerification(POS.MediatR.CommandAndQuery.AppUserLoginCommand)">
+            <summary>
+            App User Login Otp Verification
+            </summary>
+            <param name="appUserLoginCommand"></param>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.NewsletterSubscriber.NewsletterSubscriberController.CreateNewsletterSubscriber(POS.MediatR.CommandAndQuery.AddNewsletterSubscriberCommand)">
             <summary>
             Creates the newsletter subscriber.

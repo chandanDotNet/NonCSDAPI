@@ -165,8 +165,6 @@ namespace POS.API.Controllers.MobileApp
                     Password = customer.Password,
                     ServiceNo = customer.ServiceNo,
                     RewardPoints = customer.RewardPoints
-
-
                 };
                 var result = await _mediator.Send(updateCustomerCommand);
 

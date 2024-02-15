@@ -42,12 +42,13 @@ namespace POS.Data.Entities
         public bool status { get; set; }
         public int StatusCode { get; set; }
         public string message { get; set; }
-        public int TotalCount { get; set; }        
+        public int TotalCount { get; set; }
         public IList<YearMonthDto> Data { get; set; }
         public IList<YearDto> YearData { get; set; }
     }
 
-    public class YearMonthDto { 
+    public class YearMonthDto
+    {
 
         public string YearMonth { get; set; }
         public int Month { get; set; }
@@ -402,8 +403,8 @@ namespace POS.Data.Entities
     {
         public bool status { get; set; }
         public int StatusCode { get; set; }
-        public string message { get; set; }       
-        public string PaymentType { get; set; }      
+        public string message { get; set; }
+        public string PaymentType { get; set; }
         public string TotalAmount { get; set; }
         public List<PaymentsData> Data { get; set; }
 
@@ -413,7 +414,7 @@ namespace POS.Data.Entities
     {
         public string PaymentMethod { get; set; }
         public decimal TotalAmount { get; set; }
-        
+
     }
 
     public class CounterSalesData
@@ -469,6 +470,36 @@ namespace POS.Data.Entities
         public IList<SupplierDto> Data { get; set; }
     }
 
+    public class MobileAppLoginResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public MobileAppLogin Data { get; set; }
+    }
+
+    public class MobileAppLogin
+    {
+        public int Otp { get; set; }
+        public string Mobile { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
+
+    public class MobileAppLoginTokenResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public MobileAppLoginToken Data { get; set; }
+    }
+
+    public class MobileAppLoginToken
+    {
+        public string Token { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
 }
 
 

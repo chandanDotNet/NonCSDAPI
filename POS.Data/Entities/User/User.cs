@@ -24,6 +24,7 @@ namespace POS.Data
         public Guid? CounterId { get; set; }
         public Counter Counter { get; set; }        
         public Guid? NonCSDCanteensId { get; set; }
+        public int? Otp { get; set; }
         public List<NonCSDCanteen> NonCSDCanteens { get; set; }
         //public NonCSDCanteen NonCSDCanteen { get; set; }
         public string? PinCode { get; set; }
