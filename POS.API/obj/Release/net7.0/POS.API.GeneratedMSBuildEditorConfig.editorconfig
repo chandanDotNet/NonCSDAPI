@@ -9,9 +9,17 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = POS.API
 build_property.RootNamespace = POS.API
+<<<<<<< HEAD
 build_property.ProjectDir = D:\NON CSD API\POS.API\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = D:\NON CSD API\POS.API
+=======
+build_property.ProjectDir = D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.API
+>>>>>>> 1fa67aaed581d1a7538546931b2ec172032b63d8
 build_property._RazorSourceGeneratorDebug = 

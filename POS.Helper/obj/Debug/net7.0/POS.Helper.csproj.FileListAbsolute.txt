@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 D:\Projects-2023\Dot Net\NonCSDApi2023\POS.Helper\bin\Debug\net7.0\POS.Helper.deps.json
 D:\Projects-2023\Dot Net\NonCSDApi2023\POS.Helper\bin\Debug\net7.0\POS.Helper.dll
 D:\Projects-2023\Dot Net\NonCSDApi2023\POS.Helper\bin\Debug\net7.0\POS.Helper.pdb
@@ -34,6 +35,8 @@ D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.Helper\obj\Debug\net7.0\POS.He
 D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.Helper\obj\Debug\net7.0\refint\POS.Helper.dll
 D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.Helper\obj\Debug\net7.0\POS.Helper.pdb
 D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.Helper\obj\Debug\net7.0\ref\POS.Helper.dll
+=======
+>>>>>>> 1fa67aaed581d1a7538546931b2ec172032b63d8
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Helper\bin\Debug\net7.0\POS.Helper.deps.json
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Helper\bin\Debug\net7.0\POS.Helper.dll
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Helper\bin\Debug\net7.0\POS.Helper.pdb

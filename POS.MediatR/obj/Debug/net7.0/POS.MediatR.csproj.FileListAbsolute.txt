@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 D:\Projects-2023\Project Details\New Project -POS\Main\SourceCode\DotnetCoreRESTApiSQLServerProvider\POS.MediatR\bin\Debug\net7.0\Migrations\20221105115351_Initial_Data.sql
 D:\Projects-2023\Project Details\New Project -POS\Main\SourceCode\DotnetCoreRESTApiSQLServerProvider\POS.MediatR\bin\Debug\net7.0\POS.MediatR.deps.json
 D:\Projects-2023\Project Details\New Project -POS\Main\SourceCode\DotnetCoreRESTApiSQLServerProvider\POS.MediatR\bin\Debug\net7.0\POS.MediatR.dll
@@ -190,6 +191,8 @@ D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.MediatR\obj\Debug\net7.0\POS.M
 D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.MediatR\obj\Debug\net7.0\refint\POS.MediatR.dll
 D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.MediatR\obj\Debug\net7.0\POS.MediatR.pdb
 D:\Projects-2023\Dot Net\NonCSDApi2023Updated\POS.MediatR\obj\Debug\net7.0\ref\POS.MediatR.dll
+=======
+>>>>>>> 1fa67aaed581d1a7538546931b2ec172032b63d8
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.MediatR\bin\Debug\net7.0\Migrations\20221105115351_Initial_Data.sql
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.MediatR\bin\Debug\net7.0\POS.MediatR.deps.json
 D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.MediatR\bin\Debug\net7.0\POS.MediatR.dll
