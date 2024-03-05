@@ -45,9 +45,17 @@ namespace POS.MediatR.Handlers
 
         public async Task<ServiceResponse<PurchaseOrderDto>> Handle(AddPurchaseOrderCommand request, CancellationToken cancellationToken)
         {
+            if (request.Year <= 0 || request.Year == null && request.Month <= 0 || request.Month == null)
+            {
+                request.Year = DateTime.Now.Year;
+                //request.Month = DateTime.Now.Month;
+                request.Month = 3;
+            }
+
             if (request.PurchaseOrderItems.Count > 0)
             {
                 request.PurchaseOrderItems = request.PurchaseOrderItems.DistinctBy(x => x.ProductId).ToList();
+                request.PurchaseOrderItems = request.PurchaseOrderItems.Where(x => x.Quantity > 0).ToList();
             }
 
             var existingPONumber = _purchaseOrderRepository.All.Any(c => c.OrderNumber == request.OrderNumber);
@@ -83,11 +91,11 @@ namespace POS.MediatR.Handlers
                         productDetails.Mrp = item.Mrp;
                         productDetails.Margin = item.Margin;
                         productDetails.PurchasePrice = item.UnitPrice;
-                        if(request.SupplierId!= new Guid("31354991-4C89-4BBF-BA52-08DC247B544B"))
+                        if (request.SupplierId != new Guid("31354991-4C89-4BBF-BA52-08DC247B544B"))
                         {
                             productDetails.SupplierId = request.SupplierId;
                         }
-                       
+
                         _productRepository.Update(productDetails);
                     }
                 }
@@ -123,11 +131,14 @@ namespace POS.MediatR.Handlers
                         ProductId = cs.Key,
                         PricePerUnit = cs.Sum(d => d.PricePerUnit * d.Stock + d.TaxValue - d.Discount) / cs.Sum(d => d.Stock),
                         PurchaseOrderId = purchaseOrder.Id,
-                        Stock = cs.Sum(d => d.Stock),
+                        Stock = cs.Sum(d => d.Stock)
                     }).ToList();
 
                 foreach (var inventory in inventoriesToAdd)
                 {
+                    inventory.Year = request.Year;
+                    //inventory.Month = request.Month;
+                    inventory.Month = 3;
                     await _inventoryRepository.AddInventory(inventory);
                 }
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using POS.Common.GenericRepository;
 using POS.Common.UnitOfWork;
@@ -41,7 +42,16 @@ namespace POS.Repository
 
         public async Task AddInventory(InventoryDto inventory)
         {
-            var existingInventory = await All.Where(x => x.ProductId == inventory.ProductId).FirstOrDefaultAsync();
+            if (inventory.Year <= 0 || inventory.Year == null && inventory.Month <= 0 || inventory.Month == null)
+            {
+                inventory.Year = DateTime.Now.Year;
+                //inventory.Month = DateTime.Now.Month;
+                inventory.Month = 3;
+            }
+
+            var existingInventory = await All.Where(x => x.ProductId == inventory.ProductId
+            && x.Year == inventory.Year && x.Month == inventory.Month).FirstOrDefaultAsync();
+
             if (existingInventory == null)
             {
                 _inventoryHistoryRepository.Add(new InventoryHistory
@@ -53,10 +63,11 @@ namespace POS.Repository
                     PreviousTotalStock = 0,
                     SalesOrderId = inventory.SalesOrderId,
                     PurchaseOrderId = inventory.PurchaseOrderId,
-
                     PurchasePrice = inventory.PurchasePrice,
                     Mrp = inventory.Mrp,
-                    Margin = inventory.Margin
+                    Margin = inventory.Margin,
+                    Year = inventory.Year,
+                    Month= inventory.Month
                 });
 
                 var inventoryToAdd = new Inventory
@@ -68,11 +79,15 @@ namespace POS.Repository
                 {
                     inventoryToAdd.Stock = inventory.Stock;
                     inventoryToAdd.AveragePurchasePrice = inventory.PricePerUnit;
+                    inventoryToAdd.Year= inventory.Year;
+                    inventoryToAdd.Month = inventory.Month;
                 }
                 else
                 {
                     inventoryToAdd.Stock = (-1) * inventory.Stock;
                     inventoryToAdd.AverageSalesPrice = inventory.PricePerUnit;
+                    inventoryToAdd.Year = inventory.Year;
+                    inventoryToAdd.Month = inventory.Month;
                 }
                 Add(inventoryToAdd);
             }
@@ -81,10 +96,11 @@ namespace POS.Repository
                 if (inventory.InventorySource == InventorySourceEnum.DeletePurchaseOrder)
                 {
                     var existingPurchaseInventoryHistory = await _inventoryHistoryRepository.All
-                        .FirstOrDefaultAsync(c => inventory.ProductId == c.ProductId && inventory.PurchaseOrderId.HasValue && c.PurchaseOrderId == inventory.PurchaseOrderId);
+                        .FirstOrDefaultAsync(c => inventory.ProductId == c.ProductId && inventory.PurchaseOrderId.HasValue && c.PurchaseOrderId == inventory.PurchaseOrderId
+                        );
                     if (existingPurchaseInventoryHistory != null)
                     {
-                        var purchaseOrderTotalStock = _inventoryHistoryRepository.All.Where(c => c.ProductId == inventory.ProductId
+                        var purchaseOrderTotalStock = _inventoryHistoryRepository.All.Where(c => c.ProductId == inventory.ProductId && c.Year == inventory.Year && c.Month == inventory.Month
                         && (c.InventorySource == InventorySourceEnum.PurchaseOrder || c.InventorySource == InventorySourceEnum.Direct
                         || c.InventorySource == InventorySourceEnum.PurchaseOrderReturn)).Sum(c => c.Stock);
 
@@ -104,12 +120,13 @@ namespace POS.Repository
                 else if (inventory.InventorySource == InventorySourceEnum.DeleteSalesOrder)
                 {
                     var existingPurchaseInventoryHistory = await _inventoryHistoryRepository.All
-                        .FirstOrDefaultAsync(c => inventory.ProductId == c.ProductId && inventory.SalesOrderId.HasValue && c.SalesOrderId == inventory.SalesOrderId);
+                        .FirstOrDefaultAsync(c => inventory.ProductId == c.ProductId && inventory.SalesOrderId.HasValue && c.SalesOrderId == inventory.SalesOrderId
+                        );
                     if (existingPurchaseInventoryHistory != null)
                     {
                         var salesOrderTotalStock = _inventoryHistoryRepository.All
                             .Where(c => (c.InventorySource == InventorySourceEnum.SalesOrder || c.InventorySource == InventorySourceEnum.SalesOrderReturn)
-                            && c.ProductId == inventory.ProductId).Sum(c => c.Stock);
+                            && c.Year == inventory.Year && c.Month == inventory.Month && c.ProductId == inventory.ProductId).Sum(c => c.Stock);
 
                         if (salesOrderTotalStock + inventory.Stock == 0)
                         {
@@ -159,9 +176,11 @@ namespace POS.Repository
                             SalesOrderId = inventory.SalesOrderId,
                             PurchaseOrderId = inventory.PurchaseOrderId,
 
-                            PurchasePrice=inventory.PurchasePrice,
-                            Mrp=inventory.Mrp,
-                            Margin=inventory.Margin
+                            PurchasePrice = inventory.PurchasePrice,
+                            Mrp = inventory.Mrp,
+                            Margin = inventory.Margin,
+                            Year = inventory.Year,
+                            Month = inventory.Month
                         });
                         existingInventory.AveragePurchasePrice =
                      (existingInventory.AveragePurchasePrice * purchaseOrderTotalStock + inventory.PricePerUnit * inventory.Stock) / (purchaseOrderTotalStock + inventory.Stock);
@@ -183,7 +202,9 @@ namespace POS.Repository
 
                         PurchasePrice = inventory.PurchasePrice,
                         Mrp = inventory.Mrp,
-                        Margin = inventory.Margin
+                        Margin = inventory.Margin,
+                        Year = inventory.Year,
+                        Month = inventory.Month
                     });
                 }
                 else if (inventory.InventorySource == InventorySourceEnum.SalesOrderReturn)
@@ -201,13 +222,16 @@ namespace POS.Repository
 
                         PurchasePrice = inventory.PurchasePrice,
                         Mrp = inventory.Mrp,
-                        Margin = inventory.Margin
+                        Margin = inventory.Margin,
+                        Year = inventory.Year,
+                        Month = inventory.Month
                     });
                 }
                 else
                 {
                     var existingSalesInventoryHistory = await _inventoryHistoryRepository.All.FirstOrDefaultAsync(c => inventory.ProductId == c.ProductId && inventory.SalesOrderId.HasValue && c.SalesOrderId == inventory.SalesOrderId);
-                    var salesOrderTotalStock = _inventoryHistoryRepository.All.Where(c => (c.InventorySource == InventorySourceEnum.SalesOrder || c.InventorySource == InventorySourceEnum.SalesOrderReturn) && c.ProductId == inventory.ProductId).Sum(c => c.Stock);
+                    var salesOrderTotalStock = _inventoryHistoryRepository.All.Where(c => (c.InventorySource == InventorySourceEnum.SalesOrder || c.InventorySource == InventorySourceEnum.SalesOrderReturn) && c.ProductId == inventory.ProductId
+                    && c.Year == inventory.Year && c.Month == inventory.Month).Sum(c => c.Stock);
                     if (existingSalesInventoryHistory != null)
                     {
                         var stock = salesOrderTotalStock - existingSalesInventoryHistory.Stock + inventory.Stock;
@@ -240,8 +264,10 @@ namespace POS.Repository
 
                             PurchasePrice = inventory.PurchasePrice,
                             Mrp = inventory.Mrp,
-                            Margin = inventory.Margin
-                        });
+                            Margin = inventory.Margin,
+                            Year = inventory.Year,
+                            Month = inventory.Month
+                    });
                         salesOrderTotalStock = Math.Abs(salesOrderTotalStock);
                         existingInventory.AverageSalesPrice =
                              Math.Abs((existingInventory.AverageSalesPrice * salesOrderTotalStock + inventory.PricePerUnit * inventory.Stock) / (salesOrderTotalStock + inventory.Stock));
@@ -256,7 +282,7 @@ namespace POS.Repository
         public async Task<InventoryList> GetInventories(InventoryResource inventoryResource)
         {
             var collectionBeforePaging =
-                AllIncluding(c => c.Product,u => u.Product.Unit, b => b.Product.Brand, s => s.Product.Supplier, cs => cs.Product.ProductCategory).ApplySort(inventoryResource.OrderBy,
+                AllIncluding(c => c.Product, u => u.Product.Unit, b => b.Product.Brand, s => s.Product.Supplier, cs => cs.Product.ProductCategory).ApplySort(inventoryResource.OrderBy,
                 _propertyMappingService.GetPropertyMapping<InventoryDto, Inventory>());
 
             if (!string.IsNullOrWhiteSpace(inventoryResource.ProductName))
@@ -323,15 +349,34 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => EF.Functions.Like(a.Product.PurchaseOrderItems.PurchaseOrder.Supplier.SupplierName, $"{encodingName}%"));
             }
+
+            if (inventoryResource.SupplierId.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                   .Where(a => a.Product.Supplier.Id == inventoryResource.SupplierId);
+            }
+
             if (inventoryResource.ProductMainCategoryId.HasValue)
             {
-                
+
                 collectionBeforePaging = collectionBeforePaging
                    .Where(a => a.Product.ProductCategory.ProductMainCategoryId == inventoryResource.ProductMainCategoryId);
             }
 
+            if (inventoryResource.Year <= 0 || inventoryResource.Year == null && inventoryResource.Month <= 0 || inventoryResource.Month == null)
+            {
+                inventoryResource.Year = DateTime.Now.Year;
+                inventoryResource.Month = DateTime.Now.Month;
+            }
+
+            if (inventoryResource.Year > 0 && inventoryResource.Month > 0 )
+            { 
+                collectionBeforePaging = collectionBeforePaging
+                   .Where(a => a.Year == inventoryResource.Year && a.Month == inventoryResource.Month);
+            }
+
             var inventoryList = new InventoryList(_mapper);
-            return await inventoryList.Create(collectionBeforePaging, inventoryResource.Skip, inventoryResource.PageSize,inventoryResource.DefaultDate);
+            return await inventoryList.Create(collectionBeforePaging, inventoryResource.Skip, inventoryResource.PageSize, inventoryResource.DefaultDate);
         }
 
         public InventoryDto ConvertStockAndPriceToBaseUnit(InventoryDto inventory)

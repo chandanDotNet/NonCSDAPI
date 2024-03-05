@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Release\net7.0\POS.Common.deps.json
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Release\net7.0\POS.Common.dll
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Release\net7.0\POS.Common.pdb
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Release\net7.0\POS.Data.dll
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Release\net7.0\POS.Helper.dll
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Release\net7.0\POS.Data.pdb
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Release\net7.0\POS.Helper.pdb
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Release\net7.0\POS.Common.csproj.AssemblyReference.cache
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Release\net7.0\POS.Common.GeneratedMSBuildEditorConfig.editorconfig
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Release\net7.0\POS.Common.AssemblyInfoInputs.cache
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Release\net7.0\POS.Common.AssemblyInfo.cs
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Release\net7.0\POS.Common.csproj.CoreCompileInputs.cache
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Release\net7.0\POS.Common.csproj.CopyComplete
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Release\net7.0\POS.Common.dll
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Release\net7.0\refint\POS.Common.dll
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Release\net7.0\POS.Common.pdb
-D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Release\net7.0\ref\POS.Common.dll
-=======
 D:\NON CSD API\POS.Common\bin\Release\net7.0\POS.Common.deps.json
 D:\NON CSD API\POS.Common\bin\Release\net7.0\POS.Common.dll
 D:\NON CSD API\POS.Common\bin\Release\net7.0\POS.Common.pdb
@@ -34,4 +15,3 @@ D:\NON CSD API\POS.Common\obj\Release\net7.0\POS.Common.dll
 D:\NON CSD API\POS.Common\obj\Release\net7.0\refint\POS.Common.dll
 D:\NON CSD API\POS.Common\obj\Release\net7.0\POS.Common.pdb
 D:\NON CSD API\POS.Common\obj\Release\net7.0\ref\POS.Common.dll
->>>>>>> 021a56528536b65c1959493b5cd9942f8d78db7c

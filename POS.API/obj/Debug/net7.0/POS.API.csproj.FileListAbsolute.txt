@@ -296,7 +296,6 @@ D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.GeneratedMSBuildEditorConfig.edi
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.AssemblyInfoInputs.cache
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.AssemblyInfo.cs
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.csproj.CoreCompileInputs.cache
-D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.MvcApplicationPartsAssemblyInfo.cs
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.MvcApplicationPartsAssemblyInfo.cache
 D:\NON CSD API\POS.API\obj\Debug\net7.0\staticwebassets\msbuild.POS.API.Microsoft.AspNetCore.StaticWebAssets.props
 D:\NON CSD API\POS.API\obj\Debug\net7.0\staticwebassets\msbuild.build.POS.API.props
@@ -312,3 +311,4 @@ D:\NON CSD API\POS.API\obj\Debug\net7.0\refint\POS.API.dll
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.pdb
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.genruntimeconfig.cache
 D:\NON CSD API\POS.API\obj\Debug\net7.0\ref\POS.API.dll
+D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.MvcApplicationPartsAssemblyInfo.cs

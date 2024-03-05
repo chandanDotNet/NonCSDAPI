@@ -25,6 +25,7 @@ namespace POS.Data.Resources
         public string? Code { get; set; }
         public Guid? ProductMainCategoryId { get; set; }
         public Guid? SupplierId { get; set; }
+        public string? SupplierName { get; set; }
         public string ProductUrl { get; set; }
         public Guid? ProductTypeId { get; set; }
         public Guid? ProductId { get; set; }

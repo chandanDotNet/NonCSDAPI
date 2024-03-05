@@ -33,11 +33,6 @@ namespace POS.Repository
 
         public async Task<CustomerList> GetCustomers(CustomerResource customerResource)
         {
-            //var collectionBeforePaging =
-            //   All.OrderBy(c=>c.CustomerName)
-            //   .ApplySort(customerResource.CustomerName,
-            //   _propertyMappingService.GetPropertyMapping<CustomerDto, Customer>());
-
             var collectionBeforePaging =
                 All.ApplySort(customerResource.OrderBy,
                 _propertyMappingService.GetPropertyMapping<CustomerDto, Customer>());

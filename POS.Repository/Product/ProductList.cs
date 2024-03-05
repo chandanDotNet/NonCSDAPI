@@ -17,10 +17,12 @@ namespace POS.Repository
     {
         public IMapper _mapper { get; set; }
         public PathHelper _pathHelper { get; set; }
-        public ProductList(IMapper mapper, PathHelper pathHelper)
+        public IInventoryRepository _iInventoryRepository { get; set; }
+        public ProductList(IMapper mapper, PathHelper pathHelper, IInventoryRepository iInventoryRepository)
         {
             _mapper = mapper;
             _pathHelper = pathHelper;
+            _iInventoryRepository = iInventoryRepository;
         }
 
         public int Skip { get; private set; }
@@ -59,7 +61,7 @@ namespace POS.Repository
             return pageSize;
         }
 
-        public async Task<List<ProductDto>> GetDtos(IQueryable<Product> source, int skip, int pageSize,Guid? customerId)
+        public async Task<List<ProductDto>> GetDtos(IQueryable<Product> source, int skip, int pageSize, Guid? customerId)
         {
             int SNo = skip + 1;
             var entities = await source
@@ -99,8 +101,10 @@ namespace POS.Repository
                     RackNo = p.RackNo,
                     HSNCode = p.HSNCode,
                     SupplierId = p.Supplier.Id,
+                    SupplierName = p.Supplier.SupplierName,
                     //Cart= _mapper.Map<CartDto>(c.Cart),
-                    Stock = p.Inventory.Stock == null ? 0 : p.Inventory.Stock,
+                    //Stock = p.Inventory.Stock == null ? 0 : p.Inventory.Stock,
+                    Stock = _iInventoryRepository.All.Where(i => i.ProductId == p.Id && i.Month == DateTime.Now.Month && i.Year == DateTime.Now.Year).FirstOrDefault().Stock == null ? 0 : _iInventoryRepository.All.Where(i => i.ProductId == p.Id && i.Month == DateTime.Now.Month && i.Year == DateTime.Now.Year).FirstOrDefault().Stock,
                     IsLoose = p.IsLoose == null ? false : p.IsLoose,
                     MinQty = p.MinQty,
                     PackagingName = p.Packaging.Name != null ? p.Packaging.Name : "",
@@ -109,10 +113,10 @@ namespace POS.Repository
                     ProductTypeName = p.ProductType.Name != null ? p.ProductType.Name : "",
                     CartId = p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Id == null ? new Guid()
                     : p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Id,
-                    ProductCartQuantity = p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Quantity == null ? 0 
+                    ProductCartQuantity = p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Quantity == null ? 0
                     : p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().Quantity,
                     NoOfItemsInCart = p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().NoOfItems == null ? 0
-                    : p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().NoOfItems
+                    : p.Cart.Where(c => (c.ProductId == p.Id) && c.CustomerId == customerId.Value).FirstOrDefault().NoOfItems                    
 
                 }).ToListAsync();
 

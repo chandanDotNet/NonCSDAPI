@@ -36,5 +36,7 @@ namespace POS.Data.Dto
         public Guid? ShippingAddressId { get; set; }
         public SupplierAddressDto ShippingAddress { get; set; }
         public int? ProductCount { get; set; }
+        public bool IsMstbGRN { get; set; }
+        public bool IsGRN { get; set; }
     }
 }

@@ -82,6 +82,8 @@ namespace POS.Repository
                 SupplierId = c.Product.SupplierId,
                 TotalStockAmount = c.AveragePurchasePrice * c.Stock,
                 ClosingStock = c.Stock,
+                Year = c.Year,
+                Month = c.Month,
                 InventoryHistories = _mapper.Map<List<InventoryHistoryDto>>(c.Product.InventoryHistories),
                 //OpeningStock = c.Product.InventoryHistories.Where(cs => (cs.ProductId == c.ProductId)
                 //&& cs.CreatedDate >= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 0, 0, 1)
@@ -146,6 +148,8 @@ namespace POS.Repository
 
                    SupplierName = c.Product.Supplier.SupplierName,
                    SupplierId = c.Product.SupplierId,
+                   Year = c.Year,
+                   Month = c.Month,
                    //OpeningStock = c.Product.InventoryHistories.Where(cs => (cs.ProductId == c.ProductId)
                    //&& cs.CreatedDate >= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 0, 0, 1)
                    //&& cs.CreatedDate <= new DateTime(defaultDate.Value.Year, defaultDate.Value.Month, defaultDate.Value.Day, 23, 59, 59))

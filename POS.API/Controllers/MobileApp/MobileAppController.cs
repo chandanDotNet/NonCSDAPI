@@ -137,6 +137,11 @@ namespace POS.API.Controllers.MobileApp
                 //UpdateCustomerCommand updateCustomerCommand = new UpdateCustomerCommand();
                 var customer = await _customerRepository.FindAsync(customersFromRepo.FirstOrDefault().Id.Value);
 
+                int _min = 1000;
+                int _max = 9999;
+                Random rnd = new Random();
+                customer.OTP = rnd.Next(_min, _max);
+
                 UpdateCustomerCommand updateCustomerCommand = new UpdateCustomerCommand()
                 {
                     Id = customersFromRepo.FirstOrDefault().Id,
@@ -167,6 +172,9 @@ namespace POS.API.Controllers.MobileApp
                     RewardPoints = customer.RewardPoints
                 };
                 var result = await _mediator.Send(updateCustomerCommand);
+
+                //string smsResponse = SendOTPMessage(customer.MobileNo, customer.OTP);
+                customersFromRepo.FirstOrDefault().OTP = customer.OTP;
 
                 response.status = true;
                 response.StatusCode = 1;
@@ -358,7 +366,12 @@ namespace POS.API.Controllers.MobileApp
                 try
                 {
                     Guid id = new Guid(productRequestData.Id);
-                    var getProductCommand = new GetProductCommand { Id = id };
+                    if (!productRequestData.CustomerId.HasValue)
+                    {
+                        productRequestData.CustomerId = new Guid();
+                    }
+                    //Guid customerid = new Guid(productRequestData.CustomerId);
+                    var getProductCommand = new GetProductCommand { Id = id, CustomerId = productRequestData.CustomerId.Value };
                     var result = await _mediator.Send(getProductCommand);
 
                     if (result.Success)
@@ -1229,6 +1242,32 @@ namespace POS.API.Controllers.MobileApp
                 };
                 var result2 = await _mediator.Send(command);
 
+                bool isOrderDateChanged = false;
+                string today = DateTime.Now.ToString("dddd");
+                if (today == "Sunday")
+                {
+                    if (DateTime.Now.TimeOfDay.Hours >= 13 && DateTime.Now.TimeOfDay.Minutes > 0)
+                    {
+                        isOrderDateChanged = true;
+                    }
+                    else
+                    {
+                        isOrderDateChanged = false;
+
+                    }
+                }
+                else
+                {
+                    if (DateTime.Now.TimeOfDay.Hours >= 17 && DateTime.Now.TimeOfDay.Minutes > 0)
+                    {
+                        isOrderDateChanged = true;
+                    }
+                    else
+                    {
+                        isOrderDateChanged = false;
+                    }
+                }
+
                 //var addSalesOrderPaymentCommand = new AddSalesOrderPaymentCommand
                 //{
                 //    SalesOrderId = result.Data.Id,
@@ -1245,6 +1284,7 @@ namespace POS.API.Controllers.MobileApp
                 response.status = true;
                 response.StatusCode = 1;
                 response.message = "Order placed successfully!";
+                response.isOrderDateChanged = isOrderDateChanged;
                 response.SalesOrderId = result.Data.Id;
 
                 //CreateInvoice(response.SalesOrderId.Value);
@@ -2992,7 +3032,8 @@ namespace POS.API.Controllers.MobileApp
             {
                 //=============
                 decimal VegTotalAmount = Math.Round((decimal)response.Sum(x => x.TotalSalesPrice));
-                decimal VegPurAmount = decimal.Round(response.Sum(x => x.PurPrice));
+                decimal VegPurAmount = Math.Round((decimal)response.Sum(x => x.PurPrice));
+                //decimal VegPurAmount = response.Sum(x => x.PurPrice);
 
 
                 //========================
@@ -3000,6 +3041,7 @@ namespace POS.API.Controllers.MobileApp
                 salesOrderResource1 = salesOrderResource;
                 salesOrderResource1.ProductCategoryName = null;
                 salesOrderResource1.ProductCategoryId = null;
+                salesOrderResource1.IsSalesOrderNotReturn = true;
                 var getSalesOrderItemsReportCommand1 = new GetSalesOrderItemsReportCommand { SalesOrderResource = salesOrderResource1 };
                 var response2 = await _mediator.Send(getSalesOrderItemsReportCommand1);
 
@@ -3591,10 +3633,10 @@ namespace POS.API.Controllers.MobileApp
                     int save = (int)Math.Round(saveCalc.Value, MidpointRounding.AwayFromZero);
                     table.AddCell(new Cell().Add(new Paragraph((i++).ToString())).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
                     table.AddCell(new Cell().Add(new Paragraph(item.ProductName)).SetTextAlignment(TextAlignment.LEFT).SetFontSize(7));
-                    table.AddCell(new Cell().Add(new Paragraph(item.UnitPrice.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                    table.AddCell(new Cell().Add(new Paragraph(item.UnitPrice.ToString())).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
                     table.AddCell(new Cell().Add(new Paragraph(item.Quantity.ToString() + " " + item.UnitConversation.Name)).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
-                    table.AddCell(new Cell().Add(new Paragraph(save.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
-                    table.AddCell(new Cell().Add(new Paragraph(item.TotalSalesPrice.Value.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                    table.AddCell(new Cell().Add(new Paragraph(save.ToString())).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
+                    table.AddCell(new Cell().Add(new Paragraph(item.TotalSalesPrice.Value.ToString())).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
                 }
 
                 table.AddCell(new Cell().Add(new Paragraph()).SetTextAlignment(TextAlignment.LEFT).SetFontSize(7));
@@ -3602,7 +3644,7 @@ namespace POS.API.Controllers.MobileApp
                 table.AddCell(new Cell().Add(new Paragraph()).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
                 table.AddCell(new Cell().Add(new Paragraph()).SetTextAlignment(TextAlignment.CENTER).SetFontSize(7));
                 table.AddCell(new Cell().Add(new Paragraph("Total Amount")).SetTextAlignment(TextAlignment.CENTER).SetFontSize(8).SetBold());
-                table.AddCell(new Cell().Add(new Paragraph(invoice.TotalAmount.ToString("C"))).SetTextAlignment(TextAlignment.CENTER).SetFontSize(8).SetBold());
+                table.AddCell(new Cell().Add(new Paragraph(invoice.TotalAmount.ToString())).SetTextAlignment(TextAlignment.CENTER).SetFontSize(8).SetBold());
 
                 //Add the Table to the PDF Document
                 document.Add(table);
@@ -3681,7 +3723,7 @@ namespace POS.API.Controllers.MobileApp
                 if (!string.IsNullOrEmpty(DefaultQueryYear))
                 {
                     defaultYear = DefaultQueryYear;
-                   
+
                 }
                 else
                 {
@@ -3729,53 +3771,113 @@ namespace POS.API.Controllers.MobileApp
             return Ok(response);
         }
 
-
         /// <summary>
         /// Gets all purchase order suppliers.
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetPurchaseOrderSuppliers")]
         [Produces("application/json", "application/xml", Type = typeof(List<PurchaseOrderDto>))]
-        public async Task<IActionResult> GetPurchaseOrderSuppliers([FromQuery] PurchaseOrderResource purchaseOrderResource)
+        public async Task<IActionResult> GetPurchaseOrderSuppliers([FromQuery] SupplierResource supplierResource)
         {
             SupplierResponseData response = new SupplierResponseData();
             try
             {
-                purchaseOrderResource = new PurchaseOrderResource()
+                //Purchase Order
+                PurchaseOrderResource purchaseOrderResource = new PurchaseOrderResource()
                 {
                     PageSize = 0,
                     Skip = 0,
-                    Year = purchaseOrderResource.Year,
-                    Month = purchaseOrderResource.Month
+                    Year = supplierResource.Year,
+                    Month = supplierResource.Month,
+                    IsMSTBGRN = true
                 };
+
                 var getAllPurchaseOrderQuery = new GetAllPurchaseOrderQuery
                 {
                     PurchaseOrderResource = purchaseOrderResource
                 };
                 var purchaseOrders = await _mediator.Send(getAllPurchaseOrderQuery);
 
+                //MSTB Purchase Order
+                PurchaseOrderResource MSTBpurchaseOrderResource = new PurchaseOrderResource()
+                {
+                    PageSize = 0,
+                    Skip = 0,
+                    Year = supplierResource.Year,
+                    Month = supplierResource.Month
+                };
+
+                var getAllMSTBPurchaseOrderQuery = new GetAllMSTBPurchaseOrderQuery
+                {
+                    PurchaseOrderResource = MSTBpurchaseOrderResource
+                };
+                var MstbPurchaseOrders = await _mediator.Send(getAllMSTBPurchaseOrderQuery);
+
+                //PurchaseOrderResource purchaseOrderResource = new PurchaseOrderResource()
+                //{
+                //    PageSize = 0,
+                //    Skip = 0,
+                //    Year = supplierResource.Year,
+                //    Month = supplierResource.Month
+                //};
+                //var getAllPurchaseOrderQuery = new GetAllPurchaseOrderQuery
+                //{
+                //    PurchaseOrderResource = purchaseOrderResource
+                //};
+                //var purchaseOrders = await _mediator.Send(getAllPurchaseOrderQuery);                
+
+                supplierResource = new SupplierResource()
+                {
+                    SupplierName = supplierResource.SupplierName,
+                    PageSize = 0,
+                    Skip = 0
+                };
+
+                var getAllSupplierQuery = new GetAllSupplierQuery
+                {
+                    SupplierResource = supplierResource
+                };
+                var result = await _mediator.Send(getAllSupplierQuery);
+
                 ProductResource productResource = new ProductResource()
                 {
                     PageSize = 0,
                     Skip = 0
                 };
+
                 var getAllProductCommand = new GetAllProductCommand
                 {
                     ProductResource = productResource
                 };
                 var products = await _mediator.Send(getAllProductCommand);
 
-                var suppliers = purchaseOrders.Where(x => x.POCreatedDate.Year == purchaseOrderResource.Year
-                && x.POCreatedDate.Month == purchaseOrderResource.Month);
+                //var suppliers = purchaseOrders.Where(x => x.POCreatedDate.Year == purchaseOrderResource.Year
+                //&& x.POCreatedDate.Month == purchaseOrderResource.Month);
 
                 List<SupplierDto> supplier = new List<SupplierDto>();
-                foreach (var item in suppliers)
+                foreach (var item in result)
                 {
+                    var mstbCheck = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
+                    var grnCheck = purchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
+                    bool mstb = false;
+                    bool grn = false;
+                    if (mstbCheck.Count > 0)
+                    {
+                        mstb = true;
+                    }
+                    if (grnCheck.Count > 0)
+                    {
+                        grn = true;
+                    }
                     supplier.Add(new SupplierDto
                     {
-                        Id = item.SupplierId,
+                        Id = item.Id,
                         SupplierName = item.SupplierName,
-                        ProductCount = products.Count(x => x.SupplierId == item.SupplierId)
+                        ProductCount = products.Where(x => x.Stock > 0).Count(x => x.SupplierId == item.Id),
+                        IsMstbGRN = mstb,
+                        IsGRN = grn
+                        //IsMstbGRN = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).FirstOrDefault().IsMstbGRN,
+                        //IsGRN = purchaseOrders.Where(x => x.SupplierId == item.Id).FirstOrDefault().IsGRN.Value
                     });
                 }
                 if (supplier != null)
@@ -3801,5 +3903,108 @@ namespace POS.API.Controllers.MobileApp
             }
             return Ok(response);
         }
+
+        /// <summary>
+        /// Download APK File.
+        /// </summary>
+        [AllowAnonymous]
+        [HttpGet("DownloadAPKFile")]
+        public IActionResult DownloadAPKFile()
+        {
+            var filepath = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.DownloadFileFormat, "Android.apk");
+            return File(System.IO.File.ReadAllBytes(filepath), "application/vnd.android.package-archive", System.IO.Path.GetFileName(filepath));
+        }
+
+        [AllowAnonymous]
+        [NonAction]
+        public string SendOTPMessage(string mobileNo, int otp)
+        {
+            string responseString = string.Empty;
+            //we creating the necessary URL string:
+            string _URL = "http://164.52.195.161/API/SendMsg.aspx?";
+            string _senderid = "SGROCY";
+
+            string _uname = HttpUtility.UrlEncode("20240063");
+            string _pass = HttpUtility.UrlEncode("180899d9");
+            string _recipient = HttpUtility.UrlEncode(mobileNo);
+            string _messageText = HttpUtility.UrlEncode("Welcome to Sainik Grocery. Please validate your phone number by entering the OTP " + otp + ". Team Sainik Grocery -Sainik Grocery"); // text message
+
+            // Creating URL to send sms
+            string _createURL = _URL +
+               "uname=" + _uname +
+               "&pass=" + _pass +
+               "&send=" + _senderid +
+               "&dest=" + _recipient +
+               "&msg=" + _messageText +
+               "&priority=" + 1 +
+               "&schtm=" + DateTime.Now.ToString();
+
+            try
+            {
+                // creating web request to send sms 
+                HttpWebRequest _createRequest = (HttpWebRequest)WebRequest.Create(_createURL);
+                // getting response of sms
+                HttpWebResponse myResp = (HttpWebResponse)_createRequest.GetResponse();
+                System.IO.StreamReader _responseStreamReader = new System.IO.StreamReader(myResp.GetResponseStream());
+                responseString = _responseStreamReader.ReadToEnd();
+                _responseStreamReader.Close();
+                myResp.Close();
+            }
+            catch
+            {
+                //
+            }
+            return responseString;
+        }
+
+        ///// <summary>
+        ///// Send OTP Message
+        ///// </summary>
+        ///// <returns></returns>
+        //[AllowAnonymous]
+        //[HttpGet("SendOTPMessage")]
+        //public async Task<IActionResult> SendOTPMessage(string otp)
+        //{
+        //    //we creating the necessary URL string:
+        //    string _URL = "http://164.52.195.161/API/SendMsg.aspx?"; //where the SMS Gateway is running
+        //    string _senderid = "SGROCY";   // here assigning sender id 
+
+        //    //string _uname = HttpUtility.UrlEncode("20240063"); // API user name to send SMS
+        //    //string _pass = HttpUtility.UrlEncode("180899d9");     // API password to send SMS
+        //    //string _recipient = HttpUtility.UrlEncode("8100037343");  // who will receive message
+        //    //string _messageText = HttpUtility.UrlEncode("Hi..."); // text message
+
+        //    string _uname = HttpUtility.UrlEncode("20240063"); // API user name to send SMS
+        //    string _pass = HttpUtility.UrlEncode("180899d9");     // API password to send SMS
+        //    string _recipient = HttpUtility.UrlEncode("8100037343");  // who will receive message
+        //    string _messageText = HttpUtility.UrlEncode("Welcome to Sainik Grocery. Please validate your phone number by entering the OTP " + otp + ". Team Sainik Grocery -Sainik Grocery"); // text message
+
+        //    // Creating URL to send sms
+        //    string _createURL = _URL +
+        //       "uname=" + _uname +
+        //       "&pass=" + _pass +
+        //       "&send=" + _senderid +
+        //       "&dest=" + _recipient +
+        //       "&msg=" + _messageText +
+        //       "&priority=" + 1 +
+        //       "&schtm=" + DateTime.Now.ToString();
+
+        //    try
+        //    {
+        //        // creating web request to send sms 
+        //        HttpWebRequest _createRequest = (HttpWebRequest)WebRequest.Create(_createURL);
+        //        // getting response of sms
+        //        HttpWebResponse myResp = (HttpWebResponse)_createRequest.GetResponse();
+        //        System.IO.StreamReader _responseStreamReader = new System.IO.StreamReader(myResp.GetResponseStream());
+        //        string responseString = _responseStreamReader.ReadToEnd();
+        //        _responseStreamReader.Close();
+        //        myResp.Close();
+        //    }
+        //    catch
+        //    {
+        //        //
+        //    }
+        //    return Ok();
+        //}
     }
 }

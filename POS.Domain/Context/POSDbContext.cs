@@ -100,6 +100,11 @@ namespace POS.Domain
         public DbSet<ShopHoliday> ShopHolidays { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Year> Years { get; set; }
+        public DbSet<MSTBPurchaseOrder> MSTBPurchaseOrders { get; set; }
+        public DbSet<MSTBPurchaseOrderItem> MSTBPurchaseOrderItems { get; set; }
+        public DbSet<MSTBPurchaseOrderItemTax> MSTBPurchaseOrderItemTaxes { get; set; }
+        public DbSet<MSTBPurchaseOrderPayment> MSTBPurchaseOrderPayments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -690,6 +695,29 @@ namespace POS.Domain
                     .WithMany()
                     .HasForeignKey(ur => ur.CreatedBy)
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<MSTBPurchaseOrderPayment>(b =>
+            {
+                b.HasOne(e => e.CreatedByUser)
+                    .WithMany()
+                    .HasForeignKey(ur => ur.CreatedBy)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<MSTBPurchaseOrderItem>(b =>
+            {
+                b.HasOne(e => e.UnitConversation)
+                    .WithMany()
+                    .HasForeignKey(ur => ur.UnitId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+
+                b.HasOne(e => e.Warehouse)
+                    .WithMany()
+                    .HasForeignKey(ur => ur.WarehouseId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
             });
 
             builder.Entity<User>().ToTable("Users");

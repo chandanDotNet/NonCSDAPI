@@ -85,6 +85,10 @@ namespace POS.Repository
                         PurchaseOrderPaymentStatus = cs.PurchaseOrderPaymentStatus,
                         PurchaseOrderReturnType = cs.PurchaseOrderReturnType,
                         BatchNo = cs.BatchNo,
+                        Year= cs.Year,
+                        Month= cs.Month,
+                        IsMSTBGRN = cs.IsMSTBGRN.Value,
+                        IsAppMSTB = cs.IsAppMSTB.Value,
                         PurchaseOrderItems = cs.PurchaseOrderItems.Select(c => new PurchaseOrderItemDto
                         {
                             Id = c.Id,
@@ -132,6 +136,10 @@ namespace POS.Repository
                  PurchaseOrderPaymentStatus = cs.PurchaseOrderPaymentStatus,
                  PurchaseOrderReturnType = cs.PurchaseOrderReturnType,
                  BatchNo = cs.BatchNo,
+                 Year = cs.Year,
+                 Month = cs.Month,
+                 IsMSTBGRN = cs.IsMSTBGRN.Value,
+                 IsAppMSTB = cs.IsAppMSTB.Value,
                  PurchaseOrderItems = cs.PurchaseOrderItems.Select(c => new PurchaseOrderItemDto
                  {
                      Id = c.Id,

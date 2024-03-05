@@ -40,5 +40,7 @@ namespace POS.Data.Dto
         public decimal OpeningStock { get; set; }
         public decimal ClosingStock { get; set; }
         public ProductDto Product { get; set; }
+        public int? Year { get; set; }
+        public int? Month { get; set; }
     }
 }

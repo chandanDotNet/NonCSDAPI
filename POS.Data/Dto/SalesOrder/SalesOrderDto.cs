@@ -50,5 +50,7 @@ namespace POS.Data.Dto
         public string? StatusType { get; set; }
         public Guid? ProductMainCategoryId { get; set; }
         public string? TotalSaveAmount { get; set; }
+        public int? Year { get; set; }
+        public int? Month { get; set; }
     }
 }

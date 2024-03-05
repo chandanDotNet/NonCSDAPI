@@ -22,25 +22,30 @@ namespace POS.Repository
     {
 
         private readonly IPropertyMappingService _propertyMappingService;
+        private readonly IInventoryRepository _iInventoryRepository;
         private readonly IMapper _mapper;
         private readonly PathHelper _pathHelper;
 
         public ProductRepository(IUnitOfWork<POSDbContext> uow,
             IPropertyMappingService propertyMappingService,
             IMapper mapper,
-            PathHelper pathHelper)
+            PathHelper pathHelper,
+            IInventoryRepository iInventoryRepository)
           : base(uow)
         {
             _propertyMappingService = propertyMappingService;
             _mapper = mapper;
             _pathHelper = pathHelper;
+            _iInventoryRepository = iInventoryRepository;
         }
 
         public async Task<ProductList> GetProducts(ProductResource productResource)
         {
             var collectionBeforePaging =
-                AllIncluding(c => c.Brand, p => p.Packaging, cs => cs.ProductCategory, u => u.Unit, c => c.ProductTaxes, (d => d.Cart), (i => i.Inventory)).OrderBy(p => p.ProductUrl == null ? 1 : 0).ThenBy(p => p.Name)
-               .ApplySort(productResource.ProductUrl, _propertyMappingService.GetPropertyMapping<ProductDto, Product>());
+                AllIncluding(c => c.Brand, p => p.Packaging, cs => cs.ProductCategory, u => u.Unit, c => c.ProductTaxes, (d => d.Cart))
+                //.Where(i => i.Inventory.Month == DateTime.Now.Month && i.Inventory.Year == DateTime.Now.Year)
+                .OrderBy(p => p.ProductUrl == null ? 1 : 0).ThenBy(p => p.Name)
+                .ApplySort(productResource.ProductUrl, _propertyMappingService.GetPropertyMapping<ProductDto, Product>());
 
             //collectionBeforePaging = collectionBeforePaging.OrderBy(x => x.Name).ThenByDescending(x => x.Inventory.Stock != null ? x.Inventory.Stock : 0);
 
@@ -54,9 +59,23 @@ namespace POS.Repository
                 var ecapestring = Regex.Unescape(encodingName);
                 encodingName = encodingName.Replace(@"\", @"\\").Replace("%", @"\%").Replace("_", @"\_").Replace("[", @"\[").Replace(" ", "%");
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(a => EF.Functions.Like(a.Name, $"%{encodingName}%") || EF.Functions.Like(a.Barcode, $"%{encodingName}%") || EF.Functions.Like(a.Code, $"% {encodingName}%"));
+                    .Where(a => EF.Functions.Like(a.Name, $"%{encodingName}%") || EF.Functions.Like(a.Barcode, $"{encodingName}%") || EF.Functions.Like(a.Code, $"{encodingName}%"));
             }
-           
+
+
+            if (!string.IsNullOrWhiteSpace(productResource.SupplierName))
+            {
+                // trim & ignore casing
+                var genreForWhereClause = productResource.SupplierName
+                    .Trim().ToLowerInvariant();
+                var name = Uri.UnescapeDataString(genreForWhereClause);
+                var encodingName = WebUtility.UrlDecode(name);
+                var ecapestring = Regex.Unescape(encodingName);
+                encodingName = encodingName.Replace(@"\", @"\\").Replace("%", @"\%").Replace("_", @"\_").Replace("[", @"\[").Replace(" ", "%");
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => EF.Functions.Like(a.Supplier.SupplierName, $"%{encodingName}%"));
+            }
+
             //if (productResource.CustomerId.HasValue)
             //{
             //    // trim & ignore casing
@@ -128,8 +147,7 @@ namespace POS.Repository
             {
                 // trim & ignore casing
                 collectionBeforePaging = collectionBeforePaging
-                   .Where(a => EF.Functions.Like(a.Code, $"{productResource.Code}%"));
-                   //.Where(a => a.Code == productResource.Code);
+                   .Where(a => a.Code == productResource.Code);
             }
             if (productResource.SupplierId.HasValue)
             {
@@ -182,7 +200,7 @@ namespace POS.Repository
             //collectionBeforePaging = collectionBeforePaging.Where(x => x.Inventory.Stock > 0).OrderBy(x => x.Name);
             //collectionBeforePaging.Where(x => x.Inventory.Stock <= 0)
 
-            var products = new ProductList(_mapper, _pathHelper);
+            var products = new ProductList(_mapper, _pathHelper, _iInventoryRepository);
             return await products.Create(collectionBeforePaging, productResource.Skip, productResource.PageSize, productResource.CustomerId);
         }
     }

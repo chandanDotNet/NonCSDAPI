@@ -58,14 +58,14 @@ namespace POS.Repository
 
         public async Task<List<SalesOrderDto>> GetDtos(IQueryable<SalesOrder> source, int skip, int pageSize)
         {
-            int SNo = skip+1;
+            int SNo = skip + 1;
             if (pageSize == 0)
             {
                 var entities = await source
              .AsNoTracking()
              .Select(cs => new SalesOrderDto
-             { 
-                 
+             {
+
                  Id = cs.Id,
                  SOCreatedDate = cs.SOCreatedDate,
                  OrderNumber = cs.OrderNumber,
@@ -91,7 +91,7 @@ namespace POS.Repository
                  Quantity = cs.SalesOrderItems.Sum(c => c.Quantity),
                  BillNo = cs.OrderNumber.Substring(3, cs.OrderNumber.Length),
                  SalesOrderPayments = _mapper.Map<List<SalesOrderPaymentDto>>(cs.SalesOrderPayments),
-                 PaymentType= cs.PaymentType,
+                 PaymentType = cs.PaymentType,
                  UTRNo = cs.UTRNo,
                  OfflineMode = cs.OfflineMode,
                  PaymentReturnDate = cs.PaymentReturnDate,
@@ -99,7 +99,9 @@ namespace POS.Repository
                  MobileNo = cs.Customer.MobileNo,
                  StatusType = cs.StatusType,
                  CancelReason = cs.CancelReason,
-                 ProductMainCategoryId = cs.ProductMainCategoryId
+                 ProductMainCategoryId = cs.ProductMainCategoryId,
+                 Month = cs.Month,
+                 Year = cs.Year,
              })
              .ToListAsync();
                 for (int i = 0; i < entities.Count; i++)
@@ -138,14 +140,14 @@ namespace POS.Repository
             }
             else
             {
-                
+
                 var entities = await source
               .Skip(skip)
               .Take(pageSize)
               .AsNoTracking()
               .Select((cs) => new SalesOrderDto
               {
-                
+
                   Id = cs.Id,
                   SOCreatedDate = cs.SOCreatedDate,
                   OrderNumber = cs.OrderNumber,
@@ -180,18 +182,21 @@ namespace POS.Repository
                   MobileNo = cs.Customer.MobileNo,
                   StatusType = cs.StatusType,
                   CancelReason = cs.CancelReason,
-                  ProductMainCategoryId = cs.ProductMainCategoryId
+                  ProductMainCategoryId = cs.ProductMainCategoryId,
+                  Month = cs.Month,
+                  Year = cs.Year,
               })
               .ToListAsync();
                 for (int i = 0; i < entities.Count; i++)
                 {
-                    if (entities[i].CounterName =="App")
+                    if (entities[i].CounterName == "App")
                     {
 
-                        if (entities[i].ProductMainCategoryId ==(new Guid("AFC982AC-5E05-4633-99FB-08DBE76CDB9B")))
+                        if (entities[i].ProductMainCategoryId == (new Guid("AFC982AC-5E05-4633-99FB-08DBE76CDB9B")))
                         {
                             entities[i].CounterName = "App(Needs)";
-                        }else if(entities[i].ProductMainCategoryId == (new Guid("06C71507-B6DE-4D59-DE84-08DBEB3C9568")))
+                        }
+                        else if (entities[i].ProductMainCategoryId == (new Guid("06C71507-B6DE-4D59-DE84-08DBEB3C9568")))
                         {
                             entities[i].CounterName = "App(Bakery)";
                         }

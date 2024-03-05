@@ -79,6 +79,7 @@ namespace POS.Data.Entities
     public class ProductDetailsRequestData
     {
         public string Id { get; set; }
+        public Guid? CustomerId { get; set; }
 
     }
 
@@ -324,6 +325,7 @@ namespace POS.Data.Entities
         public int StatusCode { get; set; }
         public string message { get; set; }
         public Guid? SalesOrderId { get; set; }
+        public bool isOrderDateChanged { get; set; }
     }
 
     public class CounterResponseNameData
@@ -484,6 +486,7 @@ namespace POS.Data.Entities
         public string Mobile { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string RoleType { get; set; }
     }
 
     public class MobileAppLoginTokenResponseData
@@ -499,6 +502,30 @@ namespace POS.Data.Entities
         public string Token { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+    }
+    public class POMSTB
+    {
+        public Guid? Id { get; set; }
+        public string OrderNumber { get; set; }
+        public Guid SupplierId { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
+    }
+
+    public class PurchaseOrderMSTBData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public POMSTB Data { get; set; }
+    }
+
+    public class NoDataResponse
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public string[] Data { get; set; }
     }
 }
 

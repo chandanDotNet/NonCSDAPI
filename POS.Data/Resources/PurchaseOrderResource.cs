@@ -25,8 +25,9 @@ namespace POS.Data.Resources
         public PurchaseOrderStatus Status { get; set; } = PurchaseOrderStatus.All;
         public string? PurchasePaymentType { get; set; }
         public string? PurchaseOrderReturnType { get; set; }
-        public int? Year { get; set; }
         public int? Month { get; set; }
-
+        public int? Year { get; set; }
+        public bool IsMstbGRN { get; set; }
+        public bool IsMSTBGRN { get; set; }
     }
 }

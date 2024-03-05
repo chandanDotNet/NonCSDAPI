@@ -36,6 +36,8 @@ namespace POS.API.Controllers.Inventory
         [Produces("application/json", "application/xml", Type = typeof(InventoryList))]
         public async Task<IActionResult> GetInventories([FromQuery] InventoryResource inventoryResource)
         {
+            inventoryResource.Month = 3;
+            inventoryResource.Year = 2024;
             var getAllInventoryCommand = new GetAllInventoryCommand
             {
                 InventoryResource = inventoryResource

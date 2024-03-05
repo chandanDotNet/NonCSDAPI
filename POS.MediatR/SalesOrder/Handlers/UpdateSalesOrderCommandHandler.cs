@@ -26,6 +26,7 @@ namespace POS.MediatR.Handlers
         private readonly IMapper _mapper;
         private readonly ILogger<UpdateSalesOrderCommandHandler> _logger;
         private readonly IInventoryRepository _inventoryRepository;
+        private readonly IProductRepository _productRepository;
 
         public UpdateSalesOrderCommandHandler(
             ISalesOrderRepository salesOrderRepository,
@@ -33,7 +34,8 @@ namespace POS.MediatR.Handlers
             IUnitOfWork<POSDbContext> uow,
             IMapper mapper,
             ILogger<UpdateSalesOrderCommandHandler> logger,
-            IInventoryRepository inventoryRepository)
+            IInventoryRepository inventoryRepository,
+            IProductRepository productRepository)
         {
             _salesOrderRepository = salesOrderRepository;
             _salesOrderItemRepository = salesOrderItemRepository;
@@ -41,6 +43,7 @@ namespace POS.MediatR.Handlers
             _mapper = mapper;
             _logger = logger;
             _inventoryRepository = inventoryRepository;
+            _productRepository = productRepository; 
         }
 
         public async Task<ServiceResponse<SalesOrderDto>> Handle(UpdateSalesOrderCommand request, CancellationToken cancellationToken)
@@ -123,14 +126,26 @@ namespace POS.MediatR.Handlers
             salesOrderExit.TotalTax = salesOrderUpdate.TotalTax;
             salesOrderExit.TotalDiscount = salesOrderUpdate.TotalDiscount;
             salesOrderExit.SalesOrderItems = salesOrderUpdate.SalesOrderItems;
+
+            salesOrderExit.Month = salesOrderExit.Month;
+            salesOrderExit.Year = salesOrderExit.Year;
+
             salesOrderExit.SalesOrderItems.ForEach(c =>
             {
+                var product = _productRepository.All.Where(x => x.Id == c.ProductId).FirstOrDefault();
                 c.SalesOrderId = salesOrderUpdate.Id;
                 c.CreatedDate = DateTime.UtcNow;
                 //c.TotalSalesPrice= decimal.Round((decimal)c.UnitPrice*c.Quantity);
                 decimal value = (decimal)(c.UnitPrice) * c.Quantity;
                 int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
                 c.TotalSalesPrice = (decimal)roundedValue;
+                if (product != null)
+                {
+                    //c.TotalPurPrice = Math.Round((decimal)product.PurchasePrice) * c.Quantity;
+                    c.TotalPurPrice = Convert.ToDecimal((Math.Round((product.PurchasePrice.Value * c.Quantity), MidpointRounding.AwayFromZero).ToString("0.00")));
+                    c.PurchasePrice = product.PurchasePrice;
+                }
+                
             });
             salesOrderExit.TotalAmount = decimal.Round((decimal)salesOrderExit.SalesOrderItems.Sum(item => item.TotalSalesPrice));
             _salesOrderRepository.Update(salesOrderExit);

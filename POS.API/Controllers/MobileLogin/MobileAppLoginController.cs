@@ -41,6 +41,7 @@ namespace POS.API.Controllers.MobileLogin
                         Otp = result.Data.Otp.Value,
                         FirstName = result.Data.FirstName,
                         LastName = result.Data.LastName,
+                        RoleType = result.Data.Provider,
                     };
                     response.status = true;
                     response.StatusCode = 1;

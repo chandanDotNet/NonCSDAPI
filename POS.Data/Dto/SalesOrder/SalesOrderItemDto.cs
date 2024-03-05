@@ -17,6 +17,7 @@ namespace POS.Data.Dto
         public decimal Quantity { get; set; }
         public decimal? TotalSalesPrice { get; set; }
         public decimal? TotalPurPrice { get; set; }
+        public decimal? PurchasePrice { get; set; }
         public decimal TaxValue { get; set; }
         public decimal Discount { get; set; }
         public decimal DiscountPercentage { get; set; }

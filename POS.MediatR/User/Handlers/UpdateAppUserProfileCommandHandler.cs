@@ -82,7 +82,16 @@ namespace POS.MediatR.Handlers
             int _max = 9999;
             Random rnd = new Random();
             appUser.Otp = rnd.Next(_min, _max);
-          
+
+            if (userRoles.FirstOrDefault().RoleId == new Guid("83E586AB-C619-4B8C-B8A8-3535DC21232D"))
+            {
+                appUser.Provider = "Reviewer";
+            }
+            if (userRoles.FirstOrDefault().RoleId == new Guid("8277AD98-80C4-407E-B864-A0408566FDA4"))
+            {
+                appUser.Provider = "Agent";
+            }
+
             IdentityResult result = await _userManager.UpdateAsync(appUser);
             if (await _uow.SaveAsync() <= 0 && !result.Succeeded)
             {

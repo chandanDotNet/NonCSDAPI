@@ -61,7 +61,9 @@ namespace POS.Repository
                     PurchaseOrderId = c.PurchaseOrderId,
                     PurchaseOrderNumber = c.PurchaseOrder != null ? c.PurchaseOrder.OrderNumber : null,
                     SalesOrderNumber = c.SalesOrder != null ? c.SalesOrder.OrderNumber : null,
-                    PreviousTotalStock=c.PreviousTotalStock
+                    PreviousTotalStock = c.PreviousTotalStock,
+                    Year = c.Year,
+                    Month = c.Month,
                 }).ToListAsync();
             return entities;
         }

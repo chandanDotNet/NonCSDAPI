@@ -19,5 +19,7 @@ namespace POS.Data.Dto
         public Guid? PurchaseOrderId { get; set; }
         public string SalesOrderNumber { get; set; }
         public Guid? SalesOrderId { get; set; }
+        public int? Month { get; set; }
+        public int? Year { get; set; }
     }
 }

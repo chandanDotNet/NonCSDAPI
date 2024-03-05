@@ -22,5 +22,7 @@ namespace POS.Data
         public decimal? PurchasePrice { get; set; }
         public decimal? Mrp { get; set; }
         public decimal? Margin { get; set; }
+        public int? Year { get; set; }
+        public int? Month { get; set; }
     }
 }

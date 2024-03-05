@@ -345,5 +345,19 @@ namespace POS.API.Controllers.PurchaseOrder
 
             return Ok(po);
         }
+
+        [HttpPost("GetPurchaseOrderBySupplier")]      
+        [Produces("application/json", "application/xml", Type = typeof(List<PurchaseOrderDto>))]
+        public async Task<IActionResult> GetPurchaseOrderBySupplier([FromBody] PurchaseOrderResource purchaseOrderResource)
+        {
+            var getPurchaseOrderBySupplierQuery = new GetPurchaseOrderBySupplierQuery
+            {
+                SupplierId = purchaseOrderResource.SupplierId.Value,
+                Month = purchaseOrderResource.Month.Value,
+                Year = purchaseOrderResource.Year.Value,
+            };
+            var purchaseOrder = await _mediator.Send(getPurchaseOrderBySupplierQuery);
+            return ReturnFormattedResponse(purchaseOrder);
+        }
     }
 }

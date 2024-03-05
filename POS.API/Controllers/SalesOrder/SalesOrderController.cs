@@ -385,6 +385,33 @@ namespace POS.API.Controllers.SalesOrder
             return Ok(response);
         }
 
+
+        /// <summary>
+        /// Get Sales Item Category report.
+        /// </summary>
+        /// <param name="salesOrderResource"></param>
+        /// <returns></returns>
+        [HttpGet("category/reports")]
+        public async Task<IActionResult> GetSalesOrderItemsCategory([FromQuery] SalesOrderResource salesOrderResource)
+        {
+            var getSalesOrderItemsCategoryReportCommand = new GetSalesOrderItemsCategoryReportCommand { SalesOrderResource = salesOrderResource };
+            var response = await _mediator.Send(getSalesOrderItemsCategoryReportCommand);
+
+            //var paginationMetadata = new
+            //{
+            //    totalCount = response.TotalCount,
+            //    pageSize = response.PageSize,
+            //    skip = response.Skip,
+            //    totalPages = response.TotalPages
+            //};
+
+            //Response.Headers.Add("X-Pagination",
+            //    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+            return Ok(response);
+
+        }
+
     }
 }
 

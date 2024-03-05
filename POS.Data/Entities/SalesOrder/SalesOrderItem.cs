@@ -19,6 +19,7 @@ namespace POS.Data
         public decimal Quantity { get; set; }
         public decimal? TotalSalesPrice { get; set; }
         public decimal? TotalPurPrice { get; set; }
+        public decimal? PurchasePrice { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal TaxValue { get; set; }
         [Column(TypeName = "decimal(18,2)")]
@@ -28,13 +29,12 @@ namespace POS.Data
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
         public DateTime CreatedDate { get; set; }
-
         public Guid UnitId { get; set; }
         [ForeignKey("UnitId")]
         public UnitConversation UnitConversation { get; set; }
         public Guid? WarehouseId { get; set; }
         [ForeignKey("WarehouseId")]
-        public Warehouse Warehouse { get; set; }
+        public Warehouse Warehouse { get; set; }       
 
     }
 }

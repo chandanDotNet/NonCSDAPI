@@ -36,26 +36,16 @@ namespace POS.MediatR.CustomerAddress.Handlers
         }
         public async Task<ServiceResponse<CustomerAddressDto>> Handle(AddCustomerAddressCommand request, CancellationToken cancellationToken)
         {
-            //var existingEntity = await _customerAddressRepository.FindBy(c => c.HouseNo == request.HouseNo).FirstOrDefaultAsync();
-            //if (existingEntity != null)
-            //{
-            //    _logger.LogError("Counter Name Already Exist");
-            //    return ServiceResponse<CustomerAddressDto>.Return409("Counter Name Already Exist.");
-            //}
-            //var entity = _mapper.Map<Data.CustomerAddress>(request);
-            ////entity.Id = Guid.NewGuid();
-            //_customerAddressRepository.Add(entity);
-            //if (await _uow.SaveAsync() <= 0)
-            //{
 
-            //    _logger.LogError("Save Page have Error");
-            //    return ServiceResponse<CustomerAddressDto>.Return500();
-            //}
-            //return ServiceResponse<CustomerAddressDto>.ReturnResultWith200(_mapper.Map<CustomerAddressDto>(entity));
+            //var existingEntity = await _customerAddressRepository
+            //    .All
+            //    .FirstOrDefaultAsync(c => c.HouseNo == request.HouseNo
+            //    && c.StreetDetails == request.StreetDetails
+            //    && c.LandMark == request.LandMark);
 
             var existingEntity = await _customerAddressRepository
-                .All
-                .FirstOrDefaultAsync(c => c.HouseNo == request.HouseNo
+               .All
+               .FirstOrDefaultAsync(c => c.HouseNo == request.HouseNo
                 && c.CustomerId == request.CustomerId);
 
             if (existingEntity != null)

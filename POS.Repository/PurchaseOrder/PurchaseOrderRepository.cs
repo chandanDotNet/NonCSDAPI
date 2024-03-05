@@ -119,6 +119,17 @@ namespace POS.Repository
                     .Where(a => a.PurchaseOrderReturnType == purchaseOrderResource.PurchaseOrderReturnType.GetUnescapestring());
             }
 
+            if (purchaseOrderResource.Month.HasValue && purchaseOrderResource.Year.HasValue)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Year == purchaseOrderResource.Year && a.Month == purchaseOrderResource.Month);
+            }
+
+            if (purchaseOrderResource.IsMSTBGRN == true)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.IsMSTBGRN == purchaseOrderResource.IsMSTBGRN);
+            }
 
             var purchaseOrders = new PurchaseOrderList();
             return await purchaseOrders

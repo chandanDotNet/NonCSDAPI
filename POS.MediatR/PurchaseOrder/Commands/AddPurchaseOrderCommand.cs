@@ -29,5 +29,9 @@ namespace POS.MediatR.CommandAndQuery
         public string? PurchaseOrderReturnType { get; set; }
         public IFormFile? FileDetails { get; set; }
         public string? BatchNo { get; set; }
+        public int? Year { get; set; }
+        public int? Month { get; set; }
+        public bool? IsMSTBGRN { get; set; }
+        public bool? IsAppMSTB { get; set; }
     }
 }

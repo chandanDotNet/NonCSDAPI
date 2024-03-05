@@ -46,6 +46,8 @@ namespace POS.Data
         public string? CancelReason { get; set; }
         public string? StatusType { get; set; }
         public Guid? ProductMainCategoryId { get; set; }
-        
+        public int? Year { get; set; }
+        public int? Month { get; set; }
+
     }
 }

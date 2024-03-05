@@ -16,5 +16,7 @@ namespace POS.Data.Resources
         public string Website { get; set; }
         public string Country { get; set; }
         public string? Pin { get; set; }
+        public int? Year { get; set; }
+        public int? Month { get; set; }
     }
 }

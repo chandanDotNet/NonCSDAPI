@@ -52,12 +52,16 @@ namespace POS.MediatR.Handlers
                 return ServiceResponse<SalesOrderDto>.Return409("Sales Order Number is already Exists.");
             }
 
+            request.Month = 3;
+            request.Year = 2024;
             //request.SalesOrderItems.ForEach(item1 =>
             //{
             //    var product1 = _productRepository.All.Where(c => c.Id == item1.ProductId);
             //    item1.Product = _mapper.Map<ProductDto>(product1);// (ProductDto)_productRepository.All.Where(c => c.Id == item1.ProductId);                
 
             //});
+
+            request.TermAndCondition = null;
 
             var salesOrder = _mapper.Map<Data.SalesOrder>(request);
             salesOrder.PaymentStatus = PaymentStatus.Pending;
@@ -117,10 +121,11 @@ namespace POS.MediatR.Handlers
                 item.CreatedDate = DateTime.Now;
                 if (product != null)
                 {
-                    item.TotalPurPrice = Math.Round((decimal)product.PurchasePrice) * item.Quantity;
-
+                    //c.TotalPurPrice = Math.Round((decimal)product.PurchasePrice) * c.Quantity;
+                    item.TotalPurPrice = Convert.ToDecimal((Math.Round((product.PurchasePrice.Value * item.Quantity),MidpointRounding.AwayFromZero).ToString("0.00")));
+                    item.PurchasePrice = product.PurchasePrice;
                 }
-
+                
                 decimal value = (decimal)(item.UnitPrice * item.Quantity);
                 int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
                 item.TotalSalesPrice = (decimal)roundedValue;

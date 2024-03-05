@@ -31,8 +31,9 @@ namespace POS.Data.Resources
 
         public int? Month { get; set; }
         public int? Year { get; set; }
-
+        public bool IsSalesOrderNotReturn { get; set; } = false;
         public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.NA;
+        public string CategoryType { get; set; }
     }
 }
 

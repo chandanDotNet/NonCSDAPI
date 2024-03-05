@@ -49,6 +49,7 @@ namespace POS.Data.Dto
         public bool? IsLoose { get; set; }
         public decimal? MinQty { get; set; }
         public Guid? SupplierId { get; set; }
+        public string? SupplierName { get; set; }
         public Guid? ManufacturerId { get; set; }
         public SupplierDto Supplier { get; set; }
         public string PackagingName { get; set; }

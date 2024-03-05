@@ -29,5 +29,7 @@ namespace POS.MediatR.SalesOrder.Commands
         public bool? IsAppOrderRequest { get; set; }
         public string PaymentType { get; set; }
         public Guid? CounterId { get; set; }
+        public int? Year { get; set; }
+        public int? Month { get; set; }
     }
 }

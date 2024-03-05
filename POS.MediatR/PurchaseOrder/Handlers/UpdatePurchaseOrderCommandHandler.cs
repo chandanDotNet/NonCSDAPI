@@ -49,7 +49,8 @@ namespace POS.MediatR.PurchaseOrder.Handlers
             if (request.PurchaseOrderItems.Count > 0)
             {
                 request.PurchaseOrderItems = request.PurchaseOrderItems.DistinctBy(x => x.ProductId).ToList();
-            }            
+                request.PurchaseOrderItems = request.PurchaseOrderItems.Where(x => x.Quantity > 0).ToList();
+            }
 
             var existingPONumber = _purchaseOrderRepository.All.Any(c => c.OrderNumber == request.OrderNumber && c.Id != request.Id);
             if (existingPONumber)
@@ -129,6 +130,12 @@ namespace POS.MediatR.PurchaseOrder.Handlers
             purchaseOrderExit.InvoiceNo = purchaseOrderUpdate.InvoiceNo;
             purchaseOrderExit.TotalSaleAmount = purchaseOrderUpdate.TotalSaleAmount;
 
+            purchaseOrderExit.Year = purchaseOrderUpdate.Year;
+            //purchaseOrderExit.Month = purchaseOrderUpdate.Month;
+            purchaseOrderExit.Month = 3;
+            purchaseOrderExit.IsMSTBGRN = purchaseOrderUpdate.IsMSTBGRN;
+            purchaseOrderExit.IsAppMSTB = purchaseOrderUpdate.IsAppMSTB;
+
             purchaseOrderExit.PurchaseOrderItems = purchaseOrderUpdate.PurchaseOrderItems;
             purchaseOrderExit.PurchaseOrderItems.ForEach(c =>
             {
@@ -192,6 +199,8 @@ namespace POS.MediatR.PurchaseOrder.Handlers
 
                 foreach (var inventory in inventoriesToAdd)
                 {
+                    inventory.Year = request.Year;
+                    inventory.Month = request.Month;
                     await _inventoryRepository.AddInventory(inventory);
                 }
 

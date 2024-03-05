@@ -1348,11 +1348,16 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetPurchaseOrderSuppliers(POS.Data.Resources.PurchaseOrderResource)">
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetPurchaseOrderSuppliers(POS.Data.Resources.SupplierResource)">
             <summary>
             Gets all purchase order suppliers.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.DownloadAPKFile">
+            <summary>
+            Download APK File.
+            </summary>
         </member>
         <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.AppLogin(POS.MediatR.CommandAndQuery.UpdateAppUserProfileCommand)">
             <summary>
@@ -1588,6 +1593,45 @@
             <summary>
             Get Products By Detail
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController.#ctor(MediatR.IMediator)">
+            <summary>
+            Initializes a new instance of the <see cref="T:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController"/> class.
+            </summary>
+            <param name="mediator">The mediator.</param>
+        </member>
+        <member name="M:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController.CreatePurchaseOrderMSTB(POS.MediatR.CommandAndQuery.AddPurchaseOrderMSTBCommand)">
+            <summary>
+            Creates the purchase order MSTB.
+            </summary>
+            <param name="addPurchaseOrderMSTBCommand">The add purchase order command.</param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController.UpdatePurchaseOrderMSTB(System.Guid,POS.MediatR.PurchaseOrderMSTB.Command.UpdatePurchaseOrderMSTBCommand)">
+            <summary>
+            Update the purchase order MSTB.
+            </summary>
+            <param name="updatePurchaseOrderMSTBCommand">The add purchase order command.</param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController.GetAllPurchaseOrderBySupplier(POS.Data.Resources.PurchaseOrderResource)">
+            <summary>
+            Gets all purchase order by Supplier.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController.GetNewMSTBPurchaseOrderNumber(System.Boolean)">
+            <summary>
+            Gets the new MSTB purchase order number.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController.DeleteMSTBPurchaseOrder(System.Guid)">
+            <summary>
+            Delete Purchase Order MSTB
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.PurchaseOrderPayment.PurchaseOrderPaymentController.#ctor(MediatR.IMediator)">
@@ -2012,6 +2056,13 @@
             Update the Sales order date time.
             </summary>
             <param name="updateSalesOrderDateTimeCommand">The add Sales order date time command.</param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.SalesOrder.SalesOrderController.GetSalesOrderItemsCategory(POS.Data.Resources.SalesOrderResource)">
+            <summary>
+            Get Sales Item Category report.
+            </summary>
+            <param name="salesOrderResource"></param>
             <returns></returns>
         </member>
         <member name="T:POS.API.Controllers.SendEmailController">

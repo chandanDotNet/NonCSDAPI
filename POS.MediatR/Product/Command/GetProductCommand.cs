@@ -12,5 +12,6 @@ namespace POS.MediatR.Product.Command
     public class GetProductCommand : IRequest<ServiceResponse<ProductDto>>
     {
         public Guid Id { get; set; }
+        public Guid? CustomerId { get; set; }
     }
 }

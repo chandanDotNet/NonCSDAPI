@@ -35,21 +35,21 @@ namespace POS.MediatR.Handlers
             var dashboardStatics = new DashboardStatics();
             decimal TotalPurchaseReturn = 0, TotalPurchase = 0, TotalSales=0, TotalSalesReturn=0; 
             Guid SuppliersId = new Guid("E7CCB254-6397-4294-5E7F-08DBFD80C92B");  //Southern Star Bakery
-            if (request.ProductMainCategoryId== new Guid("06C71507-B6DE-4D59-DE84-08DBEB3C9568")) //Bakery
+            if (request.ProductMainCategoryId == new Guid("06C71507-B6DE-4D59-DE84-08DBEB3C9568")) //Bakery
             {
-                TotalPurchase = await _purchaseOrderRepository.All.Where(c => c.SupplierId == SuppliersId && c.POCreatedDate.Month == request.Month && c.POCreatedDate.Year == request.Year).SumAsync(c => c.TotalAmount);
+                TotalPurchase = await _purchaseOrderRepository.All.Where(c => c.SupplierId == SuppliersId && c.Month == request.Month && c.Year == request.Year).SumAsync(c => c.TotalAmount);
                 dashboardStatics.TotalPurchase = Math.Round(TotalPurchase, MidpointRounding.AwayFromZero);
                 TotalPurchaseReturn = await _purchaseOrderItemRepository.AllIncluding(c => c.PurchaseOrder)
-               .Where(c => c.Status == PurchaseSaleItemStatusEnum.Return && c.PurchaseOrder.SupplierId == SuppliersId && c.PurchaseOrder.POCreatedDate.Month == request.Month && c.PurchaseOrder.POCreatedDate.Year == request.Year)
+               .Where(c => c.Status == PurchaseSaleItemStatusEnum.Return && c.PurchaseOrder.SupplierId == SuppliersId && c.PurchaseOrder.Month == request.Month && c.PurchaseOrder.Year == request.Year)
                .SumAsync(c => (c.UnitPrice * c.Quantity) + c.TaxValue - c.Discount);
                 dashboardStatics.TotalPurchaseReturn = Math.Round(TotalPurchaseReturn, MidpointRounding.AwayFromZero);
             }
             else
             {
-                TotalPurchase = await _purchaseOrderRepository.All.Where(c => c.SupplierId != SuppliersId && c.POCreatedDate.Month == request.Month && c.POCreatedDate.Year == request.Year).SumAsync(c => c.TotalAmount);
+                TotalPurchase = await _purchaseOrderRepository.All.Where(c => c.SupplierId != SuppliersId && c.Month == request.Month && c.Year == request.Year).SumAsync(c => c.TotalAmount);
                 dashboardStatics.TotalPurchase = Math.Round(TotalPurchase, MidpointRounding.AwayFromZero);
                 TotalPurchaseReturn = await _purchaseOrderItemRepository.AllIncluding(c => c.PurchaseOrder)
-               .Where(c => c.Status == PurchaseSaleItemStatusEnum.Return && c.PurchaseOrder.SupplierId != SuppliersId && c.PurchaseOrder.POCreatedDate.Month == request.Month && c.PurchaseOrder.POCreatedDate.Year == request.Year)
+               .Where(c => c.Status == PurchaseSaleItemStatusEnum.Return && c.PurchaseOrder.SupplierId != SuppliersId && c.PurchaseOrder.Month == request.Month && c.PurchaseOrder.Year == request.Year)
                .SumAsync(c => (c.UnitPrice * c.Quantity) + c.TaxValue - c.Discount);
                 dashboardStatics.TotalPurchaseReturn = Math.Round(TotalPurchaseReturn, MidpointRounding.AwayFromZero);
             }

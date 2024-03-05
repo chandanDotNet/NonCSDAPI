@@ -147,8 +147,8 @@ namespace POS.Domain
             modelBuilder.Entity<OTPBanner>()
             .Property(b => b.ModifiedDate)
             .HasDefaultValueSql("GETUTCDATE()");
-            
-                        modelBuilder.Entity<ShopHoliday>()
+
+            modelBuilder.Entity<ShopHoliday>()
             .Property(b => b.ModifiedDate)
             .HasDefaultValueSql("GETUTCDATE()");
             
@@ -159,6 +159,14 @@ namespace POS.Domain
             modelBuilder.Entity<Year>()
         .Property(b => b.ModifiedDate)
         .HasDefaultValueSql("GETUTCDATE()");
+
+            modelBuilder.Entity<MSTBPurchaseOrder>()
+       .Property(b => b.ModifiedDate)
+       .HasDefaultValueSql("GETUTCDATE()");
+
+            modelBuilder.Entity<MSTBPurchaseOrderPayment>()
+                .Property(b => b.ModifiedDate)
+                .HasDefaultValueSql("GETUTCDATE()");
         }
 
         public static void DefalutDeleteValueFilter(this ModelBuilder modelBuilder)
@@ -318,6 +326,12 @@ namespace POS.Domain
 
             modelBuilder.Entity<Year>()
     .HasQueryFilter(p => !p.IsDeleted);
+
+            modelBuilder.Entity<MSTBPurchaseOrder>()
+        .HasQueryFilter(p => !p.IsDeleted);
+
+            modelBuilder.Entity<MSTBPurchaseOrderPayment>()
+               .HasQueryFilter(p => !p.IsDeleted);
 
         }
     }

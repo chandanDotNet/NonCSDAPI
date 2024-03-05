@@ -108,6 +108,12 @@ namespace POS.Repository
                     .Where(a => EF.Functions.Like(a.SalesOrder.OrderNumber, $"%{orderNumber}%"));
             }
 
+            if (purchaseOrderResource.IsSalesOrderNotReturn == true)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Status == Data.Entities.PurchaseSaleItemStatusEnum.Not_Return);
+            }
+
             var salesOrderItems = new SalesOrderItemList();
             return await salesOrderItems
                 .Create(collectionBeforePaging, purchaseOrderResource.Skip, purchaseOrderResource.PageSize);

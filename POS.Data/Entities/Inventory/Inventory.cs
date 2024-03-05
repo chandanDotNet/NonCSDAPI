@@ -14,6 +14,7 @@ namespace POS.Data
         public Product Product { get; set; }
         public decimal AveragePurchasePrice { get; set; }
         public decimal AverageSalesPrice { get; set; }
-        
+        public int? Year { get; set; }
+        public int? Month { get; set; }
     }
 }
