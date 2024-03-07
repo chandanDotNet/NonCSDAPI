@@ -2058,6 +2058,13 @@
             <param name="updateSalesOrderDateTimeCommand">The add Sales order date time command.</param>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.SalesOrder.SalesOrderController.SyncSalesOrderAmount(POS.MediatR.SalesOrder.Commands.SyncSalesOrderAmountCommand)">
+            <summary>
+            Update the Sales order amount.
+            </summary>
+            <param name="syncSalesOrderAmountCommand">The sync Sales order amount command.</param>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.SalesOrder.SalesOrderController.GetSalesOrderItemsCategory(POS.Data.Resources.SalesOrderResource)">
             <summary>
             Get Sales Item Category report.

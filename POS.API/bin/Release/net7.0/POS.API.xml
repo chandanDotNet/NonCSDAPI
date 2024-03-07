@@ -1354,14 +1354,11 @@
             </summary>
             <returns></returns>
         </member>
-<<<<<<< HEAD
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.DownloadAPKFile">
             <summary>
             Download APK File.
             </summary>
         </member>
-=======
->>>>>>> 1fa67aaed581d1a7538546931b2ec172032b63d8
         <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.AppLogin(POS.MediatR.CommandAndQuery.UpdateAppUserProfileCommand)">
             <summary>
             App User Login
@@ -2059,6 +2056,13 @@
             Update the Sales order date time.
             </summary>
             <param name="updateSalesOrderDateTimeCommand">The add Sales order date time command.</param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.SalesOrder.SalesOrderController.SyncSalesOrderAmount(POS.MediatR.SalesOrder.Commands.SyncSalesOrderAmountCommand)">
+            <summary>
+            Update the Sales order amount.
+            </summary>
+            <param name="syncSalesOrderAmountCommand">The sync Sales order amount command.</param>
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.SalesOrder.SalesOrderController.GetSalesOrderItemsCategory(POS.Data.Resources.SalesOrderResource)">

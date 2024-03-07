@@ -387,6 +387,33 @@ namespace POS.API.Controllers.SalesOrder
 
 
         /// <summary>
+        /// Update the Sales order amount.
+        /// </summary>
+        /// <param name="syncSalesOrderAmountCommand">The sync Sales order amount command.</param>
+        /// <returns></returns>
+        [HttpPut("SyncSalesOrderAmount")]
+        [Produces("application/json", "application/xml", Type = typeof(SalesOrderDto))]
+        public async Task<IActionResult> SyncSalesOrderAmount(SyncSalesOrderAmountCommand syncSalesOrderAmountCommand)
+        {
+            UpdateSODateTimeResponseData response = new UpdateSODateTimeResponseData();
+            var result = await _mediator.Send(syncSalesOrderAmountCommand);
+            if (result.StatusCode == 200)
+            {
+                response.status = true;
+                response.StatusCode = 200;
+                response.message = "Success";
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Invalid";
+            }
+            return Ok(response);
+        }
+
+
+        /// <summary>
         /// Get Sales Item Category report.
         /// </summary>
         /// <param name="salesOrderResource"></param>
