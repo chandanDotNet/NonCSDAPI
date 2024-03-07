@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 D:\NON CSD API\POS.Repository\bin\Debug\net7.0\Migrations\20221105115351_Initial_Data.sql
 D:\NON CSD API\POS.Repository\bin\Debug\net7.0\POS.Repository.deps.json
 D:\NON CSD API\POS.Repository\bin\Debug\net7.0\POS.Repository.dll
@@ -20,3 +21,27 @@ D:\NON CSD API\POS.Repository\obj\Debug\net7.0\POS.Repository.dll
 D:\NON CSD API\POS.Repository\obj\Debug\net7.0\refint\POS.Repository.dll
 D:\NON CSD API\POS.Repository\obj\Debug\net7.0\POS.Repository.pdb
 D:\NON CSD API\POS.Repository\obj\Debug\net7.0\ref\POS.Repository.dll
+=======
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\Migrations\20221105115351_Initial_Data.sql
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\POS.Repository.deps.json
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\POS.Repository.dll
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\POS.Repository.pdb
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\POS.Common.dll
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\POS.Data.dll
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\POS.Domain.dll
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\POS.Helper.dll
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\POS.Common.pdb
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\POS.Data.pdb
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\POS.Domain.pdb
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\bin\Debug\net7.0\POS.Helper.pdb
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\obj\Debug\net7.0\POS.Repository.csproj.AssemblyReference.cache
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\obj\Debug\net7.0\POS.Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\obj\Debug\net7.0\POS.Repository.AssemblyInfoInputs.cache
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\obj\Debug\net7.0\POS.Repository.AssemblyInfo.cs
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\obj\Debug\net7.0\POS.Repository.csproj.CoreCompileInputs.cache
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\obj\Debug\net7.0\POS.Repository.csproj.CopyComplete
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\obj\Debug\net7.0\POS.Repository.dll
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\obj\Debug\net7.0\refint\POS.Repository.dll
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\obj\Debug\net7.0\POS.Repository.pdb
+D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Repository\obj\Debug\net7.0\ref\POS.Repository.dll
+>>>>>>> 46a6e95850b54ed974bf68b71523bf32cdf64a05

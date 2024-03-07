@@ -37,5 +37,6 @@ namespace POS.MediatR.CommandAndQuery
         public string? DependantCard { get; set; }
         public string? ServiceNo { get; set; }
         public string? DeviceKey { get; set; }
+        public string? CustomerRegisterFor { get; set; }
     }
 }
