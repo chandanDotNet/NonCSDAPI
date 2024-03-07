@@ -1,3 +1,39 @@
+<<<<<<< HEAD
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Debug\net7.0\POS.Common.deps.json
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Debug\net7.0\POS.Common.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Debug\net7.0\POS.Common.pdb
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Debug\net7.0\POS.Data.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Debug\net7.0\POS.Helper.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Debug\net7.0\POS.Data.pdb
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\bin\Debug\net7.0\POS.Helper.pdb
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Debug\net7.0\POS.Common.csproj.AssemblyReference.cache
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Debug\net7.0\POS.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Debug\net7.0\POS.Common.AssemblyInfoInputs.cache
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Debug\net7.0\POS.Common.AssemblyInfo.cs
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Debug\net7.0\POS.Common.csproj.CoreCompileInputs.cache
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Debug\net7.0\POS.Common.csproj.CopyComplete
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Debug\net7.0\POS.Common.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Debug\net7.0\refint\POS.Common.dll
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Debug\net7.0\POS.Common.pdb
+D:\Projects-2023\Dot Net\NonCSDAPI2024\POS.Common\obj\Debug\net7.0\ref\POS.Common.dll
+D:\NON CSD API\POS.Common\bin\Debug\net7.0\POS.Common.deps.json
+D:\NON CSD API\POS.Common\bin\Debug\net7.0\POS.Common.dll
+D:\NON CSD API\POS.Common\bin\Debug\net7.0\POS.Common.pdb
+D:\NON CSD API\POS.Common\bin\Debug\net7.0\POS.Data.dll
+D:\NON CSD API\POS.Common\bin\Debug\net7.0\POS.Helper.dll
+D:\NON CSD API\POS.Common\bin\Debug\net7.0\POS.Data.pdb
+D:\NON CSD API\POS.Common\bin\Debug\net7.0\POS.Helper.pdb
+D:\NON CSD API\POS.Common\obj\Debug\net7.0\POS.Common.csproj.AssemblyReference.cache
+D:\NON CSD API\POS.Common\obj\Debug\net7.0\POS.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\NON CSD API\POS.Common\obj\Debug\net7.0\POS.Common.AssemblyInfoInputs.cache
+D:\NON CSD API\POS.Common\obj\Debug\net7.0\POS.Common.AssemblyInfo.cs
+D:\NON CSD API\POS.Common\obj\Debug\net7.0\POS.Common.csproj.CoreCompileInputs.cache
+D:\NON CSD API\POS.Common\obj\Debug\net7.0\POS.Common.csproj.CopyComplete
+D:\NON CSD API\POS.Common\obj\Debug\net7.0\POS.Common.dll
+D:\NON CSD API\POS.Common\obj\Debug\net7.0\refint\POS.Common.dll
+D:\NON CSD API\POS.Common\obj\Debug\net7.0\POS.Common.pdb
+D:\NON CSD API\POS.Common\obj\Debug\net7.0\ref\POS.Common.dll
+=======
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Common\bin\Debug\net7.0\POS.Common.deps.json
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Common\bin\Debug\net7.0\POS.Common.dll
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Common\bin\Debug\net7.0\POS.Common.pdb
@@ -15,3 +51,4 @@ D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Common\obj\Debug\net7.0\POS.Common
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Common\obj\Debug\net7.0\refint\POS.Common.dll
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Common\obj\Debug\net7.0\POS.Common.pdb
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.Common\obj\Debug\net7.0\ref\POS.Common.dll
+>>>>>>> 46a6e95850b54ed974bf68b71523bf32cdf64a05

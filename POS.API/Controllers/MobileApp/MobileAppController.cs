@@ -3664,6 +3664,59 @@ namespace POS.API.Controllers.MobileApp
 
         }
 
+        /// <summary>
+        /// Download APK File.
+        /// </summary>
+        [AllowAnonymous]
+        [HttpGet("DownloadAPKFile")]
+        public IActionResult DownloadAPKFile()
+        {
+            var filepath = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.DownloadFileFormat, "Android.apk");
+            return File(System.IO.File.ReadAllBytes(filepath), "application/vnd.android.package-archive", System.IO.Path.GetFileName(filepath));
+        }
+
+        [AllowAnonymous]
+        [NonAction]
+        public string SendOTPMessage(string mobileNo, int otp)
+        {
+            string responseString = string.Empty;
+            //we creating the necessary URL string:
+            string _URL = "http://164.52.195.161/API/SendMsg.aspx?";
+            string _senderid = "SGROCY";
+
+            string _uname = HttpUtility.UrlEncode("20240063");
+            string _pass = HttpUtility.UrlEncode("180899d9");
+            string _recipient = HttpUtility.UrlEncode(mobileNo);
+            string _messageText = HttpUtility.UrlEncode("Welcome to Sainik Grocery. Please validate your phone number by entering the OTP " + otp + ". Team Sainik Grocery -Sainik Grocery"); // text message
+
+            // Creating URL to send sms
+            string _createURL = _URL +
+               "uname=" + _uname +
+               "&pass=" + _pass +
+               "&send=" + _senderid +
+               "&dest=" + _recipient +
+               "&msg=" + _messageText +
+               "&priority=" + 1 +
+               "&schtm=" + DateTime.Now.ToString();
+
+            try
+            {
+                // creating web request to send sms 
+                HttpWebRequest _createRequest = (HttpWebRequest)WebRequest.Create(_createURL);
+                // getting response of sms
+                HttpWebResponse myResp = (HttpWebResponse)_createRequest.GetResponse();
+                System.IO.StreamReader _responseStreamReader = new System.IO.StreamReader(myResp.GetResponseStream());
+                responseString = _responseStreamReader.ReadToEnd();
+                _responseStreamReader.Close();
+                myResp.Close();
+            }
+            catch
+            {
+                //
+            }
+            return responseString;
+        }
+
         //========================== MSTB ===============================================
 
         /// <summary>
@@ -3905,106 +3958,157 @@ namespace POS.API.Controllers.MobileApp
         }
 
         /// <summary>
-        /// Download APK File.
+        /// Add MSTB Settings.
         /// </summary>
-        [AllowAnonymous]
-        [HttpGet("DownloadAPKFile")]
-        public IActionResult DownloadAPKFile()
+        /// <param name="addCustomerAddressCommand"></param>
+        /// <returns></returns>
+        [HttpPost("AddMSTBSettings")]
+        [Produces("application/json", "application/xml", Type = typeof(CustomerAddressDto))]
+        public async Task<IActionResult> AddMSTBSettings(AddCustomerAddressCommand addCustomerAddressCommand)
         {
-            var filepath = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.DownloadFileFormat, "Android.apk");
-            return File(System.IO.File.ReadAllBytes(filepath), "application/vnd.android.package-archive", System.IO.Path.GetFileName(filepath));
+            var result = await _mediator.Send(addCustomerAddressCommand);
+            if (!result.Success)
+            {
+                return ReturnFormattedResponse(result);
+            }
+            //return CreatedAtAction("GetCustomerAddress", new { customerId = response.Data.CustomerId }, response.Data);
+            CustomerAddressResponseData response = new CustomerAddressResponseData();
+
+            if (result != null)
+            {
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Your address added successfully!";
+                response.Data = result.Data;
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Please wait! Server is not responding.";
+            }
+            return Ok(response);
         }
 
+        /// <summary>
+        /// Get Alert Message
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
-        [NonAction]
-        public string SendOTPMessage(string mobileNo, int otp)
+        [HttpGet("GetPopupAlert")]
+        public async Task<IActionResult> GetPopupAlert()
         {
-            string responseString = string.Empty;
-            //we creating the necessary URL string:
-            string _URL = "http://164.52.195.161/API/SendMsg.aspx?";
-            string _senderid = "SGROCY";
-
-            string _uname = HttpUtility.UrlEncode("20240063");
-            string _pass = HttpUtility.UrlEncode("180899d9");
-            string _recipient = HttpUtility.UrlEncode(mobileNo);
-            string _messageText = HttpUtility.UrlEncode("Welcome to Sainik Grocery. Please validate your phone number by entering the OTP " + otp + ". Team Sainik Grocery -Sainik Grocery"); // text message
-
-            // Creating URL to send sms
-            string _createURL = _URL +
-               "uname=" + _uname +
-               "&pass=" + _pass +
-               "&send=" + _senderid +
-               "&dest=" + _recipient +
-               "&msg=" + _messageText +
-               "&priority=" + 1 +
-               "&schtm=" + DateTime.Now.ToString();
-
-            try
-            {
-                // creating web request to send sms 
-                HttpWebRequest _createRequest = (HttpWebRequest)WebRequest.Create(_createURL);
-                // getting response of sms
-                HttpWebResponse myResp = (HttpWebResponse)_createRequest.GetResponse();
-                System.IO.StreamReader _responseStreamReader = new System.IO.StreamReader(myResp.GetResponseStream());
-                responseString = _responseStreamReader.ReadToEnd();
-                _responseStreamReader.Close();
-                myResp.Close();
-            }
-            catch
-            {
-                //
-            }
-            return responseString;
+            var result = "https://sainik.shyamfuture.in/page/popup-alert.html";
+            return Ok(result);
         }
 
-        ///// <summary>
-        ///// Send OTP Message
-        ///// </summary>
-        ///// <returns></returns>
-        //[AllowAnonymous]
-        //[HttpGet("SendOTPMessage")]
-        //public async Task<IActionResult> SendOTPMessage(string otp)
+        /// <summary>
+        /// Get Customer Address.
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        //[HttpGet("CustomerAddress/{customerId}", Name = "GetCustomerAddress")]
+        //[Produces("application/json", "application/xml", Type = typeof(CustomerAddressDto))]
+        //public async Task<IActionResult> GetCustomerAddress(Guid customerId)
         //{
-        //    //we creating the necessary URL string:
-        //    string _URL = "http://164.52.195.161/API/SendMsg.aspx?"; //where the SMS Gateway is running
-        //    string _senderid = "SGROCY";   // here assigning sender id 
+        //    var getCustomerAddressCommand = new GetCustomerAddressCommand { CustomerId = customerId };
+        //    var result = await _mediator.Send(getCustomerAddressCommand);
+        //    //return ReturnFormattedResponse(result);
 
-        //    //string _uname = HttpUtility.UrlEncode("20240063"); // API user name to send SMS
-        //    //string _pass = HttpUtility.UrlEncode("180899d9");     // API password to send SMS
-        //    //string _recipient = HttpUtility.UrlEncode("8100037343");  // who will receive message
-        //    //string _messageText = HttpUtility.UrlEncode("Hi..."); // text message
-
-        //    string _uname = HttpUtility.UrlEncode("20240063"); // API user name to send SMS
-        //    string _pass = HttpUtility.UrlEncode("180899d9");     // API password to send SMS
-        //    string _recipient = HttpUtility.UrlEncode("8100037343");  // who will receive message
-        //    string _messageText = HttpUtility.UrlEncode("Welcome to Sainik Grocery. Please validate your phone number by entering the OTP " + otp + ". Team Sainik Grocery -Sainik Grocery"); // text message
-
-        //    // Creating URL to send sms
-        //    string _createURL = _URL +
-        //       "uname=" + _uname +
-        //       "&pass=" + _pass +
-        //       "&send=" + _senderid +
-        //       "&dest=" + _recipient +
-        //       "&msg=" + _messageText +
-        //       "&priority=" + 1 +
-        //       "&schtm=" + DateTime.Now.ToString();
-
-        //    try
+        //    CustomerAddressResponseData response = new CustomerAddressResponseData();
+        //    if (result != null)
         //    {
-        //        // creating web request to send sms 
-        //        HttpWebRequest _createRequest = (HttpWebRequest)WebRequest.Create(_createURL);
-        //        // getting response of sms
-        //        HttpWebResponse myResp = (HttpWebResponse)_createRequest.GetResponse();
-        //        System.IO.StreamReader _responseStreamReader = new System.IO.StreamReader(myResp.GetResponseStream());
-        //        string responseString = _responseStreamReader.ReadToEnd();
-        //        _responseStreamReader.Close();
-        //        myResp.Close();
+        //        response.status = true;
+        //        response.StatusCode = 1;
+        //        response.message = "Success";
+        //        response.Data = result.Data;
         //    }
-        //    catch
+        //    else
         //    {
-        //        //
+        //        response.status = false;
+        //        response.StatusCode = 0;
+        //        response.message = "Invalid";
         //    }
-        //    return Ok();
+        //    return Ok(response);
         //}
+
+        /// <summary>
+        /// Get Customer Addresses
+        /// </summary>
+        /// <param name="customerAddressResource"></param>
+        /// <returns></returns>
+
+        //[HttpGet("GetCustomerAddresses")]
+        //public async Task<IActionResult> GetCustomerAddresses([FromQuery] CustomerAddressResource customerAddressResource)
+        //{
+        //    var getCustomerAddressQuery = new GetCustomerAddressQuery
+        //    {
+        //        CustomerAddressResource = customerAddressResource
+        //    };
+        //    var result = await _mediator.Send(getCustomerAddressQuery);
+
+        //    var paginationMetadata = new
+        //    {
+        //        totalCount = result.TotalCount,
+        //        pageSize = result.PageSize,
+        //        skip = result.Skip,
+        //        totalPages = result.TotalPages
+        //    };
+        //    Response.Headers.Add("X-Pagination",
+        //        Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+        //    CustomerAddressListResponseData response = new CustomerAddressListResponseData();
+        //    if (result.Count > 0)
+        //    {
+        //        response.TotalCount = result.TotalCount;
+        //        response.PageSize = result.PageSize;
+        //        response.Skip = result.Skip;
+        //        response.TotalPages = result.TotalPages;
+
+        //        response.status = true;
+        //        response.StatusCode = 1;
+        //        response.message = "Success";
+        //        response.Data = result;
+        //    }
+        //    else
+        //    {
+        //        response.status = false;
+        //        response.StatusCode = 0;
+        //        response.message = "Please wait! Server is not responding.";
+        //    }
+
+        //    return Ok(response);
+        //}
+
+        /// <summary>
+        /// Delete Customer Address.
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        //[HttpDelete("CustomerAddress/{id}")]
+        //public async Task<IActionResult> DeleteCustomerAddress(Guid Id)
+        //{
+        //    var deleteCustomerAddressCommand = new DeleteCustomerAddressCommand { Id = Id };
+        //    var result = await _mediator.Send(deleteCustomerAddressCommand);
+        //    //return ReturnFormattedResponse(result);            
+        //    CustomerAddressListResponseData response = new CustomerAddressListResponseData();
+        //    if (result.Success)
+        //    {
+        //        response.status = true;
+        //        response.StatusCode = 1;
+        //        response.message = "Your address deleted successfully!";
+        //        response.Data = new CustomerAddressDto[0];
+        //    }
+        //    else
+        //    {
+        //        response.status = false;
+        //        response.StatusCode = 0;
+        //        response.message = "Please wait! Server is not responding.";
+        //    }
+
+        //    return Ok(response);
+        //}
+
+
     }
 }
