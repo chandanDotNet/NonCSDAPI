@@ -38,5 +38,6 @@ namespace POS.Data.Dto
         public string? ServiceNo { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string? DeviceKey { get; set; }
+        public string? CustomerRegisterFor { get; set; }
     }
 }

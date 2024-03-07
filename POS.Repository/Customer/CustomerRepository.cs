@@ -108,6 +108,15 @@ namespace POS.Repository
                     .Where(a => a.Website != null && EF.Functions.Like(a.Website, $"{searchQueryForWhereClause}%"));
             }
 
+            if (!string.IsNullOrEmpty(customerResource.CustomerRegisterFor))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = customerResource.CustomerRegisterFor
+                    .Trim().ToLowerInvariant();
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.CustomerRegisterFor != null && EF.Functions.Like(a.CustomerRegisterFor, $"{searchQueryForWhereClause}%"));
+            }
+
             if (!string.IsNullOrEmpty(customerResource.SearchQuery))
             {
                 // trim & ignore casing

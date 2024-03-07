@@ -78,7 +78,8 @@ namespace POS.Repository
                     DependantCard=c.DependantCard,
                     ServiceNo = c.ServiceNo,
                     CreatedDate = c.CreatedDate,
-                    DeviceKey = c.DeviceKey
+                    DeviceKey = c.DeviceKey,
+                    CustomerRegisterFor = c.CustomerRegisterFor,
                 })
                 .ToListAsync();
             entities.ForEach(x => x.SNo = SNo++);

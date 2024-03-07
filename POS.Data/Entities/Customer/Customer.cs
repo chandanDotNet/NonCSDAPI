@@ -46,5 +46,6 @@ namespace POS.Data
         public string? ServiceNo { get; set; }
         public string? DeviceKey { get; set; }
         public List<CustomerAddress> CustomerAddresses { get; set; }
+        public string? CustomerRegisterFor { get; set; }
     }
 }
