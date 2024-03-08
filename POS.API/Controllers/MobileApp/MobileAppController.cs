@@ -174,7 +174,7 @@ namespace POS.API.Controllers.MobileApp
                 };
                 var result = await _mediator.Send(updateCustomerCommand);
 
-                //string smsResponse = SendOTPMessage(customer.MobileNo, customer.OTP);
+                string smsResponse = SendOTPMessage(customer.MobileNo, customer.OTP);
                 customersFromRepo.FirstOrDefault().OTP = customer.OTP;
 
                 response.status = true;
