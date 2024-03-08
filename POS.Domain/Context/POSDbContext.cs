@@ -104,6 +104,7 @@ namespace POS.Domain
         public DbSet<MSTBPurchaseOrderItem> MSTBPurchaseOrderItems { get; set; }
         public DbSet<MSTBPurchaseOrderItemTax> MSTBPurchaseOrderItemTaxes { get; set; }
         public DbSet<MSTBPurchaseOrderPayment> MSTBPurchaseOrderPayments { get; set; }
+        public DbSet<MstbSetting> MstbSettings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -718,6 +719,14 @@ namespace POS.Domain
                     .HasForeignKey(ur => ur.WarehouseId)
                     .OnDelete(DeleteBehavior.Restrict);
 
+            });
+
+            builder.Entity<MstbSetting>(b =>
+            {
+                b.HasOne(e => e.CreatedByUser)
+                    .WithMany()
+                    .HasForeignKey(ur => ur.CreatedBy)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             builder.Entity<User>().ToTable("Users");

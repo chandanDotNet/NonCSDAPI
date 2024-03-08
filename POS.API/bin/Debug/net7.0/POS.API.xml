@@ -1359,11 +1359,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddMSTBSettings(POS.MediatR.CustomerAddress.Commands.AddCustomerAddressCommand)">
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddMSTBSettings(POS.MediatR.MSTBSetting.Command.AddMstbSettingCommand)">
             <summary>
             Add MSTB Settings.
             </summary>
-            <param name="addCustomerAddressCommand"></param>
+            <param name="addMstbSettingCommand"></param>
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetPopupAlert">

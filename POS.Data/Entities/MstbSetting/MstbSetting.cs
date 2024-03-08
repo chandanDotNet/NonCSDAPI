@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace POS.Data
 {
-    //public class MstbSetting : BaseEntity
-    //{
-    //    public int Id { get; set; }
-    //    public DateOnly FromMstbDate { get; set; }
-    //    public DateOnly ToMstbDate { get; set; }
-    //    public string MonthName { get; set; }
-    //    public int Month { get; set; }
-    //    public int Year { get; set; }
-    //}
+    public class MstbSetting : BaseEntity
+    {
+        public Guid Id { get; set; }
+        public DateTime FromMstbDate { get; set; }
+        public DateTime ToMstbDate { get; set; }
+        public string MonthName { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
+        public bool IsDefault { get; set; }
+    }
 }

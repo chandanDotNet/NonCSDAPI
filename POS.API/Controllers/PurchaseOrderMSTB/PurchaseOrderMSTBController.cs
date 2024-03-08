@@ -48,10 +48,12 @@ namespace POS.API.Controllers.PurchaseOrderMSTB
             inventoryResource.SupplierId = addPurchaseOrderMSTBCommand.SupplierId;
             inventoryResource.Month = addPurchaseOrderMSTBCommand.Month - 1;
             inventoryResource.Year = addPurchaseOrderMSTBCommand.Year;
+            inventoryResource.PageSize = 0;
+            inventoryResource.Skip = 0;
 
             var getAllInventoryCommand = new GetAllInventoryCommand
             {
-                InventoryResource = inventoryResource
+                InventoryResource = inventoryResource,
             };
             var resultInventory = await _mediator.Send(getAllInventoryCommand);
 

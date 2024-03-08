@@ -1335,6 +1335,11 @@
             Download Product File Format.
             </summary>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.DownloadAPKFile">
+            <summary>
+            Download APK File.
+            </summary>
+        </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetYears">
             <summary>
             Get all Years
@@ -1354,10 +1359,18 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.DownloadAPKFile">
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddMSTBSettings(POS.MediatR.MSTBSetting.Command.AddMstbSettingCommand)">
             <summary>
-            Download APK File.
+            Add MSTB Settings.
             </summary>
+            <param name="addMstbSettingCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetPopupAlert">
+            <summary>
+            Get Alert Message
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.AppLogin(POS.MediatR.CommandAndQuery.UpdateAppUserProfileCommand)">
             <summary>
