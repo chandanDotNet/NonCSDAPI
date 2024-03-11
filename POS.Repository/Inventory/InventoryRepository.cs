@@ -374,6 +374,13 @@ namespace POS.Repository
                 collectionBeforePaging = collectionBeforePaging
                    .Where(a => a.Year == inventoryResource.Year && a.Month == inventoryResource.Month);
             }
+            //Negative Stock Find
+            if (inventoryResource.IsNegativeStock==true)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                   .Where(a => a.Stock <0);
+            }
+
 
             var inventoryList = new InventoryList(_mapper);
             return await inventoryList.Create(collectionBeforePaging, inventoryResource.Skip, inventoryResource.PageSize, inventoryResource.DefaultDate);
