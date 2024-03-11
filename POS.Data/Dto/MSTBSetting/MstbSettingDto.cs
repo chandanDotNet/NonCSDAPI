@@ -8,11 +8,12 @@ namespace POS.Data.Dto
 {
     public class MstbSettingDto
     {
-        public int Id { get; set; }
-        public DateOnly FromMstbDate { get; set; }
-        public DateOnly ToMstbDate { get; set; }
+        public Guid Id { get; set; }
+        public DateTime FromMstbDate { get; set; }
+        public DateTime ToMstbDate { get; set; }
         public string MonthName { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
+        public bool IsDefault { get; set; }
     }
 }

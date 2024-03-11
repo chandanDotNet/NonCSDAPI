@@ -74,6 +74,7 @@ using System.ComponentModel;
 using iText.Kernel.Colors;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 using System.IO.Pipelines;
+using POS.MediatR.MSTBSetting.Command;
 
 namespace POS.API.Controllers.MobileApp
 {
@@ -3960,34 +3961,34 @@ namespace POS.API.Controllers.MobileApp
         /// <summary>
         /// Add MSTB Settings.
         /// </summary>
-        /// <param name="addCustomerAddressCommand"></param>
+        /// <param name="addMstbSettingCommand"></param>
         /// <returns></returns>
         [HttpPost("AddMSTBSettings")]
-        [Produces("application/json", "application/xml", Type = typeof(CustomerAddressDto))]
-        public async Task<IActionResult> AddMSTBSettings(AddCustomerAddressCommand addCustomerAddressCommand)
+        [Produces("application/json", "application/xml", Type = typeof(MstbSettingDto))]
+        public async Task<IActionResult> AddMSTBSettings(AddMstbSettingCommand addMstbSettingCommand)
         {
-            var result = await _mediator.Send(addCustomerAddressCommand);
+            var result = await _mediator.Send(addMstbSettingCommand);
             if (!result.Success)
             {
                 return ReturnFormattedResponse(result);
             }
             //return CreatedAtAction("GetCustomerAddress", new { customerId = response.Data.CustomerId }, response.Data);
-            CustomerAddressResponseData response = new CustomerAddressResponseData();
+            //CustomerAddressResponseData response = new CustomerAddressResponseData();
 
-            if (result != null)
-            {
-                response.status = true;
-                response.StatusCode = 1;
-                response.message = "Your address added successfully!";
-                response.Data = result.Data;
-            }
-            else
-            {
-                response.status = false;
-                response.StatusCode = 0;
-                response.message = "Please wait! Server is not responding.";
-            }
-            return Ok(response);
+            //if (result != null)
+            //{
+            //    response.status = true;
+            //    response.StatusCode = 1;
+            //    response.message = "Your address added successfully!";
+            //    response.Data = result.Data;
+            //}
+            //else
+            //{
+            //    response.status = false;
+            //    response.StatusCode = 0;
+            //    response.message = "Please wait! Server is not responding.";
+            //}
+            return Ok(result);
         }
 
         /// <summary>
@@ -3999,6 +4000,7 @@ namespace POS.API.Controllers.MobileApp
         public async Task<IActionResult> GetPopupAlert()
         {
             var result = "https://sainik.shyamfuture.in/page/popup-alert.html";
+            //var result = "https://maitricomplex.in/page/popup-alert.html";
             return Ok(result);
         }
 
@@ -4109,6 +4111,38 @@ namespace POS.API.Controllers.MobileApp
         //    return Ok(response);
         //}
 
+
+        ///// <summary>
+        ///// Update Customer Address.
+        ///// </summary>
+        ///// <param name="Id"></param>
+        ///// <param name="updateCustomerAddressCommand"></param>
+        ///// <returns></returns>
+        //[HttpPut("CustomerAddress/{Id}")]
+        //[Produces("application/json", "application/xml", Type = typeof(CustomerAddressDto))]
+        //public async Task<IActionResult> UpdateCustomerAddress(Guid Id, UpdateCustomerAddressCommand updateCustomerAddressCommand)
+        //{
+        //    updateCustomerAddressCommand.Id = Id;
+        //    var result = await _mediator.Send(updateCustomerAddressCommand);
+        //    //return ReturnFormattedResponse(result);           
+
+        //    CustomerAddressResponseData response = new CustomerAddressResponseData();
+
+        //    if (result != null)
+        //    {
+        //        response.status = true;
+        //        response.StatusCode = 1;
+        //        response.message = "Your addrsss updated successfully!";
+        //        response.Data = result.Data;
+        //    }
+        //    else
+        //    {
+        //        response.status = false;
+        //        response.StatusCode = 0;
+        //        response.message = "Please wait! Server is not responding.";
+        //    }
+        //    return Ok(response);
+        //}
 
     }
 }
