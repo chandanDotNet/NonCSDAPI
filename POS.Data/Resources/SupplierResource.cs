@@ -18,5 +18,6 @@ namespace POS.Data.Resources
         public string? Pin { get; set; }
         public int? Year { get; set; }
         public int? Month { get; set; }
+        public Guid? UserId { get; set; }
     }
 }

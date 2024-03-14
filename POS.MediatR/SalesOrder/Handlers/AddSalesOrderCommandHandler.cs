@@ -78,7 +78,7 @@ namespace POS.MediatR.Handlers
                     string today = DateTime.Now.ToString("dddd");
                     if (today == "Sunday")
                     {
-                        if (DateTime.Now.TimeOfDay.Hours >= 13 && DateTime.Now.TimeOfDay.Minutes > 0)
+                        if (DateTime.Now.TimeOfDay.Hours >= 13 && DateTime.Now.TimeOfDay.Minutes >= 0)
                         {
                             //TimeSpan ts = new TimeSpan(01, 00, 01, 0000001);
                             //DateTime dt = DateTime.Now.AddDays(1).AddHours(1).AddMinutes(1).AddSeconds(1).AddMilliseconds(1);
@@ -94,7 +94,7 @@ namespace POS.MediatR.Handlers
                     }
                     else
                     {
-                        if (DateTime.Now.TimeOfDay.Hours >= 17 && DateTime.Now.TimeOfDay.Minutes > 0)
+                        if (DateTime.Now.TimeOfDay.Hours >= 17 && DateTime.Now.TimeOfDay.Minutes >= 0)
                         {
                             DateTime ts = DateTime.Now;
                             ts = new DateTime(ts.Year, ts.Month, ts.Day, 01, 0, 0, 1, DateTimeKind.Local);

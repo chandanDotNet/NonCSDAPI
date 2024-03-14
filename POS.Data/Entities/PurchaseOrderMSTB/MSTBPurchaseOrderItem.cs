@@ -43,5 +43,9 @@ namespace POS.Data
         public decimal? Surplus { get; set; }
         public decimal? Difference { get; set; }
         public bool? IsCheck { get; set; }
+        public decimal? NewQuantity { get; set; }
+        public decimal? NewMRP { get; set; }
+        public bool? IsMRPChanged { get; set; }
+        public string Approved { get; set; }        
     }
 }

@@ -1359,25 +1359,24 @@
             </summary>
             <returns></returns>
         </member>
-<<<<<<< HEAD
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddMSTBSettings(POS.MediatR.MSTBSetting.Command.AddMstbSettingCommand)">
             <summary>
             Add MSTB Settings.
             </summary>
             <param name="addMstbSettingCommand"></param>
-=======
-        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AddMSTBSettings(POS.MediatR.CustomerAddress.Commands.AddCustomerAddressCommand)">
-            <summary>
-            Add MSTB Settings.
-            </summary>
-            <param name="addCustomerAddressCommand"></param>
->>>>>>> 856c8c33d673cda244620e906955945408fb199e
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetPopupAlert">
             <summary>
             Get Alert Message
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetMSTBSettings(POS.Data.Resources.MstbSettingResource)">
+            <summary>
+            Get MSTB Settings
+            </summary>
+            <param name="mstbSettingResource"></param>
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.AppLogin(POS.MediatR.CommandAndQuery.UpdateAppUserProfileCommand)">
@@ -1392,6 +1391,19 @@
             App User Login Otp Verification
             </summary>
             <param name="appUserLoginCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.AddUserSupplier(POS.MediatR.UserSupplier.Command.AddUserSupplierCommand)">
+            <summary>
+            Add Banner.
+            </summary>
+            <param name="addUserSupplierCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.GetUserSuppliers(POS.Data.Resources.UserSupplierResource)">
+            <summary>
+            Get the User Suppliers.
+            </summary>        
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.NewsletterSubscriber.NewsletterSubscriberController.CreateNewsletterSubscriber(POS.MediatR.CommandAndQuery.AddNewsletterSubscriberCommand)">
@@ -1653,6 +1665,21 @@
             Delete Purchase Order MSTB
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController.GetMSTBPurchaseOrderItems(POS.Data.Resources.PurchaseOrderResource)">
+            <summary>
+            Get MSTB Purchase Order Items.
+            </summary>
+            <param name="mstbpurchaseOrderResource"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController.UpdatePurchaseOrderItemMSTB(POS.MediatR.PurchaseOrderMSTB.Command.UpdatePurchaseOrderItemMSTBCommand)">
+            <summary>
+            Update MSTB Purchase Order Item.
+            </summary>
+            <param name="Id"></param>
+            <param name="updatePurchaseOrderItemMSTBCommand"></param>
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.PurchaseOrderPayment.PurchaseOrderPaymentController.#ctor(MediatR.IMediator)">

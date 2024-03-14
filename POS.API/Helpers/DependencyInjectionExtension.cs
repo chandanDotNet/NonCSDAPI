@@ -100,6 +100,7 @@ namespace POS.API.Helpers
             services.AddScoped<IMSTBPurchaseOrderItemRepository, MSTBPurchaseOrderItemRepository>();
             services.AddScoped<IMSTBPurchaseOrderItemTaxRepository, MSTBPurchaseOrderItemTaxRepository>();
             services.AddScoped<IMstbSettingRepository, MstbSettingRepository>();
+            services.AddScoped<IUserSupplierRepository, UserSupplierRepository>();
         }
     }
 }

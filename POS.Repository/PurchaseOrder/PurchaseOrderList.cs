@@ -143,7 +143,7 @@ namespace POS.Repository
                  PurchaseOrderItems = cs.PurchaseOrderItems.Select(c => new PurchaseOrderItemDto
                  {
                      Id = c.Id,
-                     ProductId = c.ProductId,
+                     ProductId = c.ProductId,                    
                      Quantity = c.Quantity,
                      Status = c.Status,
                      SalesPrice = c.SalesPrice,

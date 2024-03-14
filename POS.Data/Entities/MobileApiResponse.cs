@@ -527,6 +527,28 @@ namespace POS.Data.Entities
         public string message { get; set; }
         public string[] Data { get; set; }
     }
+
+    public class MSTBPurchaseOrderItemResponseData
+    {
+        public int Done { get; set; }
+        public int Pending { get; set; }
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public List<MSTBPurchaseOrderItemDto> Data { get; set; }
+    }
+
+    public class MstbSettingListResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public int Skip { get; set; }
+        public int TotalPages { get; set; }
+        public int PageSize { get; set; }
+        public int TotalCount { get; set; }
+        public IList<MstbSettingDto> Data { get; set; }
+    }
 }
 
 

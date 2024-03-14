@@ -75,6 +75,9 @@ using iText.Kernel.Colors;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 using System.IO.Pipelines;
 using POS.MediatR.MSTBSetting.Command;
+using POS.MediatR.PurchaseOrderMSTB.Command;
+using Microsoft.Extensions.Configuration;
+using SixLabors.ImageSharp;
 
 namespace POS.API.Controllers.MobileApp
 {
@@ -92,8 +95,10 @@ namespace POS.API.Controllers.MobileApp
         private readonly IUnitConversationRepository _unitConversationRepository;
         private readonly IWarehouseRepository _warehouseRepository;
         private readonly ICustomerRepository _customerRepository;
+        private IConfiguration Configuration;
         public MobileAppController(IMediator mediator, PathHelper pathHelper,
-            IWebHostEnvironment webHostEnvironment, IProductRepository productRepository, IUnitConversationRepository unitConversationRepository, IWarehouseRepository warehouseRepository, ICustomerRepository customerRepository)
+            IWebHostEnvironment webHostEnvironment, IProductRepository productRepository, IUnitConversationRepository unitConversationRepository, IWarehouseRepository warehouseRepository, ICustomerRepository customerRepository,
+            IConfiguration _configuration)
         {
             _mediator = mediator;
             _pathHelper = pathHelper;
@@ -102,6 +107,7 @@ namespace POS.API.Controllers.MobileApp
             _unitConversationRepository = unitConversationRepository;
             _warehouseRepository = warehouseRepository;
             _customerRepository = customerRepository;
+            Configuration = _configuration;
 
         }
 
@@ -143,6 +149,12 @@ namespace POS.API.Controllers.MobileApp
                 Random rnd = new Random();
                 customer.OTP = rnd.Next(_min, _max);
 
+                string smsGateWay = this.Configuration.GetSection("AppSettings")["SmsGateway"];
+                if (smsGateWay == "SAINIK GROCERY LLP")
+                {
+                    string smsResponse = SendOTPMessage(customer.MobileNo, customer.OTP);
+                }
+
                 UpdateCustomerCommand updateCustomerCommand = new UpdateCustomerCommand()
                 {
                     Id = customersFromRepo.FirstOrDefault().Id,
@@ -173,8 +185,7 @@ namespace POS.API.Controllers.MobileApp
                     RewardPoints = customer.RewardPoints
                 };
                 var result = await _mediator.Send(updateCustomerCommand);
-
-                string smsResponse = SendOTPMessage(customer.MobileNo, customer.OTP);
+               
                 customersFromRepo.FirstOrDefault().OTP = customer.OTP;
 
                 response.status = true;
@@ -3858,10 +3869,15 @@ namespace POS.API.Controllers.MobileApp
                     PageSize = 0,
                     Skip = 0,
                     Year = supplierResource.Year,
-                    Month = supplierResource.Month
+                    Month = supplierResource.Month,
+                    IsMSTBGRN = true
                 };
 
-                var getAllMSTBPurchaseOrderQuery = new GetAllMSTBPurchaseOrderQuery
+                //var getAllMSTBPurchaseOrderQuery = new GetAllMSTBPurchaseOrderQuery
+                //{
+                //    PurchaseOrderResource = MSTBpurchaseOrderResource
+                //};
+                var getAllMSTBPurchaseOrderQuery = new GetMSTBPurchaseOrderItemsReportCommand
                 {
                     PurchaseOrderResource = MSTBpurchaseOrderResource
                 };
@@ -3893,6 +3909,24 @@ namespace POS.API.Controllers.MobileApp
                 };
                 var result = await _mediator.Send(getAllSupplierQuery);
 
+                //UserSupplierResource userSupplierResource = new UserSupplierResource()
+                //{
+                //    UserId = supplierResource.UserId,
+                //};
+                //var searchUserSupplierQuery = new SearchUserSupplierQuery
+                //{
+                //    UserSupplierResource = userSupplierResource
+                //};
+                //var resultUserSupplier = await _mediator.Send(searchUserSupplierQuery);
+
+                //var supplierIds = resultUserSupplier.Select(s => s.SupplierId.Value).ToArray();
+                //var resultSuppliers = result.Where(s => supplierIds.Contains(s.Id));
+
+
+                //supplierResource.MobileNo = "D35491B5-EB46-4CC0-B3E9-08DBEBE34B55,6F7D9128-605E-4A0A-B3EA-08DBEBE34B55";
+                //var supplierIds = supplierResource.MobileNo.Split(",").Select(s => Guid.Parse(s)).ToArray();
+                //var resultSuppliers = result.Where(s => supplierIds.Contains(s.Id));
+
                 ProductResource productResource = new ProductResource()
                 {
                     PageSize = 0,
@@ -3912,9 +3946,11 @@ namespace POS.API.Controllers.MobileApp
                 foreach (var item in result)
                 {
                     var mstbCheck = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
+                    var isComplted = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id && x.IsCheck == false).ToList();
                     var grnCheck = purchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
                     bool mstb = false;
                     bool grn = false;
+                    bool completed = false;
                     if (mstbCheck.Count > 0)
                     {
                         mstb = true;
@@ -3923,13 +3959,18 @@ namespace POS.API.Controllers.MobileApp
                     {
                         grn = true;
                     }
+                    if (isComplted.Count <= 0)
+                    {
+                        completed = true;
+                    }
                     supplier.Add(new SupplierDto
                     {
                         Id = item.Id,
                         SupplierName = item.SupplierName,
                         ProductCount = products.Where(x => x.Stock > 0).Count(x => x.SupplierId == item.Id),
                         IsMstbGRN = mstb,
-                        IsGRN = grn
+                        IsGRN = grn,
+                        IsCompleted = completed
                         //IsMstbGRN = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).FirstOrDefault().IsMstbGRN,
                         //IsGRN = purchaseOrders.Where(x => x.SupplierId == item.Id).FirstOrDefault().IsGRN.Value
                     });
@@ -4035,52 +4076,52 @@ namespace POS.API.Controllers.MobileApp
         //}
 
         /// <summary>
-        /// Get Customer Addresses
+        /// Get MSTB Settings
         /// </summary>
-        /// <param name="customerAddressResource"></param>
+        /// <param name="mstbSettingResource"></param>
         /// <returns></returns>
 
-        //[HttpGet("GetCustomerAddresses")]
-        //public async Task<IActionResult> GetCustomerAddresses([FromQuery] CustomerAddressResource customerAddressResource)
-        //{
-        //    var getCustomerAddressQuery = new GetCustomerAddressQuery
-        //    {
-        //        CustomerAddressResource = customerAddressResource
-        //    };
-        //    var result = await _mediator.Send(getCustomerAddressQuery);
+        [HttpGet("GetMSTBSettings")]
+        public async Task<IActionResult> GetMSTBSettings([FromQuery] MstbSettingResource mstbSettingResource)
+        {
+            var getMstbSettingQuery = new GetMstbSettingQuery
+            {
+                MstbSettingResource  = mstbSettingResource
+            };
+            var result = await _mediator.Send(getMstbSettingQuery);
 
-        //    var paginationMetadata = new
-        //    {
-        //        totalCount = result.TotalCount,
-        //        pageSize = result.PageSize,
-        //        skip = result.Skip,
-        //        totalPages = result.TotalPages
-        //    };
-        //    Response.Headers.Add("X-Pagination",
-        //        Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+            var paginationMetadata = new
+            {
+                totalCount = result.TotalCount,
+                pageSize = result.PageSize,
+                skip = result.Skip,
+                totalPages = result.TotalPages
+            };
+            Response.Headers.Add("X-Pagination",
+                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-        //    CustomerAddressListResponseData response = new CustomerAddressListResponseData();
-        //    if (result.Count > 0)
-        //    {
-        //        response.TotalCount = result.TotalCount;
-        //        response.PageSize = result.PageSize;
-        //        response.Skip = result.Skip;
-        //        response.TotalPages = result.TotalPages;
+            MstbSettingListResponseData response = new MstbSettingListResponseData();
+            if (result.Count > 0)
+            {
+                response.TotalCount = result.TotalCount;
+                response.PageSize = result.PageSize;
+                response.Skip = result.Skip;
+                response.TotalPages = result.TotalPages;
 
-        //        response.status = true;
-        //        response.StatusCode = 1;
-        //        response.message = "Success";
-        //        response.Data = result;
-        //    }
-        //    else
-        //    {
-        //        response.status = false;
-        //        response.StatusCode = 0;
-        //        response.message = "Please wait! Server is not responding.";
-        //    }
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Success";
+                response.Data = result;
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Please wait! Server is not responding.";
+            }
 
-        //    return Ok(response);
-        //}
+            return Ok(response);
+        }
 
         /// <summary>
         /// Delete Customer Address.

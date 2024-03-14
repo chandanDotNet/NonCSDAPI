@@ -12,5 +12,6 @@ namespace POS.Repository
     public interface IMSTBPurchaseOrderRepository : IGenericRepository<MSTBPurchaseOrder>
     {
         Task<MSTBPurchaseOrderList> GetAllMSTBPurchaseOrders(PurchaseOrderResource purchaseOrderResource);
+        Task<MSTBPurchaseOrderList> GetAllMSTBPurchaseOrdersReport(PurchaseOrderResource purchaseOrderResource);
     }
 }

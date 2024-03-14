@@ -74,6 +74,7 @@ namespace POS.API.Helpers.Mapping
                 mc.AddProfile(new YearProfile());
                 mc.AddProfile(new PurchaseOrderMSTBProfile());
                 mc.AddProfile(new MstbSettingProfile());
+                mc.AddProfile(new UserSupplierProfile());
             });
             return mappingConfig.CreateMapper();
         }

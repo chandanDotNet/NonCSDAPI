@@ -99,6 +99,7 @@ namespace POS.Repository
                             Surplus =  c.Surplus,
                             Difference= c.Difference,
                             IsCheck = c.IsCheck,
+                            ProductName = c.Product.Name                           
 
                         }).ToList(),
                         TotalReturnAmount = cs.MSTBPurchaseOrderItems.Where(c => (c.Status == PurchaseSaleItemStatusEnum.Return) && c.PurchaseOrderId == cs.Id).Sum(c => c.UnitPrice * c.Quantity)
@@ -152,6 +153,7 @@ namespace POS.Repository
                      Surplus = c.Surplus,
                      Difference = c.Difference,
                      IsCheck = c.IsCheck,
+                     ProductName = c.Product.Name,
                  }).ToList(),
                  TotalReturnAmount = cs.MSTBPurchaseOrderItems.Where(c => (c.Status == PurchaseSaleItemStatusEnum.Return) && c.PurchaseOrderId == cs.Id).Sum(c => c.UnitPrice * c.Quantity)
                  // TotalReturnAmount = cs.PurchaseOrderItems.Select(x => new PurchaseOrderItemDto { SalesPrice = x.SalesPrice }).Sum(x => Convert.ToDecimal(x.SalesPrice))
