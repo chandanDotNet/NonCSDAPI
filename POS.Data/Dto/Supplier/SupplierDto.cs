@@ -38,5 +38,6 @@ namespace POS.Data.Dto
         public int? ProductCount { get; set; }
         public bool IsMstbGRN { get; set; }
         public bool IsGRN { get; set; }
+        public bool IsCompleted { get; set; }
     }
 }

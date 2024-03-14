@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using POS.Data.Dto;
 using POS.MediatR.CommandAndQuery;
+using POS.MediatR.UserSupplier.Command;
 using System.Threading.Tasks;
 using System;
 using POS.Data.Entities;
+using POS.MediatR.Banner.Command;
+using POS.Data.Resources;
 
 namespace POS.API.Controllers.MobileLogin
 {
@@ -109,6 +112,51 @@ namespace POS.API.Controllers.MobileLogin
 
             return Ok(response);
             //return ReturnFormattedResponse(result);
+        }
+
+
+        /// <summary>
+        /// Add Banner.
+        /// </summary>
+        /// <param name="addUserSupplierCommand"></param>
+        /// <returns></returns>
+        [HttpPost("AddUserSupplier")]
+        [Produces("application/json", "application/xml", Type = typeof(UserSupplierDto))]
+        public async Task<IActionResult> AddUserSupplier(AddUserSupplierCommand addUserSupplierCommand)
+        {
+            var response = await _mediator.Send(addUserSupplierCommand);
+            if (!response.Success)
+            {
+                return ReturnFormattedResponse(response);
+            }
+            return ReturnFormattedResponse(response);
+            //return CreatedAtAction("GetBanners", new { id = response.Data.Id }, response.Data);
+        }
+
+
+        /// <summary>
+        /// Get the User Suppliers.
+        /// </summary>        
+        /// <returns></returns>
+        [HttpPost("GetUserSuppliers")]
+        public async Task<IActionResult> GetUserSuppliers([FromBody] UserSupplierResource userSupplierResource)
+        {
+            var searchUserSupplierQuery = new SearchUserSupplierQuery
+            {
+                UserSupplierResource = userSupplierResource
+            };
+            var result = await _mediator.Send(searchUserSupplierQuery);
+
+            var paginationMetadata = new
+            {
+                totalCount = result.TotalCount,
+                pageSize = result.PageSize,
+                skip = result.Skip,
+                totalPages = result.TotalPages
+            };
+            Response.Headers.Add("X-Pagination",
+                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+            return Ok(result);
         }
     }
 }

@@ -139,7 +139,6 @@ D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.GeneratedMSBuildEditorConfig.edi
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.AssemblyInfoInputs.cache
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.AssemblyInfo.cs
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.csproj.CoreCompileInputs.cache
-D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.MvcApplicationPartsAssemblyInfo.cs
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.MvcApplicationPartsAssemblyInfo.cache
 D:\NON CSD API\POS.API\obj\Debug\net7.0\staticwebassets\msbuild.POS.API.Microsoft.AspNetCore.StaticWebAssets.props
 D:\NON CSD API\POS.API\obj\Debug\net7.0\staticwebassets\msbuild.build.POS.API.props
@@ -155,6 +154,9 @@ D:\NON CSD API\POS.API\obj\Debug\net7.0\refint\POS.API.dll
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.pdb
 D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.genruntimeconfig.cache
 D:\NON CSD API\POS.API\obj\Debug\net7.0\ref\POS.API.dll
+<<<<<<< HEAD
+D:\NON CSD API\POS.API\obj\Debug\net7.0\POS.API.MvcApplicationPartsAssemblyInfo.cs
+=======
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.API\bin\Debug\net7.0\web.config
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.API\bin\Debug\net7.0\appsettings.Development.json
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.API\bin\Debug\net7.0\appsettings.json
@@ -312,3 +314,4 @@ D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.API\obj\Debug\net7.0\refint\POS.AP
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.API\obj\Debug\net7.0\POS.API.pdb
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.API\obj\Debug\net7.0\POS.API.genruntimeconfig.cache
 D:\Projects-2023\Dot Net\NonCSDAPINew2024\POS.API\obj\Debug\net7.0\ref\POS.API.dll
+>>>>>>> 6607c488a693122b7f2bba6b21a2f5528f3e9459

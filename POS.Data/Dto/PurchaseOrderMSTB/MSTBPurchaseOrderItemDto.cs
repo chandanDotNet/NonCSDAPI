@@ -29,6 +29,7 @@ namespace POS.Data.Dto
         public decimal Total { get; set; } = 0;
         public DateTime POCreatedDate { get; set; }
         public string SupplierName { get; set; }
+        public Guid SupplierId { get; set; }
         public PurchaseSaleItemStatusEnum Status { get; set; }
         public Guid? WarehouseId { get; set; }
         public string WarehouseName { get; set; }
@@ -37,6 +38,10 @@ namespace POS.Data.Dto
         public decimal? Surplus { get; set; }
         public decimal? Difference { get; set; }
         public bool? IsCheck { get; set; }
+        public decimal? NewQuantity { get; set; }
+        public decimal? NewMRP { get; set; }
+        public bool? IsMRPChanged { get; set; }
+        public string Approved { get; set; }
         public UnitConversationDto UnitConversation { get; set; }
         public List<MSTBPurchaseOrderItemTaxDto> MSTBPurchaseOrderItemTaxes { get; set; }
     }

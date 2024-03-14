@@ -16,6 +16,8 @@ using POS.Data.Entities;
 using Org.BouncyCastle.Asn1.Ocsp;
 using POS.MediatR.Inventory.Command;
 using System.Linq;
+using POS.MediatR.Commands;
+using POS.MediatR.CustomerAddress.Commands;
 
 namespace POS.API.Controllers.PurchaseOrderMSTB
 {
@@ -60,6 +62,7 @@ namespace POS.API.Controllers.PurchaseOrderMSTB
             //Json Data start
 
             //Header
+            addPurchaseOrderMSTBCommand.Month = addPurchaseOrderMSTBCommand.Month;
             addPurchaseOrderMSTBCommand.PurchasePaymentType = "Credit";
             addPurchaseOrderMSTBCommand.DeliveryDate = DateTime.Now;
             addPurchaseOrderMSTBCommand.DeliveryStatus = DeliveryStatus.Completely_Delivery;
@@ -68,7 +71,7 @@ namespace POS.API.Controllers.PurchaseOrderMSTB
             addPurchaseOrderMSTBCommand.BatchNo = "1";
             addPurchaseOrderMSTBCommand.TotalAmount = resultInventory.Where(x => x.ClosingStock > 0).Sum(x => x.PurchasePrice.Value);
             addPurchaseOrderMSTBCommand.TotalSaleAmount = resultInventory.Where(x => x.ClosingStock > 0).Sum(x => x.SalePrice);
-            
+
             //Item            
             foreach (var item in resultInventory)
             {
@@ -88,6 +91,10 @@ namespace POS.API.Controllers.PurchaseOrderMSTB
                     UnitPrice = item.PurchasePrice.Value,
                     ProductCode = item.ProductCode,
                     IsCheck = false,
+                    IsMRPChanged = false,
+                    NewMRP = item.Mrp,
+                    NewQuantity = item.ClosingStock,
+                    Approved = string.Empty,
                     MSTBPurchaseOrderItemTaxes = new List<MSTBPurchaseOrderItemTaxDto>()
                 });
             }
@@ -280,6 +287,81 @@ namespace POS.API.Controllers.PurchaseOrderMSTB
                 Id = id
             };
             var response = await _mediator.Send(deletePurchaseOrderCommand);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Get MSTB Purchase Order Items.
+        /// </summary>
+        /// <param name="mstbpurchaseOrderResource"></param>
+        /// <returns></returns>
+        [HttpPost("mstbitems/mstbreports")]
+        public async Task<IActionResult> GetMSTBPurchaseOrderItems([FromBody] PurchaseOrderResource mstbpurchaseOrderResource)
+        {
+            var getmstbPurchaseOrderItemsCommand = new GetMSTBPurchaseOrderItemsReportCommand { PurchaseOrderResource = mstbpurchaseOrderResource };
+            var result = await _mediator.Send(getmstbPurchaseOrderItemsCommand);
+
+            //var paginationMetadata = new
+            //{
+            //    totalCount = response.TotalCount,
+            //    pageSize = response.PageSize,
+            //    skip = response.Skip,
+            //    totalPages = response.TotalPages
+            //};
+
+            //Response.Headers.Add("X-Pagination",
+            //    Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+            //return Ok(response);
+
+            MSTBPurchaseOrderItemResponseData response = new MSTBPurchaseOrderItemResponseData();
+            if (result != null)
+            {
+                response.Done = result.Where(x => x.IsCheck == true).Count();
+                response.Pending = result.Where(x => x.IsCheck == false).Count(); ;
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "success";
+                response.Data = result;
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "failed";
+            }
+            return Ok(response);
+
+        }
+
+
+        /// <summary>
+        /// Update MSTB Purchase Order Item.
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="updatePurchaseOrderItemMSTBCommand"></param>
+        /// <returns></returns>
+        [HttpPut("PurchaseOrderItemMSTB")]
+        [Produces("application/json", "application/xml", Type = typeof(MSTBPurchaseOrderItemDto))]
+        public async Task<IActionResult> UpdatePurchaseOrderItemMSTB(UpdatePurchaseOrderItemMSTBCommand updatePurchaseOrderItemMSTBCommand)
+        {
+            var result = await _mediator.Send(updatePurchaseOrderItemMSTBCommand);
+
+            //return ReturnFormattedResponse(result);
+
+            NoDataResponse response = new NoDataResponse();
+            if (result != null)
+            {
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "success";
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "failed";
+            }
             return Ok(response);
         }
     }

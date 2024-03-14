@@ -369,6 +369,75 @@ namespace POS.Repository
                            { "ManufacturerName", new PropertyMappingValue(new List<string>() { "ManufacturerName" } )}
        };
 
+
+        private Dictionary<string, PropertyMappingValue> _mstbPurchaseOrderMapping =
+           new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+           {
+                { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
+                { "POCreatedDate", new PropertyMappingValue(new List<string>() { "POCreatedDate" }, true )},
+                { "DeliveryDate", new PropertyMappingValue(new List<string>() { "DeliveryDate" }, true )},
+                { "OrderNumber", new PropertyMappingValue(new List<string>() { "OrderNumber" } )},
+                { "SupplierName", new PropertyMappingValue(new List<string>() { "Supplier.SupplierName" } )},
+                { "TotalAmount", new PropertyMappingValue(new List<string>() { "TotalAmount" } )},
+                { "TotalQuantity", new PropertyMappingValue(new List<string>() { "TotalQuantity" } )},
+                { "TotalDiscount", new PropertyMappingValue(new List<string>() { "TotalDiscount" } )},
+                { "TotalTax", new PropertyMappingValue(new List<string>() { "TotalTax" } )},
+                { "Status", new PropertyMappingValue(new List<string>() { "Status" } )},
+                { "PricePerUnit", new PropertyMappingValue(new List<string>() { "PricePerUnit" } )},
+                { "IsClosed", new PropertyMappingValue(new List<string>() { "IsClosed" } )},
+                { "InStockQuantity", new PropertyMappingValue(new List<string>() { "InStockQuantity" } )},
+                { "PaymentStatus", new PropertyMappingValue(new List<string>() { "PaymentStatus" } )},
+                { "TotalPaidAmount", new PropertyMappingValue(new List<string>() { "TotalPaidAmount" } )},
+                { "TotalPendingAmount", new PropertyMappingValue(new List<string>() { "TotalPendingAmount" } )},
+                { "PackagingTypeName", new PropertyMappingValue(new List<string>() { "PackagingType.Name" } )},
+                { "ClosedDate", new PropertyMappingValue(new List<string>() { "ClosedDate" }, true )}
+           };
+
+        private Dictionary<string, PropertyMappingValue> _mstbPurchaseOrderPaymentPropertyMapping =
+       new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+       {
+                { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
+                { "PurchaseOrderId", new PropertyMappingValue(new List<string>() { "PurchaseOrderId" } )},
+                { "OrderNumber", new PropertyMappingValue(new List<string>() { "MSTBPurchaseOrder.OrderNumber" } )},
+                { "PaymentDate", new PropertyMappingValue(new List<string>() { "PaymentDate" }, true )},
+                { "ReferenceNumber", new PropertyMappingValue(new List<string>() { "ReferenceNumber" } )},
+                { "Amount", new PropertyMappingValue(new List<string>() { "Amount" } )},
+                { "PaymentMethod", new PropertyMappingValue(new List<string>() { "PaymentMethod" } )},
+                { "Note", new PropertyMappingValue(new List<string>() { "Note" } )}
+       };
+
+        private Dictionary<string, PropertyMappingValue> _mstbPurchaseOrderItemPropertyMapping =
+         new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+         {
+                    { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
+                    { "ProductId", new PropertyMappingValue(new List<string>() { "Product.ProductId" } )},
+                    { "ProductName", new PropertyMappingValue(new List<string>() { "Product.Name" } )},
+                    { "PurchaseOrderNumber", new PropertyMappingValue(new List<string>() { "MSTBPurchaseOrder.OrderNumber" })},
+                    { "UnitName", new PropertyMappingValue(new List<string>() { "UnitName" } )},
+                    { "TaxValue", new PropertyMappingValue(new List<string>() { "TaxValue" } )},
+                    { "SupplierName", new PropertyMappingValue(new List<string>() { "MSTBPurchaseOrder.Supplier.SupplierName" } )},
+                    { "POCreatedDate", new PropertyMappingValue(new List<string>() { "MSTBPurchaseOrder.POCreatedDate" }, true )},
+         };
+
+        private Dictionary<string, PropertyMappingValue> _userSupplierPropertyMapping =
+        new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+        {
+                           { "UserId", new PropertyMappingValue(new List<string>() { "UserId" } ) },
+                           { "SupplierId", new PropertyMappingValue(new List<string>() { "SupplierId" } )}
+        };
+
+
+        private Dictionary<string, PropertyMappingValue> _mstbSettingPropertyMapping =
+         new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+         {
+                { "MonthName", new PropertyMappingValue(new List<string>() { "MonthName" } ) },
+                { "Month", new PropertyMappingValue(new List<string>() { "Month" } ) },
+                { "Year", new PropertyMappingValue(new List<string>() { "Year" } ) },
+                { "FromMstbDate", new PropertyMappingValue(new List<string>() { "FromMstbDate" } ) },
+                { "ToMstbDate", new PropertyMappingValue(new List<string>() { "ToMstbDate" } ) },
+         };
+        
+
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
         public PropertyMappingService()
         {
@@ -401,6 +470,14 @@ namespace POS.Repository
             propertyMappings.Add(new PropertyMapping<BrandDto, Brand>(_brandPropertyMapping));
             propertyMappings.Add(new PropertyMapping<ManufacturerDto, Manufacturer>(_manufacturerPropertyMapping));
             propertyMappings.Add(new PropertyMapping<ShopHolidayDto, ShopHoliday>(_shopHolidayMapping));
+
+            propertyMappings.Add(new PropertyMapping<MSTBPurchaseOrderDto, MSTBPurchaseOrder>(_mstbPurchaseOrderMapping));
+            propertyMappings.Add(new PropertyMapping<MSTBPurchaseOrderPaymentDto, MSTBPurchaseOrderPayment>(_mstbPurchaseOrderPaymentPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<MSTBPurchaseOrderItemDto, MSTBPurchaseOrderItem>(_mstbPurchaseOrderItemPropertyMapping));
+
+            propertyMappings.Add(new PropertyMapping<UserSupplierDto, UserSupplier>(_userSupplierPropertyMapping));
+
+            propertyMappings.Add(new PropertyMapping<MstbSettingDto, MstbSetting>(_mstbSettingPropertyMapping));
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
             <TSource, TDestination>()
