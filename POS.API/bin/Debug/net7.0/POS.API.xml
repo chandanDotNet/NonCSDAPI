@@ -1372,11 +1372,19 @@
             </summary>
             <returns></returns>
         </member>
+<<<<<<< HEAD
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.GetMSTBSettings(POS.Data.Resources.MstbSettingResource)">
             <summary>
             Get MSTB Settings
             </summary>
             <param name="mstbSettingResource"></param>
+=======
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AutoGenerateGRNSupplierWise(POS.Data.Resources.AutoGenerateGRNResource)">
+            <summary>
+            Add Auto Generate GRN
+            </summary>
+            <param name="autoGenerateGRNResource"></param>
+>>>>>>> 6607c488a693122b7f2bba6b21a2f5528f3e9459
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.AppLogin(POS.MediatR.CommandAndQuery.UpdateAppUserProfileCommand)">

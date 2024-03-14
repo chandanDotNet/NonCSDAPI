@@ -23,5 +23,6 @@ namespace POS.Data
         public int? Month { get; set; }
         public int? Year { get; set; }
         public Guid? SupplierId { get; set; }
+        public bool? IsNegativeStock { get; set; }
     }
 }

@@ -4185,5 +4185,214 @@ namespace POS.API.Controllers.MobileApp
         //    return Ok(response);
         //}
 
+
+
+        /// <summary>
+        /// Add Auto Generate GRN
+        /// </summary>
+        /// <param name="autoGenerateGRNResource"></param>
+        /// <returns></returns>
+        [HttpPost("AutoGenerateGRN")]
+        [Produces("application/json", "application/xml", Type = typeof(PurchaseOrderDto))]
+        public async Task<IActionResult> AutoGenerateGRNSupplierWise(AutoGenerateGRNResource autoGenerateGRNResource)
+        {
+
+            ExlUploadPurchaseOrderResponseData response = new ExlUploadPurchaseOrderResponseData();
+            
+           
+            List<PurchaseOrderItemDto> UnverifiedPurchaseOrderItems = new List<PurchaseOrderItemDto>();
+            bool ResponseStatus = true;
+            //IFormFile file = null;
+
+            if (autoGenerateGRNResource.AutoGenerateGRNSupplierItems != null)
+            {
+
+
+                try
+                {
+
+                    foreach (var SupplierItems in autoGenerateGRNResource.AutoGenerateGRNSupplierItems)
+                    {
+                        AddPurchaseOrderCommand addPurchaseOrderCommand = new AddPurchaseOrderCommand();
+                        List<PurchaseOrderItemDto> VerifiedPurchaseOrderItems = new List<PurchaseOrderItemDto>();
+
+                        addPurchaseOrderCommand.SupplierId = SupplierItems.SupplierId;
+                        addPurchaseOrderCommand.Month = SupplierItems.Month;
+                        addPurchaseOrderCommand.Year = SupplierItems.Year;
+                        addPurchaseOrderCommand.BatchNo = "1";
+                        addPurchaseOrderCommand.POCreatedDate=DateTime.Now;
+                        addPurchaseOrderCommand.DeliveryDate=DateTime.Now;
+                        addPurchaseOrderCommand.PurchasePaymentType = "Credit";
+                        addPurchaseOrderCommand.DeliveryStatus = DeliveryStatus.Completely_Delivery;
+
+                        foreach (var ProductItems in SupplierItems.AutoGenerateGRNProductItems)
+                        {
+                            Boolean VerifyStatus = true;
+                            string ProductCode = string.Empty, UnitName = string.Empty, WHName = "Pune - Maitri Complex", ProductName = string.Empty;
+                            //ProductName = ProductItems.ProductName;
+                            //ProductCode = ProductItems.ProductCode;
+                            //UnitName = serviceDetails.Rows[i][2].ToString();
+
+                            PurchaseOrderItemDto PurchaseOrderItems = new PurchaseOrderItemDto();
+
+                            //if (!string.IsNullOrEmpty(ProductCode))
+                            //{
+                            //    var findProduct = _productRepository.FindBy(c => c.Code == ProductCode).FirstOrDefault();
+                            //    if (findProduct != null)
+                            //    {
+                            //        PurchaseOrderItems.ProductId = findProduct.Id;
+                            //        PurchaseOrderItems.ProductName = findProduct.Name;
+                            //        PurchaseOrderItems.ProductCode = ProductCode;
+                            //        PurchaseOrderItems.UnitId = findProduct.UnitId;
+
+                            //    }
+                            //    else
+                            //    {
+                            //        PurchaseOrderItems.ProductId = new Guid { };
+                            //        PurchaseOrderItems.ProductCode = ProductCode;
+                            //        PurchaseOrderItems.Message = "Invalid Product Code|";
+                            //        VerifyStatus = false;
+                            //    }
+                            //}
+
+                            //if (!string.IsNullOrEmpty(ProductName))
+                            //{
+
+                            //    var findProduct = _productRepository.FindBy(c => c.Name == ProductName).FirstOrDefault();
+                            //    if (findProduct != null)
+                            //    {
+                            //        if (ProductCode != findProduct.Code)
+                            //        {
+                            //            PurchaseOrderItems.Message += "Mismatched Product Code|";
+                            //        }
+                            //    }
+                            //}
+
+
+
+                            if (!string.IsNullOrEmpty(WHName))
+                            {
+                                var findWH = _warehouseRepository.FindBy(c => c.Name == WHName).FirstOrDefault();
+                                if (findWH != null)
+                                {
+                                    PurchaseOrderItems.WarehouseId = findWH.Id;
+                                    PurchaseOrderItems.WarehouseName = WHName;
+                                }
+                                else
+                                {
+                                    PurchaseOrderItems.WarehouseId = new Guid { };
+                                }
+
+                            }
+
+                            PurchaseOrderItems.ProductId = new Guid(ProductItems.ProductId.ToString());
+                            PurchaseOrderItems.ProductName = ProductItems.ProductName;                            
+                            PurchaseOrderItems.UnitId = new Guid(ProductItems.UnitId.ToString());
+                            // PurchaseOrderItems.UnitName = serviceDetails.Rows[i][2].ToString();
+                            PurchaseOrderItems.UnitPrice = Convert.ToDecimal(ProductItems.UnitPrice);
+                            PurchaseOrderItems.Mrp = Convert.ToDecimal(ProductItems.Mrp);
+                            PurchaseOrderItems.Margin = Convert.ToDecimal(ProductItems.Margin);
+                            PurchaseOrderItems.SalesPrice = Convert.ToDecimal(ProductItems.SalesPrice);
+                            PurchaseOrderItems.Quantity = Convert.ToDecimal(ProductItems.Quantity);
+
+                            VerifiedPurchaseOrderItems.Add(PurchaseOrderItems);
+                            //if (VerifyStatus == true)
+                            //{
+                            //    VerifiedPurchaseOrderItems.Add(PurchaseOrderItems);
+                            //}
+                            //else
+                            //{
+                            //    UnverifiedPurchaseOrderItems.Add(PurchaseOrderItems);
+                            //}
+                        }
+
+                        //New GRN No -------------
+
+                        var getNewPurchaseOrderNumberQuery = new GetNewPurchaseOrderNumberQuery
+                        {
+                            isPurchaseOrder = true
+                        };
+                        var responseGRNNo = await _mediator.Send(getNewPurchaseOrderNumberQuery);
+                        if (responseGRNNo != null)
+                        {
+                            addPurchaseOrderCommand.OrderNumber = responseGRNNo;
+                        }
+
+                        //------------------------
+                        addPurchaseOrderCommand.PurchaseOrderItems = VerifiedPurchaseOrderItems;
+
+                        //if (UnverifiedPurchaseOrderItems.Count > 0)
+                        //{
+                        //    addPurchaseOrderCommand.PurchaseOrderItems = UnverifiedPurchaseOrderItems;
+                        //    ResponseStatus = false;
+                        //}
+                        //else
+                        //{
+                        //    addPurchaseOrderCommand.PurchaseOrderItems = VerifiedPurchaseOrderItems;
+                        //    ResponseStatus = true;
+                        //}
+
+                        decimal TotalSaleAmount = addPurchaseOrderCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.SalesPrice * x.Quantity));
+                        decimal TotalAmount = addPurchaseOrderCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.UnitPrice * x.Quantity));
+                        addPurchaseOrderCommand.TotalAmount = TotalAmount;
+                        addPurchaseOrderCommand.TotalSaleAmount = TotalSaleAmount;
+
+                        if (ResponseStatus == true)
+                        {
+                            var result = await _mediator.Send(addPurchaseOrderCommand);
+                            if (result.Success)
+                            {
+                                ResponseStatus = true;
+                            }
+                            else
+                            {
+                                ResponseStatus = false;
+                            }
+                        }
+                        else
+                        {
+                            ResponseStatus = false;
+                        }
+
+                    }
+
+
+                    //if (ResponseStatus == true)
+                    //{
+                    //    response.status = true;
+                    //    response.StatusCode = 1;
+                    //    response.message = "Success";
+                    //    response.Data = VerifiedPurchaseOrderItems;
+                    //}
+                    //else
+                    //{
+                    //    response.status = false;
+                    //    response.StatusCode = 0;
+                    //    response.message = "Invalid";
+                    //    response.Data = UnverifiedPurchaseOrderItems;
+                    //}
+
+                }
+                catch (Exception ex)
+                {
+                    response.status = false;
+                    response.StatusCode = 0;
+                    response.message = "Invalid - " + ex.Message;
+                }
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Invalid - Please select file to upload";
+            }
+
+            return Ok(response);
+            //===============================
+
+        }
+
+
+
     }
 }
