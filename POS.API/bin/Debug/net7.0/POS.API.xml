@@ -1372,6 +1372,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AutoGenerateGRNSupplierWise(POS.Data.Resources.AutoGenerateGRNResource)">
+            <summary>
+            Add Auto Generate GRN
+            </summary>
+            <param name="autoGenerateGRNResource"></param>
+            <returns></returns>
+        </member>
         <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.AppLogin(POS.MediatR.CommandAndQuery.UpdateAppUserProfileCommand)">
             <summary>
             App User Login

@@ -60,6 +60,8 @@ namespace POS.Repository
                 encodingName = encodingName.Replace(@"\", @"\\").Replace("%", @"\%").Replace("_", @"\_").Replace("[", @"\[").Replace(" ", "%");
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => EF.Functions.Like(a.Name, $"%{encodingName}%") || EF.Functions.Like(a.Barcode, $"{encodingName}%") || EF.Functions.Like(a.Code, $"{encodingName}%"));
+
+               // collectionBeforePaging = collectionBeforePaging.OrderBy(p => p.Name).ThenBy(encodingName,"Name");
             }
 
 
