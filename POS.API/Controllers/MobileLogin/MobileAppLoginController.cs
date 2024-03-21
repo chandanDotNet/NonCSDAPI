@@ -36,10 +36,11 @@ namespace POS.API.Controllers.MobileLogin
             {
                 var result = await _mediator.Send(appUserProfileCommand);
 
-                if (result != null)
+                if (result.Success)
                 {
                     MobileAppLogin data = new MobileAppLogin()
                     {
+                        UserId = result.Data.Id,
                         Mobile = result.Data.PhoneNumber,
                         Otp = result.Data.Otp.Value,
                         FirstName = result.Data.FirstName,
@@ -48,21 +49,21 @@ namespace POS.API.Controllers.MobileLogin
                     };
                     response.status = true;
                     response.StatusCode = 1;
-                    response.message = "success";
+                    response.message = "Login Successfully!";
                     response.Data = data;
                 }
                 else
                 {
                     response.status = false;
                     response.StatusCode = 0;
-                    response.message = "Login failed.";
+                    response.message = "Wrong Credential! Login failed.";
                 }
             }
             catch (Exception ex)
             {
                 response.status = false;
                 response.StatusCode = 0;
-                response.message = ex.Message;
+                response.message = ex.Message;                
             }
 
             return Ok(response);
@@ -116,7 +117,7 @@ namespace POS.API.Controllers.MobileLogin
 
 
         /// <summary>
-        /// Add Banner.
+        /// Add User Supplier.
         /// </summary>
         /// <param name="addUserSupplierCommand"></param>
         /// <returns></returns>
@@ -129,10 +130,13 @@ namespace POS.API.Controllers.MobileLogin
             {
                 return ReturnFormattedResponse(response);
             }
-            return ReturnFormattedResponse(response);
-            //return CreatedAtAction("GetBanners", new { id = response.Data.Id }, response.Data);
+            //return ReturnFormattedResponse(response);
+            IUDResponseData result = new IUDResponseData();
+            result.status = true;
+            result.StatusCode = 1;
+            result.message = "User added successfully!";
+            return Ok(result);
         }
-
 
         /// <summary>
         /// Get the User Suppliers.
@@ -157,6 +161,64 @@ namespace POS.API.Controllers.MobileLogin
             Response.Headers.Add("X-Pagination",
                 Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Delete Suppliers By UserId
+        /// </summary>
+        /// <param name="deleteUserSupplierCommand">The delete user supplier command.</param>
+        /// <returns></returns>
+        [HttpDelete("DeleteUserSuppliers")]
+        public async Task<IActionResult> DeleteUserSuppliers(DeleteUserSupplierCommand deleteUserSupplierCommand)
+        {
+            IUDResponseData response = new IUDResponseData();
+            if (deleteUserSupplierCommand.UserId != null)
+            {
+                var command = new DeleteUserSupplierCommand { UserId = deleteUserSupplierCommand.UserId };
+                var result = await _mediator.Send(command);
+                if (result.Success)
+                {
+                    response.status = true;
+                    response.StatusCode = 1;
+                    response.message = "Deleted successfully!";
+                }
+                else
+                {
+                    response.status = false;
+                    response.StatusCode = 0;
+                    response.message = "failed.";
+                }
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Invalid User Id";
+            }
+
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Update User Supplier.
+        /// </summary>
+        /// <param name="updateUserSupplierCommand"></param>
+        /// <returns></returns>
+        [HttpPut("UpdateUserSupplier")]
+        [Produces("application/json", "application/xml", Type = typeof(UserSupplierDto))]
+        public async Task<IActionResult> UpdateUserSupplier(UpdateUserSupplierCommand updateUserSupplierCommand)
+        {
+            var response = await _mediator.Send(updateUserSupplierCommand);
+            if (!response.Success)
+            {
+                return ReturnFormattedResponse(response);
+            }
+            IUDResponseData result = new IUDResponseData();
+            result.status = true;
+            result.StatusCode = 1;
+            result.message = "User Updated successfully!";
+            return Ok(result);
+            //return ReturnFormattedResponse(response);            
         }
     }
 }

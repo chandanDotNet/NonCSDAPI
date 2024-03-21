@@ -53,6 +53,7 @@ namespace POS.Data.Entities
         public string YearMonth { get; set; }
         public int Month { get; set; }
         public string Year { get; set; }
+        public bool IsDefault { get; set; }
     }
 
     public class ProductListResponseData
@@ -482,6 +483,7 @@ namespace POS.Data.Entities
 
     public class MobileAppLogin
     {
+        public Guid UserId { get; set; }
         public int Otp { get; set; }
         public string Mobile { get; set; }
         public string FirstName { get; set; }
@@ -532,6 +534,8 @@ namespace POS.Data.Entities
     {
         public int Done { get; set; }
         public int Pending { get; set; }
+        public int Approved { get; set; }
+        public int Rejected { get; set; }
         public bool status { get; set; }
         public int StatusCode { get; set; }
         public string message { get; set; }
@@ -548,6 +552,22 @@ namespace POS.Data.Entities
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
         public IList<MstbSettingDto> Data { get; set; }
+    }
+
+    public class MstbSettingResponseData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public MstbSettingDto Data { get; set; }
+    }
+
+    public class MainGRNOrdeData
+    {
+        public bool status { get; set; }
+        public int StatusCode { get; set; }
+        public string message { get; set; }
+        public PurchaseOrderDto Data { get; set; }
     }
 }
 

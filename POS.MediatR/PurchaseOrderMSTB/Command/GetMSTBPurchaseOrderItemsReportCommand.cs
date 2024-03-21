@@ -11,6 +11,6 @@ namespace POS.MediatR.PurchaseOrderMSTB.Command
 {
     public class GetMSTBPurchaseOrderItemsReportCommand : IRequest<MSTBPurchaseOrderItemList>
     {
-        public PurchaseOrderResource PurchaseOrderResource { get; set; }
+        public MSTBPurchaseOrderResource MSTBPurchaseOrderResource { get; set; }
     }
 }

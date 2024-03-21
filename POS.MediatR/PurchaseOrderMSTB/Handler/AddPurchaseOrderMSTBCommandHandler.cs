@@ -57,6 +57,9 @@ namespace POS.MediatR.PurchaseOrderMSTB.Handler
                 return ServiceResponse<MSTBPurchaseOrderDto>.Return409("MSTB Purchase Order Number is already Exists.");
             }
 
+            request.TotalSaleAmount = request.MSTBPurchaseOrderItems.Sum(x => x.SalesPrice * x.Quantity);
+            request.TotalAmount = request.MSTBPurchaseOrderItems.Sum(x => x.UnitPrice * x.Quantity);
+
             var purchaseOrder = _mapper.Map<Data.MSTBPurchaseOrder>(request);
             purchaseOrder.PaymentStatus = PaymentStatus.Pending;
             purchaseOrder.MSTBPurchaseOrderItems.ForEach(item =>

@@ -56,7 +56,7 @@ namespace POS.Repository
         {
             if (pageSize == 0)
             {
-                var entities = await source
+              var entities = await source
              .AsNoTracking()
              .Select(c => new MSTBPurchaseOrderItemDto
              {
@@ -90,7 +90,9 @@ namespace POS.Repository
                  NewMRP = c.NewMRP,
                  IsMRPChanged = c.IsMRPChanged.Value,
                  Approved = c.Approved,
-                 Total = (c.UnitPrice * c.Quantity) - c.Discount + c.TaxValue,                 
+                 Total = (c.UnitPrice * c.Quantity) - c.Discount + c.TaxValue,
+                 TotalAmount = c.MSTBPurchaseOrder.TotalAmount,
+                 TotalSaleAmount = c.MSTBPurchaseOrder.TotalSaleAmount.Value,
                  MSTBPurchaseOrderItemTaxes = c.MSTBPurchaseOrderItemTaxes.Select(c => new MSTBPurchaseOrderItemTaxDto
                  {
                      TaxName = c.Tax.Name,
@@ -103,7 +105,7 @@ namespace POS.Repository
             else
             {
 
-                var entities = await source
+              var entities = await source
              .Skip(skip)
              .Take(pageSize)
              .AsNoTracking()
@@ -140,6 +142,8 @@ namespace POS.Repository
                  IsMRPChanged = c.IsMRPChanged.Value,
                  Approved = c.Approved,
                  Total = (c.UnitPrice * c.Quantity) - c.Discount + c.TaxValue,
+                 TotalAmount = c.MSTBPurchaseOrder.TotalAmount,
+                 TotalSaleAmount = c.MSTBPurchaseOrder.TotalSaleAmount.Value,
                  MSTBPurchaseOrderItemTaxes = c.MSTBPurchaseOrderItemTaxes.Select(c => new MSTBPurchaseOrderItemTaxDto
                  {
                      TaxName = c.Tax.Name,

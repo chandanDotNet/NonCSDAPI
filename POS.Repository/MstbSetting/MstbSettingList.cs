@@ -63,7 +63,8 @@ namespace POS.Repository
                     Month = c.Month,
                     Year = c.Year,
                     FromMstbDate = c.FromMstbDate,
-                    ToMstbDate = c.ToMstbDate
+                    ToMstbDate = c.ToMstbDate,
+                    IsDefault= c.IsDefault
                 }).ToListAsync();
             return entities;
         }

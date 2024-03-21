@@ -73,7 +73,9 @@ namespace POS.API.Controllers.PurchaseOrderMSTB
             addPurchaseOrderMSTBCommand.TotalSaleAmount = resultInventory.Where(x => x.ClosingStock > 0).Sum(x => x.SalePrice);
 
             //Item            
-            foreach (var item in resultInventory)
+            //foreach (var item in resultInventory)
+            //{
+            resultInventory.ForEach(item =>
             {
                 addPurchaseOrderMSTBCommand.MSTBPurchaseOrderItems.Add(new MSTBPurchaseOrderItemDto()
                 {
@@ -97,7 +99,9 @@ namespace POS.API.Controllers.PurchaseOrderMSTB
                     Approved = string.Empty,
                     MSTBPurchaseOrderItemTaxes = new List<MSTBPurchaseOrderItemTaxDto>()
                 });
-            }
+            });
+
+            //}
 
             //Json Data End
 
@@ -296,9 +300,13 @@ namespace POS.API.Controllers.PurchaseOrderMSTB
         /// <param name="mstbpurchaseOrderResource"></param>
         /// <returns></returns>
         [HttpPost("mstbitems/mstbreports")]
-        public async Task<IActionResult> GetMSTBPurchaseOrderItems([FromBody] PurchaseOrderResource mstbpurchaseOrderResource)
+        public async Task<IActionResult> GetMSTBPurchaseOrderItems([FromBody] MSTBPurchaseOrderResource mstbpurchaseOrderResource)
         {
-            var getmstbPurchaseOrderItemsCommand = new GetMSTBPurchaseOrderItemsReportCommand { PurchaseOrderResource = mstbpurchaseOrderResource };
+            if (mstbpurchaseOrderResource.Skip > 0)
+            {
+                mstbpurchaseOrderResource.Skip = mstbpurchaseOrderResource.PageSize * mstbpurchaseOrderResource.Skip;
+            }
+            var getmstbPurchaseOrderItemsCommand = new GetMSTBPurchaseOrderItemsReportCommand { MSTBPurchaseOrderResource = mstbpurchaseOrderResource };
             var result = await _mediator.Send(getmstbPurchaseOrderItemsCommand);
 
             //var paginationMetadata = new
@@ -314,11 +322,22 @@ namespace POS.API.Controllers.PurchaseOrderMSTB
 
             //return Ok(response);
 
+            MSTBPurchaseOrderResource mstbpurchaseOrderResourceCount = new MSTBPurchaseOrderResource()
+            {
+                PageSize = 0,
+                Skip = 0,
+                SupplierId = mstbpurchaseOrderResource.SupplierId
+            };
+            var getmstbPurchaseOrderItemsCommandCount = new GetMSTBPurchaseOrderItemsReportCommand { MSTBPurchaseOrderResource = mstbpurchaseOrderResourceCount };
+            var resultCount = await _mediator.Send(getmstbPurchaseOrderItemsCommandCount);
+
             MSTBPurchaseOrderItemResponseData response = new MSTBPurchaseOrderItemResponseData();
             if (result != null)
             {
-                response.Done = result.Where(x => x.IsCheck == true).Count();
-                response.Pending = result.Where(x => x.IsCheck == false).Count(); ;
+                response.Done = resultCount.Where(x => x.IsCheck == true).Count();
+                response.Pending = resultCount.Where(x => x.IsCheck == false).Count();
+                response.Approved = resultCount.Where(x => x.Approved == "Approved").Count();
+                response.Rejected = resultCount.Where(x => x.Approved == "Rejected").Count();
                 response.status = true;
                 response.StatusCode = 1;
                 response.message = "success";
@@ -363,6 +382,93 @@ namespace POS.API.Controllers.PurchaseOrderMSTB
                 response.message = "failed";
             }
             return Ok(response);
+        }
+
+        /// <summary>
+        /// Create Main Grn.
+        /// </summary>
+        /// <param name="mstbgrnOrderResource">The add purchase order command.</param>
+        /// <returns></returns>
+        [HttpPost("CreateMainGrn"), DisableRequestSizeLimit]
+        [Produces("application/json", "application/xml", Type = typeof(PurchaseOrderDto))]
+        public async Task<IActionResult> CreateMainGrn([FromBody] MSTBPurchaseOrderResource mstbgrnOrderResource)
+        {
+            mstbgrnOrderResource.PageSize = 0;
+            mstbgrnOrderResource.Skip = 0;
+            var getmstbPurchaseOrderItemsCommand = new GetMSTBPurchaseOrderItemsReportCommand { MSTBPurchaseOrderResource = mstbgrnOrderResource };
+            var resultData = await _mediator.Send(getmstbPurchaseOrderItemsCommand);
+
+            AddPurchaseOrderCommand addPurchaseOrderCommand = new AddPurchaseOrderCommand();
+
+            //Json Data start
+
+            //Header
+            addPurchaseOrderCommand.Month = mstbgrnOrderResource.Month;
+            addPurchaseOrderCommand.Year = mstbgrnOrderResource.Year;
+            addPurchaseOrderCommand.PurchasePaymentType = "Credit";
+            addPurchaseOrderCommand.DeliveryDate = DateTime.Now;
+            addPurchaseOrderCommand.DeliveryStatus = DeliveryStatus.Completely_Delivery;
+            addPurchaseOrderCommand.IsPurchaseOrderRequest = false;
+            addPurchaseOrderCommand.POCreatedDate = DateTime.Now;
+            addPurchaseOrderCommand.BatchNo = "1";
+            addPurchaseOrderCommand.TotalAmount = resultData.FirstOrDefault().TotalAmount;
+            addPurchaseOrderCommand.TotalSaleAmount = resultData.FirstOrDefault().TotalSaleAmount;
+            addPurchaseOrderCommand.IsAppMSTB = true;
+            addPurchaseOrderCommand.IsMSTBGRN = true;
+            addPurchaseOrderCommand.SupplierId = mstbgrnOrderResource.SupplierId.Value;
+            //Item  
+
+            resultData.ForEach(item =>
+            {
+                addPurchaseOrderCommand.PurchaseOrderItems.Add(new PurchaseOrderItemDto()
+                {
+                    Discount = 0,
+                    DiscountPercentage = 0,
+                    ProductId = item.ProductId,
+                    UnitId = item.UnitId,
+                    WarehouseId = item.WarehouseId,
+                    Quantity = item.NewQuantity.Value,
+                    Margin = item.Margin,
+                    SalesPrice = item.SalesPrice,
+                    Mrp = item.Mrp,
+                    UnitPrice = item.UnitPrice,
+                    ProductCode = item.ProductCode,
+                    PurchaseOrderItemTaxes = new List<PurchaseOrderItemTaxDto>()
+                });
+            });
+
+            //Json Data End
+
+            var getNewPurchaseOrderNumberQuery = new GetNewPurchaseOrderNumberQuery
+            {
+                isPurchaseOrder = true
+            };
+            var response = await _mediator.Send(getNewPurchaseOrderNumberQuery);
+
+            if (response != null)
+            {
+                addPurchaseOrderCommand.OrderNumber = response;
+            }
+
+            var result = await _mediator.Send(addPurchaseOrderCommand);
+
+            MainGRNOrdeData responseResult = new MainGRNOrdeData();
+            if (result != null)
+            {
+                responseResult.status = true;
+                responseResult.StatusCode = 1;
+                responseResult.message = "success";
+                responseResult.Data = result.Data;
+
+            }
+            else
+            {
+                responseResult.status = false;
+                responseResult.StatusCode = 0;
+                responseResult.message = "failed";
+            }
+            return Ok(responseResult);
+            //return ReturnFormattedResponse(result);
         }
     }
 }

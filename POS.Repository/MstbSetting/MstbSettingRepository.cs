@@ -46,11 +46,11 @@ namespace POS.Repository
             //        .Where(a => EF.Functions.Like(a.CustomerId.ToString(), $"{encodingName}%"));
             //}
 
-            //if (!string.IsNullOrWhiteSpace(customerAddressResource.CustomerName))
-            //{
-            //    collectionBeforePaging = collectionBeforePaging
-            //      .Where(a => a.Customer.CustomerName == customerAddressResource.CustomerName);
-            //}
+            if (mstbSettingResource.Year > 0)
+            {
+                collectionBeforePaging = collectionBeforePaging
+                  .Where(a => a.Year == mstbSettingResource.Year);
+            }
 
             var MstbSettingList = new MstbSettingList();
             return await MstbSettingList.Create(collectionBeforePaging, mstbSettingResource.Skip, mstbSettingResource.PageSize);

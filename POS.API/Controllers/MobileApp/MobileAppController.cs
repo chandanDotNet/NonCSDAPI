@@ -150,7 +150,7 @@ namespace POS.API.Controllers.MobileApp
                 customer.OTP = rnd.Next(_min, _max);
 
                 string smsGateWay = this.Configuration.GetSection("AppSettings")["SmsGateway"];
-                if (smsGateWay == "SAINIK GROCERY LLP")
+                if (smsGateWay == "SGSMS")
                 {
                     string smsResponse = SendOTPMessage(customer.MobileNo, customer.OTP);
                 }
@@ -185,7 +185,7 @@ namespace POS.API.Controllers.MobileApp
                     RewardPoints = customer.RewardPoints
                 };
                 var result = await _mediator.Send(updateCustomerCommand);
-               
+
                 customersFromRepo.FirstOrDefault().OTP = customer.OTP;
 
                 response.status = true;
@@ -324,10 +324,10 @@ namespace POS.API.Controllers.MobileApp
                 //{
                 //    myResult = result.Where(x => x.BrandName != "Baggage" && x.BrandName != "Delivery").ToList();
                 //}
-
+               
                 if (result.Count > 0)
                 {
-                    response.TotalCount = result.TotalCount;
+                    response.PageSize = result.TotalCount;
                     response.PageSize = result.PageSize;
                     response.Skip = result.Skip;
                     response.TotalPages = result.TotalPages;
@@ -341,7 +341,7 @@ namespace POS.API.Controllers.MobileApp
                 {
                     response.status = false;
                     response.StatusCode = 0;
-                    response.message = "Please wait! Server is not responding.";
+                    response.message = "failed.";
                     response.Data = result;
 
                 }
@@ -3794,13 +3794,15 @@ namespace POS.API.Controllers.MobileApp
                 {
                     defaultYear = yearResult.Where(x => x.DefaultYear == true).SingleOrDefault().Name;
                 }
-                var getEnum = Enum.GetNames(typeof(Months));
-                var result = string.Join(" " + defaultYear + ",", getEnum).Split(',');
-                result[11] = result[11] + " " + defaultYear;
-                var resultData = result.ToList();
 
-                int i = 1;
+                //var getEnum = Enum.GetNames(typeof(Months));
+                //var result = string.Join(" " + defaultYear + ",", getEnum).Split(',');
+                //result[11] = result[11] + " " + defaultYear;
+                //var resultData = result.ToList();
+
                 List<YearMonthDto> yearMonth = new List<YearMonthDto>();
+
+                /*int i = 1;
                 foreach (var item in resultData)
                 {
                     yearMonth.Add(new YearMonthDto()
@@ -3809,11 +3811,32 @@ namespace POS.API.Controllers.MobileApp
                         Month = i++,
                         Year = defaultYear
                     });
-                }
+                }*/
 
-                if (resultData != null)
+                MstbSettingResource mstbSettingResource = new MstbSettingResource()
                 {
-                    response.TotalCount = resultData.Count;
+                    Year = Convert.ToInt32(DefaultQueryYear)
+                };
+                var getMstbSettingQuery = new GetMstbSettingQuery
+                {
+                    MstbSettingResource = mstbSettingResource
+                };
+                var resultMstb = await _mediator.Send(getMstbSettingQuery);
+                resultMstb.ForEach(item =>
+                {
+                    yearMonth.Add(new YearMonthDto()
+                    {
+                        YearMonth = item.MonthName + " " + item.Year,
+                        Month = item.Month,
+                        Year = Convert.ToString(item.Year),
+                        IsDefault = item.IsDefault
+                    });
+
+                });
+
+                if (yearMonth != null)
+                {
+                    response.TotalCount = yearMonth.Count;
                     response.status = true;
                     response.StatusCode = 1;
                     response.message = "success";
@@ -3824,7 +3847,7 @@ namespace POS.API.Controllers.MobileApp
                 {
                     response.status = false;
                     response.StatusCode = 0;
-                    response.message = "please wait! server is not responding.";
+                    response.message = "failed.";
                 }
             }
             catch (Exception ex)
@@ -3864,7 +3887,7 @@ namespace POS.API.Controllers.MobileApp
                 var purchaseOrders = await _mediator.Send(getAllPurchaseOrderQuery);
 
                 //MSTB Purchase Order
-                PurchaseOrderResource MSTBpurchaseOrderResource = new PurchaseOrderResource()
+                MSTBPurchaseOrderResource MSTBpurchaseOrderResource = new MSTBPurchaseOrderResource()
                 {
                     PageSize = 0,
                     Skip = 0,
@@ -3879,7 +3902,7 @@ namespace POS.API.Controllers.MobileApp
                 //};
                 var getAllMSTBPurchaseOrderQuery = new GetMSTBPurchaseOrderItemsReportCommand
                 {
-                    PurchaseOrderResource = MSTBpurchaseOrderResource
+                    MSTBPurchaseOrderResource = MSTBpurchaseOrderResource
                 };
                 var MstbPurchaseOrders = await _mediator.Send(getAllMSTBPurchaseOrderQuery);
 
@@ -3943,7 +3966,7 @@ namespace POS.API.Controllers.MobileApp
                 //&& x.POCreatedDate.Month == purchaseOrderResource.Month);
 
                 List<SupplierDto> supplier = new List<SupplierDto>();
-                foreach (var item in result)
+                result.ForEach(item =>
                 {
                     var mstbCheck = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
                     var isComplted = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id && x.IsCheck == false).ToList();
@@ -3954,15 +3977,63 @@ namespace POS.API.Controllers.MobileApp
                     if (mstbCheck.Count > 0)
                     {
                         mstb = true;
+                        if (isComplted.Count > 0)
+                        {
+                            completed = false;
+                        }
+                        else
+                        {
+                            completed = true;
+                        }
                     }
                     if (grnCheck.Count > 0)
                     {
                         grn = true;
                     }
-                    if (isComplted.Count <= 0)
+
+                    var stockCount = products.Where(x => x.Stock > 0).Count(x => x.SupplierId == item.Id);
+
+                    if (stockCount > 0)
                     {
-                        completed = true;
+                        supplier.Add(new SupplierDto
+                        {
+                            Id = item.Id,
+                            SupplierName = item.SupplierName,
+                            //ProductCount = products.Where(x => x.Stock > 0).Count(x => x.SupplierId == item.Id),
+                            ProductCount = stockCount,
+                            IsMstbGRN = mstb,
+                            IsGRN = grn,
+                            IsCompleted = completed
+                        });
                     }
+                });
+
+
+                /*foreach (var item in result)
+                {
+                    var mstbCheck = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
+                    var isComplted = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id && x.IsCheck == false).ToList();
+                    var grnCheck = purchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
+                    bool mstb = false;
+                    bool grn = false;
+                    bool completed = false;
+                    if (mstbCheck.Count > 0)
+                    {
+                        mstb = true;
+                        if (isComplted.Count > 0)
+                        {
+                            completed = false;
+                        }
+                        else
+                        {
+                            completed = true;
+                        }
+                    }
+                    if (grnCheck.Count > 0)
+                    {
+                        grn = true;
+                    }
+                   
                     supplier.Add(new SupplierDto
                     {
                         Id = item.Id,
@@ -3974,7 +4045,9 @@ namespace POS.API.Controllers.MobileApp
                         //IsMstbGRN = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).FirstOrDefault().IsMstbGRN,
                         //IsGRN = purchaseOrders.Where(x => x.SupplierId == item.Id).FirstOrDefault().IsGRN.Value
                     });
-                }
+                }*/
+
+
                 if (supplier != null)
                 {
                     response.TotalCount = supplier.Count;
@@ -4046,36 +4119,6 @@ namespace POS.API.Controllers.MobileApp
         }
 
         /// <summary>
-        /// Get Customer Address.
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
-        //[HttpGet("CustomerAddress/{customerId}", Name = "GetCustomerAddress")]
-        //[Produces("application/json", "application/xml", Type = typeof(CustomerAddressDto))]
-        //public async Task<IActionResult> GetCustomerAddress(Guid customerId)
-        //{
-        //    var getCustomerAddressCommand = new GetCustomerAddressCommand { CustomerId = customerId };
-        //    var result = await _mediator.Send(getCustomerAddressCommand);
-        //    //return ReturnFormattedResponse(result);
-
-        //    CustomerAddressResponseData response = new CustomerAddressResponseData();
-        //    if (result != null)
-        //    {
-        //        response.status = true;
-        //        response.StatusCode = 1;
-        //        response.message = "Success";
-        //        response.Data = result.Data;
-        //    }
-        //    else
-        //    {
-        //        response.status = false;
-        //        response.StatusCode = 0;
-        //        response.message = "Invalid";
-        //    }
-        //    return Ok(response);
-        //}
-
-        /// <summary>
         /// Get MSTB Settings
         /// </summary>
         /// <param name="mstbSettingResource"></param>
@@ -4086,7 +4129,7 @@ namespace POS.API.Controllers.MobileApp
         {
             var getMstbSettingQuery = new GetMstbSettingQuery
             {
-                MstbSettingResource  = mstbSettingResource
+                MstbSettingResource = mstbSettingResource
             };
             var result = await _mediator.Send(getMstbSettingQuery);
 
@@ -4153,39 +4196,64 @@ namespace POS.API.Controllers.MobileApp
         //}
 
 
-        ///// <summary>
-        ///// Update Customer Address.
-        ///// </summary>
-        ///// <param name="Id"></param>
-        ///// <param name="updateCustomerAddressCommand"></param>
-        ///// <returns></returns>
-        //[HttpPut("CustomerAddress/{Id}")]
-        //[Produces("application/json", "application/xml", Type = typeof(CustomerAddressDto))]
-        //public async Task<IActionResult> UpdateCustomerAddress(Guid Id, UpdateCustomerAddressCommand updateCustomerAddressCommand)
-        //{
-        //    updateCustomerAddressCommand.Id = Id;
-        //    var result = await _mediator.Send(updateCustomerAddressCommand);
-        //    //return ReturnFormattedResponse(result);           
+        /// <summary>
+        /// Update MSTB Settings.
+        /// </summary>
+        /// <param name="updateMstbSettingCommand"></param>
+        /// <returns></returns>
+        [HttpPut("UpdateMstbSettings")]
+        [Produces("application/json", "application/xml", Type = typeof(MstbSettingDto))]
+        public async Task<IActionResult> UpdateMstbSettings(UpdateMstbSettingCommand updateMstbSettingCommand)
+        {
+            var result = await _mediator.Send(updateMstbSettingCommand);
+            //return ReturnFormattedResponse(result);           
 
-        //    CustomerAddressResponseData response = new CustomerAddressResponseData();
+            MstbSettingResponseData response = new MstbSettingResponseData();
 
-        //    if (result != null)
-        //    {
-        //        response.status = true;
-        //        response.StatusCode = 1;
-        //        response.message = "Your addrsss updated successfully!";
-        //        response.Data = result.Data;
-        //    }
-        //    else
-        //    {
-        //        response.status = false;
-        //        response.StatusCode = 0;
-        //        response.message = "Please wait! Server is not responding.";
-        //    }
-        //    return Ok(response);
-        //}
+            if (result != null)
+            {
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Default set successfully!";
+                response.Data = result.Data;
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "failed.";
+            }
+            return Ok(response);
+        }
 
+        /// <summary>
+        /// Delete MSTB Settings.
+        /// </summary>
+        /// <param name="deleteMstbSettingCommand"></param>
+        /// <returns></returns>
+        [HttpDelete("DeleteMstbSettings")]
+        [Produces("application/json", "application/xml", Type = typeof(MstbSettingDto))]
+        public async Task<IActionResult> DeleteMstbSettings(DeleteMstbSettingCommand deleteMstbSettingCommand)
+        {
+            var result = await _mediator.Send(deleteMstbSettingCommand);
+            //return ReturnFormattedResponse(result);           
 
+            MstbSettingResponseData response = new MstbSettingResponseData();
+
+            if (result.Success)
+            {
+                response.status = true;
+                response.StatusCode = 1;
+                response.message = "Deleted successfully!";
+            }
+            else
+            {
+                response.status = false;
+                response.StatusCode = 0;
+                response.message = "Deletion failed.";
+            }
+            return Ok(response);
+        }
 
         /// <summary>
         /// Add Auto Generate GRN
@@ -4198,19 +4266,15 @@ namespace POS.API.Controllers.MobileApp
         {
 
             ExlUploadPurchaseOrderResponseData response = new ExlUploadPurchaseOrderResponseData();
-            
-           
+
             List<PurchaseOrderItemDto> UnverifiedPurchaseOrderItems = new List<PurchaseOrderItemDto>();
             bool ResponseStatus = true;
             //IFormFile file = null;
 
             if (autoGenerateGRNResource.AutoGenerateGRNSupplierItems != null)
             {
-
-
                 try
                 {
-
                     foreach (var SupplierItems in autoGenerateGRNResource.AutoGenerateGRNSupplierItems)
                     {
                         AddPurchaseOrderCommand addPurchaseOrderCommand = new AddPurchaseOrderCommand();
@@ -4220,8 +4284,8 @@ namespace POS.API.Controllers.MobileApp
                         addPurchaseOrderCommand.Month = SupplierItems.Month;
                         addPurchaseOrderCommand.Year = SupplierItems.Year;
                         addPurchaseOrderCommand.BatchNo = "1";
-                        addPurchaseOrderCommand.POCreatedDate=DateTime.Now;
-                        addPurchaseOrderCommand.DeliveryDate=DateTime.Now;
+                        addPurchaseOrderCommand.POCreatedDate = DateTime.Now;
+                        addPurchaseOrderCommand.DeliveryDate = DateTime.Now;
                         addPurchaseOrderCommand.PurchasePaymentType = "Credit";
                         addPurchaseOrderCommand.DeliveryStatus = DeliveryStatus.Completely_Delivery;
 
@@ -4286,7 +4350,7 @@ namespace POS.API.Controllers.MobileApp
                             }
 
                             PurchaseOrderItems.ProductId = new Guid(ProductItems.ProductId.ToString());
-                            PurchaseOrderItems.ProductName = ProductItems.ProductName;                            
+                            PurchaseOrderItems.ProductName = ProductItems.ProductName;
                             PurchaseOrderItems.UnitId = new Guid(ProductItems.UnitId.ToString());
                             // PurchaseOrderItems.UnitName = serviceDetails.Rows[i][2].ToString();
                             PurchaseOrderItems.UnitPrice = Convert.ToDecimal(ProductItems.UnitPrice);
@@ -4389,10 +4453,6 @@ namespace POS.API.Controllers.MobileApp
 
             return Ok(response);
             //===============================
-
         }
-
-
-
     }
 }
