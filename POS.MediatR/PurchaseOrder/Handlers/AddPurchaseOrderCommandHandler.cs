@@ -164,6 +164,8 @@ namespace POS.MediatR.Handlers
                 //*****************
             }
 
+            //var aa = _uow.SaveAsync();
+
             if (await _uow.SaveAsync() <= 0)
             {
                 _logger.LogError("Error while creating Purchase Order.");

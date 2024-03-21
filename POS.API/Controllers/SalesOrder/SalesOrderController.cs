@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Crypto;
 using POS.API.Helpers;
 using POS.Data.Dto;
 using POS.Data.Entities;
@@ -281,13 +282,16 @@ namespace POS.API.Controllers.SalesOrder
                         .Select(x => new
                         {
                             CounterName = x.Key,
+                            CounterId = x.Max(y => y.CounterId),
                             TotalAmount = x.Sum(y => y.TotalAmount)
+                            
                         }).ToList();
 
             var App = salesOrders.Where(x => x.IsAppOrderRequest == true).GroupBy(x => x.CounterName)
                        .Select(x => new
                        {
                            CounterName = "App",
+                           CounterId= x.Max(y => y.CounterId),
                            TotalAmount = x.Sum(y => y.TotalAmount)
                        }).ToList();
 

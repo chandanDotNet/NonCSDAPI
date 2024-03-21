@@ -78,6 +78,9 @@ using POS.MediatR.MSTBSetting.Command;
 using POS.MediatR.PurchaseOrderMSTB.Command;
 using Microsoft.Extensions.Configuration;
 using SixLabors.ImageSharp;
+using Org.BouncyCastle.Asn1.Ocsp;
+using POS.MediatR.PurchaseOrder.Commands;
+using AutoMapper;
 
 namespace POS.API.Controllers.MobileApp
 {
@@ -96,9 +99,12 @@ namespace POS.API.Controllers.MobileApp
         private readonly IWarehouseRepository _warehouseRepository;
         private readonly ICustomerRepository _customerRepository;
         private IConfiguration Configuration;
+        private readonly IPurchaseOrderItemRepository _purchaseOrderItemRepository;
+        private readonly IPurchaseOrderRepository _purchaseOrderRepository;
+        private readonly IMapper _mapper;
         public MobileAppController(IMediator mediator, PathHelper pathHelper,
             IWebHostEnvironment webHostEnvironment, IProductRepository productRepository, IUnitConversationRepository unitConversationRepository, IWarehouseRepository warehouseRepository, ICustomerRepository customerRepository,
-            IConfiguration _configuration)
+            IConfiguration _configuration, IPurchaseOrderItemRepository purchaseOrderItemRepository, IPurchaseOrderRepository purchaseOrderRepository, IMapper mapper)
         {
             _mediator = mediator;
             _pathHelper = pathHelper;
@@ -108,7 +114,9 @@ namespace POS.API.Controllers.MobileApp
             _warehouseRepository = warehouseRepository;
             _customerRepository = customerRepository;
             Configuration = _configuration;
-
+            _purchaseOrderItemRepository = purchaseOrderItemRepository;
+            _purchaseOrderRepository = purchaseOrderRepository;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -185,7 +193,7 @@ namespace POS.API.Controllers.MobileApp
                     RewardPoints = customer.RewardPoints
                 };
                 var result = await _mediator.Send(updateCustomerCommand);
-               
+
                 customersFromRepo.FirstOrDefault().OTP = customer.OTP;
 
                 response.status = true;
@@ -4086,7 +4094,7 @@ namespace POS.API.Controllers.MobileApp
         {
             var getMstbSettingQuery = new GetMstbSettingQuery
             {
-                MstbSettingResource  = mstbSettingResource
+                MstbSettingResource = mstbSettingResource
             };
             var result = await _mediator.Send(getMstbSettingQuery);
 
@@ -4198,8 +4206,8 @@ namespace POS.API.Controllers.MobileApp
         {
 
             ExlUploadPurchaseOrderResponseData response = new ExlUploadPurchaseOrderResponseData();
-            
-           
+
+
             List<PurchaseOrderItemDto> UnverifiedPurchaseOrderItems = new List<PurchaseOrderItemDto>();
             bool ResponseStatus = true;
             //IFormFile file = null;
@@ -4214,131 +4222,220 @@ namespace POS.API.Controllers.MobileApp
                     foreach (var SupplierItems in autoGenerateGRNResource.AutoGenerateGRNSupplierItems)
                     {
                         AddPurchaseOrderCommand addPurchaseOrderCommand = new AddPurchaseOrderCommand();
+                        UpdatePurchaseOrderCommand updatePurchaseOrderCommand = new UpdatePurchaseOrderCommand();
                         List<PurchaseOrderItemDto> VerifiedPurchaseOrderItems = new List<PurchaseOrderItemDto>();
+                        List<PurchaseOrderItemDto> VerifiedPurchaseOrderItems1 = new List<PurchaseOrderItemDto>();
 
-                        addPurchaseOrderCommand.SupplierId = SupplierItems.SupplierId;
-                        addPurchaseOrderCommand.Month = SupplierItems.Month;
-                        addPurchaseOrderCommand.Year = SupplierItems.Year;
-                        addPurchaseOrderCommand.BatchNo = "1";
-                        addPurchaseOrderCommand.POCreatedDate=DateTime.Now;
-                        addPurchaseOrderCommand.DeliveryDate=DateTime.Now;
-                        addPurchaseOrderCommand.PurchasePaymentType = "Credit";
-                        addPurchaseOrderCommand.DeliveryStatus = DeliveryStatus.Completely_Delivery;
-
-                        foreach (var ProductItems in SupplierItems.AutoGenerateGRNProductItems)
+                        // Update exist GRN- check GRN exist or not  var date = dateAndTime.Date;
+                        var existingPODetails = _purchaseOrderRepository.FindBy(c => c.SupplierId == SupplierItems.SupplierId && c.POCreatedDate.Date == DateTime.Now.Date).FirstOrDefault();
+                        if (existingPODetails != null)
                         {
-                            Boolean VerifyStatus = true;
-                            string ProductCode = string.Empty, UnitName = string.Empty, WHName = "Pune - Maitri Complex", ProductName = string.Empty;
-                            //ProductName = ProductItems.ProductName;
-                            //ProductCode = ProductItems.ProductCode;
-                            //UnitName = serviceDetails.Rows[i][2].ToString();
 
-                            PurchaseOrderItemDto PurchaseOrderItems = new PurchaseOrderItemDto();
+                            //updatePurchaseOrderCommand = existingPONumber;
+                            var purchaseOrderItemsExist = _purchaseOrderItemRepository.FindBy(c => c.PurchaseOrderId == existingPODetails.Id).ToList();
+                            existingPODetails.PurchaseOrderItems = purchaseOrderItemsExist;
+                            updatePurchaseOrderCommand.SupplierId = existingPODetails.SupplierId;
+                            updatePurchaseOrderCommand.Month = existingPODetails.Month;
+                            updatePurchaseOrderCommand.Year = existingPODetails.Year;
+                            updatePurchaseOrderCommand.BatchNo = existingPODetails.BatchNo;
+                            updatePurchaseOrderCommand.POCreatedDate = existingPODetails.POCreatedDate;
+                            updatePurchaseOrderCommand.DeliveryDate = existingPODetails.DeliveryDate;
+                            updatePurchaseOrderCommand.PurchasePaymentType = existingPODetails.PurchasePaymentType;
+                            updatePurchaseOrderCommand.DeliveryStatus = existingPODetails.DeliveryStatus;
+                            updatePurchaseOrderCommand.Id = existingPODetails.Id;
+                            updatePurchaseOrderCommand.OrderNumber = existingPODetails.OrderNumber;
+                            updatePurchaseOrderCommand.InvoiceNo = existingPODetails.InvoiceNo;
+                            updatePurchaseOrderCommand.TotalAmount = existingPODetails.TotalAmount;
+                            updatePurchaseOrderCommand.TotalSaleAmount = existingPODetails.TotalSaleAmount;
+                            updatePurchaseOrderCommand.TotalDiscount = existingPODetails.TotalDiscount;
+                            updatePurchaseOrderCommand.TermAndCondition = existingPODetails.TermAndCondition;
+                            updatePurchaseOrderCommand.Status = existingPODetails.Status;
+                            updatePurchaseOrderCommand.IsPurchaseOrderRequest = existingPODetails.IsPurchaseOrderRequest;
+                            updatePurchaseOrderCommand.Note = existingPODetails.Note;
 
-                            //if (!string.IsNullOrEmpty(ProductCode))
-                            //{
-                            //    var findProduct = _productRepository.FindBy(c => c.Code == ProductCode).FirstOrDefault();
-                            //    if (findProduct != null)
-                            //    {
-                            //        PurchaseOrderItems.ProductId = findProduct.Id;
-                            //        PurchaseOrderItems.ProductName = findProduct.Name;
-                            //        PurchaseOrderItems.ProductCode = ProductCode;
-                            //        PurchaseOrderItems.UnitId = findProduct.UnitId;
-
-                            //    }
-                            //    else
-                            //    {
-                            //        PurchaseOrderItems.ProductId = new Guid { };
-                            //        PurchaseOrderItems.ProductCode = ProductCode;
-                            //        PurchaseOrderItems.Message = "Invalid Product Code|";
-                            //        VerifyStatus = false;
-                            //    }
-                            //}
-
-                            //if (!string.IsNullOrEmpty(ProductName))
-                            //{
-
-                            //    var findProduct = _productRepository.FindBy(c => c.Name == ProductName).FirstOrDefault();
-                            //    if (findProduct != null)
-                            //    {
-                            //        if (ProductCode != findProduct.Code)
-                            //        {
-                            //            PurchaseOrderItems.Message += "Mismatched Product Code|";
-                            //        }
-                            //    }
-                            //}
-
-
-
-                            if (!string.IsNullOrEmpty(WHName))
+                            var purchaseOrderItemsData = existingPODetails.PurchaseOrderItems
+                            .Select(cs => new PurchaseOrderItemDto
                             {
-                                var findWH = _warehouseRepository.FindBy(c => c.Name == WHName).FirstOrDefault();
-                                if (findWH != null)
-                                {
-                                    PurchaseOrderItems.WarehouseId = findWH.Id;
-                                    PurchaseOrderItems.WarehouseName = WHName;
-                                }
-                                else
-                                {
-                                    PurchaseOrderItems.WarehouseId = new Guid { };
-                                }
+                                ProductId = cs.ProductId,
+                                UnitPrice = cs.UnitPrice,
+                                PurchaseOrderId = cs.PurchaseOrderId,
+                                Margin = cs.Margin,
+                                UnitId = cs.UnitId,
+                                WarehouseId = cs.WarehouseId,
+                                TaxValue = cs.TaxValue,
+                                Discount = cs.Discount,
+                                Id = cs.Id,
+                                DiscountPercentage = cs.DiscountPercentage,
+                                ExpDate = cs.ExpDate,
+                                Mrp = cs.Mrp,
+                                SalesPrice = cs.SalesPrice,
+                                Quantity = cs.Quantity,
+                                Status = cs.Status
+
+                            }).ToList();
+
+
+                            if (purchaseOrderItemsData != null)
+                            {
+                                // updatePurchaseOrderCommand.PurchaseOrderItems = purchaseOrderItemsData;
+                                VerifiedPurchaseOrderItems1 = purchaseOrderItemsData;
 
                             }
 
-                            PurchaseOrderItems.ProductId = new Guid(ProductItems.ProductId.ToString());
-                            PurchaseOrderItems.ProductName = ProductItems.ProductName;                            
-                            PurchaseOrderItems.UnitId = new Guid(ProductItems.UnitId.ToString());
-                            // PurchaseOrderItems.UnitName = serviceDetails.Rows[i][2].ToString();
-                            PurchaseOrderItems.UnitPrice = Convert.ToDecimal(ProductItems.UnitPrice);
-                            PurchaseOrderItems.Mrp = Convert.ToDecimal(ProductItems.Mrp);
-                            PurchaseOrderItems.Margin = Convert.ToDecimal(ProductItems.Margin);
-                            PurchaseOrderItems.SalesPrice = Convert.ToDecimal(ProductItems.SalesPrice);
-                            PurchaseOrderItems.Quantity = Convert.ToDecimal(ProductItems.Quantity);
 
-                            VerifiedPurchaseOrderItems.Add(PurchaseOrderItems);
-                            //if (VerifyStatus == true)
+                            foreach (var ProductItems in SupplierItems.AutoGenerateGRNProductItems)
+                            {
+                                Boolean VerifyStatus = true;
+                                string ProductCode = string.Empty, UnitName = string.Empty, WHName = "Pune - Maitri Complex", ProductName = string.Empty;
+
+                                PurchaseOrderItemDto PurchaseOrderItems = new PurchaseOrderItemDto();
+                                if (!string.IsNullOrEmpty(WHName))
+                                {
+                                    var findWH = _warehouseRepository.FindBy(c => c.Name == WHName).FirstOrDefault();
+                                    if (findWH != null)
+                                    {
+                                        PurchaseOrderItems.WarehouseId = findWH.Id;
+                                        PurchaseOrderItems.WarehouseName = WHName;
+                                    }
+                                    else
+                                    {
+                                        PurchaseOrderItems.WarehouseId = new Guid { };
+                                    }
+
+                                }
+
+                                PurchaseOrderItems.ProductId = new Guid(ProductItems.ProductId.ToString());
+                                PurchaseOrderItems.ProductName = ProductItems.ProductName;
+                                PurchaseOrderItems.UnitId = new Guid(ProductItems.UnitId.ToString());
+                                PurchaseOrderItems.UnitPrice = Convert.ToDecimal(ProductItems.UnitPrice);
+                                PurchaseOrderItems.Mrp = Convert.ToDecimal(ProductItems.Mrp);
+                                PurchaseOrderItems.Margin = Convert.ToDecimal(ProductItems.Margin);
+                                PurchaseOrderItems.SalesPrice = Convert.ToDecimal(ProductItems.SalesPrice);
+                                PurchaseOrderItems.Quantity = Convert.ToDecimal(ProductItems.Quantity);
+                                //updatePurchaseOrderCommand.PurchaseOrderItems.Add(PurchaseOrderItems);
+                                VerifiedPurchaseOrderItems1.Add(PurchaseOrderItems);
+
+
+
+                            }
+
+                            //var ss=  updatePurchaseOrderCommand.PurchaseOrderItems.GroupBy(x => x.ProductId).ToList();
+                            var ss1 = VerifiedPurchaseOrderItems1.GroupBy(x => x.ProductId).Select(grp => grp.ToList()).ToList();
+                           var s2=  VerifiedPurchaseOrderItems1.GroupBy(x => x.ProductId)
+                            .Select(x => new PurchaseOrderItemDto
+                            { 
+                                ProductId =x.Max(y => y.ProductId),
+                                UnitId=x.Max(y => y.UnitId),
+                                UnitPrice=x.Max(y => y.UnitPrice),
+                                Mrp=x.Max(y => y.Mrp),
+                                Margin = x.Max(y=>y.Margin),
+                                SalesPrice=x.Max(y => y.SalesPrice),
+                                Quantity = x.Sum(y => y.Quantity),
+                                WarehouseId=x.Max(y=>y.WarehouseId),
+                                Total=x.Sum(y => y.Quantity* y.UnitPrice),
+                                TotalSalesPrice= (decimal)x.Sum(y => y.Quantity * y.SalesPrice)
+
+                            }).ToList();
+
+                            updatePurchaseOrderCommand.PurchaseOrderItems = s2;
+                           // var data= updatePurchaseOrderCommand.PurchaseOrderItems.Sum((x => x.UnitPrice * x.Quantity));
+                            updatePurchaseOrderCommand.TotalAmount= updatePurchaseOrderCommand.PurchaseOrderItems.Sum(x=>x.Total);
+                            updatePurchaseOrderCommand.TotalSaleAmount= updatePurchaseOrderCommand.PurchaseOrderItems.Sum(x=>x.TotalSalesPrice);
+
+
+                            //List<List<PurchaseOrderItemDto>> list1 = ss.ToList();
+                            //updatePurchaseOrderCommand.PurchaseOrderItems= list1;
+
+
+                            var result = await _mediator.Send(updatePurchaseOrderCommand);
+                            if (result.Success)
+                            {
+                                ResponseStatus = true;
+                            }
+                            else
+                            {
+                                ResponseStatus = false;
+                            }
+
+                        }//End Update exist GRN-
+                        else
+                        {
+                            //Create new GRN -
+                            addPurchaseOrderCommand.SupplierId = SupplierItems.SupplierId;
+                            addPurchaseOrderCommand.Month = SupplierItems.Month;
+                            addPurchaseOrderCommand.Year = SupplierItems.Year;
+                            addPurchaseOrderCommand.BatchNo = "1";
+                            addPurchaseOrderCommand.POCreatedDate = DateTime.Now;
+                            addPurchaseOrderCommand.DeliveryDate = DateTime.Now;
+                            addPurchaseOrderCommand.PurchasePaymentType = "Credit";
+                            addPurchaseOrderCommand.DeliveryStatus = DeliveryStatus.Completely_Delivery;
+
+                            foreach (var ProductItems in SupplierItems.AutoGenerateGRNProductItems)
+                            {
+                                Boolean VerifyStatus = true;
+                                string ProductCode = string.Empty, UnitName = string.Empty, WHName = "Pune - Maitri Complex", ProductName = string.Empty;
+
+                                PurchaseOrderItemDto PurchaseOrderItems = new PurchaseOrderItemDto();
+                                if (!string.IsNullOrEmpty(WHName))
+                                {
+                                    var findWH = _warehouseRepository.FindBy(c => c.Name == WHName).FirstOrDefault();
+                                    if (findWH != null)
+                                    {
+                                        PurchaseOrderItems.WarehouseId = findWH.Id;
+                                        PurchaseOrderItems.WarehouseName = WHName;
+                                    }
+                                    else
+                                    {
+                                        PurchaseOrderItems.WarehouseId = new Guid { };
+                                    }
+
+                                }
+
+                                PurchaseOrderItems.ProductId = new Guid(ProductItems.ProductId.ToString());
+                                PurchaseOrderItems.ProductName = ProductItems.ProductName;
+                                PurchaseOrderItems.UnitId = new Guid(ProductItems.UnitId.ToString());
+                                // PurchaseOrderItems.UnitName = serviceDetails.Rows[i][2].ToString();
+                                PurchaseOrderItems.UnitPrice = Convert.ToDecimal(ProductItems.UnitPrice);
+                                PurchaseOrderItems.Mrp = Convert.ToDecimal(ProductItems.Mrp);
+                                PurchaseOrderItems.Margin = Convert.ToDecimal(ProductItems.Margin);
+                                PurchaseOrderItems.SalesPrice = Convert.ToDecimal(ProductItems.SalesPrice);
+                                PurchaseOrderItems.Quantity = Convert.ToDecimal(ProductItems.Quantity);
+
+                                VerifiedPurchaseOrderItems.Add(PurchaseOrderItems);
+
+
+                                //if (VerifyStatus == true)
+                                //{
+                                //    VerifiedPurchaseOrderItems.Add(PurchaseOrderItems);
+                                //}
+                                //else
+                                //{
+                                //    UnverifiedPurchaseOrderItems.Add(PurchaseOrderItems);
+                                //}
+                            }
+
+                            //New GRN No -------------
+
+                            var getNewPurchaseOrderNumberQuery = new GetNewPurchaseOrderNumberQuery
+                            {
+                                isPurchaseOrder = true
+                            };
+                            var responseGRNNo = await _mediator.Send(getNewPurchaseOrderNumberQuery);
+                            if (responseGRNNo != null)
+                            {
+                                addPurchaseOrderCommand.OrderNumber = responseGRNNo;
+                            }
+
+                            //------------------------
+                            addPurchaseOrderCommand.PurchaseOrderItems = VerifiedPurchaseOrderItems;
+
+                            decimal TotalSaleAmount = addPurchaseOrderCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.SalesPrice * x.Quantity));
+                            decimal TotalAmount = addPurchaseOrderCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.UnitPrice * x.Quantity));
+                            addPurchaseOrderCommand.TotalAmount = TotalAmount;
+                            addPurchaseOrderCommand.TotalSaleAmount = TotalSaleAmount;
+
+                            // if (ResponseStatus == true)
                             //{
-                            //    VerifiedPurchaseOrderItems.Add(PurchaseOrderItems);
-                            //}
-                            //else
-                            //{
-                            //    UnverifiedPurchaseOrderItems.Add(PurchaseOrderItems);
-                            //}
-                        }
-
-                        //New GRN No -------------
-
-                        var getNewPurchaseOrderNumberQuery = new GetNewPurchaseOrderNumberQuery
-                        {
-                            isPurchaseOrder = true
-                        };
-                        var responseGRNNo = await _mediator.Send(getNewPurchaseOrderNumberQuery);
-                        if (responseGRNNo != null)
-                        {
-                            addPurchaseOrderCommand.OrderNumber = responseGRNNo;
-                        }
-
-                        //------------------------
-                        addPurchaseOrderCommand.PurchaseOrderItems = VerifiedPurchaseOrderItems;
-
-                        //if (UnverifiedPurchaseOrderItems.Count > 0)
-                        //{
-                        //    addPurchaseOrderCommand.PurchaseOrderItems = UnverifiedPurchaseOrderItems;
-                        //    ResponseStatus = false;
-                        //}
-                        //else
-                        //{
-                        //    addPurchaseOrderCommand.PurchaseOrderItems = VerifiedPurchaseOrderItems;
-                        //    ResponseStatus = true;
-                        //}
-
-                        decimal TotalSaleAmount = addPurchaseOrderCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.SalesPrice * x.Quantity));
-                        decimal TotalAmount = addPurchaseOrderCommand.PurchaseOrderItems.Sum(x => Convert.ToDecimal(x.UnitPrice * x.Quantity));
-                        addPurchaseOrderCommand.TotalAmount = TotalAmount;
-                        addPurchaseOrderCommand.TotalSaleAmount = TotalSaleAmount;
-
-                        if (ResponseStatus == true)
-                        {
                             var result = await _mediator.Send(addPurchaseOrderCommand);
                             if (result.Success)
                             {
@@ -4348,30 +4445,30 @@ namespace POS.API.Controllers.MobileApp
                             {
                                 ResponseStatus = false;
                             }
+                            //}
+                            //else
+                            //{
+                            //    ResponseStatus = false;
+                            //}
                         }
-                        else
-                        {
-                            ResponseStatus = false;
-                        }
-
                     }
 
 
 
-                    //if (ResponseStatus == true)
-                    //{
-                    //    response.status = true;
-                    //    response.StatusCode = 1;
-                    //    response.message = "Success";
-                    //    response.Data = VerifiedPurchaseOrderItems;
-                    //}
-                    //else
-                    //{
-                    //    response.status = false;
-                    //    response.StatusCode = 0;
-                    //    response.message = "Invalid";
-                    //    response.Data = UnverifiedPurchaseOrderItems;
-                    //}
+                    if (ResponseStatus == true)
+                    {
+                        response.status = true;
+                        response.StatusCode = 1;
+                        response.message = "Success";
+
+                    }
+                    else
+                    {
+                        response.status = false;
+                        response.StatusCode = 0;
+                        response.message = "Invalid";
+
+                    }
 
                 }
                 catch (Exception ex)

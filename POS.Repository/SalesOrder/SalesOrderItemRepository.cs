@@ -7,6 +7,7 @@ using POS.Data.Resources;
 using POS.Domain;
 using POS.Helper;
 using System;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -112,6 +113,17 @@ namespace POS.Repository
             {
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => a.Status == Data.Entities.PurchaseSaleItemStatusEnum.Not_Return);
+            }
+
+            if (purchaseOrderResource.IsAppOrCounterRequest == "App")
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.SalesOrder.IsAppOrderRequest == true);
+            }
+            if (purchaseOrderResource.IsAppOrCounterRequest == "Counter")
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.SalesOrder.CounterId == purchaseOrderResource.CounterId);
             }
 
             var salesOrderItems = new SalesOrderItemList();

@@ -10,6 +10,7 @@ using AutoMapper;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Runtime.Serialization;
 
 namespace POS.Repository
 {
@@ -88,6 +89,7 @@ namespace POS.Repository
                  AssignDeliveryPerson = cs.User.FirstName + " " + cs.User.LastName,
                  AssignDeliveryPersonId = cs.UserId,
                  CounterName = cs.Counter.CounterName == null ? "App" : cs.Counter.CounterName,
+                 CounterId=cs.CounterId,
                  Quantity = cs.SalesOrderItems.Sum(c => c.Quantity),
                  BillNo = cs.OrderNumber.Substring(3, cs.OrderNumber.Length),
                  SalesOrderPayments = _mapper.Map<List<SalesOrderPaymentDto>>(cs.SalesOrderPayments),
@@ -171,6 +173,7 @@ namespace POS.Repository
                   AssignDeliveryPersonId = cs.UserId,
                   //DeliveryAddress = cs.DeliveryAddress
                   CounterName = cs.Counter.CounterName == null ? "App" : cs.Counter.CounterName,
+                  CounterId = cs.CounterId,
                   Quantity = cs.SalesOrderItems.Sum(c => c.Quantity),
                   BillNo = cs.OrderNumber.Substring(3, cs.OrderNumber.Length),
                   SalesOrderPayments = _mapper.Map<List<SalesOrderPaymentDto>>(cs.SalesOrderPayments),
