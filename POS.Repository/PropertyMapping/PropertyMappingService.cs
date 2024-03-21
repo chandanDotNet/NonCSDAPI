@@ -133,7 +133,7 @@ namespace POS.Repository
                 { "TotalPaidAmount", new PropertyMappingValue(new List<string>() { "TotalPaidAmount" } )},
                 { "TotalPendingAmount", new PropertyMappingValue(new List<string>() { "TotalPendingAmount" } )},
                 { "PackagingTypeName", new PropertyMappingValue(new List<string>() { "PackagingType.Name" } )},
-                { "ClosedDate", new PropertyMappingValue(new List<string>() { "ClosedDate" }, true )}
+                { "ClosedDate", new PropertyMappingValue(new List<string>() { "ClosedDate" }, true )},
            };
 
         private Dictionary<string, PropertyMappingValue> _salesOrderMapping =
@@ -417,6 +417,8 @@ namespace POS.Repository
                     { "TaxValue", new PropertyMappingValue(new List<string>() { "TaxValue" } )},
                     { "SupplierName", new PropertyMappingValue(new List<string>() { "MSTBPurchaseOrder.Supplier.SupplierName" } )},
                     { "POCreatedDate", new PropertyMappingValue(new List<string>() { "MSTBPurchaseOrder.POCreatedDate" }, true )},
+                    { "IsCheck", new PropertyMappingValue(new List<string>() { "IsCheck" }, true )},
+
          };
 
         private Dictionary<string, PropertyMappingValue> _userSupplierPropertyMapping =
@@ -435,6 +437,7 @@ namespace POS.Repository
                 { "Year", new PropertyMappingValue(new List<string>() { "Year" } ) },
                 { "FromMstbDate", new PropertyMappingValue(new List<string>() { "FromMstbDate" } ) },
                 { "ToMstbDate", new PropertyMappingValue(new List<string>() { "ToMstbDate" } ) },
+                { "IsDefault", new PropertyMappingValue(new List<string>() { "IsDefault" } ) },
          };
         
 

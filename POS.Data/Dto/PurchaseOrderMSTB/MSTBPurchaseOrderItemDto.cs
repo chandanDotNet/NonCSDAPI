@@ -42,6 +42,8 @@ namespace POS.Data.Dto
         public decimal? NewMRP { get; set; }
         public bool? IsMRPChanged { get; set; }
         public string Approved { get; set; }
+        public decimal TotalAmount { get; set; } = 0;
+        public decimal TotalSaleAmount { get; set; } = 0;
         public UnitConversationDto UnitConversation { get; set; }
         public List<MSTBPurchaseOrderItemTaxDto> MSTBPurchaseOrderItemTaxes { get; set; }
     }

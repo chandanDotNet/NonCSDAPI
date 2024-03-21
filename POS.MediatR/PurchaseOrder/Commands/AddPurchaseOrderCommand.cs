@@ -24,7 +24,7 @@ namespace POS.MediatR.CommandAndQuery
         public decimal? TotalSaleAmount { get; set; }
         public decimal TotalTax { get; set; }
         public decimal TotalDiscount { get; set; }
-        public List<PurchaseOrderItemDto> PurchaseOrderItems { get; set; }
+        public List<PurchaseOrderItemDto> PurchaseOrderItems { get; set; } = new List<PurchaseOrderItemDto>();
         public string? PurchasePaymentType { get; set; }
         public string? PurchaseOrderReturnType { get; set; }
         public IFormFile? FileDetails { get; set; }

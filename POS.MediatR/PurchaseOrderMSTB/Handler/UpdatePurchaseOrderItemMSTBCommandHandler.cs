@@ -51,18 +51,23 @@ namespace POS.MediatR.PurchaseOrderMSTB.Handler
             //    return ServiceResponse<CustomerAddressDto>.Return409("Customer Address Already Exist.");
             //}
             //entityExist = await _customerAddressRepository.FindBy(v => v.Id == request.Id).FirstOrDefaultAsync();
-            entityExist.IsCheck = request.IsCheck;
-            entityExist.Margin = request.Margin;
-            entityExist.SalesPrice = request.SalesPrice;
-            entityExist.Difference = request.Difference;
-            entityExist.Surplus = request.Surplus;
-            entityExist.NewQuantity = request.Quantity;
 
-            if (entityExist.NewMRP != request.MRP)
+            if (request.Approved == null || request.Approved == true)
             {
-                entityExist.NewMRP = request.MRP;
-                entityExist.IsMRPChanged = true;
+                entityExist.IsCheck = request.IsCheck;
+                entityExist.Margin = request.Margin;
+                entityExist.SalesPrice = request.SalesPrice;
+                entityExist.Difference = request.Difference;
+                entityExist.Surplus = request.Surplus;
+                entityExist.NewQuantity = request.Quantity;
+
+                if (entityExist.NewMRP != request.MRP)
+                {
+                    entityExist.NewMRP = request.MRP;
+                    entityExist.IsMRPChanged = true;
+                }
             }
+            
             if (request.UserType == "Agent")
             {
                 entityExist.Approved = string.Empty;
@@ -73,7 +78,7 @@ namespace POS.MediatR.PurchaseOrderMSTB.Handler
                 if (request.Approved == false)
                 {
                     entityExist.Approved = "Rejected";
-                    entityExist.IsCheck = false;
+                    //entityExist.IsCheck = false;
 
                 }
                 if (request.Approved == true)

@@ -21,7 +21,7 @@ namespace POS.MediatR.PurchaseOrderMSTB.Handler
 
         public async Task<MSTBPurchaseOrderItemList> Handle(GetMSTBPurchaseOrderItemsReportCommand request, CancellationToken cancellationToken)
         {
-            return await _mstbpurchaseOrderItemRepository.GetAllMSTBPurchaseOrderItems(request.PurchaseOrderResource);
+            return await _mstbpurchaseOrderItemRepository.GetAllMSTBPurchaseOrderItems(request.MSTBPurchaseOrderResource);
         }
     }
 }

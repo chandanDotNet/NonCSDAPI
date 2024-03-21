@@ -9,11 +9,12 @@ namespace POS.Data.Resources
 {
     public class MstbSettingResource : ResourceParameters
     {
-        public MstbSettingResource() : base("CreatedDate")
+        public MstbSettingResource() : base("Month")
         {
         }        
         public Guid Id { get; set; }
         public bool IsPrimary { get; set; }
+        public int Year { get; set; }
 
     }
 }

@@ -1379,6 +1379,23 @@
             <param name="mstbSettingResource"></param>
             <returns></returns>
         </member>
+<<<<<<< HEAD
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.UpdateMstbSettings(POS.MediatR.MSTBSetting.Command.UpdateMstbSettingCommand)">
+            <summary>
+            Update MSTB Settings.
+            </summary>
+            <param name="updateMstbSettingCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileApp.MobileAppController.DeleteMstbSettings(POS.MediatR.MSTBSetting.Command.DeleteMstbSettingCommand)">
+            <summary>
+            Delete MSTB Settings.
+            </summary>
+            <param name="deleteMstbSettingCommand"></param>
+            <returns></returns>
+        </member>
+=======
+>>>>>>> 0b6ee7f8ddd3eb72b72db5623ef5ad10b98b23fb
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AutoGenerateGRNSupplierWise(POS.Data.Resources.AutoGenerateGRNResource)">
             <summary>
             Add Auto Generate GRN
@@ -1402,7 +1419,7 @@
         </member>
         <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.AddUserSupplier(POS.MediatR.UserSupplier.Command.AddUserSupplierCommand)">
             <summary>
-            Add Banner.
+            Add User Supplier.
             </summary>
             <param name="addUserSupplierCommand"></param>
             <returns></returns>
@@ -1411,6 +1428,20 @@
             <summary>
             Get the User Suppliers.
             </summary>        
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.DeleteUserSuppliers(POS.MediatR.UserSupplier.Command.DeleteUserSupplierCommand)">
+            <summary>
+            Delete Suppliers By UserId
+            </summary>
+            <param name="deleteUserSupplierCommand">The delete user supplier command.</param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.MobileLogin.MobileAppLoginController.UpdateUserSupplier(POS.MediatR.UserSupplier.Command.UpdateUserSupplierCommand)">
+            <summary>
+            Update User Supplier.
+            </summary>
+            <param name="updateUserSupplierCommand"></param>
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.NewsletterSubscriber.NewsletterSubscriberController.CreateNewsletterSubscriber(POS.MediatR.CommandAndQuery.AddNewsletterSubscriberCommand)">
@@ -1674,7 +1705,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController.GetMSTBPurchaseOrderItems(POS.Data.Resources.PurchaseOrderResource)">
+        <member name="M:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController.GetMSTBPurchaseOrderItems(POS.Data.Resources.MSTBPurchaseOrderResource)">
             <summary>
             Get MSTB Purchase Order Items.
             </summary>
@@ -1687,6 +1718,13 @@
             </summary>
             <param name="Id"></param>
             <param name="updatePurchaseOrderItemMSTBCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POS.API.Controllers.PurchaseOrderMSTB.PurchaseOrderMSTBController.CreateMainGrn(POS.Data.Resources.MSTBPurchaseOrderResource)">
+            <summary>
+            Create Main Grn.
+            </summary>
+            <param name="mstbgrnOrderResource">The add purchase order command.</param>
             <returns></returns>
         </member>
         <member name="M:POS.API.Controllers.PurchaseOrderPayment.PurchaseOrderPaymentController.#ctor(MediatR.IMediator)">

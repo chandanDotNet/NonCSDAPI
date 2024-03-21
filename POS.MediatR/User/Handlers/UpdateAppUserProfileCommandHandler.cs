@@ -57,6 +57,10 @@ namespace POS.MediatR.Handlers
                 .All.Include(x => x.Counter)
                 .Where(c => c.PhoneNumber == request.MobileNumber)
                 .FirstOrDefaultAsync();
+            if (userInfo == null)
+            {
+                return ServiceResponse<UserDto>.Return500();
+            }
 
             var userRoles = _userRoleRepository
               .AllIncluding(c => c.User)
@@ -102,5 +106,4 @@ namespace POS.MediatR.Handlers
             return ServiceResponse<UserDto>.ReturnResultWith200(_mapper.Map<UserDto>(appUser));
         }
     }
-
 }
