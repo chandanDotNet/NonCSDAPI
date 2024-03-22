@@ -34,6 +34,8 @@ namespace POS.Data.Resources
         public bool IsSalesOrderNotReturn { get; set; } = false;
         public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.NA;
         public string CategoryType { get; set; }
+        public string? IsAppOrCounterRequest { get; set; }
+        public Guid? CounterId { get; set; }
     }
 }
 

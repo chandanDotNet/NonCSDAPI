@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
+  "dgSpecHash": "fW6U7dG7+JQdQyOSwDceXCMWhcH1vFx2WXdv1GMvCN2PK+uEqp5CSas5UKZ1cZ86o0XIqkuQVT4YfWfDW85KMw==",
+=======
   "dgSpecHash": "jvwYZexzCKW/DZCBn5wdOjjF7dpzUC932frArJyk2pbujTTNXxkRzhiY31SNB8jlwwLpoNzCBi8IUCLMSBNXpw==",
+>>>>>>> 5a19de4497b7ce102a2d9d64c56fb1662ca2508b
   "success": true,
   "projectFilePath": "D:\\NON CSD API\\POS.MediatR\\POS.MediatR.csproj",
   "expectedPackageFiles": [

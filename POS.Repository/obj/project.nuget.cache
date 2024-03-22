@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
+  "dgSpecHash": "2mUwMXpbiTxKVJSm9RAhyllsW1NKz/BXL89ve1Y5181xQyDrYAfQ81hcET42x3a0y1nEY7VpB9NC+bSr1qpbyA==",
+=======
   "dgSpecHash": "gGfJYL94SQ4Es7W25mnwShul0QD9Xj7ghlNdUWmibb194q228BTUaYYXn3p6x2HeKstWUcgj+dtY7beF63FUYQ==",
+>>>>>>> 5a19de4497b7ce102a2d9d64c56fb1662ca2508b
   "success": true,
   "projectFilePath": "D:\\NON CSD API\\POS.Repository\\POS.Repository.csproj",
   "expectedPackageFiles": [

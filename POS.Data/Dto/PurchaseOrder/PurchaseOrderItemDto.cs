@@ -24,6 +24,7 @@ namespace POS.Data.Dto
         public string UnitName { get; set; }
         public Guid UnitId { get; set; }
         public decimal Total { get; set; } = 0;
+        public decimal TotalSalesPrice { get; set; } = 0;
         public DateTime POCreatedDate { get; set; }
         public string SupplierName { get; set; }
         public PurchaseSaleItemStatusEnum Status { get; set; }
