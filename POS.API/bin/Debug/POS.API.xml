@@ -1379,7 +1379,6 @@
             <param name="mstbSettingResource"></param>
             <returns></returns>
         </member>
-<<<<<<< HEAD
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.UpdateMstbSettings(POS.MediatR.MSTBSetting.Command.UpdateMstbSettingCommand)">
             <summary>
             Update MSTB Settings.
@@ -1394,8 +1393,6 @@
             <param name="deleteMstbSettingCommand"></param>
             <returns></returns>
         </member>
-=======
->>>>>>> 0b6ee7f8ddd3eb72b72db5623ef5ad10b98b23fb
         <member name="M:POS.API.Controllers.MobileApp.MobileAppController.AutoGenerateGRNSupplierWise(POS.Data.Resources.AutoGenerateGRNResource)">
             <summary>
             Add Auto Generate GRN

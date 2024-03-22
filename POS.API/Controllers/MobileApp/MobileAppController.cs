@@ -148,7 +148,7 @@ namespace POS.API.Controllers.MobileApp
                 int _max = 9999;
                 Random rnd = new Random();
                 customer.OTP = rnd.Next(_min, _max);
-
+              
                 string smsGateWay = this.Configuration.GetSection("AppSettings")["SmsGateway"];
                 if (smsGateWay == "SGSMS")
                 {
@@ -324,7 +324,7 @@ namespace POS.API.Controllers.MobileApp
                 //{
                 //    myResult = result.Where(x => x.BrandName != "Baggage" && x.BrandName != "Delivery").ToList();
                 //}
-               
+
                 if (result.Count > 0)
                 {
                     response.PageSize = result.TotalCount;
@@ -3896,55 +3896,38 @@ namespace POS.API.Controllers.MobileApp
                     IsMSTBGRN = true
                 };
 
-                //var getAllMSTBPurchaseOrderQuery = new GetAllMSTBPurchaseOrderQuery
-                //{
-                //    PurchaseOrderResource = MSTBpurchaseOrderResource
-                //};
                 var getAllMSTBPurchaseOrderQuery = new GetMSTBPurchaseOrderItemsReportCommand
                 {
                     MSTBPurchaseOrderResource = MSTBpurchaseOrderResource
                 };
                 var MstbPurchaseOrders = await _mediator.Send(getAllMSTBPurchaseOrderQuery);
 
-                //PurchaseOrderResource purchaseOrderResource = new PurchaseOrderResource()
-                //{
-                //    PageSize = 0,
-                //    Skip = 0,
-                //    Year = supplierResource.Year,
-                //    Month = supplierResource.Month
-                //};
-                //var getAllPurchaseOrderQuery = new GetAllPurchaseOrderQuery
-                //{
-                //    PurchaseOrderResource = purchaseOrderResource
-                //};
-                //var purchaseOrders = await _mediator.Send(getAllPurchaseOrderQuery);                
 
-                supplierResource = new SupplierResource()
-                {
-                    SupplierName = supplierResource.SupplierName,
-                    PageSize = 0,
-                    Skip = 0
-                };
-
+                supplierResource.PageSize = 0;
+                supplierResource.Skip = 0;
                 var getAllSupplierQuery = new GetAllSupplierQuery
                 {
                     SupplierResource = supplierResource
                 };
                 var result = await _mediator.Send(getAllSupplierQuery);
 
-                //UserSupplierResource userSupplierResource = new UserSupplierResource()
-                //{
-                //    UserId = supplierResource.UserId,
-                //};
-                //var searchUserSupplierQuery = new SearchUserSupplierQuery
-                //{
-                //    UserSupplierResource = userSupplierResource
-                //};
-                //var resultUserSupplier = await _mediator.Send(searchUserSupplierQuery);
+                List<SupplierDto> resultSuppliers = new List<SupplierDto>();
+                if (supplierResource.UserId.HasValue)
+                {
+                    UserSupplierResource userSupplierResource = new UserSupplierResource()
+                    {
+                        UserId = supplierResource.UserId,
+                    };
+                    var searchUserSupplierQuery = new SearchUserSupplierQuery
+                    {
+                        UserSupplierResource = userSupplierResource
+                    };
+                    var resultUserSupplier = await _mediator.Send(searchUserSupplierQuery);
 
-                //var supplierIds = resultUserSupplier.Select(s => s.SupplierId.Value).ToArray();
-                //var resultSuppliers = result.Where(s => supplierIds.Contains(s.Id));
+                    var supplierIds = resultUserSupplier.Select(s => s.SupplierId.Value).ToArray();
 
+                    resultSuppliers = result.Where(s => supplierIds.Contains(s.Id)).ToList();
+                }
 
                 //supplierResource.MobileNo = "D35491B5-EB46-4CC0-B3E9-08DBEBE34B55,6F7D9128-605E-4A0A-B3EA-08DBEBE34B55";
                 //var supplierIds = supplierResource.MobileNo.Split(",").Select(s => Guid.Parse(s)).ToArray();
@@ -3966,87 +3949,99 @@ namespace POS.API.Controllers.MobileApp
                 //&& x.POCreatedDate.Month == purchaseOrderResource.Month);
 
                 List<SupplierDto> supplier = new List<SupplierDto>();
-                result.ForEach(item =>
+
+                if (supplierResource.UserId.HasValue)
                 {
-                    var mstbCheck = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
-                    var isComplted = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id && x.IsCheck == false).ToList();
-                    var grnCheck = purchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
-                    bool mstb = false;
-                    bool grn = false;
-                    bool completed = false;
-                    if (mstbCheck.Count > 0)
+                    resultSuppliers.ForEach(item =>
                     {
-                        mstb = true;
-                        if (isComplted.Count > 0)
+                        var mstbCheck = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
+                        var isComplted = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id && x.IsCheck == false).ToList();
+                        var grnCheck = purchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
+                        bool mstb = false;
+                        bool grn = false;
+                        bool completed = false;
+                        if (mstbCheck.Count > 0)
                         {
-                            completed = false;
+                            mstb = true;
+                            if (isComplted.Count > 0)
+                            {
+                                completed = false;
+                            }
+                            else
+                            {
+                                completed = true;
+                            }
                         }
-                        else
+                        if (grnCheck.Count > 0)
                         {
-                            completed = true;
+                            grn = true;
                         }
-                    }
-                    if (grnCheck.Count > 0)
-                    {
-                        grn = true;
-                    }
 
-                    var stockCount = products.Where(x => x.Stock > 0).Count(x => x.SupplierId == item.Id);
+                        //var stockCount = products.Where(x => x.Stock > 0).Count(x => x.SupplierId == item.Id);
 
-                    if (stockCount > 0)
-                    {
-                        supplier.Add(new SupplierDto
+                        var stockCount = products.Where(x => x.SupplierId == item.Id && x.Stock > 0).Count();
+
+                        if (stockCount > 0)
                         {
-                            Id = item.Id,
-                            SupplierName = item.SupplierName,
-                            //ProductCount = products.Where(x => x.Stock > 0).Count(x => x.SupplierId == item.Id),
-                            ProductCount = stockCount,
-                            IsMstbGRN = mstb,
-                            IsGRN = grn,
-                            IsCompleted = completed
-                        });
-                    }
-                });
-
-
-                /*foreach (var item in result)
-                {
-                    var mstbCheck = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
-                    var isComplted = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id && x.IsCheck == false).ToList();
-                    var grnCheck = purchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
-                    bool mstb = false;
-                    bool grn = false;
-                    bool completed = false;
-                    if (mstbCheck.Count > 0)
-                    {
-                        mstb = true;
-                        if (isComplted.Count > 0)
-                        {
-                            completed = false;
+                            supplier.Add(new SupplierDto
+                            {
+                                Id = item.Id,
+                                SupplierName = item.SupplierName,
+                                //ProductCount = products.Where(x => x.Stock > 0).Count(x => x.SupplierId == item.Id),
+                                ProductCount = stockCount,
+                                IsMstbGRN = mstb,
+                                IsGRN = grn,
+                                IsCompleted = completed
+                            });
                         }
-                        else
-                        {
-                            completed = true;
-                        }
-                    }
-                    if (grnCheck.Count > 0)
-                    {
-                        grn = true;
-                    }
-                   
-                    supplier.Add(new SupplierDto
-                    {
-                        Id = item.Id,
-                        SupplierName = item.SupplierName,
-                        ProductCount = products.Where(x => x.Stock > 0).Count(x => x.SupplierId == item.Id),
-                        IsMstbGRN = mstb,
-                        IsGRN = grn,
-                        IsCompleted = completed
-                        //IsMstbGRN = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).FirstOrDefault().IsMstbGRN,
-                        //IsGRN = purchaseOrders.Where(x => x.SupplierId == item.Id).FirstOrDefault().IsGRN.Value
                     });
-                }*/
+                }
+                else
+                {
+                    result.ForEach(item =>
+                    {
+                        var mstbCheck = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
+                        var isComplted = MstbPurchaseOrders.Where(x => x.SupplierId == item.Id && x.IsCheck == false).ToList();
+                        var grnCheck = purchaseOrders.Where(x => x.SupplierId == item.Id).ToList();
+                        bool mstb = false;
+                        bool grn = false;
+                        bool completed = false;
+                        if (mstbCheck.Count > 0)
+                        {
+                            mstb = true;
+                            if (isComplted.Count > 0)
+                            {
+                                completed = false;
+                            }
+                            else
+                            {
+                                completed = true;
+                            }
+                        }
+                        if (grnCheck.Count > 0)
+                        {
+                            grn = true;
+                        }
 
+                        //var stockCount = products.Where(x => x.Stock > 0).Count(x => x.SupplierId == item.Id);
+
+                        var stockCount = products.Where(x => x.SupplierId == item.Id && x.Stock > 0).Count();
+
+                        if (stockCount > 0)
+                        {
+                            supplier.Add(new SupplierDto
+                            {
+                                Id = item.Id,
+                                SupplierName = item.SupplierName,
+                                //ProductCount = products.Where(x => x.Stock > 0).Count(x => x.SupplierId == item.Id),
+                                ProductCount = stockCount,
+                                IsMstbGRN = mstb,
+                                IsGRN = grn,
+                                IsCompleted = completed
+                            });
+                        }
+                    });
+                }
 
                 if (supplier != null)
                 {
@@ -4060,7 +4055,7 @@ namespace POS.API.Controllers.MobileApp
                 {
                     response.status = false;
                     response.StatusCode = 0;
-                    response.message = "please wait! server is not responding.";
+                    response.message = "failed";
                 }
             }
             catch (Exception ex)
